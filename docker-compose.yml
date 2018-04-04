@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  monitor:
+    build: './tools/monitor'
+    image: te-sh/procon-monitor
+    container_name: procon-monitor
+    volumes:
+      - './tools/monitor:/app'
+      - './codes:/codes'
+      - 'procon_work:/work'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    tty: true
+  oj:
+    build: './tools/oj'
+    image: te-sh/procon-oj
+    container_name: procon-oj
+    command: /bin/sh -c "while true; do sleep 1; done"
+    volumes:
+      - './tools/oj:/app'
+      - 'procon_work:/work'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+volumes:
+  procon_work:
+    external:
+      name: procon_work
