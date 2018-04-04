@@ -4,7 +4,7 @@ services:
   monitor:
     build: './tools/monitor'
     image: te-sh/procon-monitor
-    container_name: procon-monitor
+    container_name: promon
     volumes:
       - './tools/monitor:/app'
       - './tools/build:/build'
@@ -15,14 +15,26 @@ services:
   oj:
     build: './tools/oj'
     image: te-sh/procon-oj
-    container_name: procon-oj
+    container_name: pro-oj
     command: /bin/sh -c "while true; do sleep 1; done"
     volumes:
       - './tools/oj:/app'
       - 'procon_work:/work'
       - '/var/run/docker.sock:/var/run/docker.sock'
+  docs:
+    build: './docs'
+    image: te-sh/procon-docs
+    container_name: prodoc
+    volumes:
+      - './docs:/docs'
+      - 'procon_site:/docs/_site'
+    ports:
+      - '4000:4000'
 
 volumes:
   procon_work:
     external:
       name: procon_work
+  procon_site:
+    external:
+      name: procon_site
