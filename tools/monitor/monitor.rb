@@ -7,7 +7,7 @@ SRC_FILE = 'Main.d'
 SRC_PATH = File.join(WORK_DIR, SRC_FILE)
 URL = %r{// URL: (.*)}
 
-DOCKER_OJ = 'docker exec -t procon-oj'
+DOCKER_OJ = 'docker exec -t pro-oj'
 DOWNLOAD_CMD = 'oj download %s'
 TEST_CMD = 'oj test -c /app/run.sh'
 
