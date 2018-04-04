@@ -1,10 +1,4 @@
-# -*- mode: snippet -*-
-# name: procon.skelton
-# key: skelton
-# group: procon
-# expand-env: ((yas-indent-line 'fixed))
-# --
-// URL: $1
+// URL: https://abc092.contest.atcoder.jp/tasks/abc092_b
 
 import std.algorithm, std.conv, std.range, std.stdio, std.string;
 
@@ -15,5 +9,8 @@ void readM(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;
 version(unittest) {} else
 void main()
 {
-  $0
+  int n; readV(n);
+  int d, x; readV(d, x);
+  int[] a; readM(n, a);
+  writeln(a.map!(ai => (d+ai-1)/ai).sum + x);
 }

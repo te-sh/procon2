@@ -3,7 +3,7 @@ require 'listen'
 
 ROOT = '/codes'
 WORK_DIR = '/work'
-SRC_FILE = 'a.d'
+SRC_FILE = 'Main.d'
 SRC_PATH = File.join(WORK_DIR, SRC_FILE)
 URL = %r{// URL: (.*)}
 
@@ -16,7 +16,7 @@ class OjTester
   def listen
     listener = Listen.to(ROOT) do |modified, added, _removed|
       [modified, added].flatten.each do |file|
-        run_test(file)
+        run_test(file) unless file.include?('#')
       end
     end
 
@@ -63,7 +63,7 @@ class OjTester
 
   def build(site)
     puts '==================== Compile'
-    system("build/#{site} #{SRC_FILE}")
+    system("../build/#{site} #{SRC_FILE}")
   end
 
   def run_oj_test
