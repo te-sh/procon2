@@ -10,4 +10,4 @@ RUN apk add --update --no-cache build-base \
  && bundle install \
  && apk del build-base
 
-ENTRYPOINT ["bundle", "exec", "jekyll", "serve"]
+ENTRYPOINT ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0"]

@@ -1,6 +1,8 @@
 ---
-# You don't need to edit this file, it's empty on purpose.
-# Edit theme's home layout instead if you wanna make some changes
-# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-layout: home
+layout: page
 ---
+競技プログラミングの問題を解いたときのメモです.
+
+解説を丸写ししているものもあります. 問題があれば [issue](https://github.com/te-sh/procon2/issues) に登録してください.
+
+使用言語は[D言語](https://dlang.org)です.
