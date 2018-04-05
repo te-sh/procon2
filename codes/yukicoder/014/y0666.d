@@ -8,7 +8,6 @@ void readM(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;
 
 const mod = 10^^9+7;
 
-version(unittest) {} else
 void main()
 {
   long a, b; readV(a, b);
