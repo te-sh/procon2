@@ -3,4 +3,4 @@ layout: default
 ---
 [yukicoder](https://yukicoder.me/) の問題を解いたときのメモです.
 
-|No.661|No.662|No.663|No.664|No.665|[No.666](yukicoder/014/y0666.html)|[No.667](yukicoder/014/y0667.html)|No.668|No.669|No.670|
+|[No.661](yukicoder/014/y0661.html)|No.662|No.663|No.664|No.665|[No.666](yukicoder/014/y0666.html)|[No.667](yukicoder/014/y0667.html)|[No.668](yukicoder/014/y0668.html)|[No.669](yukicoder/014/y0669.html)|No.670|
