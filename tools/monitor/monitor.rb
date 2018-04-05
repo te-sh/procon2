@@ -26,7 +26,7 @@ class OjTester
 
   def run_test(file)
     site = read_site(file)
-    return unless site
+    return if !site || site == 'lib'
     url = read_url(file)
     return unless url
     download_test(url)
