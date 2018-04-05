@@ -20,3 +20,24 @@ exclude:
   - Dockerfile
   - Gemfile
   - Gemfile.lock
+
+# Default settings
+collections:
+  yukicoder:
+    output: true
+  atcoder:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: yukicoder
+    values:
+      layout: problem
+      subtitle: yukicoder
+  - scope:
+      path: ""
+      type: atcoder
+    values:
+      layout: problem
+      subtitle: AtCoder

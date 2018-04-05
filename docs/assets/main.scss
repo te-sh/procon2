@@ -1,3 +1,31 @@
 ---
 ---
 @import "{{ site.theme }}";
+
+.site-title-wrapper {
+  display: flex;
+  align-items: center;
+
+  .site-title {
+    margin-right: auto;
+  }
+}
+
+.post-title-wrapper {
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+
+  .post-title {
+    margin-right: auto;
+  }
+
+  .post-code {
+    font-size: 18px;
+    margin-right: 1em;
+  }
+
+  .post-problem {
+    font-size: 18px;
+  }
+}
