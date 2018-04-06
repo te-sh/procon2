@@ -23,21 +23,21 @@ exclude:
 
 # Default settings
 collections:
-  yukicoder:
+  yuk:
     output: true
-  atcoder:
+  atc:
     output: true
 
 defaults:
   - scope:
       path: ""
-      type: yukicoder
+      type: yuk
     values:
       layout: problem
       subtitle: yukicoder
   - scope:
       path: ""
-      type: atcoder
+      type: atc
     values:
       layout: problem
       subtitle: AtCoder

@@ -7,7 +7,7 @@ layout: default
     <h1 class="post-title-wrapper">
       <div class="post-title">{{ page.title | escape }}</div>
       <div class="post-code">
-        <a href="http://github.com/te-sh/procon2/blob/master/codes{{ page.url | replace: '.html', '.d' }}">コード</a>
+        <a href="http://github.com/te-sh/procon2/blob/master/codes{{ page.url | replace: '.html', '.d' | replace: 'yuk', 'yukicoder' | replace: 'atc', 'atcoder' }}">コード</a>
       </div>
       <div class="post-problem"><a href="{{ page.problem }}">問題</a></div>
     </h1>
