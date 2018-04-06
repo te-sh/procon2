@@ -27,6 +27,8 @@ collections:
     output: true
   atc:
     output: true
+  cdf:
+    output: true
 
 defaults:
   - scope:
@@ -41,3 +43,9 @@ defaults:
     values:
       layout: problem
       subtitle: AtCoder
+  - scope:
+      path: ""
+      type: cdf
+    values:
+      layout: problem
+      subtitle: CodeForces
