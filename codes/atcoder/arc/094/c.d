@@ -1,4 +1,4 @@
-// URL: https://abc093.contest.atcoder.jp/tasks/arc094_a
+// URL: https://beta.atcoder.jp/contests/arc094/tasks
 
 import std.algorithm, std.conv, std.range, std.stdio, std.string;
 

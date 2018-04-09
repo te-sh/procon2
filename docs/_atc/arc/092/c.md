@@ -1,6 +1,6 @@
 ---
 title: "ARC #092 C"
-problem: https://beta.atcoder.jp/contests/abc091/tasks/arc092_a
+problem: https://beta.atcoder.jp/contests/arc092/tasks/arc092_a
 ---
 二部グラフのマッチング問題に帰着できる.
 
