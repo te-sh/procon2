@@ -11,6 +11,5 @@ void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=readln.splitt
 void main()
 {
   int n; readV(n);
-  auto d = Date(n, 1, 1);
-  writeln(d.isLeapYear ? "Yes" : "No");
+  writeln(n%400 == 0 || n%100 != 0 && n%4 == 0 ? "Yes" : "No");
 }
