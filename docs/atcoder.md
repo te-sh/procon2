@@ -16,3 +16,4 @@ AtCoder Beginner Contest
 |#085|[A問題](atc/abc/085/a.html)|[B問題](atc/abc/085/b.html)|[C問題](atc/abc/085/c.html)|[D問題](atc/abc/085/d.html)|
 |#084|[A問題](atc/abc/084/a.html)|[B問題](atc/abc/084/b.html)|[C問題](atc/abc/084/c.html)|[D問題](atc/abc/084/d.html)|
 |#083|[A問題](atc/abc/083/a.html)|[B問題](atc/abc/083/b.html)|[C問題](atc/arc/088/c.html)|D問題|
+|#082|[A問題](atc/abc/082/a.html)|[B問題](atc/abc/082/b.html)|[C問題](atc/arc/087/c.html)|[D問題](atc/arc/087/d.html)|
