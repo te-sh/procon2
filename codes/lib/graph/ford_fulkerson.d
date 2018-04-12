@@ -53,6 +53,7 @@ template FordFulkerson(Graph)
     return r;
   }
 }
+auto fordFulkerson(G, N)(G g, N s, N t) { return FordFulkerson!(typeof(g)).fordFulkerson(g, s, t); }
 
 unittest
 {
@@ -62,6 +63,6 @@ unittest
   g.addEdge(2, 3, 4); g.addEdge(2, 4, 4);
   g.addEdge(3, 4, 6);
 
-  auto d = FordFulkerson!(typeof(g)).fordFulkerson(g, 0, 4);
+  auto d = g.fordFulkerson(0, 4);
   assert(d == 13);
 }

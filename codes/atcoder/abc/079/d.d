@@ -20,7 +20,7 @@ void main()
     foreach (j; 0..10)
       g[i][j] = c[i][j];
 
-  auto d = FloydWarshal!(typeof(g)).floydWarshal(g);
+  auto d = g.floydWarshal;
 
   auto r = 0;
   foreach (i; 0..h)
@@ -71,3 +71,4 @@ template FloydWarshal(Graph)
           }
   }
 }
+auto floydWarshal(G)(G g) { return FloydWarshal!(typeof(g)).floydWarshal(g); }

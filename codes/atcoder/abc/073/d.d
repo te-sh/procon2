@@ -22,7 +22,7 @@ void main()
     --a; --b;
     g[a][b] = g[b][a] = c;
   }
-  auto d = FloydWarshal!(typeof(g)).floydWarshal(g);
+  auto d = g.floydWarshal;
 
   auto t = 10^^9;
   foreach (rsi; rs.permutations) {
@@ -75,3 +75,4 @@ template FloydWarshal(Graph)
           }
   }
 }
+auto floydWarshal(G)(G g) { return FloydWarshal!(typeof(g)).floydWarshal(g); }

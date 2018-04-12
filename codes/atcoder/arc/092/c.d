@@ -26,7 +26,7 @@ void main()
     g.addEdge(n+i, n*2+1, 1);
   }
 
-  auto r = FordFulkerson!(typeof(g)).fordFulkerson(g, n*2, n*2+1);
+  auto r = g.fordFulkerson(n*2, n*2+1);
   writeln(r);
 }
 
@@ -95,3 +95,4 @@ template FordFulkerson(Graph)
     return r;
   }
 }
+auto fordFulkerson(G, N)(G g, N s, N t) { return FordFulkerson!(typeof(g)).fordFulkerson(g, s, t); }

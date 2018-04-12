@@ -24,7 +24,7 @@ void main()
         if (j < w-1 && s[i][j+1] == '.') g.addEdge(i*w+j, i*w+(j+1), 1);
       }
 
-  auto d = Dijkstra!(typeof(g)).dijkstra(g, 0);
+  auto d = g.dijkstra(0);
   if (d[h*w-1] == g.inf) {
     writeln(-1);
   } else {
@@ -85,3 +85,4 @@ template Dijkstra(Graph)
     return dist;
   }
 }
+auto dijkstra(G, N)(G g, N s) { return Dijkstra!G.dijkstra(g, s); }

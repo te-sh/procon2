@@ -40,6 +40,7 @@ template Dijkstra(Graph)
     return dist;
   }
 }
+auto dijkstra(G, N)(G g, N s) { return Dijkstra!G.dijkstra(g, s); }
 
 unittest
 {
@@ -51,7 +52,7 @@ unittest
   g.addEdge(4, 1, 6); g.addEdge(4, 5, 4);
   g.addEdge(5, 2, 2); g.addEdge(5, 3, 6); g.addEdge(5, 4, 4);
 
-  auto dist = Dijkstra!(typeof(g)).dijkstra(g, 0);
+  auto dist = g.dijkstra(0);
 
   assert(dist[4] == 10);
   assert(dist[5] == 6);

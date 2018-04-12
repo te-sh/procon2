@@ -19,7 +19,7 @@ void main()
     g.addEdge(i, (i*10)%k, 0);
   }
 
-  auto d = Dijkstra!(typeof(g)).dijkstra(g, 1);
+  auto d = g.dijkstra(1);
   writeln(d[0]+1);
 }
 
@@ -75,3 +75,4 @@ template Dijkstra(Graph)
     return dist;
   }
 }
+auto dijkstra(G, N)(G g, N s) { return Dijkstra!G.dijkstra(g, s); }

@@ -30,6 +30,7 @@ template FloydWarshal(Graph)
           }
   }
 }
+auto floydWarshal(G)(G g) { return FloydWarshal!(typeof(g)).floydWarshal(g); }
 
 unittest
 {
@@ -42,7 +43,7 @@ unittest
   g[2][3] = 10000;
   g[3][0] = 5;
 
-  auto r = FloydWarshal!(typeof(g)).floydWarshal(g);
+  auto r = g.floydWarshal;
 
   assert(r[0][1] == 10);
   assert(r[2][3] == 1001);
