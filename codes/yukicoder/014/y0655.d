@@ -23,15 +23,38 @@ void main()
     a[i][] = -1;
   }
 
-  auto q = DList!point(b), dp = [point(-1, -1), point(0, -1), point(-1, 0), point(1, 0), point(0, 1), point(1, 1)];
-  foreach (ref bi; b) a[bi.y][bi.x] = 0;
+  auto q = DList!point(b), dp = [point(-1, -1), point(-1, 0), point(0, -1), point(0, 1), point(1, 0), point(1, 1)];
+  foreach (ref bi; b) a[bi.x][bi.y] = 0;
   while (!q.empty) {
     auto pp = q.front; q.removeFront;
     foreach (dpi; dp) {
       auto np = pp + dpi;
-      if (np.x < 0 || np.x >= n || np.y < 0 || np.y > np.x) continue;
+      if (np.x < 0 || np.x >= n || np.y < 0 || np.y > np.x || a[np.x][np.y] >= 0) continue;
+      a[np.x][np.y] =a[pp.x][pp.y] + 1;
+      q.insertBack(np);
     }
   }
+
+  auto as = new int[][](n+1);
+  as[n] = new int[](n+2);
+  foreach_reverse (i; 0..n) {
+    as[i] = new int[](i+1);
+    foreach (j; 0..i+1) {
+      as[i][j] = as[i+1][j] + as[i+1][j+1] + a[i][j];
+      if (i < n-1) as[i][j] -= as[i+2][j+1];
+    }
+  }
+
+  auto bs = new int[][](n+1);
+  bs[n] = new int[](n+2);
+  foreach_reverse (i; 0..n) {
+    bs[i] = new int[](i+2);
+    foreach (j; 0..i+1)
+      bs[i][j+1] = bs[i][j]+bs[i+1][j+1]-bs[i+1][j]+a[i][j];
+  }
+
+  as.each!writeln;
+  bs.each!writeln;
 }
 
 struct Point(T)
