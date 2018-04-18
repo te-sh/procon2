@@ -13,15 +13,17 @@ alias point = Point!int;
 version(unittest) {} else
 void main()
 {
-  int n, k, p; readV(n, k, p);
+  int n, k; long p; readV(n, k, p);
   point[] b; readS(k, b);
   foreach (ref bi; b) { --bi.x; --bi.y; }
 
-  auto a = new int[][](n);
-  foreach (i; 0..n) {
-    a[i] = new int[](i+1);
-    a[i][] = -1;
+  if (n == 1) {
+    writeln(0);
+    return;
   }
+
+  auto a = kaidan!long(n);
+  foreach (i; 0..n) a[i][] = -1;
 
   auto q = DList!point(b), dp = [point(-1, -1), point(-1, 0), point(0, -1), point(0, 1), point(1, 0), point(1, 1)];
   foreach (ref bi; b) a[bi.x][bi.y] = 0;
@@ -30,31 +32,59 @@ void main()
     foreach (dpi; dp) {
       auto np = pp + dpi;
       if (np.x < 0 || np.x >= n || np.y < 0 || np.y > np.x || a[np.x][np.y] >= 0) continue;
-      a[np.x][np.y] =a[pp.x][pp.y] + 1;
+      a[np.x][np.y] = a[pp.x][pp.y] + 1;
       q.insertBack(np);
     }
   }
 
-  auto as = new int[][](n+1);
-  as[n] = new int[](n+2);
-  foreach_reverse (i; 0..n) {
-    as[i] = new int[](i+1);
+  auto as = kaidan!long(n+1);
+  foreach_reverse (i; 0..n)
     foreach (j; 0..i+1) {
       as[i][j] = as[i+1][j] + as[i+1][j+1] + a[i][j];
       if (i < n-1) as[i][j] -= as[i+2][j+1];
     }
-  }
 
-  auto bs = new int[][](n+1);
-  bs[n] = new int[](n+2);
-  foreach_reverse (i; 0..n) {
-    bs[i] = new int[](i+2);
+  auto bs = kaidan2!long(n+1);
+  foreach_reverse (i; 0..n)
     foreach (j; 0..i+1)
       bs[i][j+1] = bs[i][j]+bs[i+1][j+1]-bs[i+1][j]+a[i][j];
+
+  auto calc(int i, int j, int e)
+  {
+    if (e == 0) return a[i][j];
+    else return as[i][j]-as[i+e+1][j+e+1]-bs[i+e+1][j+e+1]+bs[i+e+1][j];
   }
 
-  as.each!writeln;
-  bs.each!writeln;
+  auto e = kaidan!int(n);
+  foreach (j; 0..n) e[n-1][j] = as[n-1][j] >= p ? 0 : 1;
+
+  foreach_reverse (i; 0..n-1)
+    foreach (j; 0..i+1) {
+      auto r = min(e[i+1][j], e[i+1][j+1]);
+      while (r >= 0 && calc(i, j, r) >= p) --r;
+      e[i][j] = r+1;
+    }
+
+  auto ans = 0L;
+  foreach (i; 0..n)
+    foreach (j; 0..i+1)
+      ans += n-(e[i][j]+i);
+
+  writeln(ans);
+}
+
+auto kaidan(T)(int n)
+{
+  auto a = new T[][](n);
+  foreach (i; 0..n) a[i] = new T[](i+1);
+  return a;
+}
+
+auto kaidan2(T)(int n)
+{
+  auto a = new T[][](n);
+  foreach (i; 0..n) a[i] = new T[](i+2);
+  return a;
 }
 
 struct Point(T)
