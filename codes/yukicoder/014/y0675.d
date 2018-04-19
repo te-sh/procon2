@@ -17,13 +17,16 @@ void main()
   int n, px, py; readV(n, px, py);
   auto c = new Matrix!int[](n);
   foreach (i; 0..n) {
-    auto rd = readln.splitter, ct = rd.front.to!int; rd.popFront;
+    auto rd = rdsp;
+    int ct; pickV(rd, ct);
     switch (ct) {
     case 1:
-      c[i] = Matrix!int([[1, 0, rd.front.to!int], [0, 1, 0], [0, 0, 1]]);
+      int dx; pickV(rd, dx);
+      c[i] = Matrix!int([[1, 0, dx], [0, 1, 0], [0, 0, 1]]);
       break;
     case 2:
-      c[i] = Matrix!int([[1, 0, 0], [0, 1, rd.front.to!int], [0, 0, 1]]);
+      int dy; pickV(rd, dy);
+      c[i] = Matrix!int([[1, 0, 0], [0, 1, dy], [0, 0, 1]]);
       break;
     case 3:
       c[i] = Matrix!int([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]);

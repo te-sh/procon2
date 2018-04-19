@@ -18,11 +18,11 @@ void main()
 
   auto rb1 = redBlackTree!("a>b", true, long)(), rb2 = redBlackTree!("a<b", true, long)();
   foreach (_; 0..q) {
-    auto rd = readln.splitter;
-    switch (rd.front) {
+    auto rd = rdsp;
+    string typ; pick(rd, typ);
+    switch (typ) {
     case "1":
-      rd.popFront;
-      auto v = rd.front.to!long;
+      long v; pick(rd, v);
       if (rb1.length < k) {
         rb1.insert(v);
       } else if (rb1.front < v) {
