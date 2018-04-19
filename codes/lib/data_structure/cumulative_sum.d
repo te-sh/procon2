@@ -14,7 +14,6 @@ class CumulativeSum(T)
   T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
   size_t opDollar() { return n; }
 }
-
 auto cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
 
 unittest
