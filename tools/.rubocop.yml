@@ -1,2 +1,5 @@
+Style/IndentHeredoc:
+  Enabled: false
+
 Style/MutableConstant:
   Enabled: false
