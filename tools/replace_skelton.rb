@@ -9,7 +9,7 @@ void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;
 void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
 EOF
 
-DIRS = %w[codeforces yukicoder]
+DIRS = %w[atcoder codeforces yukicoder]
 
 DIRS.each do |dir|
   Dir.glob("../codes/#{dir}/**/*.d") do |file|
