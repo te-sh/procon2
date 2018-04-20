@@ -19,6 +19,8 @@ int next() {
   return cast(int)(seed >> 33);
 }
 
+const tb = 31, ub = 20, db = tb-ub;
+
 version(unittest) {} else
 void main()
 {
@@ -28,39 +30,19 @@ void main()
 
   auto a = new int[](n);
   foreach (i; 0..n) a[i] = next();
+  a.sort();
 
-  auto as = a.sort();
-
-  auto b = new int[](1<<20);
-  foreach (ai; a) ++b[ai>>11];
-  auto bc = cumulativeSum(b);
+  auto b = new int[][](1<<ub);
+  foreach (ai; a) b[ai>>db] ~= ai;
+  auto c = b.map!(bi => bi.length).array;
+  auto cc = new ulong[](1<<ub+1);
+  foreach (i; 0..1<<ub) cc[i+1] = cc[i]+c[i];
 
   auto ans = 0uL;
   foreach (i; 0..q) {
-    auto x = next();
-    if (b[x>>11] <= 1)
-      ans ^= bc[0..x>>11] * i;
-    else
-      ans ^= as.lowerBound(x).length.to!ulong * i;
+    auto x = next(), xi = (x>>db);
+    ans ^= (cc[xi] + b[xi].countUntil!(bi => bi >= x)) * i;
   }
 
   writeln(ans);
 }
-
-class CumulativeSum(T)
-{
-  size_t n;
-  T[] s;
-
-  this(T[] a)
-  {
-    n = a.length;
-    s = new T[](n+1);
-    s[0] = T(0);
-    foreach (i; 0..n) s[i+1] = s[i] + a[i];
-  }
-
-  T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
-  size_t opDollar() { return n; }
-}
-auto cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
