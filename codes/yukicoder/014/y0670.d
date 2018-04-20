@@ -19,7 +19,7 @@ int next() {
   return cast(int)(seed >> 33);
 }
 
-const tb = 31, ub = 20, db = tb-ub;
+const tb = 31, ub = 16, db = tb-ub;
 
 version(unittest) {} else
 void main()
@@ -30,18 +30,20 @@ void main()
 
   auto a = new int[](n);
   foreach (i; 0..n) a[i] = next();
-  a.sort();
 
-  auto b = new int[][](1<<ub);
-  foreach (ai; a) b[ai>>db] ~= ai;
-  auto c = b.map!(bi => bi.length).array;
-  auto cc = new ulong[](1<<ub+1);
+  auto b = new int[][](1<<ub), c = new int[](1<<ub);
+  foreach (ai; a) {
+    b[ai>>db] ~= [ai];
+    ++c[ai>>db];
+  }
+  auto cc = new int[](1<<ub+1);
   foreach (i; 0..1<<ub) cc[i+1] = cc[i]+c[i];
 
   auto ans = 0uL;
-  foreach (i; 0..q) {
-    auto x = next(), xi = (x>>db);
-    ans ^= (cc[xi] + b[xi].countUntil!(bi => bi >= x)) * i;
+  foreach (ulong i; 0..q) {
+    auto x = next(), xi = (x>>db), r = cc[xi];
+    foreach (bi; b[xi]) r += bi < x;
+    ans ^= i * r;
   }
 
   writeln(ans);
