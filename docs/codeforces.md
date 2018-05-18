@@ -5,6 +5,7 @@ layout: default
 
 CodeForces Round (Div.2)
 
+|#480|[A問題](cdf/div2/480/a.html)|[B問題](cdf/div2/480/b.html)|[C問題](cdf/div2/480/c.html)|D問題|E問題|F問題|
 |#479|[A問題](cdf/div2/479/a.html)|[B問題](cdf/div2/479/b.html)|[C問題](cdf/div2/479/c.html)|[D問題](cdf/div2/479/d.html)|[E問題](cdf/div2/479/e.html)|[F問題](cdf/div2/479/f.html)|
 |#478|[A問題](cdf/div2/478/a.html)|[B問題](cdf/div2/478/b.html)|[C問題](cdf/div2/478/c.html)|[D問題](cdf/div2/478/d.html)|E問題|
 |#477|[A問題](cdf/div2/477/a.html)|[B問題](cdf/div2/477/b.html)|[C問題](cdf/div2/477/c.html)|[D問題](cdf/div2/477/d.html)|E問題|F問題|
