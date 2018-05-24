@@ -37,4 +37,5 @@ AtCoder Beginner Contest
 
 AtCoder Regular Contest
 
+|#082|[C問題](atc/arc/082/c.html)|[D問題](atc/arc/082/d.html)|[E問題](atc/arc/082/e.html)|D問題|
 |#081|[C問題](atc/arc/081/c.html)|[D問題](atc/arc/081/d.html)|[E問題](atc/arc/081/e.html)|D問題|
