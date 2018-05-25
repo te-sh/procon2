@@ -36,6 +36,7 @@ AtCoder Beginner Contest
 |#071|[A問題](atc/abc/071/a.html)|[B問題](atc/abc/071/b.html)|[C問題](atc/arc/081/c.html)|[D問題](atc/arc/081/d.html)|
 
 |#070|[A問題](atc/abc/070/a.html)|[B問題](atc/abc/070/b.html)|[C問題](atc/abc/070/c.html)|[D問題](atc/abc/070/d.html)|
+|#069|[A問題](atc/abc/069/a.html)|[B問題](atc/abc/069/b.html)|[C問題](atc/arc/080/c.html)|[D問題](atc/arc/080/d.html)|
 
 AtCoder Regular Contest
 
