@@ -10,6 +10,7 @@ void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r
 void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
 void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
 void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
+void writeA(T)(size_t n, T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
 
 alias segT = SegmentTree!(int, min);
 
@@ -44,7 +45,7 @@ void main()
     auto hi = h.front; h.removeFront();
     auto s = hi.s, t = hi.t;
     auto p1 = hi.p1, i1 = inv[p1], p2 = st[(s+1)%2][i1+1..t], i2 = inv[p2];
-    
+
     write(p1, " ", p2);
     if (c < n/2-1) write(" ");
 

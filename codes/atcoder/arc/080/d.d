@@ -10,6 +10,7 @@ void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r
 void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
 void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
 void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
+void writeA(T)(size_t n, T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
 
 version(unittest) {} else
 void main()
@@ -24,16 +25,7 @@ void main()
     j += ai;
   }
 
-  auto putLine(R)(R r)
-  {
-    foreach (i, ri; r.enumerate) {
-      write(ri);
-      if (i < w-1) write(" ");
-    }
-    writeln;
-  }
-
   foreach (i; 0..h)
-    if (i%2 == 0) putLine(b[i*w..(i+1)*w]);
-    else          putLine(b[i*w..(i+1)*w].retro);
+    if (i%2 == 0) writeA(w, b[i*w..(i+1)*w]);
+    else          writeA(w, b[i*w..(i+1)*w].retro);
 }

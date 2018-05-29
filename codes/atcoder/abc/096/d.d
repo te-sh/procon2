@@ -10,6 +10,7 @@ void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r
 void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
 void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
 void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
+void writeA(T)(size_t n, T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
 
 version(unittest) {} else
 void main()
@@ -17,11 +18,7 @@ void main()
   int n; readV(n);
 
   auto p = primes(55555);
-  foreach (i, pi; p.filter!(pi => pi%5 == 1).take(n).enumerate) {
-    write(pi);
-    if (i < n-1) write(" ");
-  }
-  writeln;
+  writeA(n, p.filter!(pi => pi%5 == 1).take(n));
 }
 
 pure T[] primes(T)(T n)

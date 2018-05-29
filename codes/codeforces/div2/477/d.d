@@ -10,6 +10,7 @@ void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r
 void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
 void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
 void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
+void writeA(T)(size_t n, T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
 
 struct CI { int c, i; }
 
@@ -67,14 +68,6 @@ auto put(int k1, int k2, int[] r1, int[] r2)
   writeln("Yes");
   writeln(k1, " ", k2);
 
-  foreach (i; 0..k1) {
-    write(r1[i]);
-    if (i < k1-1) write(" ");
-  }
-  writeln;
-
-  foreach (i; 0..k2) {
-    write(r2[i]);
-    if (i < k2-1) write(" ");
-  }
+  writeA(k1, r1);
+  writeA(k2, r2);
 }
