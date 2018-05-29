@@ -24,5 +24,5 @@ void main()
       a[j] += i == j ? n : -1;
 
   writeln(n);
-  writeA(a);
+  writeA(n, a);
 }
