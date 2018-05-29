@@ -26,7 +26,8 @@
               (reada (count-matches "readA("))
               (readm (count-matches "readM("))
               (readc (count-matches "readC("))
-              (reads (count-matches "readS(")))
+              (reads (count-matches "readS("))
+              (writea (count-matches "writeA(")))
           (goto-char (point-min))
           (if (eq (+ rdsp readv reada readm readc reads) 0)
               (search-and-remove "rdsp("))
@@ -43,7 +44,9 @@
           (if (eq readc 0)
               (search-and-remove "readC("))
           (if (eq reads 0)
-              (search-and-remove "readS(")))
+              (search-and-remove "readS("))
+          (if (eq writea 0)
+              (search-and-remove "writeA(")))
         (clipboard-kill-ring-save (point-min) (point-max))))))
 
 ;; yasnippet
