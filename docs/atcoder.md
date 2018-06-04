@@ -74,3 +74,4 @@ AtCoder Regular Contest
 |#071|[C問題](atc/arc/071/c.html)|[D問題](atc/arc/071/d.html)|[E問題](atc/arc/071/e.html)|F問題|
 
 |#070|[C問題](atc/arc/070/c.html)|[D問題](atc/arc/070/d.html)|[E問題](atc/arc/070/e.html)|F問題|
+|#069|[C問題](atc/arc/069/c.html)|[D問題](atc/arc/069/d.html)|[E問題](atc/arc/069/e.html)|F問題|
