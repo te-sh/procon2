@@ -55,6 +55,7 @@ AtCoder Beginner Contest
 |#055|[A問題](atc/abc/055/a.html)|[B問題](atc/abc/055/b.html)|[C問題](atc/arc/069/c.html)|[D問題](atc/arc/069/d.html)|
 |#054|[A問題](atc/abc/054/a.html)|[B問題](atc/abc/054/b.html)|[C問題](atc/abc/054/c.html)|[D問題](atc/abc/054/d.html)|
 |#053|[A問題](atc/abc/053/a.html)|[B問題](atc/abc/053/b.html)|[C問題](atc/arc/068/c.html)|[D問題](atc/arc/068/d.html)|
+|#052|[A問題](atc/abc/052/a.html)|[B問題](atc/abc/052/b.html)|[C問題](atc/arc/067/c.html)|[D問題](atc/arc/067/d.html)|
 
 AtCoder Regular Contest
 
