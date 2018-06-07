@@ -87,7 +87,12 @@ struct MM
   auto isInfty() { return this == MM.infty; }
   auto isInvalid() { return this == MM.invalid; }
 
-  auto expand() { return isInfty ? this : MM(mi-1, ma+1); }
+  auto expand()
+  {
+    if (isInvalid) return this;
+    return isInfty ? this : MM(mi-1, ma+1);
+  }
+
   auto opBinary(string op: "&")(MM a)
   {
     if (isInvalid || a.isInvalid) return MM.invalid;
