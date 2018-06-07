@@ -20,7 +20,7 @@ void main()
 {
   int q; readV(q);
 
-  auto m0 = mint(0), m1 = mint(1), a = Matrix!mint([[m1, m1, m1, m1], [m1, m0, m0, m0], [m0, m1, m0, m0], [m0, m0, m1, m0]]);
+  auto a = Matrix!mint([[1,1,1,1],[1,0,0,0],[0,1,0,0],[0,0,1,0]]);
   foreach (_; 0..q) {
     long n; readV(n);
     if (n < 4) {
@@ -68,11 +68,12 @@ struct Matrix(T)
     static if (T.init != 0) foreach (i; 0..r) a[i][] = 0;
   }
 
-  this(T[][] b)
+  this(U)(U[][] b)
   {
     r = b.length;
     c = b[0].length;
-    a = b;
+    a = new T[][](r, c);
+    foreach (i; 0..r) foreach (j; 0..c) a[i][j] = b[i][j];
   }
 
   ref auto dup() { auto x = Matrix!T(r, c); foreach (i; 0..r) x[i][] = a[i][]; return x; }

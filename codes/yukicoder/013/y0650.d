@@ -41,7 +41,7 @@ void main()
     case "x":
       int v, c1, c2, c3, c4; pickV(rd, v, c1, c2, c3, c4);
       auto e = t.parent[a[v]] == b[v] ? a[v] : b[v];
-      st[t.path[e]][t.depthInPath(e)] = mat([[mint(c1), mint(c2)], [mint(c3), mint(c4)]]);
+      st[t.path[e]][t.depthInPath(e)] = mat([[c1, c2], [c3, c4]]);
       break;
     case "g":
       int i, j; pickV(rd, i, j);
@@ -259,11 +259,12 @@ struct Matrix(T)
     static if (T.init != 0) foreach (i; 0..r) a[i][] = 0;
   }
 
-  this(T[][] b)
+  this(U)(U[][] b)
   {
     r = b.length;
     c = b[0].length;
-    a = b;
+    a = new T[][](r, c);
+    foreach (i; 0..r) foreach (j; 0..c) a[i][j] = b[i][j];
   }
 
   ref auto dup() { auto x = Matrix!T(r, c); foreach (i; 0..r) x[i][] = a[i][]; return x; }
