@@ -18,11 +18,12 @@ struct Matrix(T)
     static if (T.init != 0) foreach (i; 0..r) a[i][] = 0;
   }
 
-  this(T[][] b)
+  this(U)(U[][] b)
   {
     r = b.length;
     c = b[0].length;
-    a = b;
+    a = new T[][](r, c);
+    foreach (i; 0..r) foreach (j; 0..c) a[i][j] = b[i][j];
   }
 
   ref auto dup() { auto x = Matrix!T(r, c); foreach (i; 0..r) x[i][] = a[i][]; return x; }
