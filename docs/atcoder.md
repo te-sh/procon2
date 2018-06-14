@@ -99,3 +99,4 @@ AtCoder Regular Contest
 |#061|[C問題](atc/arc/061/c.html)|[D問題](atc/arc/061/d.html)|[E問題](atc/arc/061/e.html)|F問題|
 
 |#060|[C問題](atc/arc/060/c.html)|[D問題](atc/arc/060/d.html)|[E問題](atc/arc/060/e.html)|F問題|
+|#059|[C問題](atc/arc/059/c.html)|[D問題](atc/arc/059/d.html)|[E問題](atc/arc/059/e.html)|F問題|
