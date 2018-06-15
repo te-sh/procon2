@@ -18,14 +18,14 @@ void main()
   int n, k; readV(n, k);
   int[] a; readC(n, a);
 
-  auto dp = new int[][](n+1, n+1), as = a.cumulativeSum;
+  auto dp = new long[][](n+1, n+1), as = a.cumulativeSum;
   foreach (ref dpi; dp) dpi[] = as[0..$]+1;
   dp[0][0] = 0;
 
   foreach (i; 0..n)
     foreach (j; 0..i+1) {
       auto b = max(k-as[i+1..$]-dp[i][j], 0);
-      auto c = i == 0 ? 1 : (dp[i][j].to!long*a[i]/as[0..i]).to!int + 1;
+      auto c = i == 0 ? 1 : (dp[i][j]*a[i]/as[0..i]) + 1;
       if (c > a[i]) {
         dp[i+1][j] = min(dp[i+1][j], dp[i][j]+b);
       } else {
