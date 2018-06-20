@@ -107,3 +107,4 @@ AtCoder Regular Contest
 |#057|[A問題](atc/arc/057/a.html)|[B問題](atc/arc/057/b.html)|[C問題](atc/arc/057/c.html)|D問題|
 |#056|[A問題](atc/arc/056/a.html)|[B問題](atc/arc/056/b.html)|[C問題](atc/arc/056/c.html)|D問題|
 |#055|[A問題](atc/arc/055/a.html)|[B問題](atc/arc/055/b.html)|[C問題](atc/arc/055/c.html)|D問題|
+|#054|[A問題](atc/arc/054/a.html)|[B問題](atc/arc/054/b.html)|[C問題](atc/arc/054/c.html)|D問題|
