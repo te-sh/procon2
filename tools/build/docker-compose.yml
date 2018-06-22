@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  runenv:
+    build: './runenv'
+    image: te-sh/procon-runenv
+  dmd-2.070.1:
+    build: './dmd/2.070.1'
+    image: te-sh/procon-dmd-2.070.1
+  dmd-2.077.1:
+    build: './dmd/2.077.1'
+    image: te-sh/procon-dmd-2.077.1
+  dmd-2.079.0:
+    build: './dmd/2.079.0'
+    image: te-sh/procon-dmd-2.079.0

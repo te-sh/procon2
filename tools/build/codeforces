@@ -1,2 +1,2 @@
 #! /bin/sh
-docker run --rm -v procon_work:/src dlanguage/dmd:2.074.1 dmd -O -release -inline $@
+docker run --rm -v procon_work:/src te-sh/procon-dmd-2.079.0 dmd -O -release -inline $@
