@@ -116,3 +116,4 @@ AtCoder Regular Contest
 
 |#050|[A問題](atc/arc/050/a.html)|[B問題](atc/arc/050/b.html)|[C問題](atc/arc/050/c.html)|D問題|
 |#049|[A問題](atc/arc/049/a.html)|[B問題](atc/arc/049/b.html)|[C問題](atc/arc/049/c.html)|D問題|
+|#048|[A問題](atc/arc/048/a.html)|[B問題](atc/arc/048/b.html)|[C問題](atc/arc/048/c.html)|D問題|
