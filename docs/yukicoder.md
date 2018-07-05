@@ -4,7 +4,7 @@ layout: default
 [yukicoder](https://yukicoder.me/) の問題を解いたときのメモです.
 
 |[No.711](yuk/015/y0711.html)| | | | | | | | | |
-|[No.701](yuk/015/y0701.html)|[No.702](yuk/015/y0702.html)|No.703|No.704|No.705|[No.706](yuk/015/y0706.html)|[No.707](yuk/015/y0707.html)|[No.708](yuk/015/y0708.html)|[No.709](yuk/015/y0709.html)|[No.710](yuk/015/y0710.html)|
+|[No.701](yuk/015/y0701.html)|[No.702](yuk/015/y0702.html)|[No.703](yuk/015/y0703.html)|[No.704](yuk/015/y0704.html)|No.705|[No.706](yuk/015/y0706.html)|[No.707](yuk/015/y0707.html)|[No.708](yuk/015/y0708.html)|[No.709](yuk/015/y0709.html)|[No.710](yuk/015/y0710.html)|
 
 |No.691|No.692|No.693|No.694|No.695|No.696|[No.697](yuk/014/y0697.html)|[No.698](yuk/014/y0698.html)|[No.699](yuk/014/y0699.html)|[No.700](yuk/014/y0700.html)|
 |[No.681](yuk/014/y0681.html)|[No.682](yuk/014/y0682.html)|[No.683](yuk/014/y0683.html)|[No.684](yuk/014/y0684.html)|No.685|No.686|No.687|No.688|No.689|No.690|
