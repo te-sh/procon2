@@ -122,3 +122,7 @@ AtCoder Regular Contest
 |#046|[A問題](atc/arc/046/a.html)|[B問題](atc/arc/046/b.html)|[C問題](atc/arc/046/c.html)|D問題|
 |#045|[A問題](atc/arc/045/a.html)|[B問題](atc/arc/045/b.html)|[C問題](atc/arc/045/c.html)|D問題|
 |#044|[A問題](atc/arc/044/a.html)|[B問題](atc/arc/044/b.html)|[C問題](atc/arc/044/c.html)|D問題|
+
+企業コンテスト
+
+|SoundHound|[A問題](atc/com/soundhound/a.html)|[B問題](atc/com/soundhound/b.html)|[C問題](atc/com/soundhound/c.html)|[D問題](atc/com/soundhound/d.html)|[E問題](atc/com/soundhound/e.html)|
