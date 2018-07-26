@@ -128,6 +128,7 @@ AtCoder Regular Contest
 |#041|[A問題](atc/arc/041/a.html)|[B問題](atc/arc/041/b.html)|[C問題](atc/arc/041/c.html)|D問題|
 
 |#040|[A問題](atc/arc/040/a.html)|[B問題](atc/arc/040/b.html)|[C問題](atc/arc/040/c.html)|D問題|
+|#039|[A問題](atc/arc/039/a.html)|[B問題](atc/arc/039/b.html)|[C問題](atc/arc/039/c.html)|D問題|
 
 企業コンテスト
 
