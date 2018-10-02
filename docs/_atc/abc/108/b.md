@@ -8,4 +8,4 @@ $$ A(x_1, y_1) $$ として, 反時計周りに $$ B, C, D $$ とする. $$ A $$
 
 反時計周りに $$ A, B, C, D $$ が並ぶためには, $$ \overrightarrow{AB} \times \overrightarrow{AD} $$ が正になればいいので, こうなるように $$ t $$ を選ぶ.
 
-$$ \overright{AC} $$ は $$ \overrightarrow{AB} + \overrightarrow{AD} $$ で直ちに求まる.
+$$ \overrightarrow{AC} $$ は $$ \overrightarrow{AB} + \overrightarrow{AD} $$ で直ちに求まる.
