@@ -1,3 +1,45 @@
+// URL: https://yukicoder.me/problems/no/757
+
+import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
+
+auto rdsp(){return readln.splitter;}
+void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
+void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
+void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
+void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
+void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
+void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
+void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
+void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+
+version(unittest) {} else
+void main()
+{
+  int b; readV(b);
+  string s; readV(s);
+
+  if (s == "1") {
+    writeln(1);
+    return;
+  }
+
+  auto d = GmpInt(s, b)-1;
+
+  auto len(int x)
+  {
+    auto bp = GmpInt(b)^^x;
+    return bp*x - (bp-1)/(b-1);
+  }
+
+  auto es = iota(0, s.length.to!int+1).map!(x => tuple(x, len(x))).assumeSorted!"a[1]<b[1]";
+  auto e = es.lowerBound(tuple(1, d)).back;
+  auto f = e[0]+1;
+  d -= e[1];
+
+  auto g = d/f + GmpInt(b)^^(f-1), h = d%GmpInt(f);
+  writeln(g.toString(b)[h.toLong]);
+}
+
 struct GmpInt
 {
   __mpz_struct z;
@@ -139,45 +181,3 @@ extern(C) pragma(inline, false)
 }
 
 pragma(lib, "gmp");
-
-unittest
-{
-  import std.conv, std.random;
-
-  foreach (_; 0..1000) {
-    auto a1 = uniform(-1000, 1000), b1 = GmpInt(a1);
-    auto a2 = uniform(-1000, 1000), b2 = GmpInt(a2);
-    assert(b1.toString == a1.to!string);
-    assert(GmpInt(a1.to!string).toString == a1.to!string);
-    assert((a1 > a2) == (b1 > b2));
-    assert((a1 < a2) == (b1 < b2));
-    assert((a1 == a2) == (b1 == b2));
-    assert((b1 + b2).toString == (a1 + a2).to!string);
-    assert((b1 - b2).toString == (a1 - a2).to!string);
-    assert((b1 * b2).toString == (a1 * a2).to!string);
-    if (a2 != 0)
-      assert((b1 / b2).toString == (a1 / a2).to!string);
-
-    auto a3 = uniform(-1000, 1000), b3 = GmpInt(a3);
-    auto a4 = uniform(-1000, 1000), b4 = GmpInt(a4);
-    auto a5 = uniform(-1000, 1000), b5 = GmpInt(a5);
-    auto a6 = uniform(-1000, 1000), b6 = GmpInt(a6);
-    b3 += b1; b4 -= b1; b5 *= b1;
-    assert(b3.toString == (a3 + a1).to!string);
-    assert(b4.toString == (a4 - a1).to!string);
-    assert(b5.toString == (a5 * a1).to!string);
-
-    if (a1 != 0) {
-      b6 /= b1;
-      assert(b6.toString == (a6 / a1).to!string);
-    }
-
-    auto c1 = uniform(1, 1000), d1 = GmpInt(c1);
-    auto c2 = uniform(1, 1000), d2 = GmpInt(c2);
-    assert((d1 % d2).toString == (d1 % d2).to!string);
-
-    auto c3 = uniform(1, 1000), d3 = GmpInt(c3);
-    d3 %= d1;
-    assert(d3.toString == (c3 % c1).to!string);
-  }
-}
