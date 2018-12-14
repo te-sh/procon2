@@ -3,7 +3,7 @@ layout: default
 ---
 [yukicoder](https://yukicoder.me/) の問題を解いたときのメモです.
 
-|[No.761](yuk/016/y0761.html)|[No.762](yuk/016/y0762.html)|[No.763](yuk/016/y0763.html)|[No.764](yuk/016/y0764.html)| | | | | | |
+|[No.761](yuk/016/y0761.html)|[No.762](yuk/016/y0762.html)|[No.763](yuk/016/y0763.html)|[No.764](yuk/016/y0764.html)|No.765|[No.766](yuk/016/y0766.html)| | | | |
 |[No.751](yuk/016/y0751.html)|[No.752](yuk/016/y0752.html)|[No.753](yuk/016/y0753.html)|[No.754](yuk/016/y0754.html)|[No.755](yuk/016/y0755.html)|[No.756](yuk/016/y0756.html)|[No.757](yuk/016/y0757.html)|[No.758](yuk/016/y0758.html)|[No.759](yuk/016/y0759.html)|[No.760](yuk/016/y0760.html)|
 
 |[No.741](yuk/015/y0741.html)|[No.742](yuk/015/y0742.html)|[No.743](yuk/015/y0743.html)|[No.744](yuk/015/y0744.html)|[No.745](yuk/015/y0745.html)|[No.746](yuk/015/y0746.html)|[No.747](yuk/015/y0747.html)|[No.748](yuk/015/y0748.html)|No.749|[No.750](yuk/015/y0750.html)|
