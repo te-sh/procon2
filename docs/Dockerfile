@@ -1,13 +1,15 @@
-FROM ruby:2.5.1-alpine3.7
+FROM ruby:2.5.3-alpine3.8 as build
+
+WORKDIR /tmp
+COPY Gemfile Gemfile.lock ./
+RUN apk add --update --no-cache build-base
+RUN bundle install
+
+FROM ruby:2.5.3-alpine3.8
+
+COPY --from=build /usr/local/bundle /usr/local/bundle
 
 ENV DOCS=/docs
-
 WORKDIR $DOCS
 
-COPY Gemfile Gemfile.lock ./
-
-RUN apk add --update --no-cache build-base \
- && bundle install \
- && apk del build-base
-
-ENTRYPOINT ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0"]
+ENTRYPOINT ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--destination", "/site"]

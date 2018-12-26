@@ -27,7 +27,6 @@ services:
     container_name: prodoc
     volumes:
       - './docs:/docs'
-      - 'procon_site:/docs/_site'
     ports:
       - '4000:4000'
 
@@ -35,6 +34,3 @@ volumes:
   procon_work:
     external:
       name: procon_work
-  procon_site:
-    external:
-      name: procon_site
