@@ -1,0 +1,7 @@
+{
+    "yukicoder": {
+        "compilerDir": "dmd-2.083.0/linux/bin64",
+        "libraryDir": "dmd-2.083.0/linux/lib64",
+        "compileOption": "-m64 -w -wi -O -release -inline"
+    }
+}

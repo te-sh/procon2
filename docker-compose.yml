@@ -1,26 +1,13 @@
 version: "3"
 
 services:
-  monitor:
-    build: './tools/monitor'
-    image: te-sh/procon-monitor
-    container_name: promon
+  judge:
+    build: './judge'
+    image: te-sh/procon-judge
+    container_name: projdg
     volumes:
-      - './tools/monitor:/app'
-      - './tools/build:/build'
       - './codes:/codes'
-      - 'procon_work:/work'
-      - '/var/run/docker.sock:/var/run/docker.sock'
     tty: true
-  oj:
-    build: './tools/oj'
-    image: te-sh/procon-oj
-    container_name: pro-oj
-    command: /bin/sh -c "while true; do sleep 1; done"
-    volumes:
-      - './tools/oj:/app'
-      - 'procon_work:/work'
-      - '/var/run/docker.sock:/var/run/docker.sock'
   docs:
     build: './docs'
     image: te-sh/procon-docs
@@ -29,8 +16,3 @@ services:
       - './docs:/docs'
     ports:
       - '4000:4000'
-
-volumes:
-  procon_work:
-    external:
-      name: procon_work

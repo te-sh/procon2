@@ -1,0 +1,3 @@
+#!/bin/bash
+
+inotifywait -m -r -e create -e modify --exclude \.# /codes | ./runoj
