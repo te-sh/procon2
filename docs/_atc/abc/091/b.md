@@ -1,6 +1,6 @@
 ---
 title: "ABC #091 B"
-problem: https://beta.atcoder.jp/contests/abc091/tasks/abc091_b
+problem: https://atcoder.jp/contests/abc091/tasks/abc091_b
 ---
 $$ s_i, t_i $$ をキーとして連想配列に入れていく. $$ s_i $$ の場合は値を1増やし, $$ t_i $$ の場合は値を1減らす.
 

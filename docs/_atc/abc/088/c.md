@@ -1,6 +1,6 @@
 ---
 title: "ABC #088 C"
-problem: https://beta.atcoder.jp/contests/abc088/tasks/abc088_c
+problem: https://atcoder.jp/contests/abc088/tasks/abc088_c
 ---
 $$ a_1 $$ が決まったとすると, 他の数字も以下のように決まる.
 

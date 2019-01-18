@@ -1,6 +1,6 @@
 ---
 title: "ABC #047 B"
-problem: https://beta.atcoder.jp/contests/abc047/tasks/abc047_b
+problem: https://atcoder.jp/contests/abc047/tasks/abc047_b
 ---
 $$
 \begin{align}

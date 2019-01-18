@@ -1,6 +1,6 @@
 ---
 title: "ABC #106 C"
-problem: https://beta.atcoder.jp/contests/abc106/tasks/abc106_c
+problem: https://atcoder.jp/contests/abc106/tasks/abc106_c
 ---
 $$ n = 5 \times 10^{15} $$ とする.
 

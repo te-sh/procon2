@@ -1,6 +1,6 @@
 ---
 title: "ABC #051 D"
-problem: https://beta.atcoder.jp/contests/abc051/tasks/abc051_d
+problem: https://atcoder.jp/contests/abc051/tasks/abc051_d
 ---
 2点間の距離を Floyd-Warshal で求める.
 

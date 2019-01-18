@@ -1,6 +1,6 @@
 ---
 title: "ABC #064 A"
-problem: https://beta.atcoder.jp/contests/abc064/tasks/abc064_a
+problem: https://atcoder.jp/contests/abc064/tasks/abc064_a
 ---
 $$ 100r+10g+b $$ が4で割り切れるかを確認する.
 

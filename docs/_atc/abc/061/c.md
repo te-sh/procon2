@@ -1,6 +1,6 @@
 ---
 title: "ABC #061 C"
-problem: https://beta.atcoder.jp/contests/abc061/tasks/abc061_c
+problem: https://atcoder.jp/contests/abc061/tasks/abc061_c
 ---
 $$ (a_i, b_i) $$ は $$ a_i $$ の昇順でソートする.
 

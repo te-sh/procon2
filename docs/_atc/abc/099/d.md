@@ -1,6 +1,6 @@
 ---
 title: "ABC #099 D"
-problem: https://beta.atcoder.jp/contests/abc099/tasks/abc099_d
+problem: https://atcoder.jp/contests/abc099/tasks/abc099_d
 ---
 $$ (i+j) \bmod 3 = k $$ となるマスに色 $$ c $$ が何マスあるかを数える.
 

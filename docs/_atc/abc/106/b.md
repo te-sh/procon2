@@ -1,6 +1,6 @@
 ---
 title: "ABC #106 B"
-problem: https://beta.atcoder.jp/contests/abc106/tasks/abc106_b
+problem: https://atcoder.jp/contests/abc106/tasks/abc106_b
 ---
 愚直に約数の数を数える.
 

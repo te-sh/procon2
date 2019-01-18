@@ -1,6 +1,6 @@
 ---
 title: "ABC #084 C"
-problem: https://beta.atcoder.jp/contests/abc084/tasks/abc084_c
+problem: https://atcoder.jp/contests/abc084/tasks/abc084_c
 ---
 愚直にシミュレートする.
 

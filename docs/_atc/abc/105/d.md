@@ -1,6 +1,6 @@
 ---
 title: "ABC #105 D"
-problem: https://beta.atcoder.jp/contests/abc105/tasks/abc105_c
+problem: https://atcoder.jp/contests/abc105/tasks/abc105_c
 ---
 $$ [l, r) $$ の区間で $$ S = A_l + A_{l+1} + \dots + A_{r-1} $$ が $$ M $$ の倍数になるとする. すなわち, $$ S \equiv 0 \bmod M $$ である.
 

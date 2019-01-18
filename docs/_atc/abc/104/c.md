@@ -1,6 +1,6 @@
 ---
 title: "ABC #104 C"
-problem: https://beta.atcoder.jp/contests/abc104/tasks/abc104_c
+problem: https://atcoder.jp/contests/abc104/tasks/abc104_c
 ---
 点数はすべて $$ 1/100 $$ して考える.
 

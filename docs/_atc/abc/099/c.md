@@ -1,6 +1,6 @@
 ---
 title: "ABC #099 C"
-problem: https://beta.atcoder.jp/contests/abc099/tasks/abc099_c
+problem: https://atcoder.jp/contests/abc099/tasks/abc099_c
 ---
 使えるお金は $$ 1 $$ 円, $$ 6 $$ 円, $$ 6^2 $$ 円,... $$ 6^7 $$ 円, $$ 9 $$ 円, $$ 9^2 $$ 円,... $$ 9^6 $$ 円の14種類なので, DP で解く.
 

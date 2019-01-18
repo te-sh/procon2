@@ -1,6 +1,6 @@
 ---
 title: "ABC #103 C"
-problem: https://beta.atcoder.jp/contests/abc103/tasks/abc103_c
+problem: https://atcoder.jp/contests/abc103/tasks/abc103_c
 ---
 $$ \{ a_i \} $$ の公倍数を $$ n $$ とする. このとき,
 

@@ -1,6 +1,6 @@
 ---
 title: "ABC #109 D"
-problem: https://beta.atcoder.jp/contests/abc109/tasks/abc109_d
+problem: https://atcoder.jp/contests/abc109/tasks/abc109_d
 ---
 奇数の枚数のマス同士でマッチングさせて動かす. このとき, 他のマッチングと移動経路が重なってはいけないので, どのようにマッチングさせるかという問題になる.
 

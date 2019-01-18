@@ -1,6 +1,6 @@
 ---
 title: "ABC #106 D"
-problem: https://beta.atcoder.jp/contests/abc106/tasks/abc106_d
+problem: https://atcoder.jp/contests/abc106/tasks/abc106_d
 ---
 $$ p, q $$ 間に完全に含まれる路線の数をあらかじめ数えておく.
 

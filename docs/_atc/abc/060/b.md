@@ -1,5 +1,5 @@
 ---
 title: "ABC #060 B"
-problem: https://beta.atcoder.jp/contests/abc060/tasks/abc060_b
+problem: https://atcoder.jp/contests/abc060/tasks/abc060_b
 ---
 $$ mA $$ を $$ B $$ で割った余りが $$ C $$ になるかどうかを調べる問題である. これは $$ m $$ を増やして計算していくと, $$ B $$ で割った余りは循環する. 周期は最長でも $$ B $$ であるので, 愚直に計算して $$ C $$ が現れるか循環するかどちらかを判定する.

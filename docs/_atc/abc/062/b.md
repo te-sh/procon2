@@ -1,6 +1,6 @@
 ---
 title: "ABC #062 B"
-problem: https://beta.atcoder.jp/contests/abc062/tasks/abc062_b
+problem: https://atcoder.jp/contests/abc062/tasks/abc062_b
 ---
 次の手順である.
 

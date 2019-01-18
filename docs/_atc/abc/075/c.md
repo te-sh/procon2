@@ -1,6 +1,6 @@
 ---
 title: "ABC #075 C"
-problem: https://beta.atcoder.jp/contests/abc075/tasks/abc075_c
+problem: https://atcoder.jp/contests/abc075/tasks/abc075_c
 ---
 $$ N $$ が小さいので, 取り除く辺を全探索する.
 

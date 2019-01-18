@@ -1,5 +1,5 @@
 ---
 title: "ABC #110 D"
-problem: https://beta.atcoder.jp/contests/abc110/tasks/abc110_d
+problem: https://atcoder.jp/contests/abc110/tasks/abc110_d
 ---
 $$ M $$ を素因数分解する. この結果を $$ p_1^{q_1}p_2^{q_2}\cdots $$ とする. そうすると, 素因数 $$ p_i $$ については $$ q_i $$ 個を重複ありで $$ N $$ 個に配分する組み合わせの数となり, この数は $$ {}_{q_i+N-1}C_{N-1} $$ となる. これをすべての素因数について計算して積を取れば答えとなる.

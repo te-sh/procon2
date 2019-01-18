@@ -1,6 +1,6 @@
 ---
 title: "ABC #076 D"
-problem: https://beta.atcoder.jp/contests/abc076/tasks/abc076_d
+problem: https://atcoder.jp/contests/abc076/tasks/abc076_d
 ---
 すべて整数で扱えるよう, $$ t_i, v_i $$ ともに2倍しておく. 最後に距離を4で割ればいい.
 

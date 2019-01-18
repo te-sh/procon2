@@ -1,6 +1,6 @@
 ---
 title: "ABC #108 B"
-problem: https://beta.atcoder.jp/contests/abc108/tasks/abc108_b
+problem: https://atcoder.jp/contests/abc108/tasks/abc108_b
 ---
 $$ A(x_1, y_1) $$ として, 反時計周りに $$ B, C, D $$ とする. $$ A $$ が原点になるように平行移動しておく.
 

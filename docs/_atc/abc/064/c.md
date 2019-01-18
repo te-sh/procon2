@@ -1,6 +1,6 @@
 ---
 title: "ABC #064 C"
-problem: https://beta.atcoder.jp/contests/abc064/tasks/abc064_c
+problem: https://atcoder.jp/contests/abc064/tasks/abc064_c
 ---
 3200点未満の人の色数を数える. これに3200点以上の人の人数を足したものが最大値である.
 

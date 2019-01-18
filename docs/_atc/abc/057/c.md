@@ -1,6 +1,6 @@
 ---
 title: "ABC #057 C"
-problem: https://beta.atcoder.jp/contests/abc057/tasks/abc057_c
+problem: https://atcoder.jp/contests/abc057/tasks/abc057_c
 ---
 $$ A \leq B $$ としても一般性を失わない.
 

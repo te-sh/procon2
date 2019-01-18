@@ -1,6 +1,6 @@
 ---
 title: "ABC #051 C"
-problem: https://beta.atcoder.jp/contests/abc051/tasks/abc051_c
+problem: https://atcoder.jp/contests/abc051/tasks/abc051_c
 ---
 次のようなルートが考えられる.
 

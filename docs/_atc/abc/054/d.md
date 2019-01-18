@@ -1,6 +1,6 @@
 ---
 title: "ABC #054 D"
-problem: https://beta.atcoder.jp/contests/abc054/tasks/abc054_d
+problem: https://atcoder.jp/contests/abc054/tasks/abc054_d
 ---
 $$ i $$ 番目の薬品まで見たときにタイプAが $$ j $$ グラム, タイプBが $$ k $$ グラムだけ集めたときの最小金額を $$ D(i, j, k) $$ とする.
 

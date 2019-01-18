@@ -1,6 +1,6 @@
 ---
 title: "ABC #105 C"
-problem: https://beta.atcoder.jp/contests/abc105/tasks/abc105_c
+problem: https://atcoder.jp/contests/abc105/tasks/abc105_c
 ---
 まずは $$ S_0 $$ を決める.
 

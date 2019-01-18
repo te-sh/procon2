@@ -1,6 +1,6 @@
 ---
 title: "ABC #080 D"
-problem: https://beta.atcoder.jp/contests/abc080/tasks/abc080_d
+problem: https://atcoder.jp/contests/abc080/tasks/abc080_d
 ---
 録画予約をチャンネルごとにまとめて, 番組開始時刻の昇順にソートしておく.
 

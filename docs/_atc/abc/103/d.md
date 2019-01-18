@@ -1,6 +1,6 @@
 ---
 title: "ABC #103 D"
-problem: https://beta.atcoder.jp/contests/abc103/tasks/abc103_d
+problem: https://atcoder.jp/contests/abc103/tasks/abc103_d
 ---
 要望は $$ b_i $$ で昇順にソートする.
 

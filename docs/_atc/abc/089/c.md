@@ -1,6 +1,6 @@
 ---
 title: "ABC #089 C"
-problem: https://beta.atcoder.jp/contests/abc089/tasks/abc089_c
+problem: https://atcoder.jp/contests/abc089/tasks/abc089_c
 ---
 `M`, `A`, `R`, `C`, `H` で始まる名前の数を数える.
 

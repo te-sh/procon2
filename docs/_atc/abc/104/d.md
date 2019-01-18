@@ -1,6 +1,6 @@
 ---
 title: "ABC #104 D"
-problem: https://beta.atcoder.jp/contests/abc104/tasks/abc104_d
+problem: https://atcoder.jp/contests/abc104/tasks/abc104_d
 ---
 ABC 数と同様に A 数, AB 数を考える.
 

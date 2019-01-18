@@ -1,6 +1,6 @@
 ---
 title: "ABC #097 B"
-problem: https://beta.atcoder.jp/contests/abc097/tasks/abc097_b
+problem: https://atcoder.jp/contests/abc097/tasks/abc097_b
 ---
 $$ b $$ と $$ p $$ で総当りする.
 

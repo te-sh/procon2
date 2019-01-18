@@ -1,6 +1,6 @@
 ---
 title: "ABC #073 D"
-problem: https://beta.atcoder.jp/contests/abc073/tasks/abc073_d
+problem: https://atcoder.jp/contests/abc073/tasks/abc073_d
 ---
 すべての町の間の最短距離を Floyd-Warshal 法で求めておく.
 

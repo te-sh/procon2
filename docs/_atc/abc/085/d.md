@@ -1,6 +1,6 @@
 ---
 title: "ABC #085 D"
-problem: https://beta.atcoder.jp/contests/abc085/tasks/abc085_d
+problem: https://atcoder.jp/contests/abc085/tasks/abc085_d
 ---
 倒したところから逆に考える. そうすると, できるだけ大きなダメージを1回に与えていけばいいことが分かる.
 

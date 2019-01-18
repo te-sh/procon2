@@ -1,6 +1,6 @@
 ---
 title: "ABC #057 D"
-problem: https://beta.atcoder.jp/contests/abc057/tasks/abc057_d
+problem: https://atcoder.jp/contests/abc057/tasks/abc057_d
 ---
 $$ \{ v_i \} $$ は降順にソートする.
 

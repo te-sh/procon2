@@ -1,6 +1,6 @@
 ---
 title: "ABC #109 A"
-problem: https://beta.atcoder.jp/contests/abc109/tasks/abc109_a
+problem: https://atcoder.jp/contests/abc109/tasks/abc109_a
 ---
 $$ A \times B $$ が偶数なら $$ C $$ が何でも $$ A \times B \times C $$ は偶数である.
 

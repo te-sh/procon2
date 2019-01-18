@@ -1,6 +1,6 @@
 ---
 title: "ABC #100 D"
-problem: https://beta.atcoder.jp/contests/abc100/tasks/abc100_d
+problem: https://atcoder.jp/contests/abc100/tasks/abc100_d
 ---
 最終的に綺麗さとおいしさが正、人気度が負になると仮定すると, 綺麗さ+おいしさ-人気度が最大になるようにすればいい.
 
