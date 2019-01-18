@@ -1,6 +1,6 @@
 ---
 title: "SoundHound B"
-problem: https://beta.atcoder.jp/contests/soundhound2018-summer-qual/tasks/soundhound2018_summer_qual_b
+problem: https://atcoder.jp/contests/soundhound2018-summer-qual/tasks/soundhound2018_summer_qual_b
 ---
 0-index で考える.
 

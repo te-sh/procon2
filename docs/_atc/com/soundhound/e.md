@@ -1,6 +1,6 @@
 ---
 title: "SoundHound E"
-problem: https://beta.atcoder.jp/contests/soundhound2018-summer-qual/tasks/soundhound2018_summer_qual_e
+problem: https://atcoder.jp/contests/soundhound2018-summer-qual/tasks/soundhound2018_summer_qual_e
 ---
 $$ a_1 $$ を決めると芋づる式に他の頂点の数値も決まる. その値は $$ b-a_1 $$ の形か $$ c+a_1 $$ の形のどちらかになる. これは幅優先探索で探索する.
 
