@@ -1,2 +1,0 @@
-#! /bin/sh
-docker run --rm -i -v $(pwd):/src dlanguage/dmd:2.074.1 rdmd $@
