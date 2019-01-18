@@ -1,17 +1,17 @@
-FROM python:3.7.2-slim-stretch
+FROM debian:stretch-slim as build
 
 ENV HOME=/root
 ENV DLANG=$HOME/dlang
 
 WORKDIR $HOME
 
-RUN pip install online-judge-tools
-
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-      build-essential \
+      ca-certificates \
       curl \
-      inotify-tools \
+      gcc \
+      gnupg \
+      libc6-dev \
       wget \
       xz-utils \
  && apt-get clean \
@@ -47,7 +47,7 @@ RUN $DLANG/install.sh dmd-2.083.0 \
 
 RUN $DLANG/install.sh dmd-2.083.1 \
  && rm -rf \
-      $DLANG/dmd-2.083.1/linux/bin64 \
+      $DLANG/dmd-2.083.1/linux/bin32 \
       $DLANG/dmd-2.083.1/linux/lib64 \
       $DLANG/dmd-2.083.1/freebsd \
       $DLANG/dmd-2.083.1/osx \
@@ -57,11 +57,32 @@ RUN $DLANG/install.sh dmd-2.083.1 \
       $DLANG/dmd-2.083.1/man \
       $DLANG/dmd-2.083.1/samples
 
-ENV PATH=$DLANG/dmd-2.083.0/linux/bin64:$PATH
-ENV LIBRARY_PATH=$DLANG/dmd-2.083.0/linux/lib64:$LIBRARY_PATH
-ENV LD_LIBRARY_PATH=$DLANG/dmd-2.083.0/linux/lib64:$LIBRARY_PATH
-
 COPY runoj.d config.json start-monitor ./
-RUN dmd -of=runoj runoj.d
+RUN PATH=$DLANG/dmd-2.083.0/linux/bin64:$PATH \
+    LIBRARY_PATH=$DLANG/dmd-2.083.0/linux/lib64:$LIBRARY_PATH \
+    LD_LIBRARY_PATH=$DLANG/dmd-2.083.0/linux/lib64:$LIBRARY_PATH \
+    dmd -of=runoj -defaultlib=libphobos2.a runoj.d
+
+FROM python:3.7.2-slim-stretch
+
+ENV HOME=/root
+ENV DLANG=$HOME/dlang
+
+WORKDIR $HOME
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      gcc \
+      gcc-multilib \
+      inotify-tools \
+      libgmp-dev \
+ && apt-get clean \
+ && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
+RUN pip install online-judge-tools
+
+COPY --from=build $HOME/dlang dlang
+COPY --from=build $HOME/runoj runoj
+COPY config.json start-monitor ./
 
 ENTRYPOINT ["./start-monitor"]
