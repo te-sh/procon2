@@ -7,8 +7,10 @@ void main()
   auto prevUrl = "";
 
   while (true) {
-    auto line = readln.split;
-    auto path = line[0] ~ line[2], site = getSite(path);
+    auto path = readln.chomp;
+    if (!exists(path) || isDir(path)) continue;
+
+    auto site = getSite(path);
     if (site !in configJson) continue;
 
     writeln("==================== ", path);
