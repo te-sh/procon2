@@ -1,9 +1,17 @@
 ;; d-mode
 (add-hook 'd-mode-hook
-	  (lambda ()
-	    (disable-indent-tabs-mode)
-	    (setup-flycheck-d-unittest)
-	    (flycheck-dmd-dub-set-variables)))
+          (lambda ()
+            (disable-indent-tabs-mode)
+            (setup-flycheck-d-unittest)
+            (flycheck-dmd-dub-set-variables)))
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; yasnippet
+(add-to-list 'yas-snippet-dirs "~/projects/procon2/emacs/snippets")
+(yas-reload-all)
 
 ;; Copy buffer to submit
 (defun d-copy-for-submit ()
@@ -48,9 +56,3 @@
           (if (eq writea 0)
               (search-and-remove "writeA(")))
         (clipboard-kill-ring-save (point-min) (point-max))))))
-
-;; yasnippet
-(require 'yasnippet)
-(setq yas-snippet-dirs (append yas-snippet-dirs
-			       '("~/projects/procon2/emacs/snippets")))
-(yas-global-mode 1)
