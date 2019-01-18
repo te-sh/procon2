@@ -1,6 +1,6 @@
 ---
 title: "ARC #045 C"
-problem: https://beta.atcoder.jp/contests/arc045/tasks/arc045_c
+problem: https://atcoder.jp/contests/arc045/tasks/arc045_c
 ---
 $$ a $$ から $$ b $$ へのパス上の xor 和は, $$ a $$ から根への xor 和と $$ b $$ から根への xor 和の xor 和である. $$ a $$ - 根 - $$ b $$ のパス上の重複している部分は xor を取れば消える.
 

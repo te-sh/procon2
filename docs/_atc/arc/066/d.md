@@ -1,6 +1,6 @@
 ---
 title: "ARC #066 D"
-problem: https://beta.atcoder.jp/contests/abc050/tasks/arc066_b
+problem: https://atcoder.jp/contests/abc050/tasks/arc066_b
 ---
 桁DPを使う.
 

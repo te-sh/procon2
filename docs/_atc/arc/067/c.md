@@ -1,6 +1,6 @@
 ---
 title: "ARC #067 C"
-problem: https://beta.atcoder.jp/contests/abc052/tasks/arc067_a
+problem: https://atcoder.jp/contests/abc052/tasks/arc067_a
 ---
 $$ N! $$ を素因数分解する. $$ 1 \dots N $$ をそれぞれ素因数分解して合成すればいい.
 

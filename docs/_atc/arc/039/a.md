@@ -1,6 +1,6 @@
 ---
 title: "ARC #039 A"
-problem: https://beta.atcoder.jp/contests/arc039/tasks/arc039_a
+problem: https://atcoder.jp/contests/arc039/tasks/arc039_a
 ---
 $$ A $$ を変更するならなるべく大きく, $$ B $$ を変更するならなるべく小さくなるように変更するのがいい.
 

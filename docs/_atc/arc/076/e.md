@@ -1,6 +1,6 @@
 ---
 title: "ARC #076 E"
-problem: https://beta.atcoder.jp/contests/abc065/tasks/arc076_c
+problem: https://atcoder.jp/contests/abc065/tasks/arc076_c
 ---
 両端がともに辺の上にある数字しか考えなくてもいい. そうでない数字は必ず避けるルートが存在する.
 

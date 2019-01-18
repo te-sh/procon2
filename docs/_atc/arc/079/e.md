@@ -1,6 +1,6 @@
 ---
 title: "ARC #079 E"
-problem: https://beta.atcoder.jp/contests/arc079/tasks/arc079_c
+problem: https://atcoder.jp/contests/arc079/tasks/arc079_c
 ---
 配列は降順にソートしておく.
 

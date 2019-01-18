@@ -1,6 +1,6 @@
 ---
 title: "ARC #102 C"
-problem: https://beta.atcoder.jp/contests/abc108/tasks/arc102_a
+problem: https://atcoder.jp/contests/abc108/tasks/arc102_a
 ---
 $$ a $$ を決める. $$ a+b $$ が $$ K $$ の倍数になるためには, $$ a $$ を $$ K $$ で割った余りと $$ b $$ を $$ K $$ で割った余りを足したものが $$ K $$ にならなければならない. また, $$ a $$ を $$ K $$ で割った余りが $$ 0 $$ ならば $$ b $$ を $$ K $$ で割った余りも $$ 0 $$ でなければならない. $$ c $$ も同様である.
 

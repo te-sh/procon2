@@ -1,6 +1,6 @@
 ---
 title: "ARC #085 D"
-problem: https://beta.atcoder.jp/contests/abc078/tasks/arc085_b
+problem: https://atcoder.jp/contests/abc078/tasks/arc085_b
 ---
 $$ N = 1 $$ のときはスコアは $$ \vert a_N-W \vert $$ である.
 

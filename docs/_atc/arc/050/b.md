@@ -1,6 +1,6 @@
 ---
 title: "ARC #050 B"
-problem: https://beta.atcoder.jp/contests/arc050/tasks/arc050_b
+problem: https://atcoder.jp/contests/arc050/tasks/arc050_b
 ---
 $$ k $$ 本の花束を作れるかどうかを考える.
 

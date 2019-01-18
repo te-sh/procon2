@@ -1,6 +1,6 @@
 ---
 title: "ARC #097 D"
-problem: https://beta.atcoder.jp/contests/abc097/tasks/arc097_b
+problem: https://atcoder.jp/contests/abc097/tasks/arc097_b
 ---
 交換箇所を頂点とするグラフを考え, $$ (x_i, y_i) $$ の辺を引く. こうすると, 連結な頂点グループ間はどのような変換も可能となる. これは数学的帰納法で証明できる.
 

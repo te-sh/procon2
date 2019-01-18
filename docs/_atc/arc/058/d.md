@@ -1,6 +1,6 @@
 ---
 title: "ARC #058 D"
-problem: https://beta.atcoder.jp/contests/abc042/tasks/arc058_b
+problem: https://atcoder.jp/contests/abc042/tasks/arc058_b
 ---
 上から $$ i $$ 個, 左から $$ j $$ 個目のマスを $$ (i, j) $$ で表す. (0-index)
 

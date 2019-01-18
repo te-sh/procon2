@@ -1,6 +1,6 @@
 ---
 title: "ARC #084 C"
-problem: https://beta.atcoder.jp/contests/abc077/tasks/arc084_a
+problem: https://atcoder.jp/contests/abc077/tasks/arc084_a
 ---
 中部パーツを固定すると, この中部パーツより小さい上部パーツの数を $$ N_A $$, この中部パーツより大きい上部パーツの数を $$ N_C $$ とすると, 組み合わせの数は $$ N_A N_C $$ となる. $$ N_A, N_C $$ は二分探索で計算できる.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #034 C"
-problem: https://beta.atcoder.jp/contests/arc034/tasks/arc034_3
+problem: https://atcoder.jp/contests/arc034/tasks/arc034_3
 ---
 $$ A! = A(A-1)\cdots(B+1)B! $$ であり, $$ B! $$ の倍数は $$ kB! $$ と表せるので, これが $$ A! $$ の約数になるためには $$ k $$ が $$ A(A-1)\cdots(B+1) $$ の約数であればいい.
 

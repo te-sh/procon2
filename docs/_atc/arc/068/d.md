@@ -1,6 +1,6 @@
 ---
 title: "ARC #068 D"
-problem: https://beta.atcoder.jp/contests/abc053/tasks/arc068_b
+problem: https://atcoder.jp/contests/abc053/tasks/arc068_b
 ---
 まずは同じカードが3枚以上ある数値については, その同じカードを3枚選ぶことでそのうち2枚を食べることができる. この結果, 同じカードが偶数枚あれば2枚, 奇数枚あれば1枚残るようになる.
 

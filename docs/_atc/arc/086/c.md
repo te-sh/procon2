@@ -1,6 +1,6 @@
 ---
 title: "ARC #086 C"
-problem: https://beta.atcoder.jp/contests/abc081/tasks/arc086_a
+problem: https://atcoder.jp/contests/abc081/tasks/arc086_a
 ---
 数値の出現回数を数えてソートする.
 

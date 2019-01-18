@@ -1,6 +1,6 @@
 ---
 title: "ARC #091 C"
-problem: https://beta.atcoder.jp/contests/arc091/tasks/arc091_a
+problem: https://atcoder.jp/contests/arc091/tasks/arc091_a
 ---
 各カードで裏返しの回数を考える.
 

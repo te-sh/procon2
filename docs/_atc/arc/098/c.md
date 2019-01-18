@@ -1,6 +1,6 @@
 ---
 title: "ARC #098 C"
-problem: https://beta.atcoder.jp/contests/abc098/tasks/arc098_a
+problem: https://atcoder.jp/contests/abc098/tasks/arc098_a
 ---
 $$ i $$ 番目の人をリーダーにしたときに振り向かなければならない人数は, 区間 $$ [1,i-1] $$ で西を向いている人数と区間 $$ [i+1,N] $$ で東を向いている人数の和である. これは西を向いている人数の累積和を計算しておけば $$ O(1) $$ で計算できる.
 

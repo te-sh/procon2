@@ -1,6 +1,6 @@
 ---
 title: "ARC #067 D"
-problem: https://beta.atcoder.jp/contests/abc052/tasks/arc067_b
+problem: https://atcoder.jp/contests/abc052/tasks/arc067_b
 ---
 歩いて移動する町群をひとまとめにすると, 町群はの中では西から東に順に順に訪れるのが最適であり, 町群間のテレポートも西から東に順に訪れると考えても疲労度は変わらない.
 

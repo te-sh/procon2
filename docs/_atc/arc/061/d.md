@@ -1,6 +1,6 @@
 ---
 title: "ARC #061 D"
-problem: https://beta.atcoder.jp/contests/abc045/tasks/arc061_b
+problem: https://atcoder.jp/contests/abc045/tasks/arc061_b
 ---
 ある塗りつぶしたマス $$ (a_i, b_i) $$ に対して, このマスが $$ 3 \times 3 $$ の枠のどの部分にあたるかを列挙し, その枠内の塗りつぶした点の数を数えてカウンタを更新していく. ただし, すでにチェックした枠はスキップする.
 

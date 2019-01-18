@@ -1,6 +1,6 @@
 ---
 title: "ARC #067 E"
-problem: https://beta.atcoder.jp/contests/arc067/tasks/arc067_c
+problem: https://atcoder.jp/contests/arc067/tasks/arc067_c
 ---
 最低 $$ x $$ 人のグループを作るという条件の元で $$ n $$ 人をグループ分けする組み合わせの数を $$ f(n, x) $$ とする.
 

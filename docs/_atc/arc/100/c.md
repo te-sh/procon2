@@ -1,6 +1,6 @@
 ---
 title: "ARC #100 C"
-problem: https://beta.atcoder.jp/contests/abc102/tasks/arc100_a
+problem: https://atcoder.jp/contests/abc102/tasks/arc100_a
 ---
 $$ B_i = A_i - i $$ とすると,
 

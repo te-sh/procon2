@@ -1,6 +1,6 @@
 ---
 title: "ARC #084 E"
-problem: https://beta.atcoder.jp/contests/arc084/tasks/arc084_c
+problem: https://atcoder.jp/contests/arc084/tasks/arc084_c
 ---
 辞典に載っている数列は $$ 1 $$ で始まる数列, $$ 2 $$ で始まる数列, ..., $$ K $$ で始まる数列の順に並ぶ.
 

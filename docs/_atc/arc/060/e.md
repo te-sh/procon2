@@ -1,6 +1,6 @@
 ---
 title: "ARC #060 E"
-problem: https://beta.atcoder.jp/contests/arc060/tasks/arc060_c
+problem: https://atcoder.jp/contests/arc060/tasks/arc060_c
 ---
 ダブリングを使う. 以下では右向きの移動を考える. 左向きの移動も同様である.
 

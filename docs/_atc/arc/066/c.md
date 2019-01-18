@@ -1,6 +1,6 @@
 ---
 title: "ARC #066 C"
-problem: https://beta.atcoder.jp/contests/abc050/tasks/arc066_a
+problem: https://atcoder.jp/contests/abc050/tasks/arc066_a
 ---
 左から $$ i $$ 番目の人の覚えている数値は $$ \vert N-2i+1 \vert $$ である. すなわち, $$ N = 7 $$ ならば覚えている数値は $$ 6, 4 ,2, 0, 2, 4, 6 $$ であり, $$ N = 8 $$ ならば $$ 7, 5, 3, 1, 1, 3, 5, 7 $$ である.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #094 D"
-problem: https://beta.atcoder.jp/contests/arc094/tasks/arc094_b
+problem: https://atcoder.jp/contests/arc094/tasks/arc094_b
 ---
 $$ A \leq B $$ としても一般性を失わない.
 

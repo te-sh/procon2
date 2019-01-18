@@ -1,6 +1,6 @@
 ---
 title: "ARC #094 C"
-problem: https://beta.atcoder.jp/contests/arc094/tasks/arc094_a
+problem: https://atcoder.jp/contests/arc094/tasks/arc094_a
 ---
 $$ a, b, c $$ から始めてすべての数字が揃うまでの操作の回数を $$ F(a, b, c) $$ とすると,
 

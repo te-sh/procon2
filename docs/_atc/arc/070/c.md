@@ -1,6 +1,6 @@
 ---
 title: "ARC #070 C"
-problem: https://beta.atcoder.jp/contests/abc056/tasks/arc070_a
+problem: https://atcoder.jp/contests/abc056/tasks/arc070_a
 ---
 カンガルーは戻る必要はない.
 

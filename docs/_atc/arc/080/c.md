@@ -1,6 +1,6 @@
 ---
 title: "ARC #080 C"
-problem: https://beta.atcoder.jp/contests/abc069/tasks/arc080_a
+problem: https://atcoder.jp/contests/abc069/tasks/arc080_a
 ---
 $$ \{ a_i \} $$ を次の3つのグループに分ける.
 

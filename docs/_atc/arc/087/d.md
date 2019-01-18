@@ -1,6 +1,6 @@
 ---
 title: "ARC #087 D"
-problem: https://beta.atcoder.jp/contests/abc082/tasks/arc087_b
+problem: https://atcoder.jp/contests/abc082/tasks/arc087_b
 ---
 $$ s $$ の先頭の `F` の数だけ進めておく. この座標を $$ (x_0, 0) $$ とする.
 

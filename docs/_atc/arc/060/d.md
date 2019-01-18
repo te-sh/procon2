@@ -1,6 +1,6 @@
 ---
 title: "ARC #060 D"
-problem: https://beta.atcoder.jp/contests/abc044/tasks/arc060_b
+problem: https://atcoder.jp/contests/abc044/tasks/arc060_b
 ---
 $$ s $$ は $$ b $$ 進数で表したときの各桁の和であるので,
 

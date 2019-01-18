@@ -1,6 +1,6 @@
 ---
 title: "ARC #065 D"
-problem: https://beta.atcoder.jp/contests/abc049/tasks/arc065_c
+problem: https://atcoder.jp/contests/abc049/tasks/arc065_c
 ---
 道路と鉄道を別々に Union-Find で連結部分を管理したとき, ある都市 $$ i, j $$ については道路の Union-Find で所属する森が同じかつ鉄道の Union-Find で所属する森が同じ場合に, 鉄道でも道路でも連結していることになる.
 

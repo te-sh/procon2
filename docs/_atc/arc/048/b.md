@@ -1,6 +1,6 @@
 ---
 title: "ARC #048 B"
-problem: https://beta.atcoder.jp/contests/arc048/tasks/arc048_b
+problem: https://atcoder.jp/contests/arc048/tasks/arc048_b
 ---
 入力はレーティング, 出す手でソートしておく.
 

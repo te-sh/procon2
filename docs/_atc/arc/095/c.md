@@ -1,6 +1,6 @@
 ---
 title: "ARC #095 C"
-problem: https://beta.atcoder.jp/contests/abc094/tasks/arc095_a
+problem: https://atcoder.jp/contests/abc094/tasks/arc095_a
 ---
 $$ X_i $$ をソートした数列を $$ Y_i $$ とする.
 

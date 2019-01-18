@@ -1,6 +1,6 @@
 ---
 title: "ARC #103 D"
-problem: https://beta.atcoder.jp/contests/abc111/tasks/arc103_b
+problem: https://atcoder.jp/contests/abc111/tasks/arc103_b
 ---
 まず, $$ (X_i, Y_i) $$ へのルートを辿った距離とその点へのマンハッタン距離の差は2の倍数でなければならない. よって各点へのマンハッタン距離の偶奇はすべて一致していなくてはならない. これを満たさない場合は `-1` である.
 

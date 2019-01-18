@@ -1,6 +1,6 @@
 ---
 title: "ARC #044 B"
-problem: https://beta.atcoder.jp/contests/arc044/tasks/arc044_b
+problem: https://atcoder.jp/contests/arc044/tasks/arc044_b
 ---
 $$ A_1 = 0 $$ でなければならず, $$ A_i \gt 0 $$ ($$ i \gt 1 $$) でなければならない. そうでない場合は $$ 0 $$ 通りである.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #038 C"
-problem: https://beta.atcoder.jp/contests/arc038/tasks/arc038_c
+problem: https://atcoder.jp/contests/arc038/tasks/arc038_c
 ---
 豆が1つの場合, 豆がどんどん番号の小さい茶碗に移っていって茶碗0にたどり着いたときの手番の人が負けである. ということで grundy 数の計算に帰着できる.
 

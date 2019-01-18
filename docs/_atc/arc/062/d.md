@@ -1,6 +1,6 @@
 ---
 title: "ARC #062 D"
-problem: https://beta.atcoder.jp/contests/abc046/tasks/arc062_b
+problem: https://atcoder.jp/contests/abc046/tasks/arc062_b
 ---
 自分がグーパーの順に出したときとパーグーの順に出したときの得点の差を考える.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #081 E"
-problem: https://beta.atcoder.jp/contests/arc081/tasks/arc081_c
+problem: https://atcoder.jp/contests/arc081/tasks/arc081_c
 ---
 文字列 $$ A $$ の後ろから, すべての文字を含む文字列のうち最短のものを順に取り除いていくことを考える. 全部で $$ K $$ 回取り除けたとすると,
 

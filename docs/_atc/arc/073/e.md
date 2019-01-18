@@ -1,6 +1,6 @@
 ---
 title: "ARC #073 E"
-problem: https://beta.atcoder.jp/contests/arc073/tasks/arc073_c
+problem: https://atcoder.jp/contests/arc073/tasks/arc073_c
 ---
 $$ x_i \geq y_i $$ としても一般性を失わない.
 

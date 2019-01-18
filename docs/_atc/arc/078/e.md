@@ -1,6 +1,6 @@
 ---
 title: "ARC #078 E"
-problem: https://beta.atcoder.jp/contests/abc067/tasks/arc078_c
+problem: https://atcoder.jp/contests/abc067/tasks/arc078_c
 ---
 $$ N = 10^k $$ でないときは 10, 100, 1000... と問い合わせをすることで, $$ N $$ の桁数を特定することができる. $$ N $$ が3桁ならば 10, 100 に対しては `Y` が返ってきて, 1000 に対しては `N` が返ってくる.
 

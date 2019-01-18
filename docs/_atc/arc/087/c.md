@@ -1,6 +1,6 @@
 ---
 title: "ARC #087 C"
-problem: https://beta.atcoder.jp/contests/abc082/tasks/arc087_a
+problem: https://atcoder.jp/contests/abc082/tasks/arc087_a
 ---
 各数値の出現回数を数える.
 

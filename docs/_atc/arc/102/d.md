@@ -1,6 +1,6 @@
 ---
 title: "ARC #102 D"
-problem: https://beta.atcoder.jp/contests/abc108/tasks/arc102_b
+problem: https://atcoder.jp/contests/abc108/tasks/arc102_b
 ---
 $$ L \geq 2^r $$ となる最大の $$ r $$ を考える.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #070 D"
-problem: https://beta.atcoder.jp/contests/abc056/tasks/arc070_b
+problem: https://atcoder.jp/contests/abc056/tasks/arc070_b
 ---
 $$ a_i \geq K $$ ならば部分集合 $$ \{ a_i \} $$ はよい集合であり, ここから $$ a_i $$ を取り除くとよい集合でなくなるので, 必要である.
 

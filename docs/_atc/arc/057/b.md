@@ -1,6 +1,6 @@
 ---
 title: "ARC #057 B"
-problem: https://beta.atcoder.jp/contests/arc057/tasks/arc057_b
+problem: https://atcoder.jp/contests/arc057/tasks/arc057_b
 ---
 コツとしてはなるべく勝率を上げないことである. 機嫌がいい日は前日までの成績より少しだけ上回るように勝てばいいし, 機嫌がよくない日は全敗でいい.
 

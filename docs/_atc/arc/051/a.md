@@ -1,6 +1,6 @@
 ---
 title: "ARC #051 A"
-problem: https://beta.atcoder.jp/contests/arc051/tasks/arc051_a
+problem: https://atcoder.jp/contests/arc051/tasks/arc051_a
 ---
 面倒なので $$ (x_1, y_1) $$ が原点になるように移動しておく.
 

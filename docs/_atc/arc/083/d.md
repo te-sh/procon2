@@ -1,6 +1,6 @@
 ---
 title: "ARC #083 D"
-problem: https://beta.atcoder.jp/contests/abc074/tasks/arc083_b
+problem: https://atcoder.jp/contests/abc074/tasks/arc083_b
 ---
 完全グラフからどれだけ道を取り除けるかを考える.
 

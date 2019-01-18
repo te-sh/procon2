@@ -1,6 +1,6 @@
 ---
 title: "ARC #056 B"
-problem: https://beta.atcoder.jp/contests/arc056/tasks/arc056_b
+problem: https://atcoder.jp/contests/arc056/tasks/arc056_b
 ---
 $$ i $$ 番目の人が駐車したらその頂点は取り除いていい. 駐車できなかったとしてもその頂点にはもう辿りつけないのでこれも取り除いていい.
 

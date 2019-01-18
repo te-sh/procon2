@@ -1,6 +1,6 @@
 ---
 title: "ARC #063 E"
-problem: https://beta.atcoder.jp/contests/arc063/tasks/arc063_c
+problem: https://atcoder.jp/contests/arc063/tasks/arc063_c
 ---
 頂点ごとに, その頂点がとりうる最小値/最大値を管理する. $$ V_j $$ の初期値は $$ (P_j, P_j) $$ であり, 数値ない頂点の初期値は $$ (\infty, \infty) $$ である.
 

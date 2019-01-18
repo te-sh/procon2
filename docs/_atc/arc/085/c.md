@@ -1,6 +1,6 @@
 ---
 title: "ARC #085 C"
-problem: https://beta.atcoder.jp/contests/abc078/tasks/arc085_a
+problem: https://atcoder.jp/contests/abc078/tasks/arc085_a
 ---
 1回の提出でテストの実行が終わるまでの時間は $$ t = 1900M + 100(N-M) $$ である. またこのテストがすべて正解にならない確率は, $$ p = 1-(1/2)^M $$ である.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #093 D"
-problem: https://beta.atcoder.jp/contests/abc092/tasks/arc093_b
+problem: https://atcoder.jp/contests/abc092/tasks/arc093_b
 ---
 $$ 100 \times 100 $$ のグリッドを作成し, 上半分を黒に, 下半分を白に塗る.
 

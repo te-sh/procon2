@@ -1,6 +1,6 @@
 ---
 title: "ARC #073 D"
-problem: https://beta.atcoder.jp/contests/abc060/tasks/arc073_b
+problem: https://atcoder.jp/contests/abc060/tasks/arc073_b
 ---
 ナップザック問題であるが, $$ v_i, w_i $$ が大きいため, そのままでは `MLE` してしまう.
 

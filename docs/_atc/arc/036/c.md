@@ -1,6 +1,6 @@
 ---
 title: "ARC #036 C"
-problem: https://beta.atcoder.jp/contests/arc036/tasks/arc036_c
+problem: https://atcoder.jp/contests/arc036/tasks/arc036_c
 ---
 `1` が現れたら $$ +1 $$, `0` が現れたら $$ -1 $$ として先頭から累積和を取ることを考える. このとき, 各桁の累積和の値の最大と最小の差が $$ K $$ 以内になるようにしなければならない.
 

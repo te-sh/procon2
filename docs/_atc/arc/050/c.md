@@ -1,6 +1,6 @@
 ---
 title: "ARC #050 C"
-problem: https://beta.atcoder.jp/contests/arc050/tasks/arc050_c
+problem: https://atcoder.jp/contests/arc050/tasks/arc050_c
 ---
 $$ x \geq y $$ とする.
 

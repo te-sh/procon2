@@ -1,6 +1,6 @@
 ---
 title: "ARC #056 C"
-problem: https://beta.atcoder.jp/contests/arc056/tasks/arc056_c
+problem: https://atcoder.jp/contests/arc056/tasks/arc056_c
 ---
 グループを1つ作るとそのグループに所属する人同士の信頼度の総和と $$ K $$ が獲得できると考える. 社員の部分集合 $$ S $$ の信頼度の総和を $$ W(S) $$, $$ S $$ をグループ分けしたときに獲得できるスコアの最大値を $$ A(S) $$ とすると,
 

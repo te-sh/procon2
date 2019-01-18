@@ -1,6 +1,6 @@
 ---
 title: "ARC #047 B"
-problem: https://beta.atcoder.jp/contests/arc047/tasks/arc047_b
+problem: https://atcoder.jp/contests/arc047/tasks/arc047_b
 ---
 簡単のために座標は $$ (x+y, x-y) $$ に変換する. そうすると $$ P $$ からマンハッタン距離が一定の距離の点は辺が $$ x $$ 軸, $$ y $$ 軸に平行な正方形上にある.
 

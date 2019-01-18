@@ -1,6 +1,6 @@
 ---
 title: "ARC #065 E"
-problem: https://beta.atcoder.jp/contests/arc065/tasks/arc065_c
+problem: https://atcoder.jp/contests/arc065/tasks/arc065_c
 ---
 $$ D = d(a, b) $$ とすると, $$ a, b $$ から始めて幅優先探索で距離 $$ D $$ の点を探していき, 連結成分ができたらその辺の数が答えとなる.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #060 C"
-problem: https://beta.atcoder.jp/contests/abc044/tasks/arc060_a
+problem: https://atcoder.jp/contests/abc044/tasks/arc060_a
 ---
 $$ i $$ 枚目までのカードを見たときに $$ j $$ 枚のカードを選んだ結果, その合計が $$ k $$ になる組み合わせの数を $$ C(i, j, k) $$ とする. このとき,
 

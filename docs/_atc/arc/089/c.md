@@ -1,6 +1,6 @@
 ---
 title: "ARC #089 C"
-problem: https://beta.atcoder.jp/contests/abc086/tasks/arc089_a
+problem: https://atcoder.jp/contests/abc086/tasks/arc089_a
 ---
 $$ x_0 = y_0 = t_0 = 0 $$ とする.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #070 E"
-problem: https://beta.atcoder.jp/contests/arc070/tasks/arc070_c
+problem: https://atcoder.jp/contests/arc070/tasks/arc070_c
 ---
 上から $$ i $$ 個までの長方形を動かしたところで, $$ i $$ 個目の長方形の左端の座標を $$ x $$ に動かしたときの最小コストを $$ C(i, x) $$ とする.
 

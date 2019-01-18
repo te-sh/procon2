@@ -1,6 +1,6 @@
 ---
 title: "ARC #042 C"
-problem: https://beta.atcoder.jp/contests/arc042/tasks/arc042_c
+problem: https://atcoder.jp/contests/arc042/tasks/arc042_c
 ---
 どの1つのおやつを除いても $$ P $$ 円以下なるということは, 最小の値段のおやつを除いても $$ P $$ 円以下になるということである.
 

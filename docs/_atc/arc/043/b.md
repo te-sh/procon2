@@ -1,6 +1,6 @@
 ---
 title: "ARC #043 B"
-problem: https://beta.atcoder.jp/contests/arc043/tasks/arc043_b
+problem: https://atcoder.jp/contests/arc043/tasks/arc043_b
 ---
 $$ D_i $$ はソートしておく.
 

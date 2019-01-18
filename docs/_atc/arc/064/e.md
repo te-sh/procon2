@@ -1,6 +1,6 @@
 ---
 title: "ARC #064 E"
-problem: https://beta.atcoder.jp/contests/arc064/tasks/arc064_c
+problem: https://atcoder.jp/contests/arc064/tasks/arc064_c
 ---
 スタート/ゴール地点およびバリアを頂点とするグラフを作成する. 頂点間に重み付きの辺を張る. 辺の重さは宇宙線を浴びる距離であり, これは
 

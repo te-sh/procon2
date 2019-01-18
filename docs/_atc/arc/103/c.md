@@ -1,6 +1,6 @@
 ---
 title: "ARC #103 C"
-problem: https://beta.atcoder.jp/contests/abc111/tasks/arc103_a
+problem: https://atcoder.jp/contests/abc111/tasks/arc103_a
 ---
 $$ i $$ が偶数と奇数で分けて考える.
 

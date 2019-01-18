@@ -1,6 +1,6 @@
 ---
 title: "ARC #044 C"
-problem: https://beta.atcoder.jp/contests/arc044/tasks/arc044_c
+problem: https://atcoder.jp/contests/arc044/tasks/arc044_c
 ---
 求めるのはマンハッタン距離なので, 縦横は別々に計算できる.
 

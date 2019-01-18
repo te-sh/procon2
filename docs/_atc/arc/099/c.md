@@ -1,6 +1,6 @@
 ---
 title: "ARC #099 C"
-problem: https://beta.atcoder.jp/contests/abc101/tasks/arc099_a
+problem: https://atcoder.jp/contests/abc101/tasks/arc099_a
 ---
 すべての数を等しくするということはすべて `1` にすることと同じである. `1` はそれより大きい数に置き換えられないからである.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #041 C"
-problem: https://beta.atcoder.jp/contests/arc041/tasks/arc041_c
+problem: https://atcoder.jp/contests/arc041/tasks/arc041_c
 ---
 端には向かい合ったウサギを置いておけば特別扱いしなくても良くなる.
 

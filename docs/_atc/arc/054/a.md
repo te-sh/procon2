@@ -1,6 +1,6 @@
 ---
 title: "ARC #054 A"
-problem: https://beta.atcoder.jp/contests/arc054/tasks/arc054_a
+problem: https://atcoder.jp/contests/arc054/tasks/arc054_a
 ---
 時計回りに移動したときの出口までの距離は, $$ S \leq D $$ ならば $$ D-S $$ であり, そうでなければ $$ D-S+L $$ である. またこのときの移動速度は $$ Y+X $$ である.
 

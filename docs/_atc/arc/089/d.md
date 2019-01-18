@@ -1,6 +1,6 @@
 ---
 title: "ARC #089 D"
-problem: https://beta.atcoder.jp/contests/abc086/tasks/arc089_b
+problem: https://atcoder.jp/contests/abc086/tasks/arc089_b
 ---
 $$ s_i $$ が白のときは $$ (x_i+K, y_i) $$ は黒となるので, 以降すべて黒で考える.
 

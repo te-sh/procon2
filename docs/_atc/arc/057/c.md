@@ -1,6 +1,6 @@
 ---
 title: "ARC #057 A"
-problem: https://beta.atcoder.jp/contests/arc057/tasks/arc057_a
+problem: https://atcoder.jp/contests/arc057/tasks/arc057_a
 ---
 入力で与えられる数値を $$ a $$ とすると, $$ a^2 $$ は確実に条件に合う.
 

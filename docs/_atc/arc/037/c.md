@@ -1,6 +1,6 @@
 ---
 title: "ARC #037 C"
-problem: https://beta.atcoder.jp/contests/arc037/tasks/arc037_c
+problem: https://atcoder.jp/contests/arc037/tasks/arc037_c
 ---
 上から $$ K $$ 番目が $$ x $$ とすると, $$ a_ib_j \leq x $$ となる $$ i, j $$ は $$ K $$ 個以上あるはずで, このような数で最小の値が答えとなる.
 

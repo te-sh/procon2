@@ -1,6 +1,6 @@
 ---
 title: "ARC #046 C"
-problem: https://beta.atcoder.jp/contests/arc046/tasks/arc046_c
+problem: https://atcoder.jp/contests/arc046/tasks/arc046_c
 ---
 男女合わせた集合を用意し, この集合を $$ A_i, D_i $$ でソートする. ただし, 同じ値の場合は女性が先になるようにする. そして $$ A_i, D_i $$ が小さい順に取り出し, それが女性なら待合集合に入れ, 男性なら待合集合に女性が居れば任意の女性とカップルになるようにすれば部分点を取ることができる.
 

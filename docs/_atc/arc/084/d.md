@@ -1,6 +1,6 @@
 ---
 title: "ARC #084 D"
-problem: https://beta.atcoder.jp/contests/abc077/tasks/arc084_b
+problem: https://atcoder.jp/contests/abc077/tasks/arc084_b
 ---
 各桁の和を求める操作をグラフの最短路を求める操作に変換する.
 

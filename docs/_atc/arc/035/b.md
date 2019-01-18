@@ -1,6 +1,6 @@
 ---
 title: "ARC #035 B"
-problem: https://beta.atcoder.jp/contests/arc035/tasks/arc035_b
+problem: https://atcoder.jp/contests/arc035/tasks/arc035_b
 ---
 ペナルティを最小にするには $$ T_i $$ が小さい問題から解いていけばいい.
 

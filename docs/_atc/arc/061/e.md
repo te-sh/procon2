@@ -1,6 +1,6 @@
 ---
 title: "ARC #061 E"
-problem: https://beta.atcoder.jp/contests/arc061/tasks/arc061_c
+problem: https://atcoder.jp/contests/arc061/tasks/arc061_c
 ---
 各駅は鉄道会社ごとにホームを持っていて, 駅とホームの行き来で通行料 $$ 1/2 $$ を取るとする. また, 駅間は通行料は $$ 0 $$ とする. そして別の鉄道会社のホームに乗り換えるためには一度駅を通らなければいけないようにする. こうすれば同一鉄道会社の乗り継ぎでは追加料金はかからないことをグラフで表すことができる.
 

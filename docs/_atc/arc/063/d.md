@@ -1,6 +1,6 @@
 ---
 title: "ARC #063 D"
-problem: https://beta.atcoder.jp/contests/abc047/tasks/arc063_b
+problem: https://atcoder.jp/contests/abc047/tasks/arc063_b
 ---
 高橋君は安い町で全力で買って高い町で全力で売る方法が最大利益をあげられる. よって, $$ A_j-A_i (i \gt j) $$ が最大のとなる $$ i, j $$ で売り買いすることになる. ($$ T $$ は関係ない)
 

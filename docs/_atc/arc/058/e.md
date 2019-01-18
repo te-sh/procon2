@@ -1,6 +1,6 @@
 ---
 title: "ARC #058 C"
-problem: https://beta.atcoder.jp/contests/arc058/tasks/arc058_c
+problem: https://atcoder.jp/contests/arc058/tasks/arc058_c
 ---
 桁 DP を使って条件に合わない数列の数を数える.
 

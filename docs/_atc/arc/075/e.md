@@ -1,6 +1,6 @@
 ---
 title: "ARC #075 E"
-problem: https://beta.atcoder.jp/contests/arc075/tasks/arc075_c
+problem: https://atcoder.jp/contests/arc075/tasks/arc075_c
 ---
 数列 $$ b = \{ a_1-K, a_2-K, a_N-K \} $$ を考える. $$ a $$ の連続する部分列の算術平均が $$ K $$ 以上というのは, $$ b $$ の連続する部分列の総和が $$ 0 $$ 以上というのと同じである.
 

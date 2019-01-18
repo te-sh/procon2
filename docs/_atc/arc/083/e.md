@@ -1,6 +1,6 @@
 ---
 title: "ARC #083 E"
-problem: https://beta.atcoder.jp/contests/arc083/tasks/arc083_c
+problem: https://atcoder.jp/contests/arc083/tasks/arc083_c
 ---
 頂点 $$ v $$ について, $$ v $$ を根とする部分木で $$ v $$ と違う色の頂点の重みの合計を $$ Y_v $$ とする.
 

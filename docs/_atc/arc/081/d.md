@@ -1,6 +1,6 @@
 ---
 title: "ARC #081 D"
-problem: https://beta.atcoder.jp/contests/abc071/tasks/arc081_b
+problem: https://atcoder.jp/contests/abc071/tasks/arc081_b
 ---
 赤色, 水色, 緑色をそれぞれ R, C, G で表す.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #064 D"
-problem: https://beta.atcoder.jp/contests/abc048/tasks/arc064_b
+problem: https://atcoder.jp/contests/abc048/tasks/arc064_b
 ---
 先頭と末尾の文字が同じ場合:
 

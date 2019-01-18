@@ -1,6 +1,6 @@
 ---
 title: "ARC #033 C"
-problem: https://beta.atcoder.jp/contests/arc033/tasks/arc033_3
+problem: https://atcoder.jp/contests/arc033/tasks/arc033_3
 ---
 Fenwick Tree を使って $$ S $$ に含まれる数値を管理する.
 

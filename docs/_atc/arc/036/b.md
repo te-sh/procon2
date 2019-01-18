@@ -1,6 +1,6 @@
 ---
 title: "ARC #036 B"
-problem: https://beta.atcoder.jp/contests/arc036/tasks/arc036_b
+problem: https://atcoder.jp/contests/arc036/tasks/arc036_b
 ---
 $$ h_{i-1} \gt h_{i} \lt h_{i+1} $$ が成り立つ部分が谷である.
 

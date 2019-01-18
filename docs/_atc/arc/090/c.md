@@ -1,6 +1,6 @@
 ---
 title: "ARC #090 C"
-problem: https://beta.atcoder.jp/contests/abc087/tasks/arc090_a
+problem: https://atcoder.jp/contests/abc087/tasks/arc090_a
 ---
 下には1回しか移動できないので, その列を $$ k $$ とすると, 回収できる飴の数は,
 

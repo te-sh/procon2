@@ -1,6 +1,6 @@
 ---
 title: "ARC #066 E"
-problem: https://beta.atcoder.jp/contests/arc066/tasks/arc066_c
+problem: https://atcoder.jp/contests/arc066/tasks/arc066_c
 ---
 `+` の直後は括弧を開く意味はない. また, `-` の直後は必ず括弧を開くと考える. 次の数値の直後で括弧を閉じれば実質括弧を開かなかったことと同じになる.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #053 C"
-problem: https://beta.atcoder.jp/contests/arc053/tasks/arc053_c
+problem: https://atcoder.jp/contests/arc053/tasks/arc053_c
 ---
 $$ a_i-b_i \lt 0 $$ をグループ1, $$ a_i-b_i = 0 $$ をグループ2, $$ a_i-b_i \gt 0 $$ をグループ3とする.
 

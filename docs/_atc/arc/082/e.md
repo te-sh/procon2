@@ -1,6 +1,6 @@
 ---
 title: "ARC #082 E"
-problem: https://beta.atcoder.jp/contests/arc082/tasks/arc082_c
+problem: https://atcoder.jp/contests/arc082/tasks/arc082_c
 ---
 $$ S $$ の辺または内部にある点の集合を $$ T_s $$ とすると, $$ S $$ のスコアは $$ T_s $$ の部分集合の数となる.
 

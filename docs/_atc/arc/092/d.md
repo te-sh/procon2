@@ -1,6 +1,6 @@
 ---
 title: "ARC #092 D"
-problem: https://beta.atcoder.jp/contests/abc091/tasks/arc092_b
+problem: https://atcoder.jp/contests/abc091/tasks/arc092_b
 ---
 ビットごとに計算する. なお, ビットは0-indexedとする.
 

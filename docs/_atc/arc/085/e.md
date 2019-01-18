@@ -1,6 +1,6 @@
 ---
 title: "ARC #085 E"
-problem: https://beta.atcoder.jp/contests/arc085/tasks/arc085_c
+problem: https://atcoder.jp/contests/arc085/tasks/arc085_c
 ---
 燃やす埋める問題である.
 

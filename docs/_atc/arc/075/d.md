@@ -1,6 +1,6 @@
 ---
 title: "ARC #075 D"
-problem: https://beta.atcoder.jp/contests/abc063/tasks/arc075_b
+problem: https://atcoder.jp/contests/abc063/tasks/arc075_b
 ---
 $$ x $$ 回の爆発で全滅させられるかを考える.
 

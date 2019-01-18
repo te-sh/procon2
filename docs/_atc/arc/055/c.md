@@ -1,6 +1,6 @@
 ---
 title: "ARC #055 C"
-problem: https://beta.atcoder.jp/contests/arc055/tasks/arc055_c
+problem: https://atcoder.jp/contests/arc055/tasks/arc055_c
 ---
 $$ ABC $$ と $$ AC $$ の切れ目で全探索する.
 

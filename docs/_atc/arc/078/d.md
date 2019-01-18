@@ -1,6 +1,6 @@
 ---
 title: "ARC #078 D"
-problem: https://beta.atcoder.jp/contests/abc067/tasks/arc078_b
+problem: https://atcoder.jp/contests/abc067/tasks/arc078_b
 ---
 最適な行動はお互いに $$ 1 $$ から $$ N $$ のルート上のマスを先に取ることである. こうすることで取ったマスに繋がる部分は相手に邪魔されずに取ることができる.
 

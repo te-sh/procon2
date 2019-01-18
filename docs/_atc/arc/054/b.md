@@ -1,6 +1,6 @@
 ---
 title: "ARC #054 B"
-problem: https://beta.atcoder.jp/contests/arc054/tasks/arc054_b
+problem: https://atcoder.jp/contests/arc054/tasks/arc054_b
 ---
 現在のコンピュータの速度を $$ 1 $$ とすると, 今は $$ P $$ 年かかっているが, $$ x $$ 年後に始めれば $$ P/2^{x/1.5} $$ 年かかる.
 

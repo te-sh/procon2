@@ -1,6 +1,6 @@
 ---
 title: "ARC #083 C"
-problem: https://beta.atcoder.jp/contests/abc074/tasks/arc083_a
+problem: https://atcoder.jp/contests/abc074/tasks/arc083_a
 ---
 水を入れる操作は最大でも30回しかできないので, 操作1, 操作2 をそれぞれ何回行うかで全探索する.
 

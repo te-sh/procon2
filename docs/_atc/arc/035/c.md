@@ -1,6 +1,6 @@
 ---
 title: "ARC #035 C"
-problem: https://beta.atcoder.jp/contests/arc035/tasks/arc035_c
+problem: https://atcoder.jp/contests/arc035/tasks/arc035_c
 ---
 まずは Floyd Warshal 法で任意の2点間の距離を計算しておく.
 

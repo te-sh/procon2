@@ -1,6 +1,6 @@
 ---
 title: "ARC #062 C"
-problem: https://beta.atcoder.jp/contests/abc046/tasks/arc062_a
+problem: https://atcoder.jp/contests/abc046/tasks/arc062_a
 ---
 $$ i $$ 回目の高橋くんと青木くんの得票数の最小値を $$ t_i, a_i $$ とする.
 

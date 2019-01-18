@@ -1,6 +1,6 @@
 ---
 title: "ARC #090 D"
-problem: https://beta.atcoder.jp/contests/abc087/tasks/arc090_b
+problem: https://atcoder.jp/contests/abc087/tasks/arc090_b
 ---
 グラフを構築する. $$ L_i \rightarrow R_i $$ にコスト $$ D_i $$ の辺を張る.
 

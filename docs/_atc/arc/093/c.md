@@ -1,6 +1,6 @@
 ---
 title: "ARC #093 C"
-problem: https://beta.atcoder.jp/contests/arc093/tasks/arc093_a
+problem: https://atcoder.jp/contests/arc093/tasks/arc093_a
 ---
 まずはすべての観光スポットを訪れたときの金額 $$ S $$ を愚直に計算する.
 

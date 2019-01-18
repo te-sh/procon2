@@ -1,6 +1,6 @@
 ---
 title: "ARC #057 A"
-problem: https://beta.atcoder.jp/contests/arc057/tasks/arc057_a
+problem: https://atcoder.jp/contests/arc057/tasks/arc057_a
 ---
 $$ i $$ 日後の所持金を $$ a_i $$ とすると,
 

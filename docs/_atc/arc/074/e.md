@@ -1,6 +1,6 @@
 ---
 title: "ARC #074 E"
-problem: https://beta.atcoder.jp/contests/arc074/tasks/arc074_c
+problem: https://atcoder.jp/contests/arc074/tasks/arc074_c
 ---
 $$ C(r, g, b) $$ を最後に赤/緑/青が現れた位置が $$ r, g, b $$ であるときの塗り方の組み合わせの数とする.
 

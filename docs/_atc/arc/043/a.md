@@ -1,6 +1,6 @@
 ---
 title: "ARC #043 A"
-problem: https://beta.atcoder.jp/contests/arc043/tasks/arc043_a
+problem: https://atcoder.jp/contests/arc043/tasks/arc043_a
 ---
 $$ \{ S_i \} $$ の平均値を $$ \mu $$ とすると, $$ P\mu + Q = A $$ となればいい.
 

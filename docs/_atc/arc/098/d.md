@@ -1,6 +1,6 @@
 ---
 title: "ARC #098 D"
-problem: https://beta.atcoder.jp/contests/abc098/tasks/arc098_b
+problem: https://atcoder.jp/contests/abc098/tasks/arc098_b
 ---
 ビットごとに見たときに, $$ A_l \dots A_r $$ の間でそのビットが立っている要素が1つ以下であれば, $$ A_l xor \dots xor A_r = A_l + \dots + A_r $$ が成り立つ.
 

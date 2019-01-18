@@ -1,6 +1,6 @@
 ---
 title: "ARC #039 C"
-problem: https://beta.atcoder.jp/contests/arc039/tasks/arc039_c
+problem: https://atcoder.jp/contests/arc039/tasks/arc039_c
 ---
 未訪問マスの上下左右の次の未訪問マスを管理する. このときに保持する未訪問マスは訪問済みマスの上下左右の隣接マスだけでいい.
 

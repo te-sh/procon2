@@ -1,6 +1,6 @@
 ---
 title: "ARC #075 C"
-problem: https://beta.atcoder.jp/contests/abc063/tasks/arc075_a
+problem: https://atcoder.jp/contests/abc063/tasks/arc075_a
 ---
 $$ \sum s_i $$ を計算して, これが10で割り切れないならその数が答えである.
 

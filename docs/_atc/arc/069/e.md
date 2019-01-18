@@ -1,6 +1,6 @@
 ---
 title: "ARC #069 E"
-problem: https://beta.atcoder.jp/contests/arc069/tasks/arc069_c
+problem: https://atcoder.jp/contests/arc069/tasks/arc069_c
 ---
 ある時点で最も石が多い山が $$ x $$ だとすると, $$ x $$ より番号が小さい山で $$ x $$ の次に石の数が多い山を $$ y $$ とすると, $$ y $$ と石の数が同じになるように $$ x $$ 以降の石を減らしていく方法が最適である. このとき, 数列には $$ \sum_i (a_i - a_y) $$ 個の $$ x $$ が出現する. ただし, $$ i $$ は $$ x $$ 以降で $$ a_y $$ より多い数の石を持つ山である.
 

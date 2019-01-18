@@ -1,6 +1,6 @@
 ---
 title: "ARC #077 D"
-problem: https://beta.atcoder.jp/contests/abc066/tasks/arc077_b
+problem: https://atcoder.jp/contests/abc066/tasks/arc077_b
 ---
 数列の中には1つだけ同じ数値が2回出現する. この位置を $$ i, j $$ とする.
 

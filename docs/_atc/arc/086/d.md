@@ -1,6 +1,6 @@
 ---
 title: "ARC #086 D"
-problem: https://beta.atcoder.jp/contests/abc081/tasks/arc086_b
+problem: https://atcoder.jp/contests/abc081/tasks/arc086_b
 ---
 $$ \vert a_i \vert $$ が最大である $$ a_i $$ を求める. これを $$ A $$ とする.
 

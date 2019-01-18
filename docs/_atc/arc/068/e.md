@@ -1,6 +1,6 @@
 ---
 title: "ARC #068 E"
-problem: https://beta.atcoder.jp/contests/arc068/tasks/arc068_c
+problem: https://atcoder.jp/contests/arc068/tasks/arc068_c
 ---
 特産品 $$ i $$ を売っている区間の幅を $$ w_i = r_i-l_i+1 $$ とする.
 

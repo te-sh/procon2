@@ -1,6 +1,6 @@
 ---
 title: "ARC #072 D"
-problem: https://beta.atcoder.jp/contests/abc059/tasks/arc072_c
+problem: https://atcoder.jp/contests/abc059/tasks/arc072_c
 ---
 $$ \vert X-Y \vert \leq 1 $$ ならば手番の人の負けである.
 

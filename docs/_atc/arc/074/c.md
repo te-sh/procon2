@@ -1,6 +1,6 @@
 ---
 title: "ARC #074 C"
-problem: https://beta.atcoder.jp/contests/abc062/tasks/arc074_a
+problem: https://atcoder.jp/contests/abc062/tasks/arc074_a
 ---
 次の4通りを試す.
 

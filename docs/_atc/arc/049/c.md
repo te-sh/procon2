@@ -1,6 +1,6 @@
 ---
 title: "ARC #049 C"
-problem: https://beta.atcoder.jp/contests/arc049/tasks/arc049_c
+problem: https://atcoder.jp/contests/arc049/tasks/arc049_c
 ---
 タイプ1だけある場合を考える. $$ x $$ に塗るときに $$ y $$ が塗られていなければならないということを $$ y \rightarrow x $$ という辺を持ったグラフと考える.
 

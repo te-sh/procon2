@@ -1,6 +1,6 @@
 ---
 title: "ARC #072 C"
-problem: https://beta.atcoder.jp/contests/abc059/tasks/arc072_a
+problem: https://atcoder.jp/contests/abc059/tasks/arc072_a
 ---
 貪欲でいい.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #051 C"
-problem: https://beta.atcoder.jp/contests/arc051/tasks/arc051_c
+problem: https://atcoder.jp/contests/arc051/tasks/arc051_c
 ---
 任意の $$ i, j $$ について $$ a_iA \lt a_j $$ が成り立っているとする. このときは $$ a_i $$ を昇順にならべて, 先頭から順に掛けていくことになる.
 

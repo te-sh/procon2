@@ -1,6 +1,6 @@
 ---
 title: "ARC #076 C"
-problem: https://beta.atcoder.jp/contests/abc065/tasks/arc076_a
+problem: https://atcoder.jp/contests/abc065/tasks/arc076_a
 ---
 $$ N \geq M $$ としても一般性を失わない.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #052 B"
-problem: https://beta.atcoder.jp/contests/arc052/tasks/arc052_b
+problem: https://atcoder.jp/contests/arc052/tasks/arc052_b
 ---
 区間 $$ [x, x+1] $$ ($$ x $$ は整数) の体積を求めて合算し, 累積和を計算しておく.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #071 C"
-problem: https://beta.atcoder.jp/contests/abc058/tasks/arc071_a
+problem: https://atcoder.jp/contests/abc058/tasks/arc071_a
 ---
 変換は逆方向でもできるので, 部分文字列をそれぞれ `A` のみからなる最小の長さにしたときに一致すればいい. すなわち, `B` は `AA` と考え, 部分文字列内の `A` の数を数えて3で割った余りが一致すればいいことになる.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #047 C"
-problem: https://beta.atcoder.jp/contests/arc047/tasks/arc047_c
+problem: https://atcoder.jp/contests/arc047/tasks/arc047_c
 ---
 階乗進数を使う.
 

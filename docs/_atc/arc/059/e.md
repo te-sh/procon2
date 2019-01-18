@@ -1,6 +1,6 @@
 ---
 title: "ARC #059 E"
-problem: https://beta.atcoder.jp/contests/arc059/tasks/arc059_c
+problem: https://atcoder.jp/contests/arc059/tasks/arc059_c
 ---
 $$ A_i = B_i $$ のときを考える.
 

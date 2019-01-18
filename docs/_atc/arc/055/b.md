@@ -1,6 +1,6 @@
 ---
 title: "ARC #055 B"
-problem: https://beta.atcoder.jp/contests/arc055/tasks/arc055_b
+problem: https://atcoder.jp/contests/arc055/tasks/arc055_b
 ---
 $$ i $$ 番目のせんべいに対しての戦略は, 今までで最大のせんべいでない場合は食べず, 最大ならば迷うことである.
 

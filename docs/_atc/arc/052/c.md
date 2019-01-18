@@ -1,6 +1,6 @@
 ---
 title: "ARC #052 C"
-problem: https://beta.atcoder.jp/contests/arc052/tasks/arc052_c
+problem: https://atcoder.jp/contests/arc052/tasks/arc052_c
 ---
 頂点をタイプBの道を $$ a $$ 本使ってたどりついた場合で分けることを考える. しかしこのままでは頂点数が $$ O(N^2) $$ となり解けない.
 

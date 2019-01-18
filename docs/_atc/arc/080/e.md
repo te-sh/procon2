@@ -1,6 +1,6 @@
 ---
 title: "ARC #080 E"
-problem: https://beta.atcoder.jp/contests/abc069/tasks/arc080_c
+problem: https://atcoder.jp/contests/abc069/tasks/arc080_c
 ---
 最後に取り出す2つが辞書順を決めるので, これがなるべく辞書順で小さくなるようにしたい.
 

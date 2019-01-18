@@ -1,6 +1,6 @@
 ---
 title: "ARC #072 E"
-problem: https://beta.atcoder.jp/contests/arc072/tasks/arc072_c
+problem: https://atcoder.jp/contests/arc072/tasks/arc072_c
 ---
 $$ i $$ 回目の移動が終わったときの目的地までの距離 $$ A_i $$ はあらかじめ計算しておく.
 

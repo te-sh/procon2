@@ -1,6 +1,6 @@
 ---
 title: "ARC #079 D"
-problem: https://beta.atcoder.jp/contests/abc068/tasks/arc079_b
+problem: https://atcoder.jp/contests/abc068/tasks/arc079_b
 ---
 最終状態を $$ \{ N-1, N-1, \dots, N-1 \} $$ とする. これを1つずつ戻していく.
 

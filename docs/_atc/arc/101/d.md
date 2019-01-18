@@ -1,6 +1,6 @@
 ---
 title: "ARC #101 D"
-problem: https://beta.atcoder.jp/contests/abc107/tasks/arc101_b
+problem: https://atcoder.jp/contests/abc107/tasks/arc101_b
 ---
 長さ $$ M $$ の数列の中央値は, 以下の性質を持つ.
 

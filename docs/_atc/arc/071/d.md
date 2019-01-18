@@ -1,6 +1,6 @@
 ---
 title: "ARC #071 D"
-problem: https://beta.atcoder.jp/contests/abc058/tasks/arc071_b
+problem: https://atcoder.jp/contests/abc058/tasks/arc071_b
 ---
 面積は以下のようになる.
 

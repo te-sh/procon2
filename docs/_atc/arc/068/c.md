@@ -1,6 +1,6 @@
 ---
 title: "ARC #068 C"
-problem: https://beta.atcoder.jp/contests/abc053/tasks/arc068_a
+problem: https://atcoder.jp/contests/abc053/tasks/arc068_a
 ---
 6,5,6,5... と獲得するのが最適である.
 

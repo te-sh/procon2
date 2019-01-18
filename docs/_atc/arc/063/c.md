@@ -1,6 +1,6 @@
 ---
 title: "ARC #063 C"
-problem: https://beta.atcoder.jp/contests/abc047/tasks/arc063_a
+problem: https://atcoder.jp/contests/abc047/tasks/arc063_a
 ---
 同じ色の石が複数並んだ状態は1つの石とみなしていい.
 

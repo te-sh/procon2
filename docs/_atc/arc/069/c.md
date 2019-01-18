@@ -1,6 +1,6 @@
 ---
 title: "ARC #069 C"
-problem: https://beta.atcoder.jp/contests/abc055/tasks/arc069_a
+problem: https://atcoder.jp/contests/abc055/tasks/arc069_a
 ---
 まずは `c` 型ピースを組み合わせて `S` 型ピースを作らないとしていくつ `Scc` が作れるかを考える.
 

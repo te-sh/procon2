@@ -1,6 +1,6 @@
 ---
 title: "ARC #054 C"
-problem: https://beta.atcoder.jp/contests/arc054/tasks/arc054_c
+problem: https://atcoder.jp/contests/arc054/tasks/arc054_c
 ---
 木の置換の一つを $$ \sigma $$ とすると, $$ i $$ 番目のタイヤは $$ \sigma(i) $$ 番目の木とペアになる. このペアがすべて相性がいいということは,
 

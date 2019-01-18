@@ -1,6 +1,6 @@
 ---
 title: "ARC #048 C"
-problem: https://beta.atcoder.jp/contests/arc048/tasks/arc048_c
+problem: https://atcoder.jp/contests/arc048/tasks/arc048_c
 ---
 $$ L_i $$ は昇順にソートする.
 

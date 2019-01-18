@@ -1,6 +1,6 @@
 ---
 title: "ARC #059 D"
-problem: https://beta.atcoder.jp/contests/abc043/tasks/arc059_b
+problem: https://atcoder.jp/contests/abc043/tasks/arc059_b
 ---
 長さ $$ k $$ のアンバランスな文字を考える.
 

@@ -1,6 +1,6 @@
 ---
 title: "ARC #043 C"
-problem: https://beta.atcoder.jp/contests/arc043/tasks/arc043_c
+problem: https://atcoder.jp/contests/arc043/tasks/arc043_c
 ---
 数列 $$ A $$ が $$ 1, 2, 3, \dots $$ と並ぶように数値の変換を行う.
 

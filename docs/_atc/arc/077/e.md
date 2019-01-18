@@ -1,6 +1,6 @@
 ---
 title: "ARC #077 E"
-problem: https://beta.atcoder.jp/contests/arc077/tasks/arc077_c
+problem: https://atcoder.jp/contests/arc077/tasks/arc077_c
 ---
 $$ a_i $$ から $$ a_{i+1} $$ に切り替えるとき, 順送りボタンで進めていく途中にお気に入りの明るさがあるならば, お気に入りボタンを使う方が回数が少なくなる.
 

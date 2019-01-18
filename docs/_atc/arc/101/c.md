@@ -1,6 +1,6 @@
 ---
 title: "ARC #101 C"
-problem: https://beta.atcoder.jp/contests/abc107/tasks/arc101_a
+problem: https://atcoder.jp/contests/abc107/tasks/arc101_a
 ---
 $$ \{ x_i \} $$ を $$ x_i \lt 0 $$ のグループAと $$ x_i \gt 0 $$ のグループBに分ける. $$ x_i = 0 $$ のろうそくがある場合は $$ K $$ から $$ 1 $$ を引いておく.
 

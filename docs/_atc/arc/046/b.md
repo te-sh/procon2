@@ -1,6 +1,6 @@
 ---
 title: "ARC #046 B"
-problem: https://beta.atcoder.jp/contests/arc046/tasks/arc046_b
+problem: https://atcoder.jp/contests/arc046/tasks/arc046_b
 ---
 $$ N \leq A $$ のときは無条件で高橋くんの勝ちである.
 
