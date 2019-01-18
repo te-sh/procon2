@@ -1,4 +1,4 @@
-// URL: https://beta.atcoder.jp/contests/abc109/tasks/abc109_d
+// URL: https://atcoder.jp/contests/abc109/tasks/abc109_d
 
 import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
 
