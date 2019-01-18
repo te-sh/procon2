@@ -5,6 +5,7 @@ layout: default
 
 AtCoder Beginner Contest
 
+|#112|[A問題](atc/abc/112/a.html)|[B問題](atc/abc/112/b.html)|[C問題](atc/abc/112/c.html)|[D問題](atc/abc/112/d.html)|
 |#111|[A問題](atc/abc/111/a.html)|[B問題](atc/abc/111/b.html)|[C問題](atc/arc/103/c.html)|[D問題](atc/arc/103/d.html)|
 |#110|[A問題](atc/abc/110/a.html)|[B問題](atc/abc/110/b.html)|[C問題](atc/abc/110/c.html)|[D問題](atc/abc/110/d.html)|
 |#109|[A問題](atc/abc/109/a.html)|[B問題](atc/abc/109/b.html)|[C問題](atc/abc/109/c.html)|[D問題](atc/abc/109/d.html)|
