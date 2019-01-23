@@ -151,4 +151,9 @@ AtCoder Regular Contest
 
 企業コンテスト
 
-|SoundHound|[A問題](atc/com/soundhound/a.html)|[B問題](atc/com/soundhound/b.html)|[C問題](atc/com/soundhound/c.html)|[D問題](atc/com/soundhound/d.html)|[E問題](atc/com/soundhound/e.html)|
+|SoundHound|[A問題](atc/com/soundhound/a.html)|[B問題](atc/com/soundhound/b.html)|[C問題](atc/com/soundhound/c.html)|[D問題](atc/com/soundhound/d.html)|[E問題](atc/com/soundhound/e.html)|[F問題](atc/com/soundhound/f.html)|
+
+その他
+
+|Educational DP|[A問題](atc/other/dp/a.html)|[B問題](atc/other/dp/b.html)|[C問題](atc/other/dp/c.html)|[D問題](atc/other/dp/d.html)|[E問題](atc/other/dp/e.html)|[F問題](atc/other/dp/f.html)|
+||[G問題](atc/other/dp/g.html)|[H問題](atc/other/dp/h.html)|[I問題](atc/other/dp/i.html)|[J問題](atc/other/dp/j.html)|
