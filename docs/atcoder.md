@@ -156,4 +156,5 @@ AtCoder Regular Contest
 その他
 
 |Educational DP|[A問題](atc/other/dp/a.html)|[B問題](atc/other/dp/b.html)|[C問題](atc/other/dp/c.html)|[D問題](atc/other/dp/d.html)|[E問題](atc/other/dp/e.html)|[F問題](atc/other/dp/f.html)|
-||[G問題](atc/other/dp/g.html)|[H問題](atc/other/dp/h.html)|[I問題](atc/other/dp/i.html)|[J問題](atc/other/dp/j.html)|
+||[G問題](atc/other/dp/g.html)|[H問題](atc/other/dp/h.html)|[I問題](atc/other/dp/i.html)|[J問題](atc/other/dp/j.html)|[K問題](atc/other/dp/k.html)|[L問題](atc/other/dp/l.html)|
+||[M問題](atc/other/dp/m.html)|[N問題](atc/other/dp/n.html)|[O問題](atc/other/dp/o.html)|[P問題](atc/other/dp/p.html)|[Q問題](atc/other/dp/q.html)|[R問題](atc/other/dp/r.html)|
