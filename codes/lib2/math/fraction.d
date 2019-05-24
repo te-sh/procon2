@@ -10,8 +10,14 @@ struct Fraction(T)
     if (b < 0) {
       a = -a; b = -b;
     }
+    this.a = a; this.b = b;
+    reduction();
+  }
+
+  auto reduction()
+  {
     auto g = gcd(a.abs, b);
-    this.a = a/g; this.b = b/g;
+    a = a/g; b = b/g;
   }
 
   pure auto inv()
@@ -25,16 +31,30 @@ struct Fraction(T)
   {
     return fraction(mixin("a*r.b"~op~"r.a*b"), b*r.b);
   }
+  ref auto opOpAssign(string op)(Fraction!T r)
+  if (op == "+" || op == "*")
+  {
+    a = mixin("a*r.b"~op~"r.a*b"); b = b*r.b; reduction(); return this;
+  }
 
   pure auto opBinary(string op: "*")(Fraction!T r)
   {
     return fraction(a*r.a, b*r.b);
+  }
+  ref auto opOpBinary(string op: "*")(Fraction!T r)
+  {
+    a *= r.a; b *= r.b; reduction(); return this;
   }
 
   pure auto opBinary(string op: "/")(Fraction!T r)
   in { assert(r.b != 0); }
   body {
     return fraction(a*r.b, b*r.a);
+  }
+  ref auto opOpBinary(string op: "/")(Fraction!T r)
+  in { assert(r.b != 0); }
+  body {
+    a *= r.b; b *= r.a; reduction(); return this;
   }
 }
 auto fraction(T)(T a, T b) { return Fraction!T(a, b); }

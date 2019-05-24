@@ -96,6 +96,11 @@ struct ModInt(int m, bool pos = false)
     a * b.inv を返します. b は ModInt!m か int を取れます.
     m が素数でない場合は正しい値を返しません.
 
+  a ^^ n
+
+    a の n 乗を返します.
+    内部では繰り返し2乗法を使っています.
+
   a.inv
 
     逆数を返します.
