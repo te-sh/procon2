@@ -1,6 +1,6 @@
 struct Prime(T)
 {
-  import std.algorithm, std.bitmanip, std.conv, std.range, std.typecons, core.bitop;
+  import std.algorithm, std.bitmanip, std.conv, std.math, std.range, std.typecons;
   alias Factor = Tuple!(T, size_t);
 
   T n;
@@ -45,7 +45,7 @@ struct Prime(T)
   pure auto nsqrt(T)(T n)
   {
     if (n <= 1) return n;
-    T m = T(1) << (n.bsr/2+1);
+    T m = T(1) << (n.ilogb/2+1);
     return iota(1, m).map!"a*a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
   }
 }

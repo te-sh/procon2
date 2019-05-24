@@ -1,6 +1,6 @@
 struct Matrix(T)
 {
-  import std.algorithm, std.functional, std.traits;
+  import std.algorithm, std.functional;
 
   size_t r, c;
   T zero;
@@ -68,7 +68,6 @@ struct Matrix(T)
   }
 
   pure auto opBinary(string op: "^^", U)(U n)
-  if (isIntegral!U)
   in { assert(r == c); }
   body {
     auto x = Matrix!T.unit(r);

@@ -1,7 +1,5 @@
 struct ModInt(int m, bool pos = false)
 {
-  import std.traits;
-
   version(BigEndian) union { long l; struct { int i2; int i; } } else union { long l; int i; }
   alias M = ModInt!(m, pos);
   @property static init() { return M(0); }
@@ -40,7 +38,6 @@ struct ModInt(int m, bool pos = false)
   ref auto opOpAssign(string op: "/")(int r) { return opOpAssign!op(M(r)); }
 
   pure auto opBinary(string op: "^^", U)(U n)
-  if (isIntegral!U)
   {
     auto x = M(1);
     if (n == 0) return x;

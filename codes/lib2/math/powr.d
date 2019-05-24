@@ -1,6 +1,4 @@
-import std.traits;
 pure T powr(alias pred = "a * b", T, U)(T a, U n, T init = T(1))
-if (isIntegral!U)
 {
   import std.functional;
   alias predFun = binaryFun!pred;
