@@ -3,7 +3,7 @@ pure auto nsqrt(T)(T n)
   import std.algorithm, std.conv, std.math, std.range;
   if (n <= 1) return n;
   T m = T(1) << (n.ilogb/2+1);
-  return iota(1, m).map!"a * a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
+  return iota(1, m).map!"a*a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
 }
 
 pure auto ncbrt(T)(T n)
@@ -11,7 +11,7 @@ pure auto ncbrt(T)(T n)
   import std.algorithm, std.conv, std.math, std.range;
   if (n <= 1) return n;
   T m = T(1) << (n.ilogb/3+1);
-  return iota(1, m).map!"a * a * a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
+  return iota(1, m).map!"a*a*a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
 }
 
 /*
