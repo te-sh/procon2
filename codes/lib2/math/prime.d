@@ -1,13 +1,13 @@
-struct Prime(T)
+struct Prime
 {
-  import std.algorithm, std.bitmanip, std.conv, std.math, std.range, std.typecons;
-  alias Factor = Tuple!(T, size_t);
+  import std.algorithm, std.bitmanip, std.math, std.range, std.typecons;
+  alias Factor = Tuple!(int, size_t);
 
-  T n;
-  T[] primes;
+  int n;
+  int[] primes;
   alias primes this;
 
-  auto this(T n)
+  this(int n)
   {
     this.n = n;
 
@@ -20,11 +20,11 @@ struct Prime(T)
         for (auto q = p*3+1; q < (n+1)/2; q += p*2+1)
           sieve[q] = false;
 
-    primes = sieve.bitsSet.map!(to!T).map!("a*2+1").array;
+    primes = sieve.bitsSet.map!(p => cast(int)p*2+1).array;
     primes[0] = 2;
   }
 
-  pure auto div(T x)
+  pure auto div(int x)
   in { assert(x > 0 && nsqrt(x) <= n); }
   body {
     Factor[] factors;
@@ -42,22 +42,21 @@ struct Prime(T)
     return factors;
   }
 
-  pure auto nsqrt(T)(T n)
+  pure auto nsqrt(int n)
   {
     if (n <= 1) return n;
-    T m = T(1) << (n.ilogb/2+1);
-    return iota(1, m).map!"a*a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
+    auto m = 1<<(n.ilogb/2+1);
+    return cast(int)iota(1, m).map!"a*a".assumeSorted!"a <= b".lowerBound(n).length;
   }
 }
-auto prime(T)(T n) { return Prime!T(n); }
 
 /*
 
-  Prime!T
+  Prime
 
     素数を保持する構造体です.
 
-  prime(n)
+  Prime(n)
 
     n 以下の素数を返します.
 
@@ -72,12 +71,12 @@ unittest
 {
   import std.typecons;
 
-  assert(prime(2) == [2]);
-  assert(prime(5) == [2, 3, 5]);
-  assert(prime(30) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]);
+  assert(Prime(2) == [2]);
+  assert(Prime(5) == [2, 3, 5]);
+  assert(Prime(30) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]);
 
   alias Factor = Tuple!(int, size_t);
-  auto p1 = prime(5);
+  auto p1 = Prime(5);
 
   assert(p1.div(23) == [Factor(23, 1)]);
   assert(p1.div(24) == [Factor(2, 3), Factor(3, 1)]);

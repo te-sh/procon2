@@ -1,7 +1,5 @@
 struct Fact(T, bool noInv = false)
 {
-  import std.conv;
-
   size_t n;
   T[] table, invTable;
 
@@ -10,11 +8,11 @@ struct Fact(T, bool noInv = false)
     this.n = n;
 
     table = new T[](n+1); table[0] = 1;
-    foreach (i; 1..n.to!int+1) table[i] = table[i-1]*i;
+    foreach (i; 1..cast(int)n+1) table[i] = table[i-1]*i;
 
     static if (!noInv) {
       invTable = new T[](n+1); invTable[n] = T(1)/table[n];
-      foreach_reverse (i; 1..n.to!int+1) invTable[i-1] = invTable[i]*i;
+      foreach_reverse (i; 1..cast(int)n+1) invTable[i-1] = invTable[i]*i;
     }
   }
 
