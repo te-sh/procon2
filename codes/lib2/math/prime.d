@@ -42,6 +42,23 @@ struct Prime
     return factors;
   }
 
+  pure auto divisors(int x)
+  {
+    auto factors = div(x);
+    auto r = divisors(factors, 0, 1);
+    r.sort();
+    return r;
+  }
+
+  pure int[] divisors(Factor[] factors, size_t i, int c)
+  {
+    if (i == factors.length) return [c];
+    int[] r;
+    foreach (j; 0..factors[i][1]+1)
+      r ~= divisors(factors, i+1, c*factors[i][0]^^cast(int)j);
+    return r;
+  }
+
   pure auto nsqrt(int n)
   {
     if (n <= 1) return n;
@@ -81,4 +98,7 @@ unittest
   assert(p1.div(23) == [Factor(23, 1)]);
   assert(p1.div(24) == [Factor(2, 3), Factor(3, 1)]);
   assert(p1.div(25) == [Factor(5, 2)]);
+
+  auto p2 = Prime(100);
+  assert(p2.divisors(1500) == [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 25, 30, 50, 60, 75, 100, 125, 150, 250, 300, 375, 500, 750, 1500]);
 }
