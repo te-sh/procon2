@@ -43,19 +43,20 @@ struct Prime
   }
 
   pure auto divisors(int x)
-  {
+  in { assert(x > 0 && nsqrt(x) <= n); }
+  body {
     auto factors = div(x);
-    auto r = divisors(factors, 0, 1);
+    auto r = divisorsProc(factors, 0, 1);
     r.sort();
     return r;
   }
 
-  pure int[] divisors(Factor[] factors, size_t i, int c)
+  pure int[] divisorsProc(Factor[] factors, size_t i, int c)
   {
     if (i == factors.length) return [c];
     int[] r;
     foreach (j; 0..factors[i][1]+1)
-      r ~= divisors(factors, i+1, c*factors[i][0]^^cast(int)j);
+      r ~= divisorsProc(factors, i+1, c*factors[i][0]^^cast(int)j);
     return r;
   }
 
@@ -80,6 +81,11 @@ struct Prime
   primes.div(x)
 
     x を素因数分解して, (素因数, べき乗数) の Tuple の配列で返します.
+    x は n^2 より小さい必要があります.
+
+  prime.divisors(x)
+
+    x の約数の配列を返します.
     x は n^2 より小さい必要があります.
 
  */

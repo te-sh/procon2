@@ -19,8 +19,8 @@ void main()
   int[] v; readA(n, v);
 
   auto r = 0;
-  foreach (a; 0..n)
-    foreach (b; 0..n) {
+  foreach (a; 0..n+1)
+    foreach (b; 0..n+1) {
       if (a+b > n || a+b > k) continue;
       auto w = (v[0..a] ~ v[$-b..$]).dup;
       w.sort();
