@@ -1,21 +1,3 @@
-# -*- mode: snippet -*-
-# name: procon.skelton
-# key: skelton
-# group: procon
-# expand-env: ((yas-indent-line 'fixed))
-# --
-// URL: $1
-
-import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
-
-version(unittest) {} else
-void main()
-{
-  $0
-}
-
-auto io = IO();
-
 struct IO
 {
   import std.algorithm, std.conv, std.format, std.range, std.stdio, std.traits;
@@ -98,4 +80,23 @@ struct IO
   {
     stderr.writeln(v);
   }
+}
+
+import std.stdio;
+
+void main()
+{
+  auto io = IO();
+
+  string a; io.getV(a);
+  int b; io.getV(b);
+  string c; int d; io.getV(c, d);
+  int[] e; io.getA(3, e);
+  string[] f; double[] g; io.getC(2, f, g);
+  int[][] h; io.getM(2, 3, h);
+
+  io.put(a, b);
+  io.put(c);
+  io.put(d, e);
+  io.put(f, g);
 }
