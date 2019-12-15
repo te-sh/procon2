@@ -8,6 +8,7 @@ struct BFS(Graph)
   void delegate(Node)[] findNode;
 
   this(ref Graph g) { this.g = g; }
+
   auto run(Node s)
   {
     auto visited = new bool[](g.n);

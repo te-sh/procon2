@@ -16,10 +16,22 @@ struct Fact(T, bool noInv = false)
     }
   }
 
+  auto perm(size_t a, size_t b)
+  in { assert(!noInv && n >= a && a >= b); }
+  body {
+    return table[a]*invTable[a-b];
+  }
+
   auto combi(size_t a, size_t b)
   in { assert(!noInv && n >= a && a >= b); }
   body {
     return table[a]*invTable[b]*invTable[a-b];
+  }
+
+  auto homo(size_t a, size_t b)
+  in { assert(!noInv && n >= a+b-1); }
+  body {
+    return combi(a+b-1, b);
   }
 }
 
@@ -35,10 +47,20 @@ struct Fact(T, bool noInv = false)
 
     n 以下の階乗および階乗の逆数を計算して table, invTable にセットします.
 
+  fact.perm(a, b)
+
+    順列数 aPb を返します.
+    n >= a >= b である必要があります.
+
   fact.combi(a, b)
 
     組み合わせ数 aCb を返します.
     n >= a >= b である必要があります.
+
+  fact.homo(a, b)
+
+    重複組み合わせ数 aHb を返します.
+    n >= a + b - 1 である必要があります.
 
  */
 
@@ -49,5 +71,7 @@ unittest {
   assert(fact.table == [1, 1, 2, 6, 3, 1]);
   assert(fact.invTable == [1, 1, 4, 6, 5, 1]);
 
+  assert(fact.perm(5, 2) == 6);
   assert(fact.combi(5, 2) == 3);
+  assert(fact.homo(3, 2) == 6);
 }
