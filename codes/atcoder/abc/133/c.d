@@ -1,3 +1,22 @@
+// URL: https://atcoder.jp/contests/abc133/tasks/abc133_c
+
+import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+
+version(unittest) {} else
+void main()
+{
+  int l, r; io.getV(l, r);
+
+  auto m = 2019;
+  foreach (i; l..min(l+2019, r+1))
+    foreach (j; i+1..min(i+2020, r+1))
+      m = min(m, ((i%2019)*(j%2019))%2019);
+
+  io.put(m);
+}
+
+auto io = IO();
+
 struct IO
 {
   import std.algorithm, std.conv, std.format, std.meta, std.range, std.stdio, std.traits;
@@ -83,24 +102,4 @@ struct IO
   {
     stderr.writeln(v);
   }
-}
-
-import std.stdio;
-
-void main()
-{
-  auto io = IO();
-
-  string a; io.getV(a);
-  int b; io.getV(b);
-  string c; int d; io.getV(c, d);
-  int[] e; io.getA(3, e);
-  string[] f; double[] g; io.getC(2, f, g);
-  int[][] h; io.getM(2, 3, h);
-
-  io.put(a, b);
-  io.put(c);
-  io.put(d, e);
-  io.put(f, g);
-  io.put(h);
 }

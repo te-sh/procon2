@@ -75,7 +75,7 @@ auto bfsw(G)(ref G g) { return BFSW!G(g); }
 
   bfs.run(s)
 
-    頂点 $$ s $$ を起点に探索を実行します.
+    頂点 s を起点に探索を実行します.
 
   BFSW(Graph)
 
@@ -95,7 +95,7 @@ auto bfsw(G)(ref G g) { return BFSW!G(g); }
 
   bfs.run(s)
 
-    頂点 $$ s $$ を起点に探索を実行します.
+    頂点 s を起点に探索を実行します.
 
  */
 

@@ -1,3 +1,26 @@
+// URL: https://atcoder.jp/contests/abc133/tasks/abc133_d
+
+import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+
+version(unittest) {} else
+void main()
+{
+  int n; io.getV(n);
+  long[] a; io.getA(n, a);
+
+  auto x = new long[](n);
+
+  foreach (i, ai; a) x[0] += (-1)^^i * ai;
+  x[0] /= 2;
+
+  foreach (i; 1..n) x[i] = a[i-1]-x[i-1];
+  x[] *= 2;
+
+  io.put(x);
+}
+
+auto io = IO();
+
 struct IO
 {
   import std.algorithm, std.conv, std.format, std.meta, std.range, std.stdio, std.traits;
@@ -83,24 +106,4 @@ struct IO
   {
     stderr.writeln(v);
   }
-}
-
-import std.stdio;
-
-void main()
-{
-  auto io = IO();
-
-  string a; io.getV(a);
-  int b; io.getV(b);
-  string c; int d; io.getV(c, d);
-  int[] e; io.getA(3, e);
-  string[] f; double[] g; io.getC(2, f, g);
-  int[][] h; io.getM(2, 3, h);
-
-  io.put(a, b);
-  io.put(c);
-  io.put(d, e);
-  io.put(f, g);
-  io.put(h);
 }

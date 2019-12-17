@@ -18,7 +18,7 @@ auto io = IO();
 
 struct IO
 {
-  import std.algorithm, std.conv, std.format, std.range, std.stdio, std.traits;
+  import std.algorithm, std.conv, std.format, std.meta, std.range, std.stdio, std.traits;
 
   dchar[] buf;
   auto sp = (new dchar[](0)).splitter;
@@ -44,12 +44,14 @@ struct IO
   }
 
   auto getA(T)(size_t n, ref T v)
+  if (hasAssignableElements!T)
   {
     v = new T(n);
     foreach (ref w; v) get(w);
   }
 
   auto getC(T...)(size_t n, ref T v)
+  if (allSatisfy!(hasAssignableElements, T))
   {
     foreach (ref w; v)
       w = new typeof(w)(n);
@@ -57,9 +59,10 @@ struct IO
       foreach (ref w; v) get(w[i]);
   }
 
-  auto getM(T)(size_t r, size_t c, T v)
+  auto getM(T)(size_t r, size_t c, ref T v)
+  if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
   {
-    v = new T(r, c);
+    v = new T(r);
     foreach (ref w; v) getA(c, w);
   }
 

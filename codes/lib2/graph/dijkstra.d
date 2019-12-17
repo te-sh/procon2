@@ -52,15 +52,15 @@ auto dijkstra(G, N)(G g, N s) { return Dijkstra!G(g).run(s); }
 
   dijkstra.run(s, dist, prev)
 
-    頂点 $$ s $$ から各頂点への最短距離を dist に, 前の頂点を prev に入れます.
+    頂点 s から各頂点への最短距離を dist に, 前の頂点を prev に入れます.
 
   dijkstra.run(s)
 
-    頂点 $$ s $$ から各頂点への最短距離を返します.
+    頂点 s から各頂点への最短距離を返します.
 
   dijkstra(g, n)
 
-    頂点 $$ s $$ から各頂点への最短距離を返します.
+    頂点 s から各頂点への最短距離を返します.
 
 */
 

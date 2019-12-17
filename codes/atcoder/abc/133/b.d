@@ -1,3 +1,33 @@
+// URL: https://atcoder.jp/contests/abc133/tasks/abc133_b
+
+import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+
+version(unittest) {} else
+void main()
+{
+  int n, d; io.getV(n, d);
+  int[][] x; io.getM(n, d, x);
+
+  auto r = 0;
+  foreach (i; 0..n)
+    foreach (j; i+1..n) {
+      auto l = zip(x[i], x[j]).map!(xij => (xij[0]-xij[1])^^2).sum;
+      if (l.nsqrt^^2 == l) ++r;
+    }
+
+  io.put(r);
+}
+
+pure auto nsqrt(T)(T n)
+{
+  import std.algorithm, std.conv, std.math, std.range;
+  if (n <= 1) return n;
+  T m = T(1) << (n.ilogb/2+1);
+  return iota(1, m).map!"a*a".assumeSorted!"a <= b".lowerBound(n).length.to!T;
+}
+
+auto io = IO();
+
 struct IO
 {
   import std.algorithm, std.conv, std.format, std.meta, std.range, std.stdio, std.traits;
@@ -83,24 +113,4 @@ struct IO
   {
     stderr.writeln(v);
   }
-}
-
-import std.stdio;
-
-void main()
-{
-  auto io = IO();
-
-  string a; io.getV(a);
-  int b; io.getV(b);
-  string c; int d; io.getV(c, d);
-  int[] e; io.getA(3, e);
-  string[] f; double[] g; io.getC(2, f, g);
-  int[][] h; io.getM(2, 3, h);
-
-  io.put(a, b);
-  io.put(c);
-  io.put(d, e);
-  io.put(f, g);
-  io.put(h);
 }
