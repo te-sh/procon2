@@ -4,11 +4,14 @@ struct Dijkstra(Graph)
 {
   import std.array, std.container;
   Graph g;
-  alias Node = g.Node, Wt = g.Wt, Edge = Graph.Edge;
+  alias g this;
+  alias Node = g.Node, Wt = g.Wt, Edge = g.Edge;
+  Wt[] dist;
+  Node[] prev;
 
   this(ref Graph g) { this.g = g; }
 
-  void run(Node s, out Wt[] dist, out Node[] prev)
+  auto run(Node s)
   {
     auto n = g.n, sent = n;
 
@@ -32,13 +35,7 @@ struct Dijkstra(Graph)
         }
       }
     }
-  }
 
-  auto run(Node s)
-  {
-    Wt[] dist;
-    Node[] prev;
-    run(s, dist, prev);
     return dist;
   }
 }
