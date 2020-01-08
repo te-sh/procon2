@@ -1,17 +1,11 @@
-# -*- mode: snippet -*-
-# name: procon.skelton
-# key: skelton
-# group: procon
-# expand-env: ((yas-indent-line 'fixed))
-# --
-// URL: $1
+// URL: https://yukicoder.me/problems/no/795
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  $0
+  io.put("Yes");
 }
 
 auto io = IO();
@@ -66,27 +60,25 @@ struct IO
     foreach (ref w; v) getA(c, w);
   }
 
-  auto rangePop(R)(ref R r)
-  {
-    r.popFront();
-    if (!r.empty) write(delimiter);
-  }
-
   auto putA(T)(T v)
   {
-    static if (isInputRange!T && !isSomeString!T)
-      for (auto w = v; !w.empty; rangePop(w)) putA(w.front);
-    else if (isFloatingPoint!T)
+    static if (isInputRange!T && hasLength!T && !isSomeString!T) {
+      foreach (i, w; v) {
+	putA(w);
+	if (i < v.length - 1) write(delimiter);
+      }
+    } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);
-    else
+    } else {
       write(v);
+    }
   }
 
   auto put(T...)(T v)
   {
     foreach (i, w; v) {
       putA(w);
-      if (i < v.length-1) write(delimiter);
+      if (i < v.length - 1) write(delimiter);
     }
     writeln;
   }

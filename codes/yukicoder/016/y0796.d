@@ -1,17 +1,12 @@
-# -*- mode: snippet -*-
-# name: procon.skelton
-# key: skelton
-# group: procon
-# expand-env: ((yas-indent-line 'fixed))
-# --
-// URL: $1
+// URL: https://yukicoder.me/problems/no/796
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  $0
+  int n; io.getV(n);
+  io.put([1].padRight(3, n));
 }
 
 auto io = IO();
@@ -81,7 +76,7 @@ struct IO
     else
       write(v);
   }
-
+  
   auto put(T...)(T v)
   {
     foreach (i, w; v) {
