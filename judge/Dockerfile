@@ -71,6 +71,7 @@ WORKDIR $HOME
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+      dumb-init \
       gcc \
       gcc-multilib \
       inotify-tools \
@@ -86,4 +87,5 @@ RUN PATH=$DLANG/$DMD_YUKICODER/$DMD_BINDIR_YUKICODER:$PATH \
     LD_LIBRARY_PATH=$DLANG/$DMD_YUKICODER/$DMD_LIBDIR_YUKICODER:$LD_LIBRARY_PATH \
     dmd -O -release -inline -of=runoj runoj.d
 
-ENTRYPOINT ["./start-monitor"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["./start-monitor"]
