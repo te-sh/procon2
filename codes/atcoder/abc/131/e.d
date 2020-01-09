@@ -17,9 +17,9 @@ void main()
   foreach (i; 0..n-1)
     foreach (j; i+1..n-1)
       if (k > 0)
-	--k;
+        --k;
       else
-	io.put(i+1, j+1);
+        io.put(i+1, j+1);
 
   foreach (i; 0..n-1)
     io.put(i+1, n);
@@ -78,8 +78,8 @@ struct IO
   {
     static if (isInputRange!T && hasLength!T && !isSomeString!T) {
       foreach (i, w; v) {
-	putA(w);
-	if (i < v.length - 1) write(delimiter);
+        putA(w);
+        if (i < v.length - 1) write(delimiter);
       }
     } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);

@@ -23,9 +23,9 @@ void main()
       if (s != "") s ~= "∨";
       s ~= "(";
       foreach (i; 0..n) {
-	if (i != 0) s ~= "∧";
-	if (qi[i] == 0) s ~= "¬";
-	s ~= "P_" ~ (i+1).to!string;
+        if (i != 0) s ~= "∧";
+        if (qi[i] == 0) s ~= "¬";
+        s ~= "P_" ~ (i+1).to!string;
       }
       s ~= ")";
     }
@@ -90,8 +90,8 @@ struct IO
   {
     static if (isInputRange!T && hasLength!T && !isSomeString!T) {
       foreach (i, w; v) {
-	putA(w);
-	if (i < v.length - 1) write(delimiter);
+        putA(w);
+        if (i < v.length - 1) write(delimiter);
       }
     } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);

@@ -182,8 +182,8 @@ struct IO
   {
     static if (isInputRange!T && hasLength!T && !isSomeString!T) {
       foreach (i, w; v) {
-	putA(w);
-	if (i < v.length - 1) write(delimiter);
+        putA(w);
+        if (i < v.length - 1) write(delimiter);
       }
     } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);

@@ -20,8 +20,8 @@ void main()
     if (a%i == 0 && b%i == 0) {
       --k;
       if (k == 0) {
-	writeln(i);
-	return;
+        writeln(i);
+        return;
       }
     }
   }

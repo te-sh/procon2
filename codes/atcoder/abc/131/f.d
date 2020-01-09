@@ -24,10 +24,10 @@ void main()
     while (!s.empty) {
       auto i = s.front; s.removeFront();
       foreach (j; g[i]) {
-	if (b[j]) continue;
-	b[j] = true;
-	v ~= j;
-	s.insertBack(j);
+        if (b[j]) continue;
+        b[j] = true;
+        v ~= j;
+        s.insertBack(j);
       }
     }
     if (v.length == 1) continue;
@@ -104,8 +104,8 @@ struct IO
   {
     static if (isInputRange!T && hasLength!T && !isSomeString!T) {
       foreach (i, w; v) {
-	putA(w);
-	if (i < v.length - 1) write(delimiter);
+        putA(w);
+        if (i < v.length - 1) write(delimiter);
       }
     } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);

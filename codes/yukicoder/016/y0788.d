@@ -27,7 +27,7 @@ void main()
     auto s = zip(dist[c], t).map!"a[0]*a[1]".sum*2;
     foreach (f; 0..n)
       if (t[f] > 0)
-	r = min(r, s + dist[l][f] - dist[f][c]);
+        r = min(r, s + dist[l][f] - dist[f][c]);
   }
 
   io.put(r);
@@ -142,8 +142,8 @@ struct IO
   {
     static if (isInputRange!T && hasLength!T && !isSomeString!T) {
       foreach (i, w; v) {
-	putA(w);
-	if (i < v.length - 1) write(delimiter);
+        putA(w);
+        if (i < v.length - 1) write(delimiter);
       }
     } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);

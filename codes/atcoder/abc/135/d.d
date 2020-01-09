@@ -17,11 +17,11 @@ void main()
   foreach (i; 1..n+1) {
     foreach (j; 0..modd) {
       if (s[$-i] == '?') {
-	foreach (k; 0..10)
-	  dp[i][m*k+j] += dp[i-1][j];
+        foreach (k; 0..10)
+          dp[i][m*k+j] += dp[i-1][j];
       } else {
-	auto k = cast(int)(s[$-i]-'0');
-	dp[i][m*k+j] += dp[i-1][j];
+        auto k = cast(int)(s[$-i]-'0');
+        dp[i][m*k+j] += dp[i-1][j];
       }
     }
     m *= 10;
@@ -158,8 +158,8 @@ struct IO
   {
     static if (isInputRange!T && hasLength!T && !isSomeString!T) {
       foreach (i, w; v) {
-	putA(w);
-	if (i < v.length - 1) write(delimiter);
+        putA(w);
+        if (i < v.length - 1) write(delimiter);
       }
     } else if (isFloatingPoint!T) {
       writef(format("%%.%df", precision), v);

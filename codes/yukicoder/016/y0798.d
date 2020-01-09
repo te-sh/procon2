@@ -20,9 +20,9 @@ void main()
   foreach (i; 0..n)
     foreach (j; 0..n/3+1) {
       if (i-j >= 0)
-	dp[i+1][j] = min(dp[i+1][j], dp[i][j] + m[i].a + (i-j) * m[i].b);
+        dp[i+1][j] = min(dp[i+1][j], dp[i][j] + m[i].a + (i-j) * m[i].b);
       if (j >= 1)
-	dp[i+1][j] = min(dp[i+1][j], dp[i][j-1]);
+        dp[i+1][j] = min(dp[i+1][j], dp[i][j-1]);
     }
 
   io.put(dp[$-1][$-1]);
