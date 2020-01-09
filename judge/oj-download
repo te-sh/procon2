@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "---------- Download Test"
+if [ -e test ]; then
+    rm -rf test
+fi
+echo oj download $@
+oj download $@

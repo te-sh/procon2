@@ -1,0 +1,9 @@
+#!/bin/bash
+
+eval PATH=$DLANG/$(echo \${DMD_$SITE})/$(echo \${DMD_BINDIR_$SITE}):$PATH
+eval LIBRARY_PATH=$DLANG/$(echo \$DMD_$SITE)/$(echo \$DMD_LIBDIR_$SITE):$LIBRARY_PATH
+eval OPTION=$(echo \$DMD_OPTION_$SITE)
+
+echo "---------- Compile"
+echo dmd $OPTION $@
+dmd $OPTION $@
