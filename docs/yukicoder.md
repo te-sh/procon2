@@ -3,7 +3,7 @@ layout: default
 ---
 [yukicoder](https://yukicoder.me/) の問題を解いたときのメモです.
 
-|No.801|No.802|No.803|[No.804](yuk/017/y0804.html)|[No.805](yuk/017/y0805.html)||||||
+|No.801|No.802|No.803|[No.804](yuk/017/y0804.html)|[No.805](yuk/017/y0805.html)|[No.806](yuk/017/y0806.html)|[No.807](yuk/017/y0807.html)|No.808|[No.809](yuk/017/y0809.html)|[No.810](yuk/017/y0810.html)|
 
 |[No.791](yuk/016/y0791.html)|[No.792](yuk/016/y0792.html)|[No.793](yuk/016/y0793.html)|No.794|[No.795](yuk/016/y0795.html)|[No.796](yuk/016/y0796.html)|[No.797](yuk/016/y0797.html)|[No.798](yuk/016/y0798.html)|[No.799](yuk/016/y0799.html)|[No.800](yuk/016/y0800.html)|
 |[No.781](yuk/016/y0781.html)|[No.782](yuk/016/y0782.html)|[No.783](yuk/016/y0783.html)|[No.784](yuk/016/y0784.html)|[No.785](yuk/016/y0785.html)|[No.786](yuk/016/y0786.html)|[No.787](yuk/016/y0787.html)|[No.788](yuk/016/y0788.html)|[No.789](yuk/016/y0789.html)|[No.790](yuk/016/y0790.html)|
