@@ -1,39 +1,3 @@
-FROM debian:buster-slim as build
-
-ENV HOME=/root
-ENV DLANG=$HOME/dlang
-
-WORKDIR $HOME
-
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-      ca-certificates \
-      curl \
-      gnupg \
-      libc6-dev \
-      wget \
-      xz-utils \
- && apt-get clean \
- && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-
-ARG DMD_ATCODER
-ARG DMD_UNUSED_ATCODER
-ARG DMD_YUKICODER
-ARG DMD_UNUSED_YUKICODER
-ARG DMD_CODEFORCES
-ARG DMD_UNUSED_CODEFORCES
-
-RUN mkdir -p $DLANG \
- && wget https://dlang.org/install.sh -O $DLANG/install.sh \
- && chmod a+x $DLANG/install.sh
-
-RUN $DLANG/install.sh $DMD_ATCODER \
- && for dir in $DMD_UNUSED_ATCODER; do rm -rf $DLANG/$DMD_ATCODER/$dir; done \
- && $DLANG/install.sh $DMD_YUKICODER \
- && for dir in $DMD_UNUSED_YUKICODER; do rm -rf $DLANG/$DMD_YUKICODER/$dir; done \
- && $DLANG/install.sh $DMD_CODEFORCES \
- && for dir in $DMD_UNUSED_CODEFORCES; do rm -rf $DLANG/$DMD_CODEFORCES/$dir; done
-
 FROM python:3.8.1-slim-buster
 
 ARG SITES
@@ -52,6 +16,7 @@ ARG DMD_OPTION_CODEFORCES
 
 ENV HOME=/root
 ENV DLANG=$HOME/dlang
+ENV NIMBLE=$HOME/.nimble
 
 ENV SITES=$SITES
 ENV DMD_ATCODER=$DMD_ATCODER
@@ -71,21 +36,32 @@ WORKDIR $HOME
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+      ca-certificates \
+      curl \
       dumb-init \
       gcc \
       gcc-multilib \
+      gnupg \
       inotify-tools \
+      libc6-dev \
       libgmp-dev \
+      wget \
+      xz-utils \
  && apt-get clean \
  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
+RUN mkdir -p $DLANG \
+ && wget https://dlang.org/install.sh -O $DLANG/install.sh \
+ && chmod a+x $DLANG/install.sh \
+ && $DLANG/install.sh $DMD_ATCODER \
+ && $DLANG/install.sh $DMD_YUKICODER \
+ && $DLANG/install.sh $DMD_CODEFORCES
+
+RUN curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s - -y
+
 RUN pip install online-judge-tools
-COPY --from=build $HOME/dlang dlang
-COPY runoj.d start-monitor oj-download dmd-compile oj-test ./
-RUN PATH=$DLANG/$DMD_YUKICODER/$DMD_BINDIR_YUKICODER:$PATH \
-    LIBRARY_PATH=$DLANG/$DMD_YUKICODER/$DMD_LIBDIR_YUKICODER:$LIBRARY_PATH \
-    LD_LIBRARY_PATH=$DLANG/$DMD_YUKICODER/$DMD_LIBDIR_YUKICODER:$LD_LIBRARY_PATH \
-    dmd -O -release -inline -of=runoj runoj.d
+
+COPY runoj.py start-monitor oj-download dmd-compile nim-compile oj-test ./
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["./start-monitor"]

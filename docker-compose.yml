@@ -10,17 +10,14 @@ services:
         DMD_BINDIR_ATCODER: linux/bin64
         DMD_LIBDIR_ATCODER: linux/lib64
         DMD_OPTION_ATCODER: -m64 -O -release -inline -fPIC -defaultlib=libphobos2.so -ofa.out
-        DMD_UNUSED_ATCODER: linux/bin32 linux/lib32 freebsd osx solaris windows html man samples
         DMD_YUKICODER: dmd-2.089.1
         DMD_BINDIR_YUKICODER: linux/bin64
         DMD_LIBDIR_YUKICODER: linux/lib64
         DMD_OPTION_YUKICODER: -m64 -w -wi -O -release -inline -of=a.out
-        DMD_UNUSED_YUKICODER: linux/bin32 linux/lib32 html man samples
         DMD_CODEFORCES: dmd-2.086.0
         DMD_BINDIR_CODEFORCES: linux/bin64
         DMD_LIBDIR_CODEFORCES: linux/lib32
         DMD_OPTION_CODEFORCES: -m32 -O -release -inline -fPIC -defaultlib=libphobos2.so -of=a.out
-        DMD_UNUSED_CODEFORCES: linux/bin32 linux/lib64 html man samples
     image: te-sh/procon-judge
     container_name: projdg
     volumes:
