@@ -23,6 +23,7 @@ services:
     volumes:
       - './codes:/codes'
       - './codes-nim:/codes-nim'
+      - './codes-crystal:/codes-crystal'
     tty: true
   docs:
     build:

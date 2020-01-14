@@ -57,11 +57,19 @@ RUN mkdir -p $DLANG \
  && $DLANG/install.sh $DMD_YUKICODER \
  && $DLANG/install.sh $DMD_CODEFORCES
 
+RUN curl -sSL https://dist.crystal-lang.org/apt/setup.sh | bash \
+ && curl -sL "https://keybase.io/crystal/pgp_keys.asc" | apt-key add - \
+ && echo "deb https://dist.crystal-lang.org/apt crystal main" | tee /etc/apt/sources.list.d/crystal.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends crystal \
+ && apt-get clean \
+ && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
 RUN curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s - -y
 
 RUN pip install online-judge-tools
 
-COPY runoj.py start-monitor oj-download dmd-compile nim-compile oj-test ./
+COPY runoj.py start-monitor oj-download dmd-compile nim-compile crystal-compile oj-test ./
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["./start-monitor"]
