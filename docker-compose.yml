@@ -22,6 +22,7 @@ services:
     container_name: projdg
     volumes:
       - './codes:/codes'
+      - './codes-nim:/codes-nim'
     tty: true
   docs:
     build:
