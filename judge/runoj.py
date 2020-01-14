@@ -79,5 +79,5 @@ while True:
 
         subprocess.run(['./oj-test'], env=env, check=True)
 
-    except:
-        traceback.print_exc()
+    except subprocess.CalledProcessError:
+        pass
