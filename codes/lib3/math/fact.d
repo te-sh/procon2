@@ -60,7 +60,7 @@ struct Fact(T, bool inv = true)
       重複組み合わせ数 aHb を返します.
       n >= a + b - 1 である必要があります.
 
- */
+*/
 
 unittest
 {

@@ -90,7 +90,7 @@ auto frac(T)(T a, T b) { return Frac!T(a, b).normalizeSign().reduction(); }
       a の逆数を返します.
       a は 0 以外である必要があります.
 
- */
+*/
 
 unittest
 {

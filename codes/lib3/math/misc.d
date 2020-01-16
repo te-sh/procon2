@@ -65,7 +65,7 @@ pure T extGcd(T)(T a, T b, out T x, out T y)
     拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
     x, y は ax + by = g を満たす x, y の1つを返します.
 
- */
+*/
 
 unittest
 {

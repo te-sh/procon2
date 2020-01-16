@@ -321,7 +321,7 @@ pure T det(T, alias zero, alias one)(Matrix!(T, zero, one) a) in { assert(a.r ==
     zero には加法単位元を指定します.
     one には乗法単位元を指定します.
 
- */
+*/
 
 unittest
 {

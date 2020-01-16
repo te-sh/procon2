@@ -89,7 +89,7 @@ struct ModInt(int m, bool pos = false)
       m が素数でない場合は正しい値を返しません.
       pos が true のときは定義されません.
 
- */
+*/
 
 unittest
 {

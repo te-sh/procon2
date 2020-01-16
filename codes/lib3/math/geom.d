@@ -111,7 +111,7 @@ pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
     直線 l1, l2 の角の二等分線を配列で返します.
     l1, l2 が平行とみなされる場合は1つだけを返します.
 
- */
+*/
 
 unittest
 {
