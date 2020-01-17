@@ -64,11 +64,11 @@ struct Fact(T, bool inv = true)
 
 unittest
 {
-  import mod_int;
+  import std.algorithm, mod_int;
 
   auto fact = Fact!(ModInt!7)(5);
-  assert(fact.table == [1, 1, 2, 6, 3, 1]);
-  assert(fact.invTable == [1, 1, 4, 6, 5, 1]);
+  assert(equal(fact.table, [1, 1, 2, 6, 3, 1]));
+  assert(equal(fact.invTable, [1, 1, 4, 6, 5, 1]));
 
   assert(fact.perm(5, 2) == 6);
   assert(fact.combi(5, 2) == 3);

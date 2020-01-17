@@ -118,7 +118,7 @@ HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree
 
 unittest
 {
-  import graph;
+  import std.algorithm, graph;
   auto g = Graph(13);
 
   g.addEdgeB(0, 1);
@@ -154,6 +154,6 @@ unittest
   assert(hd.lca(7, 9) == 4);
 
   auto hd2 = g.tree(0).hlDecomposition!true;
-  assert(hd2.paths[0] == [0, 1, 4, 8, 9]);
+  assert(equal(hd2.paths[0], [0, 1, 4, 8, 9]));
   assert(hd2.path[2] == 1);
 }

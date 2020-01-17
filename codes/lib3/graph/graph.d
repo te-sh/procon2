@@ -83,24 +83,26 @@ struct GraphM(W = int, W i = 10^^9)
 
 unittest
 {
+  import std.algorithm;
   auto g = Graph(3);
   g.addEdge(0, 1);
   g.addEdgeB(1, 2);
 
-  assert(g[0] == [1]);
-  assert(g[1] == [2]);
-  assert(g[2] == [1]);
+  assert(equal(g[0], [1]));
+  assert(equal(g[1], [2]));
+  assert(equal(g[2], [1]));
 }
 
 unittest
 {
+  import std.algorithm;
   auto g = GraphW!int(3);
   g.addEdge(0, 1, 3);
   g.addEdgeB(1, 2, 4);
 
-  assert(g[0] == [g.Edge(0, 1, 3)]);
-  assert(g[1] == [g.Edge(1, 2, 4)]);
-  assert(g[2] == [g.Edge(2, 1, 4)]);
+  assert(equal(g[0], [g.Edge(0, 1, 3)]));
+  assert(equal(g[1], [g.Edge(1, 2, 4)]));
+  assert(equal(g[2], [g.Edge(2, 1, 4)]));
 }
 
 unittest

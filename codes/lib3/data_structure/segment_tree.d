@@ -126,7 +126,7 @@ unittest
   assert(st1[0] == 1);
   assert(st1[2] == 2);
   assert(st1[5] == 5);
-  assert(st1.data == [1, 0, 2, 0, 0, 5]);
+  assert(equal(st1.data, [1, 0, 2, 0, 0, 5]));
   assert(st1[0..0] == 0);
   assert(st1[0..1] == 1);
   assert(st1[0..2] == 1);

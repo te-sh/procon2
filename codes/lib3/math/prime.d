@@ -92,17 +92,18 @@ private:
 
 unittest
 {
-  assert(Prime(2) == [2]);
-  assert(Prime(5) == [2, 3, 5]);
-  assert(Prime(30) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]);
+  import std.algorithm;
+  assert(equal(Prime(2), [2]));
+  assert(equal(Prime(5), [2, 3, 5]));
+  assert(equal(Prime(30), [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]));
 
   auto primes = Prime(5);
   alias Factor = primes.Factor;
 
-  assert(primes.div(23) == [Factor(23, 1)]);
-  assert(primes.div(24) == [Factor(2, 3), Factor(3, 1)]);
-  assert(primes.div(25) == [Factor(5, 2)]);
+  assert(equal(primes.div(23), [Factor(23, 1)]));
+  assert(equal(primes.div(24), [Factor(2, 3), Factor(3, 1)]));
+  assert(equal(primes.div(25), [Factor(5, 2)]));
 
   auto primes2 = Prime(100);
-  assert(primes2.divisors(60) == [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]);
+  assert(equal(primes2.divisors(60), [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]));
 }

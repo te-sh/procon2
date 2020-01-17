@@ -57,6 +57,7 @@ TopologicalSort!(Graph) topologicalSort(Graph)(Graph g) { return TopologicalSort
 
 unittest
 {
+  import std.algorithm;
   auto g = Graph(8);
   g[0] = [2];
   g[1] = [0, 4];
@@ -66,7 +67,7 @@ unittest
   g[7] = [6];
 
   auto ts = g.topologicalSort;
-  assert(ts.nodes == [1, 4, 5, 7, 0, 2, 6, 3]);
+  assert(equal(ts.nodes, [1, 4, 5, 7, 0, 2, 6, 3]));
   assert(!ts.hasCycle);
 
   auto g2 = Graph(4);
