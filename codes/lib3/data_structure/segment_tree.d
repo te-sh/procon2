@@ -1,4 +1,4 @@
-class SegmentTree(T, alias pred = "a+b")
+class SegmentTree(alias pred = "a+b", T)
 {
   import std.functional, std.math;
   alias predFun = binaryFun!pred;
@@ -71,22 +71,29 @@ private:
   void propagateAll() { foreach_reverse (i; 1..an) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
   void propagate(size_t i) { while (i /= 2) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
 }
+SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(size_t n, T unit = T.init)
+{
+  return new SegmentTree!(pred, T)(n, unit);
+}
+SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T unit = T.init)
+{
+  return new SegmentTree!(pred, T)(init, unit);
+}
 
 /*
 
-  class SegmentTree(T, alias pred = "a+b")
+  class SegmentTree(alias pred = "a+b", T)
 
     Segment Tree を管理します.
 
-    new SegmentTree!(T, pred)(size_t n, T unit = T.init)
+    new SegmentTree!(pred, T)(size_t n, T unit = T.init)
 
-      合成関数を pred とした大きさ n のセグメントツリーを作成します.
+      合成関数を pred とした大きさ n の Segment Tree を作成します.
       unit に合成時の初期値 unit を指定します. (デフォルト値は 0 です)
 
-    new SegmentTree!(T, pred)(T[] init, T unit = T.init)
+    new SegmentTree!(pred, T)(T[] init, T unit = T.init)
 
-      合成関数を pred とした初期配列 a のセグメントツリーを作成します.
-      init に Segment Tree の初期値を指定します.
+      合成関数を pred とした初期配列 init のセグメントツリーを作成します.
       unit に合成時の初期値 unit を指定します. (デフォルト値は 0 です)
 
     s[l..r]
@@ -113,13 +120,23 @@ private:
 
       インデックス i の値を 1 増やし (減らし) ます.
 
+  SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(size_t n, T unit = T.init)
+
+    合成関数を pred とした大きさ n の Segment Tree を作成します.
+    unit に合成時の初期値 unit を指定します. (デフォルト値は 0 です)
+
+  SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T unit = T.init)
+
+    合成関数を pred とした初期配列 init の Segment Tree を作成します.
+    unit に合成時の初期値 unit を指定します. (デフォルト値は 0 です)
+
 */
 
 unittest
 {
   import std.algorithm, std.range;
 
-  auto st1 = new SegmentTree!(int, "a+b")(6);
+  auto st1 = segmentTree!("a+b", int)(6);
   st1[0] = 1;
   st1[2] = 2;
   st1[5] = 5;
@@ -136,7 +153,7 @@ unittest
   assert(st1[0..3] == 4);
   assert(st1[2..$] == 8);
 
-  auto st2 = new SegmentTree!(int, min)(10, int.max);
+  auto st2 = segmentTree!min(10, int.max);
   st2[0] = 8;
   st2[2] = 4;
   st2[5] = 5;
@@ -149,7 +166,7 @@ unittest
   assert(st2[0..3] == 8);
   assert(st2[2..$] == 5);
 
-  auto st3 = new SegmentTree!int(iota(1, 11).array);
+  auto st3 = segmentTree(iota(1, 11).array);
   assert(st3[0..0] == 0);
   assert(st3[0..1] == 1);
   assert(st3[0..2] == 3);

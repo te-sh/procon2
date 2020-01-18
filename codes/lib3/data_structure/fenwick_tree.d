@@ -34,6 +34,7 @@ private:
     return s;
   }
 }
+FenwickTree!T fenwickTree(T)(size_t n) { return new FenwickTree!T(n); }
 
 /*
 
@@ -63,11 +64,15 @@ private:
 
     インデックス i の値を 1 増やし (減らし) ます.
 
+  FenwickTree!T fenwickTree(T)(size_t n)
+
+    大きさ n の Fenwick Tree を作成します.
+
 */
 
 unittest
 {
-  auto ft = new FenwickTree!int(15);
+  auto ft = fenwickTree!int(15);
 
   assert(ft[0..2] == 0);
   assert(ft[0..3] == 0);

@@ -11,6 +11,23 @@ pragma(inline)
   pure int popcnt(T)(T n) { return core.bitop.popcnt(ulong(n)); }
 }
 
+struct BitSubsetRange(bool includeZero = false, T)
+{
+  T n, i;
+
+  this(T n) { this.n = this.i = n; }
+  static if (includeZero) {
+    @property T front() { return i&n; }
+    void popFront() { i &= n; i--; }
+    bool empty() { return i < 0; }
+  } else {
+    @property T front() { return i; }
+    void popFront() { i = (i-1)&n; }
+    bool empty() { return i <= 0; }
+  }
+}
+auto bitSubset(bool includeZero = false, T)(T n) { return BitSubsetRange!(includeZero, T)(n); }
+
 /*
 
   pure bool bitTest(T)(T n, size_t i)
@@ -41,6 +58,11 @@ pragma(inline)
 
     n の立ってるビットの数を返します.
 
+  auto bitSubset(bool includeZero = false, T)(T n)
+
+    n のビットによる部分集合を列挙する Range を返します.
+    includeZero が true ときは部分集合に 0 を含みます.
+
 */
 
 unittest
@@ -56,4 +78,8 @@ unittest
   assert(bsf(6) == 1);
   assert(bsr(6) == 2);
   assert(popcnt(6) == 2);
+
+  import std.algorithm;
+  assert(equal(bitSubset(11), [11, 10, 9, 8, 3, 2, 1]));
+  assert(equal(bitSubset!true(11), [11, 10, 9, 8, 3, 2, 1, 0]));
 }
