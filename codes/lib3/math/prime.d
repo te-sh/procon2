@@ -31,15 +31,13 @@ struct Prime
     Factor[] factors;
     auto t = isqrt(x);
     foreach (p; primes) {
-      if (p > t) {
-        factors ~= Factor(x, 1);
-        break;
-      }
+      if (p > t) break;
       auto c = 0;
       for (; x%p == 0; x /= p) ++c;
       if (c > 0) factors ~= Factor(p, c);
       if (x == 1) break;
     }
+    if (x > 1) factors ~= [Factor(x, 1)];
     return factors;
   }
 
@@ -62,7 +60,6 @@ private:
     return r;
   }
 }
-
 
 /*
 
@@ -103,6 +100,7 @@ unittest
   assert(equal(primes.div(23), [Factor(23, 1)]));
   assert(equal(primes.div(24), [Factor(2, 3), Factor(3, 1)]));
   assert(equal(primes.div(25), [Factor(5, 2)]));
+  assert(equal(primes.div(31), [Factor(31, 1)]));
 
   auto primes2 = Prime(100);
   assert(equal(primes2.divisors(60), [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]));

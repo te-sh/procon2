@@ -1,18 +1,41 @@
-// URL: https://yukicoder.me/problems/no/7
+// URL: https://yukicoder.me/problems/no/6
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
+  int K; io.getV(K);
   int N; io.getV(N);
 
-  auto primes = Prime(N), b = new bool[](N+1);
-  b[0] = b[1] = true;
-  foreach (i; 2..N+1)
-    b[i] = !primes.primes.assumeSorted.lowerBound(i+1).map!(p => b[i-p]).all;
+  auto primes = Prime(N);
+  auto p = primes.find!"a >= b"(K).array, h = p.map!hash.array;
 
-  io.putB(b[N], "Win", "Lose");
+  auto i = 0, j = 0, b = new bool[](10); b[h[i]] = true;
+  auto ml = 0, mi = i;
+  for (; j < h.length; ++j) {
+    if (b[h[j]]) {
+      while (h[i] != h[j]) b[h[i++]] = false;
+      if (i < j) b[h[i++]] = false;
+    }
+
+    b[h[j]] = true;
+    if (j-i >= ml) {
+      mi = i;
+      ml = j-i;
+    }
+  }
+  io.put(p[mi]);
+}
+
+auto hash(int x)
+{
+  while (x >= 10) {
+    auto y = 0;
+    for (; x > 0; x /= 10) y += x%10;
+    x = y;
+  }
+  return x;
 }
 
 pure T isqrt(T)(T n)
@@ -90,15 +113,13 @@ struct Prime
     Factor[] factors;
     auto t = isqrt(x);
     foreach (p; primes) {
-      if (p > t) {
-        factors ~= Factor(x, 1);
-        break;
-      }
+      if (p > t) break;
       auto c = 0;
       for (; x%p == 0; x /= p) ++c;
       if (c > 0) factors ~= Factor(p, c);
       if (x == 1) break;
     }
+    if (x > 1) factors ~= [Factor(x, 1)];
     return factors;
   }
 

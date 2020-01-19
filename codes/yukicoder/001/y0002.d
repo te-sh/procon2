@@ -1,4 +1,4 @@
-// URL: https://yukicoder.me/problems/no/7
+// URL: https://yukicoder.me/problems/no/2
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
@@ -7,12 +7,8 @@ void main()
 {
   int N; io.getV(N);
 
-  auto primes = Prime(N), b = new bool[](N+1);
-  b[0] = b[1] = true;
-  foreach (i; 2..N+1)
-    b[i] = !primes.primes.assumeSorted.lowerBound(i+1).map!(p => b[i-p]).all;
-
-  io.putB(b[N], "Win", "Lose");
+  auto primes = Prime(N.isqrt), d = primes.div(N);
+  io.putB(d.map!"a[1]".reduce!"a^b" != 0, "Alice", "Bob");
 }
 
 pure T isqrt(T)(T n)
@@ -90,15 +86,13 @@ struct Prime
     Factor[] factors;
     auto t = isqrt(x);
     foreach (p; primes) {
-      if (p > t) {
-        factors ~= Factor(x, 1);
-        break;
-      }
+      if (p > t) break;
       auto c = 0;
       for (; x%p == 0; x /= p) ++c;
       if (c > 0) factors ~= Factor(p, c);
       if (x == 1) break;
     }
+    if (x > 1) factors ~= [Factor(x, 1)];
     return factors;
   }
 

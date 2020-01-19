@@ -1,4 +1,4 @@
-// URL: https://yukicoder.me/problems/no/3
+// URL: https://yukicoder.me/problems/no/10
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
@@ -6,38 +6,28 @@ version(unittest) {} else
 void main()
 {
   int N; io.getV(N);
+  int Total; io.getV(Total);
+  int[] A; io.getA(N, A);
 
-  auto b = new int[](N+1), inf = 10^^9;
-  b[] = inf; b[1] = 1;
+  auto dp = new bool[][](N, Total+1); dp[N-1][Total] = true;
+  foreach_reverse (i; 1..N)
+    foreach (j; 0..Total+1)
+      if (dp[i][j]) {
+        if (j >= A[i]) dp[i-1][j-A[i]] = true;
+        if (j%A[i] == 0) dp[i-1][j/A[i]] = true;
+      }
 
-  auto q = DList!int(1);
-  while (!q.empty) {
-    auto i = q.front; q.removeFront();
-    auto j1 = i-i.popcnt, j2 = i+i.popcnt;
-    if (j1 >= 1 && b[j1] > b[i]+1) {
-      b[j1] = b[i]+1;
-      q.insertBack(j1);
+  auto x = A[0], r = "";
+  foreach (i; 1..N)
+    if (x+A[i] <= Total && dp[i][x+A[i]]) {
+      x += A[i];
+      r ~= "+";
+    } else {
+      x *= A[i];
+      r ~= "*";
     }
-    if (j2 <= N && b[j2] > b[i]+1) {
-      b[j2] = b[i]+1;
-      q.insertBack(j2);
-    }
-  }
 
-  io.putB(b[N] != inf, b[N], -1);
-}
-
-pragma(inline)
-{
-  pure bool bitTest(T)(T n, size_t i) { return (n & (T(1) << i)) != 0; }
-  pure T bitSet(T)(T n, size_t i) { return n | (T(1) << i); }
-  pure T bitReset(T)(T n, size_t i) { return n & ~(T(1) << i); }
-  pure T bitComp(T)(T n, size_t i) { return n ^ (T(1) << i); }
-
-  import core.bitop;
-  pure int bsf(T)(T n) { return core.bitop.bsf(ulong(n)); }
-  pure int bsr(T)(T n) { return core.bitop.bsr(ulong(n)); }
-  pure int popcnt(T)(T n) { return core.bitop.popcnt(ulong(n)); }
+  io.put(r);
 }
 
 auto io = IO!()();

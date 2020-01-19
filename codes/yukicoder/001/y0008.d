@@ -1,43 +1,16 @@
-// URL: https://yukicoder.me/problems/no/3
+// URL: https://yukicoder.me/problems/no/8
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int N; io.getV(N);
+  int P; io.getV(P);
 
-  auto b = new int[](N+1), inf = 10^^9;
-  b[] = inf; b[1] = 1;
-
-  auto q = DList!int(1);
-  while (!q.empty) {
-    auto i = q.front; q.removeFront();
-    auto j1 = i-i.popcnt, j2 = i+i.popcnt;
-    if (j1 >= 1 && b[j1] > b[i]+1) {
-      b[j1] = b[i]+1;
-      q.insertBack(j1);
-    }
-    if (j2 <= N && b[j2] > b[i]+1) {
-      b[j2] = b[i]+1;
-      q.insertBack(j2);
-    }
+  foreach (_; 0..P) {
+    int N, K; io.getV(N, K);
+    io.putB(N%(K+1) != 1, "Win", "Lose");
   }
-
-  io.putB(b[N] != inf, b[N], -1);
-}
-
-pragma(inline)
-{
-  pure bool bitTest(T)(T n, size_t i) { return (n & (T(1) << i)) != 0; }
-  pure T bitSet(T)(T n, size_t i) { return n | (T(1) << i); }
-  pure T bitReset(T)(T n, size_t i) { return n & ~(T(1) << i); }
-  pure T bitComp(T)(T n, size_t i) { return n ^ (T(1) << i); }
-
-  import core.bitop;
-  pure int bsf(T)(T n) { return core.bitop.bsf(ulong(n)); }
-  pure int bsr(T)(T n) { return core.bitop.bsr(ulong(n)); }
-  pure int popcnt(T)(T n) { return core.bitop.popcnt(ulong(n)); }
 }
 
 auto io = IO!()();

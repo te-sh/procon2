@@ -1,8 +1,7 @@
 import std.stdio;
-
 struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
 {
-  import std.algorithm, std.conv, std.format, std.meta, std.range, std.stdio, std.traits;
+  import std.algorithm, std.conv, std.format, std.meta, std.range, std.traits;
   alias assignable = hasAssignableElements;
 
   dchar[] buf;
@@ -25,10 +24,7 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
   auto putR(T)(T v)
   {
     auto w = v;
-    while (!w.empty) {
-      putA(w.front); w.popFront();
-      if (!w.empty) OUT.write(delimiter);
-    }
+    while (!w.empty) { putA(w.front); w.popFront(); if (!w.empty) OUT.write(delimiter); }
   }
   auto putA(T)(T v)
   {
