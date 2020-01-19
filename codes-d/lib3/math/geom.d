@@ -1,13 +1,13 @@
+import std.math;
+
 struct Point(T, T eps = 1e-10L)
 {
-  import std.math;
   T x, y;
   auto isNaN() { return x.isNaN || y.isNaN; }
 }
 
 struct Line(T, T eps = 1e-10L)
 {
-  import std.math;
   T a, b, c;
   auto isNaN() { return a.isNaN || b.isNaN || c.isNaN; }
 }
@@ -21,19 +21,16 @@ pure Line!(T, eps) line(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 
 pure T dist(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 {
-  import std.math;
   return ((p1.x-p2.x)^^2 + (p1.y-p2.y)^^2).sqrt;
 }
 
 pure T dist(T, alias eps1, alias eps2)(Point!(T, eps1) p, Line!(T, eps2) l)
 {
-  import std.math;
   return (l.a*p.x + l.b*p.y + l.c).abs / (l.a^^2 + l.b^^2).sqrt;
 }
 
 pure Point!(T, eps) intersect(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 {
-  import std.math;
   auto det = l1.a*l2.b - l1.b*l2.a;
   if (approxEqual(det, 0, eps)) return Point!(T, eps)(T.nan, T.nan);
   auto x = (l1.b*l2.c - l2.b*l1.c) / det;
@@ -43,7 +40,6 @@ pure Point!(T, eps) intersect(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 
 pure Line!(T, eps) bisector(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 {
-  import std.math;
   auto a = p2.x-p1.x;
   auto b = p2.y-p1.y;
   auto c = (p1.x^^2 - p2.x^^2 + p1.y^^2 - p2.y^^2) / 2;
@@ -53,7 +49,6 @@ pure Line!(T, eps) bisector(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 
 pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 {
-  import std.math;
   auto d1 = (l1.a^^2 + l1.b^^2).sqrt;
   auto d2 = (l2.a^^2 + l2.b^^2).sqrt;
 

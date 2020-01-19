@@ -3,7 +3,6 @@ import point;
 pure Point2!T[] convexHull(T)(Point2!T[] p)
 {
   import std.algorithm, std.range;
-
   p.multiSort!("a.x < b.x", "a.y < b.y");
 
   Point2!T[] lower;
@@ -26,7 +25,6 @@ pure Point2!T[] convexHull(T)(Point2!T[] p)
 pure T convexHullDiameter2(T)(Point2!T[] p)
 {
   import std.algorithm;
-
   auto n = p.length;
   size_t ps, pt;
   foreach (i; 1..n) {

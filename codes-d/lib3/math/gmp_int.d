@@ -1,7 +1,6 @@
 struct GmpInt
 {
   import std.conv;
-
   __mpz_struct z;
 
   @property value() { return toLong(); }

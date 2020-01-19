@@ -72,11 +72,7 @@ unittest
 
   auto io = IO!(dummyIn, dummyOut)();
 
-  dummyIn.buf ~= "45
-123456789012
-3.5
-test
-";
+  dummyIn.buf ~= "45\n123456789012\n3.5\ntest\n";
   int a; io.getV(a);
   assert(a == 45);
   long b; io.getV(b);
@@ -86,28 +82,19 @@ test
   string d; io.getV(d);
   assert(d == "test");
 
-  dummyIn.buf ~= "12 23
-a 1 5.5
-";
+  dummyIn.buf ~= "12 23\na 1 5.5\n";
   int e1, e2; io.getV(e1, e2);
   assert(e1 == 12 && e2 == 23);
   string f1; int f2; real f3; io.getV(f1, f2, f3);
   assert(f1 == "a" && f2 == 1 && approxEqual(f3, 5.5));
 
-  dummyIn.buf ~= "2 5 6
-123456789012 9876543210
-";
+  dummyIn.buf ~= "2 5 6\n123456789012 9876543210\n";
   int[] g; io.getA(3, g);
   assert(equal(g, [2, 5, 6]));
   long[] h; io.getA(2, h);
   assert(equal(h, [123456789012L, 9876543210L]));
 
-  dummyIn.buf ~= "1.5
-2.7
-3.3
-a 12 50
-b 11 2
-";
+  dummyIn.buf ~= "1.5\n2.7\n3.3\na 12 50\nb 11 2\n";
   double[] i; io.getC(3, i);
   assert(approxEqual(i, [1.5, 2.7, 3.3]));
   string[] j1; int[] j2, j3; io.getC(2, j1, j2, j3);
@@ -115,10 +102,7 @@ b 11 2
   assert(equal(j2, [12, 11]));
   assert(equal(j3, [50, 2]));
 
-  dummyIn.buf ~= "2 3
-3 4
-4 5
-";
+  dummyIn.buf ~= "2 3\n3 4\n4 5\n";
   int[][] l; io.getM(3, 2, l);
   assert(equal(l, [[2, 3], [3, 4], [4, 5]]));
 
@@ -126,26 +110,18 @@ b 11 2
   io.put(b);
   io.put(c);
   io.put(d);
-  assert(dummyOut.buf == "45
-123456789012
-3.5000000000
-test
-");
+  assert(dummyOut.buf == "45\n123456789012\n3.5000000000\ntest\n");
   dummyOut.clear();
 
   io.put(e1, e2, f1, f2, f3);
-  assert(dummyOut.buf == "12 23 a 1 5.5000000000
-");
+  assert(dummyOut.buf == "12 23 a 1 5.5000000000\n");
   dummyOut.clear();
 
   io.put(a, g);
-  assert(dummyOut.buf == "45 2 5 6
-");
+  assert(dummyOut.buf == "45 2 5 6\n");
   dummyOut.clear();
 
   io.putB(true, a, b);
   io.putB(false, c, d);
-  assert(dummyOut.buf == "45
-test
-");
+  assert(dummyOut.buf == "45\ntest\n");
 }

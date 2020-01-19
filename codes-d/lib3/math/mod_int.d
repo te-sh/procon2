@@ -39,12 +39,7 @@ struct ModInt(int m, bool pos = false)
     pure M opBinary(Op op: "/")(int r) { return opBinary!op(M(r)); }
     ref M opOpAssign(Op op: "/")(int r) { return opOpAssign!op(M(r)); }
 
-    pure M inv()
-    {
-      int x = i, a, b;
-      extGcd(x, m, a, b);
-      return M(a);
-    }
+    pure M inv() { int x = i, a, b; extGcd(x, m, a, b); return M(a); }
   }
 }
 

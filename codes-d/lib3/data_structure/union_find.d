@@ -98,6 +98,5 @@ unittest
   uf.unite(3, 5);
   assert(uf.countForests == 3);
 
-  auto g = uf.groups;
-  assert(equal(g, [[0, 1, 2], [3, 5], [4]]));
+  assert(equal(uf.groups, [[0, 1, 2], [3, 5], [4]]));
 }
