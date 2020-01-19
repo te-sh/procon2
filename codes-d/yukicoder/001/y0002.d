@@ -1,4 +1,4 @@
-// URL: https://yukicoder.me/problems/no/7
+// URL: https://yukicoder.me/problems/no/2
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
@@ -7,12 +7,8 @@ void main()
 {
   int N; io.getV(N);
 
-  auto primes = Prime(N), b = new bool[](N+1);
-  b[0] = b[1] = true;
-  foreach (i; 2..N+1)
-    b[i] = !primes.primes.assumeSorted.lowerBound(i+1).map!(p => b[i-p]).all;
-
-  io.putB(b[N], "Win", "Lose");
+  auto primes = Prime(N.isqrt), d = primes.div(N);
+  io.putB(d.map!"a[1]".reduce!"a^b" != 0, "Alice", "Bob");
 }
 
 pure T isqrt(T)(T n)
@@ -20,9 +16,8 @@ pure T isqrt(T)(T n)
   import std.algorithm, std.range, std.typecons;
   static if (is(T == int)) auto max = 46340;
   else static if (is(T == long)) auto max = 3037000499L;
-  if (n == T.max) return max;
-  auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<b[1]";
-  return bs.lowerBound(tuple(0, n+1)).back[0];
+  auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<=b[1]";
+  return bs.lowerBound(tuple(0, n)).back[0];
 }
 
 pure T icbrt(T)(T n)
@@ -30,9 +25,8 @@ pure T icbrt(T)(T n)
   import std.algorithm, std.range, std.typecons;
   static if (is(T == int)) auto max = 1290;
   else static if (is(T == long)) auto max = 2097151L;
-  if (n == T.max) return max;
-  auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<b[1]";
-  return bs.lowerBound(tuple(0, n+1)).back[0];
+  auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<=b[1]";
+  return bs.lowerBound(tuple(0, n)).back[0];
 }
 
 pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
@@ -41,10 +35,7 @@ pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
   alias predFun = binaryFun!pred;
   if (n == 0) return one;
   auto r = one;
-  for (; n > 0; n >>= 1) {
-    if (n&1) r = predFun(r, a);
-    a = predFun(a, a);
-  }
+  for (; n > 0; n >>= 1) { if (n&1) r = predFun(r, a); a = predFun(a, a); }
   return r;
 }
 pure T powr(alias pred = "a*b", T, U)(T a, U n) { return powr!(pred, T, U)(a, n, T(1)); }
@@ -52,10 +43,7 @@ pure T powr(alias pred = "a*b", T, U)(T a, U n) { return powr!(pred, T, U)(a, n,
 pure T extGcd(T)(T a, T b, out T x, out T y)
 {
   auto g = a; x = 1; y = 0;
-  if (b) {
-    g = extGcd(b, a%b, y, x);
-    y -= a/b*x;
-  }
+  if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
   return g;
 }
 
@@ -90,15 +78,13 @@ struct Prime
     Factor[] factors;
     auto t = isqrt(x);
     foreach (p; primes) {
-      if (p > t) {
-        factors ~= Factor(x, 1);
-        break;
-      }
+      if (p > t) break;
       auto c = 0;
       for (; x%p == 0; x /= p) ++c;
       if (c > 0) factors ~= Factor(p, c);
       if (x == 1) break;
     }
+    if (x > 1) factors ~= [Factor(x, 1)];
     return factors;
   }
 

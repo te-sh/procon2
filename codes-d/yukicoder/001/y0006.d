@@ -1,14 +1,41 @@
-// URL: https://yukicoder.me/problems/no/2
+// URL: https://yukicoder.me/problems/no/6
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
+  int K; io.getV(K);
   int N; io.getV(N);
 
-  auto primes = Prime(N.isqrt), d = primes.div(N);
-  io.putB(d.map!"a[1]".reduce!"a^b" != 0, "Alice", "Bob");
+  auto primes = Prime(N);
+  auto p = primes.find!"a >= b"(K).array, h = p.map!hash.array;
+
+  auto i = 0, j = 0, b = new bool[](10); b[h[i]] = true;
+  auto ml = 0, mi = i;
+  for (; j < h.length; ++j) {
+    if (b[h[j]]) {
+      while (h[i] != h[j]) b[h[i++]] = false;
+      if (i < j) b[h[i++]] = false;
+    }
+
+    b[h[j]] = true;
+    if (j-i >= ml) {
+      mi = i;
+      ml = j-i;
+    }
+  }
+  io.put(p[mi]);
+}
+
+auto hash(int x)
+{
+  while (x >= 10) {
+    auto y = 0;
+    for (; x > 0; x /= 10) y += x%10;
+    x = y;
+  }
+  return x;
 }
 
 pure T isqrt(T)(T n)
@@ -16,9 +43,8 @@ pure T isqrt(T)(T n)
   import std.algorithm, std.range, std.typecons;
   static if (is(T == int)) auto max = 46340;
   else static if (is(T == long)) auto max = 3037000499L;
-  if (n == T.max) return max;
-  auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<b[1]";
-  return bs.lowerBound(tuple(0, n+1)).back[0];
+  auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<=b[1]";
+  return bs.lowerBound(tuple(0, n)).back[0];
 }
 
 pure T icbrt(T)(T n)
@@ -26,9 +52,8 @@ pure T icbrt(T)(T n)
   import std.algorithm, std.range, std.typecons;
   static if (is(T == int)) auto max = 1290;
   else static if (is(T == long)) auto max = 2097151L;
-  if (n == T.max) return max;
-  auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<b[1]";
-  return bs.lowerBound(tuple(0, n+1)).back[0];
+  auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<=b[1]";
+  return bs.lowerBound(tuple(0, n)).back[0];
 }
 
 pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
@@ -37,10 +62,7 @@ pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
   alias predFun = binaryFun!pred;
   if (n == 0) return one;
   auto r = one;
-  for (; n > 0; n >>= 1) {
-    if (n&1) r = predFun(r, a);
-    a = predFun(a, a);
-  }
+  for (; n > 0; n >>= 1) { if (n&1) r = predFun(r, a); a = predFun(a, a); }
   return r;
 }
 pure T powr(alias pred = "a*b", T, U)(T a, U n) { return powr!(pred, T, U)(a, n, T(1)); }
@@ -48,10 +70,7 @@ pure T powr(alias pred = "a*b", T, U)(T a, U n) { return powr!(pred, T, U)(a, n,
 pure T extGcd(T)(T a, T b, out T x, out T y)
 {
   auto g = a; x = 1; y = 0;
-  if (b) {
-    g = extGcd(b, a%b, y, x);
-    y -= a/b*x;
-  }
+  if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
   return g;
 }
 
