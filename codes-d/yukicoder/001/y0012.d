@@ -1,18 +1,53 @@
-// URL: https://yukicoder.me/problems/no/7
+// URL: https://yukicoder.me/problems/no/12
 
 import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+
+const m = 5_000_000;
 
 version(unittest) {} else
 void main()
 {
   int N; io.getV(N);
+  int[] A; io.getA(N, A);
 
-  auto primes = Prime(N), b = new bool[](N+1);
-  b[0] = b[1] = true;
-  auto bs = primes.array.assumeSorted;
-  foreach (i; 2..N+1) b[i] = !bs.lowerBound(i+1).map!(p => b[i-p]).all;
+  auto t = A.map!(Ai => 1<<Ai).reduce!"a|b";
+  auto p = [0] ~ Prime(m).array ~ [m+1];
+  auto n = p.length, d = p.map!(pi => pi.digits).array;
+  auto b = d.map!(di => (~t&di) == 0).array; b[0] = b[$-1] = false;
 
-  io.putB(b[N], "Win", "Lose");
+  auto i = 1, ml = 0;
+  for (;;) {
+    while (i < n && !b[i]) ++i;
+    if (i == n) break;
+
+    auto j = i, s = 0;
+    while (j < n && b[j]) s |= d[j++];
+
+    if (s == t) ml = max(ml, p[j]-p[i-1]-2);
+    i = j+1;
+  }
+
+  io.putB(ml > 0, ml, -1);
+}
+
+auto digits(int x)
+{
+  auto r = 0;
+  for (; x > 0; x /= 10) r = r.bitSet(x%10);
+  return r;
+}
+
+pragma(inline)
+{
+  pure bool bitTest(T)(T n, size_t i) { return (n & (T(1) << i)) != 0; }
+  pure T bitSet(T)(T n, size_t i) { return n | (T(1) << i); }
+  pure T bitReset(T)(T n, size_t i) { return n & ~(T(1) << i); }
+  pure T bitComp(T)(T n, size_t i) { return n ^ (T(1) << i); }
+
+  import core.bitop;
+  pure int bsf(T)(T n) { return core.bitop.bsf(ulong(n)); }
+  pure int bsr(T)(T n) { return core.bitop.bsr(ulong(n)); }
+  pure int popcnt(T)(T n) { return core.bitop.popcnt(ulong(n)); }
 }
 
 pure T isqrt(T)(T n)
@@ -83,15 +118,13 @@ struct Prime
     Factor[] factors;
     auto t = isqrt(x);
     foreach (p; primes) {
-      if (p > t) {
-        factors ~= Factor(x, 1);
-        break;
-      }
+      if (p > t) break;
       auto c = 0;
       for (; x%p == 0; x /= p) ++c;
       if (c > 0) factors ~= Factor(p, c);
       if (x == 1) break;
     }
+    if (x > 1) factors ~= [Factor(x, 1)];
     return factors;
   }
 

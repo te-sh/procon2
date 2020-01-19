@@ -21,7 +21,7 @@ services:
     image: te-sh/procon-judge
     container_name: projdg
     volumes:
-      - './codes:/codes'
+      - './codes-d:/codes-d'
       - './codes-nim:/codes-nim'
       - './codes-crystal:/codes-crystal'
     tty: true

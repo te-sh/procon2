@@ -54,7 +54,8 @@ struct Prime
 
   int n;
   int[] primes;
-  alias primes this;
+  @property array() { return primes; }
+  alias array this;
 
   this(int n)
   {

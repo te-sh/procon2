@@ -9,7 +9,7 @@ void main()
   int N; io.getV(N);
 
   auto primes = Prime(N);
-  auto p = primes.find!"a >= b"(K).array, h = p.map!hash.array;
+  auto p = primes.array.find!"a >= b"(K).array, h = p.map!hash.array;
 
   auto i = 0, j = 0, b = new bool[](10); b[h[i]] = true;
   auto ml = 0, mi = i;
@@ -81,7 +81,8 @@ struct Prime
 
   int n;
   int[] primes;
-  alias primes this;
+  @property array() { return primes; }
+  alias array this;
 
   this(int n)
   {
