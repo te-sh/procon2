@@ -8,7 +8,7 @@ struct Grid(T)
   T[][] data;
 
   this(size_t r, size_t c) { this.r = r; this.c = c; data = new T[][](r, c); }
-  this(T[][] data) { this.data = data; r = data.length; c = data[0].length; }
+  this(T[][] data) { r = data.length; c = data[0].length; this.data = data; }
 
   pure T opIndex(size_t x, size_t y) { return data[y][x]; }
   pure T opIndex(P p) { return data[p.y][p.x]; }
@@ -24,6 +24,55 @@ struct Grid(T)
   auto d8 = [P(-1, 0), P(-1, -1), P(0, -1), P(1, -1), P(1, 0), P(1, 1), P(0, 1), P(-1, 1)];
   pure auto around8(P p) { return d8.map!(d => d+p).filter!(np => valid(np)); }
 }
+Grid!T grid(T)(T[][] data) { return Grid!T(data); }
+
+/*
+
+  struct Grid(T)
+
+    グリッドを表します.
+
+    Grid!T(size_t r, size_t c)
+
+      r 行 c 列のグリッドを作成します.
+
+    Grid!T(T[][] data)
+
+      data を元にグリッドを作成します.
+
+    g[x, y]
+    g[Point2!int(x, y)]
+
+      x 列 y 行の値を返します.
+
+    g[x, y] = v
+    g[Point2!int(x, y)] = v
+
+      x 列 y 行の値を v に変更します.
+
+    g[x, y] op= v
+    g[Point2!int(x, y)] op= v
+
+      x 列 y 行の値に op を v に適用した値に変更します.
+
+    pure bool g.valid(x, y)
+    pure bool g.valid(Point2!int(x, y))
+
+      x 列 y 行がグリッド内かどうかを返します.
+
+    pure auto g.around4(Point2!int(x, y))
+
+      x 列 y 行の周囲4マスのうちグリッド内にあるマスの座標を Range で返します.
+
+    pure auto g.around8(Point2!int(x, y))
+
+      x 列 y 行の周囲8マスのうちグリッド内にあるマスの座標を Range で返します.
+
+  Grid!T grid(T)(T[][] data)
+
+    data を元にグリッドを作成します.
+
+*/
 
 unittest
 {
