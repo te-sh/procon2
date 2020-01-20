@@ -1,3 +1,4 @@
+module lib.math.point;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 struct Point2(T)

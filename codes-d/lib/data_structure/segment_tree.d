@@ -1,3 +1,4 @@
+module lib.data_structure.segment_tree;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 class SegmentTree(alias pred = "a+b", T)

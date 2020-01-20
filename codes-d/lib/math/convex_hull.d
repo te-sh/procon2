@@ -1,5 +1,6 @@
+module lib.math.convex_hull;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import point;
+import lib.math.point;
 
 pure Point2!T[] convexHull(T)(Point2!T[] p)
 {

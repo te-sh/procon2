@@ -1,5 +1,6 @@
+module lib.math.prime;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import misc;
+import lib.math.misc;
 
 struct Prime
 {

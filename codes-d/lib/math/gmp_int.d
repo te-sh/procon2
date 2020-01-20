@@ -1,3 +1,4 @@
+module lib.math.gmp_int;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 struct GmpInt

@@ -1,5 +1,6 @@
+module lib.math.mod_int;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import misc;
+import lib.math.misc;
 
 struct ModInt(int m, bool pos = false)
 {

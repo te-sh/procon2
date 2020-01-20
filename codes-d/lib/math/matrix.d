@@ -1,5 +1,6 @@
+module lib.math.matrix;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import misc;
+import lib.math.misc;
 
 struct Vector(T, T zero = 0)
 {

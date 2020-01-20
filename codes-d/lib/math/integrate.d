@@ -1,3 +1,4 @@
+module lib.math.integrate;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)

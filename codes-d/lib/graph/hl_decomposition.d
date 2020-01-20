@@ -1,5 +1,6 @@
+module lib.graph.hl_decomposition;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import tree : tree;
+import lib.graph.tree;
 
 struct HlDecomposition(bool setPath = false, Tree)
 {
@@ -118,7 +119,7 @@ HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree
 
 unittest
 {
-  import graph;
+  import lib.graph.graph;
   auto g = Graph(13);
 
   g.addEdgeB(0, 1);

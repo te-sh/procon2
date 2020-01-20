@@ -1,5 +1,6 @@
+module lib.string.lcp_array;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import suffix_array;
+import lib.string.suffix_array;
 
 struct LcpArray
 {

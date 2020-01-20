@@ -1,5 +1,6 @@
+module lib.data_structure.grid;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import point;
+import lib.math.point;
 
 struct Grid(T)
 {

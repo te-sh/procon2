@@ -1,3 +1,4 @@
+module lib.data_structure.sparse_table;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 class SparseTable(alias pred = min, T)

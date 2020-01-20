@@ -1,5 +1,6 @@
+module lib.graph.tree;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
-import graph;
+import lib.graph.graph;
 
 struct Tree(Graph)
 {

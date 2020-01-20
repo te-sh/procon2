@@ -1,17 +1,18 @@
+module lib.math.misc;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 pure T isqrt(T)(T n)
 {
-  static if (is(T == int)) auto max = 46340;
-  else static if (is(T == long)) auto max = 3037000499L;
+  static if (is(T == int)) auto max = 46341;
+  else static if (is(T == long)) auto max = 3037000500L;
   auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<=b[1]";
   return bs.lowerBound(tuple(0, n)).back[0];
 }
 
 pure T icbrt(T)(T n)
 {
-  static if (is(T == int)) auto max = 1290;
-  else static if (is(T == long)) auto max = 2097151L;
+  static if (is(T == int)) auto max = 1291;
+  else static if (is(T == long)) auto max = 2097152L;
   auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<=b[1]";
   return bs.lowerBound(tuple(0, n)).back[0];
 }
