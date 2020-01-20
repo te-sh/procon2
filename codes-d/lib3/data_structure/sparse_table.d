@@ -4,15 +4,15 @@ class SparseTable(alias pred = min, T)
 {
   import std.functional;
   alias predFun = binaryFun!pred;
+  const size_t n;
+  T[] a;
   size_t[] logTable;
   size_t[][] rmq;
-  size_t n;
-  T[] a;
 
   this(T[] a)
   {
-    this.a = a;
     this.n = a.length;
+    this.a = a;
 
     logTable = new size_t[n+1];
     foreach (i; 2..n+1)

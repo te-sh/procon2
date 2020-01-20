@@ -1,3 +1,5 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 pragma(inline)
 {
   pure bool bitTest(T)(T n, size_t i) { return (n & (T(1) << i)) != 0; }

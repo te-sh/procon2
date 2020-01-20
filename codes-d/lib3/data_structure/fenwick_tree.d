@@ -1,3 +1,5 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 class FenwickTree(T)
 {
   const size_t n;

@@ -60,10 +60,11 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
     else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
     else OUT.write(v);
   }
-  auto put(T...)(T v)
+  auto put(bool flush = false, T...)(T v)
   {
     foreach (i, w; v) { putA(w); if (i < v.length-1) OUT.write(delimiter); }
     OUT.writeln;
+    static if (flush) OUT.flush();
   }
 
   auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }

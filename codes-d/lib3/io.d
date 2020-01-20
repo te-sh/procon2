@@ -34,10 +34,11 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
     else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
     else OUT.write(v);
   }
-  auto put(T...)(T v)
+  auto put(bool flush = false, T...)(T v)
   {
     foreach (i, w; v) { putA(w); if (i < v.length-1) OUT.write(delimiter); }
     OUT.writeln;
+    static if (flush) OUT.flush();
   }
 
   auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
@@ -68,6 +69,7 @@ unittest
 
     auto write(T)(T v) { buf ~= v.to!string; }
     auto writeln() { buf ~= "\n"; }
+    auto flush() { buf ~= "F"; }
     auto clear() { buf = ""; }
   }
   auto dummyOut = new DummyOut();
@@ -121,6 +123,10 @@ unittest
 
   io.put(a, g);
   assert(dummyOut.buf == "45 2 5 6\n");
+  dummyOut.clear();
+
+  io.put!true(a);
+  assert(dummyOut.buf == "45\nF");
   dummyOut.clear();
 
   io.putB(true, a, b);
