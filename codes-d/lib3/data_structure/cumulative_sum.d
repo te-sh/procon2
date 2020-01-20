@@ -1,6 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 class CumulativeSum(T)
 {
-  size_t n;
+  const size_t n;
   T[] s;
 
   this(T[] a)

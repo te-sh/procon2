@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import point;
 
 struct Grid(T)
 {
-  import std.algorithm;
   alias G = Grid!T, P = Point2!int;
   size_t r, c;
   T[][] data;
@@ -76,8 +76,6 @@ Grid!T grid(T)(T[][] data) { return Grid!T(data); }
 
 unittest
 {
-  import std.algorithm;
-
   auto a = Grid!int([[1, 2], [3, 4]]);
   alias P = a.P;
 

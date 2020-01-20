@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import graph;
 
 struct StronglyConnectedComponentsKosaraju(Graph)
 {
-  import std.algorithm, std.container;
   Graph g;
   alias g this;
   alias Node = g.Node;
@@ -48,7 +48,6 @@ StronglyConnectedComponentsKosaraju!Graph stronglyConnectedComponentsKosaraju(Gr
 
 struct StronglyConnectedComponentsGabow(Graph)
 {
-  import std.container;
   Graph g;
   alias g this;
   alias Node = g.Node;
@@ -117,7 +116,6 @@ StronglyConnectedComponentsGabow!Graph stronglyConnectedComponentsGabow(Graph)(G
 
 unittest
 {
-  import std.algorithm;
   auto g = Graph(7);
   g.addEdge(0, 1);
   g.addEdge(1, 2);

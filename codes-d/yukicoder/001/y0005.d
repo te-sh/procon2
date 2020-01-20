@@ -1,6 +1,6 @@
 // URL: https://yukicoder.me/problems/no/5
 
-import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
@@ -18,7 +18,7 @@ auto io = IO!()();
 import std.stdio;
 struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
 {
-  import std.algorithm, std.conv, std.format, std.meta, std.range, std.traits;
+  import std.conv, std.format, std.meta, std.traits;
   alias assignable = hasAssignableElements;
 
   dchar[] buf;
@@ -49,10 +49,11 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
     else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
     else OUT.write(v);
   }
-  auto put(T...)(T v)
+  auto put(bool flush = false, T...)(T v)
   {
     foreach (i, w; v) { putA(w); if (i < v.length-1) OUT.write(delimiter); }
     OUT.writeln;
+    static if (flush) OUT.flush();
   }
 
   auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }

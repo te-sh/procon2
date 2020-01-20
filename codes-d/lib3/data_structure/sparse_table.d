@@ -1,19 +1,18 @@
-import std.algorithm;
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 class SparseTable(alias pred = min, T)
 {
-  import std.algorithm, std.functional;
+  import std.functional;
   alias predFun = binaryFun!pred;
-
+  const size_t n;
+  T[] a;
   size_t[] logTable;
   size_t[][] rmq;
-  size_t n;
-  T[] a;
 
   this(T[] a)
   {
-    this.a = a;
     this.n = a.length;
+    this.a = a;
 
     logTable = new size_t[n+1];
     foreach (i; 2..n+1)
@@ -65,8 +64,6 @@ SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a) { return new Spars
 
 unittest
 {
-  import std.algorithm;
-
   auto a = [1, 5, 9, 2, 4, 1, 3];
 
   auto st1 = sparseTable(a);

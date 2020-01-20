@@ -1,3 +1,5 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 struct Point2(T)
 {
   alias P = Point2!T, Op = string;

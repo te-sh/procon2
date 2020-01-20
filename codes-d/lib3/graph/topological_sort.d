@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import graph;
 
 struct TopologicalSort(Graph)
 {
-  import std.container;
   alias Node = g.Node;
   Graph g;
   alias g this;
@@ -57,7 +57,6 @@ TopologicalSort!(Graph) topologicalSort(Graph)(Graph g) { return TopologicalSort
 
 unittest
 {
-  import std.algorithm;
   auto g = Graph(8);
   g[0] = [2];
   g[1] = [0, 4];

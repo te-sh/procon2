@@ -1,12 +1,12 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 class SegmentTree(alias pred = "a+b", T)
 {
-  import std.functional, std.math;
+  import std.functional;
   alias predFun = binaryFun!pred;
-
   size_t n, an;
   T[] buf;
   T unit;
-
   @property auto data() { return buf[an..an+n]; }
 
   this(size_t n, T unit = T.init)
@@ -134,8 +134,6 @@ SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T unit = T.in
 
 unittest
 {
-  import std.algorithm, std.range;
-
   auto st1 = segmentTree!("a+b", int)(6);
   st1[0] = 1;
   st1[2] = 2;

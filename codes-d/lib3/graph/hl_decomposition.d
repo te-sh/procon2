@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import tree : tree;
 
 struct HlDecomposition(bool setPath = false, Tree)
 {
-  import std.container;
   alias Node = Tree.Node;
   Tree t;
   alias t this;
@@ -118,7 +118,7 @@ HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree
 
 unittest
 {
-  import std.algorithm, graph;
+  import graph;
   auto g = Graph(13);
 
   g.addEdgeB(0, 1);

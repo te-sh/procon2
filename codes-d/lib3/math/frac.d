@@ -1,6 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 struct Frac(T)
 {
-  import std.math, std.numeric;
+  import std.numeric;
   alias F = Frac!T, Op = string;
   T a, b;
 
