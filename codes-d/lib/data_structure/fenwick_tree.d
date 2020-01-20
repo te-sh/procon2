@@ -1,6 +1,7 @@
 module lib.data_structure.fenwick_tree;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.data_structure.fenwick_tree
 class FenwickTree(T)
 {
   const size_t n;
@@ -38,6 +39,7 @@ private:
   }
 }
 FenwickTree!T fenwickTree(T)(size_t n) { return new FenwickTree!T(n); }
+// ::::::::::::::::::::
 
 /*
 

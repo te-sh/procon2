@@ -1,5 +1,7 @@
 module lib.data_structure.grid;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.data_structure.grid
 import lib.math.point;
 
 struct Grid(T)
@@ -26,6 +28,7 @@ struct Grid(T)
   pure auto around8(P p) { return d8.map!(d => d+p).filter!(np => valid(np)); }
 }
 Grid!T grid(T)(T[][] data) { return Grid!T(data); }
+// ::::::::::::::::::::
 
 /*
 

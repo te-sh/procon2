@@ -1,6 +1,7 @@
 module lib.math.point;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.math.point
 struct Point2(T)
 {
   alias P = Point2!T, Op = string;
@@ -34,6 +35,7 @@ pure Point3!T cross(T)(Point3!T p1, Point3!T p2)
 {
   return Point3!T(p1.y*p2.z - p1.z*p2.y, p1.z*p2.x - p1.x*p2.z, p1.x*p2.y - p1.y*p2.x);
 }
+// ::::::::::::::::::::
 
 /*
 

@@ -1,6 +1,7 @@
 module lib.data_structure.sparse_table;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.data_structure.sparse_table
 class SparseTable(alias pred = min, T)
 {
   import std.functional;
@@ -42,6 +43,7 @@ class SparseTable(alias pred = min, T)
   pure size_t opDollar() { return n; }
 }
 SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a) { return new SparseTable!(pred, T)(a); }
+// ::::::::::::::::::::
 
 /*
 

@@ -1,6 +1,7 @@
 module lib.math.integrate;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.math.integrate
 T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
 {
   const auto th = eps / 1e-14;
@@ -54,6 +55,7 @@ T integrateDE(T)(T delegate(T) f, T a, T b, T eps = 1e-8)
     h /= 2;
   }
 }
+// ::::::::::::::::::::
 
 /*
 

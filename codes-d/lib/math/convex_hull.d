@@ -1,5 +1,7 @@
 module lib.math.convex_hull;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.math.convex_hull
 import lib.math.point;
 
 pure Point2!T[] convexHull(T)(Point2!T[] p)
@@ -45,6 +47,7 @@ pure T convexHullDiameter2(T)(Point2!T[] p)
 
   return maxD;
 }
+// ::::::::::::::::::::
 
 /*
 

@@ -1,6 +1,7 @@
 module lib.data_structure.segment_tree;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.data_structure.segment_tree
 class SegmentTree(alias pred = "a+b", T)
 {
   import std.functional;
@@ -80,6 +81,7 @@ SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T unit = T.in
 {
   return new SegmentTree!(pred, T)(init, unit);
 }
+// ::::::::::::::::::::
 
 /*
 

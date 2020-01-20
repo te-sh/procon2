@@ -1,5 +1,7 @@
 module lib.graph.topological_sort;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.topological_sort
 import lib.graph.graph;
 
 struct TopologicalSort(Graph)
@@ -35,6 +37,7 @@ struct TopologicalSort(Graph)
   pure bool hasCycle() { return nodes.length != n; }
 }
 TopologicalSort!(Graph) topologicalSort(Graph)(Graph g) { return TopologicalSort!Graph(g); }
+// ::::::::::::::::::::
 
 /*
 

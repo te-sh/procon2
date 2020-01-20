@@ -5,5 +5,5 @@ eval LIBRARY_PATH=$DLANG/$(echo \$DMD_$SITE)/$(echo \$DMD_LIBDIR_$SITE):$LIBRARY
 eval OPTION=$(echo \$DMD_OPTION_$SITE)
 
 echo "---------- Compile"
-echo dmd $OPTION $@
-dmd $OPTION $@
+echo dmd $OPTION -I/codes-d $@
+dmd $OPTION -I/codes-d $@

@@ -1,6 +1,7 @@
 module lib.math.fact;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.math.fact
 struct Fact(T, bool inv = true)
 {
   int n;
@@ -35,6 +36,7 @@ struct Fact(T, bool inv = true)
     return combi(a+b-1, b);
   }
 }
+// ::::::::::::::::::::
 
 /*
 

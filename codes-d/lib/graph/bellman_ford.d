@@ -1,5 +1,7 @@
 module lib.graph.bellman_ford;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.bellman_ford
 import lib.graph.graph;
 
 struct BellmanFord(Graph)
@@ -33,6 +35,7 @@ struct BellmanFord(Graph)
   }
 }
 BellmanFord!Graph bellmanFord(Graph, Node)(Graph g, Node s) { return BellmanFord!Graph(g, s); }
+// ::::::::::::::::::::
 
 /*
 

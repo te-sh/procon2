@@ -1,5 +1,7 @@
 module lib.graph.hl_decomposition;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.hl_decomposition
 import lib.graph.tree;
 
 struct HlDecomposition(bool setPath = false, Tree)
@@ -76,6 +78,7 @@ HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree
 {
   return HlDecomposition!(setPath, Tree)(t);
 }
+// ::::::::::::::::::::
 
 /*
 

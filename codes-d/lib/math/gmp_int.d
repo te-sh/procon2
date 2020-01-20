@@ -1,6 +1,7 @@
 module lib.math.gmp_int;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.math.gmp_int
 struct GmpInt
 {
   import std.conv;
@@ -143,6 +144,7 @@ extern(C) pragma(inline, false)
   int __gmpz_probab_prime_p(mpz_ptr, int reps);
 }
 pragma(lib, "gmp");
+// ::::::::::::::::::::
 
 /*
 

@@ -1,5 +1,7 @@
 module lib.math.prime;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.math.prime
 import lib.math.misc;
 
 struct Prime
@@ -63,6 +65,7 @@ private:
     return r;
   }
 }
+// ::::::::::::::::::::
 
 /*
 

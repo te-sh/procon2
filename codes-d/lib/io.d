@@ -1,5 +1,7 @@
+module lib.io;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.io
 import std.stdio;
 struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
 {
@@ -44,6 +46,7 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
   auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
   auto putRaw(T...)(T v) { OUT.write(v); OUT.writeln; }
 }
+// ::::::::::::::::::::
 
 unittest
 {

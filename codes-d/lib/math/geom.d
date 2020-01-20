@@ -1,6 +1,7 @@
 module lib.math.geom;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.math.geom
 struct Point(T, T eps = 1e-10L)
 {
   T x, y;
@@ -67,6 +68,7 @@ pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 
   return r;
 }
+// ::::::::::::::::::::
 
 /*
 

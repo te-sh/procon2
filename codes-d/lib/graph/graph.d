@@ -1,6 +1,7 @@
 module lib.graph.graph;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.graph.graph
 struct Graph
 {
   alias Node = int;
@@ -38,6 +39,7 @@ struct GraphM(W = int, W i = 10^^9)
     return g;
   }
 }
+// ::::::::::::::::::::
 
 /*
 

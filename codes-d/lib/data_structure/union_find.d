@@ -1,6 +1,7 @@
 module lib.data_structure.union_find;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.data_structure.union_find
 class UnionFind
 {
   int[] p;
@@ -44,6 +45,7 @@ private:
 
   int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
 }
+// ::::::::::::::::::::
 
 /*
 

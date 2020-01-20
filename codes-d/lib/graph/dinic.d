@@ -1,5 +1,7 @@
 module lib.graph.dinic;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.dinic
 import lib.graph.graph;
 
 struct Dinic(Graph)
@@ -75,6 +77,7 @@ Dinic!Graph dinic(Graph, Node)(Graph g, Node s, Node t)
 {
   return Dinic!Graph(g, s, t);
 }
+// ::::::::::::::::::::
 
 /*
 

@@ -1,6 +1,7 @@
 module lib.data_structure.cumulative_sum;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.data_structure.cumulative_sum
 class CumulativeSum(T)
 {
   const size_t n;
@@ -18,6 +19,7 @@ class CumulativeSum(T)
   size_t opDollar() { return n; }
 }
 CumulativeSum!T cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
+// ::::::::::::::::::::
 
 /*
 

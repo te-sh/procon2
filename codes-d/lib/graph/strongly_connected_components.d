@@ -1,5 +1,7 @@
 module lib.graph.strongly_connected_components;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.strongly_connected_components
 import lib.graph.graph;
 
 struct StronglyConnectedComponentsKosaraju(Graph)
@@ -86,6 +88,7 @@ StronglyConnectedComponentsGabow!Graph stronglyConnectedComponentsGabow(Graph)(G
 {
   return StronglyConnectedComponentsGabow!Graph(g);
 }
+// ::::::::::::::::::::
 
 /*
 

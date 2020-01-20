@@ -1,6 +1,7 @@
 module lib.data_structure.segment_tree_lazy;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.data_structure.segment_tree_lazy
 class SegmentTreeLazy(T, Op, Op opNone)
 {
   struct Section { T val, laz; Op op; }
@@ -68,6 +69,7 @@ class SegmentTreeLazy(T, Op, Op opNone)
   T opSlice(size_t l, size_t r) { return summary(l, r, 1, 0, an); }
   pure size_t opDollar() { return n; }
 }
+// ::::::::::::::::::::
 
 unittest
 {

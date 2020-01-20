@@ -1,5 +1,7 @@
+module lib.bitop;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.bitop
 pragma(inline)
 {
   pure bool bitTest(T)(T n, size_t i) { return (n & (T(1) << i)) != 0; }
@@ -29,6 +31,7 @@ struct BitSubsetRange(bool includeZero = false, T)
   }
 }
 auto bitSubset(bool includeZero = false, T)(T n) { return BitSubsetRange!(includeZero, T)(n); }
+// ::::::::::::::::::::
 
 /*
 

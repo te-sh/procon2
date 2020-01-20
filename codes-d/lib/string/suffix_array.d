@@ -1,6 +1,7 @@
 module lib.string.suffix_array;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.string.suffix_array
 struct SuffixArray
 {
   string s;
@@ -29,6 +30,7 @@ struct SuffixArray
 
   string opIndex(size_t i) { return s[x[i]..$]; }
 }
+// ::::::::::::::::::::
 
 /*
 

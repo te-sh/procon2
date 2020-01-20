@@ -1,5 +1,7 @@
 module lib.graph.ford_fulkerson;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.ford_fulkerson
 import lib.graph.graph;
 
 struct FordFulkerson(Graph)
@@ -57,6 +59,7 @@ FordFulkerson!Graph fordFulkerson(Graph, Node)(Graph g, Node s, Node t)
 {
   return FordFulkerson!(Graph)(g, s, t);
 }
+// ::::::::::::::::::::
 
 /*
 

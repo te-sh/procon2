@@ -1,5 +1,7 @@
 module lib.graph.tree;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.tree
 import lib.graph.graph;
 
 struct Tree(Graph)
@@ -48,6 +50,7 @@ struct Tree(Graph)
   pure auto children(Node u) { return g[u].filter!(v => v != parent[u]); }
 }
 Tree!Graph tree(Graph, Node)(Graph g, Node r) { return Tree!Graph(g, r); }
+// ::::::::::::::::::::
 
 /*
 

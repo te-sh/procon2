@@ -1,5 +1,7 @@
 module lib.math.matrix;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.math.matrix
 import lib.math.misc;
 
 struct Vector(T, T zero = 0)
@@ -183,6 +185,7 @@ pure T det(T, alias zero, alias one)(Matrix!(T, zero, one) a) in { assert(a.r ==
 
   return d;
 }
+// ::::::::::::::::::::
 
 /*
 

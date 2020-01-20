@@ -1,5 +1,7 @@
 module lib.string.lcp_array;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.string.lcp_array
 import lib.string.suffix_array;
 
 struct LcpArray
@@ -25,6 +27,7 @@ struct LcpArray
       }
   }
 }
+// ::::::::::::::::::::
 
 /*
 

@@ -1,6 +1,7 @@
 module lib.math.misc;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+// :::::::::::::::::::: lib.math.misc
 pure T isqrt(T)(T n)
 {
   static if (is(T == int)) auto max = 46341;
@@ -34,6 +35,7 @@ pure T extGcd(T)(T a, T b, out T x, out T y)
   if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
   return g;
 }
+// ::::::::::::::::::::
 
 /*
 

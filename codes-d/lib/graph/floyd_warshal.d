@@ -1,5 +1,7 @@
 module lib.graph.floyd_warshal;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
+// :::::::::::::::::::: lib.graph.floyd_warshal
 import lib.graph.graph;
 
 struct FloydWarshal(Graph)
@@ -22,7 +24,7 @@ struct FloydWarshal(Graph)
   }
 }
 FloydWarshal!Graph floydWarshal(Graph)(Graph g) { return FloydWarshal!Graph(g); }
-
+// ::::::::::::::::::::
 
 /*
 
