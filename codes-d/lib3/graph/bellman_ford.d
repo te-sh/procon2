@@ -2,7 +2,6 @@ import graph;
 
 struct BellmanFord(Graph)
 {
-  import std.traits;
   Graph g;
   alias g this;
   alias Node = g.Node, Wt = g.Wt;

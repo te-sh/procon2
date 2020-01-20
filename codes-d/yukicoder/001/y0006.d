@@ -1,6 +1,6 @@
 // URL: https://yukicoder.me/problems/no/6
 
-import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
@@ -40,7 +40,6 @@ auto hash(int x)
 
 pure T isqrt(T)(T n)
 {
-  import std.algorithm, std.range, std.typecons;
   static if (is(T == int)) auto max = 46340;
   else static if (is(T == long)) auto max = 3037000499L;
   auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<=b[1]";
@@ -49,7 +48,6 @@ pure T isqrt(T)(T n)
 
 pure T icbrt(T)(T n)
 {
-  import std.algorithm, std.range, std.typecons;
   static if (is(T == int)) auto max = 1290;
   else static if (is(T == long)) auto max = 2097151L;
   auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<=b[1]";
@@ -76,7 +74,7 @@ pure T extGcd(T)(T a, T b, out T x, out T y)
 
 struct Prime
 {
-  import std.algorithm, std.bitmanip, std.math, std.range, std.typecons;
+  import std.bitmanip;
   alias Factor = Tuple!(int, int);
 
   int n;
@@ -141,7 +139,7 @@ auto io = IO!()();
 import std.stdio;
 struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
 {
-  import std.algorithm, std.conv, std.format, std.meta, std.range, std.traits;
+  import std.conv, std.format, std.meta, std.traits;
   alias assignable = hasAssignableElements;
 
   dchar[] buf;

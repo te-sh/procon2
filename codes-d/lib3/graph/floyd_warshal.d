@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import graph;
 
 struct FloydWarshal(Graph)
 {
-  import std.algorithm, std.array;
   Graph g;
   alias g this;
   alias Wt = g.Wt;

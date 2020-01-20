@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import graph;
 
 struct Tree(Graph)
 {
-  import std.algorithm, std.container;
   alias Node = Graph.Node;
   Graph g;
   alias g this;
@@ -111,7 +111,6 @@ unittest
   assert(tr.size[1] == 7);
   assert(tr.size[3] == 1);
 
-  import std.algorithm;
   assert(equal(tr.children(0), [1, 2]));
   assert(equal(tr.children(1), [3, 4, 5]));
   assert(tr.children(3).empty);

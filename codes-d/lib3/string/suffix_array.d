@@ -1,7 +1,7 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 struct SuffixArray
 {
-  import std.algorithm;
-
   string s;
   size_t n;
   size_t[] x;

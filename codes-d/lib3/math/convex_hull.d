@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import point;
 
 pure Point2!T[] convexHull(T)(Point2!T[] p)
 {
-  import std.algorithm, std.range;
   p.multiSort!("a.x < b.x", "a.y < b.y");
 
   Point2!T[] lower;
@@ -24,7 +24,6 @@ pure Point2!T[] convexHull(T)(Point2!T[] p)
 
 pure T convexHullDiameter2(T)(Point2!T[] p)
 {
-  import std.algorithm;
   auto n = p.length;
   size_t ps, pt;
   foreach (i; 1..n) {
@@ -60,8 +59,6 @@ pure T convexHullDiameter2(T)(Point2!T[] p)
 
 unittest
 {
-  import std.algorithm, std.range;
-
   alias point = Point2!int;
   auto p = [ 4.iota.map!(i => point(0, i)).array,
              4.iota.map!(i => point(1, i)).array,

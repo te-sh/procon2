@@ -1,8 +1,9 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import misc;
 
 struct Prime
 {
-  import std.algorithm, std.bitmanip, std.math, std.range, std.typecons;
+  import std.bitmanip;
   alias Factor = Tuple!(int, int);
 
   int n;
@@ -90,10 +91,9 @@ private:
 
 unittest
 {
-  import std.algorithm;
-  assert(equal(Prime(2), [2]));
-  assert(equal(Prime(5), [2, 3, 5]));
-  assert(equal(Prime(30), [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]));
+  assert(equal(Prime(2).array, [2]));
+  assert(equal(Prime(5).array, [2, 3, 5]));
+  assert(equal(Prime(30).array, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]));
 
   auto primes = Prime(5);
   alias Factor = primes.Factor;

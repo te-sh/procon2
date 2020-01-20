@@ -1,6 +1,6 @@
 // URL: https://yukicoder.me/problems/no/11
 
-import std.algorithm, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
@@ -19,7 +19,7 @@ auto io = IO!()();
 import std.stdio;
 struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
 {
-  import std.algorithm, std.conv, std.format, std.meta, std.range, std.traits;
+  import std.conv, std.format, std.meta, std.traits;
   alias assignable = hasAssignableElements;
 
   dchar[] buf;

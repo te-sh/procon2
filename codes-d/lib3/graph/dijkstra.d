@@ -1,8 +1,8 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import graph;
 
 struct Dijkstra(Graph)
 {
-  import std.array, std.container;
   Graph g;
   alias g this;
   alias Node = g.Node, Wt = g.Wt, Edge = g.Edge;

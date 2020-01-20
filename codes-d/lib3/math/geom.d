@@ -1,4 +1,4 @@
-import std.math;
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 struct Point(T, T eps = 1e-10L)
 {
@@ -110,7 +110,6 @@ pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 
 unittest
 {
-  import std.math;
   auto eps = 1e-10L;
   alias P = Point!double, L = Line!double;
 

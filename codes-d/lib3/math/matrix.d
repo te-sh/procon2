@@ -1,3 +1,4 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 import misc;
 
 struct Vector(T, T zero = 0)
@@ -72,7 +73,6 @@ in { assert(a.n == 3 && b.n == 3); } do
 
 struct Matrix(T, T zero = 0, T one = 1)
 {
-  import std.algorithm, std.range;
   alias M = Matrix!(T, zero, one), V = Vector!(T, zero), Op = string;
   size_t r, c;
   T[][] a;
@@ -166,7 +166,6 @@ Matrix!(T, zero, one) matrix(T, U, T zero = 0, T one = 1)(U[][] a) if (!is(T == 
 
 pure T det(T, alias zero, alias one)(Matrix!(T, zero, one) a) in { assert(a.r == a.c); } do
 {
-  import std.algorithm, std.math;
   auto n = a.r, b = a.dup, d = one;
 
   foreach (i; 0..n) {
@@ -379,7 +378,6 @@ unittest
   a = matrix([[1, -1], [-2, 3]]); a *= b;
   assert(a == matrix([[-2, -2], [7, 8]]));
 
-  import std.math;
   auto f = matrix!double([[3, 4, -1], [2, 5, -2], [1, 6, -4]]);
   assert(approxEqual(f.det, -7, 1e-7));
 

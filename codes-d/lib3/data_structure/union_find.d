@@ -1,7 +1,7 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 class UnionFind
 {
-  import std.algorithm, std.range;
-
   int[] p;
   int n, s;
   size_t cf;
@@ -79,8 +79,6 @@ private:
 
 unittest
 {
-  import std.algorithm, std.range;
-
   auto uf = new UnionFind(6);
 
   assert(uf.countForests == 6);

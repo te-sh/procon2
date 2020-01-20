@@ -1,3 +1,5 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 struct Graph
 {
   alias Node = int;
@@ -83,7 +85,6 @@ struct GraphM(W = int, W i = 10^^9)
 
 unittest
 {
-  import std.algorithm;
   auto g = Graph(3);
   g.addEdge(0, 1);
   g.addEdgeB(1, 2);
@@ -95,7 +96,6 @@ unittest
 
 unittest
 {
-  import std.algorithm;
   auto g = GraphW!int(3);
   g.addEdge(0, 1, 3);
   g.addEdgeB(1, 2, 4);

@@ -1,6 +1,7 @@
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+
 T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
 {
-  import std.math;
   const auto th = eps / 1e-14;
 
   T rec(T x0, T x6, T y0, T y6, int d)
@@ -23,7 +24,6 @@ T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
 
 T integrateDE(T)(T delegate(T) f, T a, T b, T eps = 1e-8)
 {
-  import std.math;
   const auto c = asin(1.0), tm = 10.0;
 
   T delegate(T) x, g;
@@ -68,7 +68,6 @@ T integrateDE(T)(T delegate(T) f, T a, T b, T eps = 1e-8)
 
 unittest
 {
-  import std.math;
   assert(approxEqual(integrate!double((x) => 2*x^^3 - x^^2 + 4, -2, 2), 32.0/3.0, 1e-11));
   assert(approxEqual(integrate!double((x) => (1 - x^^2).sqrt, -1, 1), PI/2, 1e-11));
   assert(approxEqual(integrateDE!double((x) => 2*x^^3 - x^^2 + 4, -2, 2), 32.0/3.0, 1e-11));

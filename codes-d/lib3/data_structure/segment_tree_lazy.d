@@ -1,12 +1,10 @@
-class SegmentTreeLazy(T, alias pred = "a + b")
-{
-  import std.conv, std.functional, std.math, std.range;
-  alias predFun = binaryFun!pred;
-  enum Op { none, fill, add };
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
+class SegmentTreeLazy(T, Op, Op opNone)
+{
+  struct Section { T val, laz; Op op; }
   const size_t n, an;
-  T[] buf, laz;
-  Op[] op;
+  Section[] sec;
   T unit;
 
   this(size_t n, T unit = T.init)
@@ -14,74 +12,48 @@ class SegmentTreeLazy(T, alias pred = "a + b")
     this.n = n;
     this.unit = unit;
     an = (n-1).nextPow2;
-    buf = new T[](an * 2);
-    laz = new T[](an * 2);
-    op = new Op[](an * 2);
-    if (T.init != unit) buf[] = unit;
+    sec = new Section[](an*2);
+    if (T.init != unit)
+      foreach (ref seci; sec) seci.val = unit;
   }
+
+  abstract T compose(T a, T b);
+  abstract void updateSection(ref Section sec, Op op, T val, size_t s);
 
   void propagate(size_t k, size_t nl, size_t nr)
   {
-    if (op[k] == Op.none) return;
+    if (sec[k].op == opNone) return;
 
     size_t nm = (nl+nr)/2;
-    setLazy(op[k], laz[k], k*2,   nl, nm);
-    setLazy(op[k], laz[k], k*2+1, nm, nr);
+    updateSection(sec[k*2],   sec[k].op, sec[k].laz, nm-nl);
+    updateSection(sec[k*2+1], sec[k].op, sec[k].laz, nr-nm);
 
-    op[k] = Op.none;
+    sec[k].op = opNone;
   }
 
-  void setLazy(Op nop, T val, size_t k, size_t nl, size_t nr)
-  {
-    switch (nop) {
-    case Op.fill:
-      buf[k] = val * (nr-nl).to!T;
-      laz[k] = val;
-      op[k] = nop;
-      break;
-    case Op.add:
-      buf[k] += val * (nr-nl).to!T;
-      laz[k] = op[k] == Op.none ? val : laz[k] + val;
-      op[k] = op[k] == Op.fill ? Op.fill : Op.add;
-      break;
-    default:
-      assert(0);
-    }
-  }
-
-  void addOpe(Op op, T val, size_t l, size_t r, size_t k, size_t nl, size_t nr)
+  void apply(Op op, T val, size_t l, size_t r) { apply(op, val, l, r, 1, 0, an); }
+  void apply(Op op, T val, size_t l, size_t r, size_t k, size_t nl, size_t nr)
   {
     if (nr <= l || r <= nl) return;
 
     if (l <= nl && nr <= r) {
-      setLazy(op, val, k, nl, nr);
+      updateSection(sec[k], op, val, nr-nl);
       return;
     }
 
     propagate(k, nl, nr);
 
     auto nm = (nl+nr)/2;
-    addOpe(op, val, l, r, k*2,   nl, nm);
-    addOpe(op, val, l, r, k*2+1, nm, nr);
+    apply(op, val, l, r, k*2,   nl, nm);
+    apply(op, val, l, r, k*2+1, nm, nr);
 
-    buf[k] = predFun(buf[k*2], buf[k*2+1]);
-  }
-
-  void opSliceAssign(T val, size_t l, size_t r)
-  {
-    addOpe(Op.fill, val, l, r, 1, 0, an);
-  }
-
-  void opSliceOpAssign(string op: "+")(T val, size_t l, size_t r)
-  {
-    addOpe(Op.add, val, l, r, 1, 0, an);
+    sec[k].val = compose(sec[k*2].val, sec[k*2+1].val);
   }
 
   T summary(size_t l, size_t r, size_t k, size_t nl, size_t nr)
   {
     if (nr <= l || r <= nl) return unit;
-
-    if (l <= nl && nr <= r) return buf[k];
+    if (l <= nl && nr <= r) return sec[k].val;
 
     propagate(k, nl, nr);
 
@@ -89,22 +61,43 @@ class SegmentTreeLazy(T, alias pred = "a + b")
     auto vl = summary(l, r, k*2,   nl, nm);
     auto vr = summary(l, r, k*2+1, nm, nr);
 
-    return predFun(vl, vr);
+    return compose(vl, vr);
   }
 
-  T opSlice(size_t l, size_t r)
-  {
-    return summary(l, r, 1, 0, an);
-  }
-
-  pure size_t opDollar() const { return n; }
+  T opSlice(size_t l, size_t r) { return summary(l, r, 1, 0, an); }
+  pure size_t opDollar() { return n; }
 }
 
 unittest
 {
-  import std.algorithm;
+  enum Op { none, fill, add }
+  class SegTree(T) : SegmentTreeLazy!(T, Op, Op.none)
+  {
+    this(size_t n, T unit = T.init) { super(n, unit); }
+    void opSliceAssign(T val, size_t l, size_t r) { apply(Op.fill, val, l, r); }
+    void opSliceOpAssign(string op: "+")(T val, size_t l, size_t r) { apply(Op.add, val, l, r); }
 
-  auto st1 = new SegmentTreeLazy!(int, "a + b")(7);
+    override T compose(T a, T b) { return a+b; }
+    override void updateSection(ref Section sec, Op op, T val, size_t s)
+    {
+      switch (op) {
+      case Op.fill:
+	sec.val = val * cast(T)s;
+	sec.laz = val;
+	sec.op = Op.fill;
+	break;
+      case Op.add:
+	sec.val += val * cast(T)s;
+	sec.laz = sec.op == Op.none ? val : sec.laz + val;
+	sec.op = sec.op == Op.fill ? Op.fill : Op.add;
+	break;
+      default:
+	assert(0);
+      }
+    }
+  }
+
+  auto st1 = new SegTree!int(7);
   st1[0..5] = 1;
   st1[2..7] = 2;
   assert(st1[0..0] == 0);
