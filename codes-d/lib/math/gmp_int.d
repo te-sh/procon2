@@ -2,21 +2,35 @@ module lib.math.gmp_int;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.math.gmp_int
+/**
+ ** GMP のラッパーです.
+ **/
 struct GmpInt
 {
   import std.conv;
-  __mpz_struct z;
 
+  /**
+   ** 値を long で返します.
+   **/
   @property value() { return toLong(); }
+  /**
+   ** 値を long でセットします.
+   **/
   @property value(long v) { __gmpz_set_si(&z, v); }
   alias value this;
 
+  /**
+   ** long の値 v から作成します.
+   **/
   this(long v)
   {
     __gmpz_init(&z);
     __gmpz_set_si(&z, v);
   }
-
+  /**
+   ** 文字列 s から作成します.
+   ** base は進法です.
+   **/
   this(string s, int base = 10)
   {
     import std.string;
@@ -24,8 +38,14 @@ struct GmpInt
     __gmpz_set_str(&z, s.toStringz, base);
   }
 
+  /**
+   ** long に変換した値を返します.
+   **/
   long toLong() { return __gmpz_get_si(&z); }
-
+  /**
+   ** 文字列に変換した値を返します.
+   ** base は進法です.
+   **/
   string toString(int base = 10)
   {
     import std.string;
@@ -35,13 +55,30 @@ struct GmpInt
     return buf.ptr.fromStringz.to!string;
   }
 
+  /**
+   ** g == v かどうかを返します.
+   ** v は GmpInt か long です.
+   **/
   bool opEquals(GmpInt v) { return __gmpz_cmp(&z, &v.z) == 0; }
+  /// ditto
   bool opEquals(long v) { return __gmpz_cmp_ui(&z, v) == 0; }
+  /**
+   ** g > v ならば 1 を, g == v ならば 0 を, g < v ならば -1 を返します.
+   ** v は GmpInt か long です.
+   **/
   int opCmp(GmpInt v) { return __gmpz_cmp(&z, &v.z); }
+  /// ditto
   int opCmp(long v) { return __gmpz_cmp_ui(&z, v); }
 
+  /**
+   ** long 値 v を代入します.
+   **/
   GmpInt opAssign(long v) { __gmpz_set_si(&z, v); return this; }
 
+  /**
+   ** g+v, g-v, g*v, g/v, g%v を返します.
+   ** v は GmpInt です.
+   **/
   GmpInt opBinary(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
   {
     auto r = GmpInt(0);
@@ -52,18 +89,10 @@ struct GmpInt
     else   if (op == "%") __gmpz_mod(&r.z, &z, &v.z);
     return r;
   }
-
-  GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="^^")
-  {
-    auto r = GmpInt(0);
-    static if (op == "+") __gmpz_add_ui(&r.z, &z, v);
-    else   if (op == "-") __gmpz_sub_ui(&r.z, &z, v);
-    else   if (op == "*") __gmpz_mul_ui(&r.z, &z, v);
-    else   if (op == "/") __gmpz_tdiv_q_ui(&r.z, &z, v);
-    else   if (op == "^^") __gmpz_pow_ui(&r.z, &z, v);
-    return r;
-  }
-
+  /**
+   ** g+=v, g-=v, g*=v, g/=v, g%=v を計算します.
+   ** v は GmpInt です.
+   **/
   ref GmpInt opOpAssign(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
   {
     static if (op == "+") __gmpz_add(&z, &z, &v.z);
@@ -74,6 +103,24 @@ struct GmpInt
     return this;
   }
 
+  /**
+   ** g+v, g-v, g*v, g/v, g^^v を返します.
+   ** v は long です.
+   **/
+  GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="^^")
+  {
+    auto r = GmpInt(0);
+    static if (op == "+") __gmpz_add_ui(&r.z, &z, v);
+    else   if (op == "-") __gmpz_sub_ui(&r.z, &z, v);
+    else   if (op == "*") __gmpz_mul_ui(&r.z, &z, v);
+    else   if (op == "/") __gmpz_tdiv_q_ui(&r.z, &z, v);
+    else   if (op == "^^") __gmpz_pow_ui(&r.z, &z, v);
+    return r;
+  }
+  /**
+   ** g+=v, g-=v, g*=v, g/=v, g^^=v を計算します.
+   ** v は long です.
+   **/
   ref GmpInt opOpAssign(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="^^")
   {
     static if (op == "+") __gmpz_add_ui(&z, &z, v);
@@ -84,6 +131,9 @@ struct GmpInt
     return this;
   }
 
+  /**
+   ** 平方根を超えない最大の整数を返します.
+   **/
   GmpInt sqrt()
   {
     auto r = GmpInt(0);
@@ -91,15 +141,27 @@ struct GmpInt
     return r;
   }
 
+  /**
+   ** 1 になっているビットの数を返します.
+   **/
   size_t popcnt()
   {
     return __gmpz_popcount(&z);
   }
 
-  int probabPrime(int reps = 20)
+  /**
+   ** 素数かどうかを返します.
+   ** 内部では Miller-Rabin 法を使用しています.
+   ** reps は Miller-Rabin 法の試行回数です.
+   **/
+  bool probabPrime(int reps = 20)
   {
     return __gmpz_probab_prime_p(&z, reps) != 0;
   }
+
+private:
+
+  __mpz_struct z;
 }
 
 extern(C) pragma(inline, false)
@@ -145,91 +207,6 @@ extern(C) pragma(inline, false)
 }
 pragma(lib, "gmp");
 // ::::::::::::::::::::
-
-/*
-
-  struct GmpInt
-
-    GMP のラッパです.
-
-    GmpInt(long v)
-
-      long の v から GmpInt を作成します.
-
-    GmpInt(string s, int base = 10)
-
-      string の s から GmpInt を作成します.
-      base に進法を指定します.
-
-    long toLong()
-
-      long に変換します.
-
-    string toString(int base = 10)
-
-      string に変換します.
-      base に進法を指定します.
-
-    a == b
-    a != b
-    a >= b
-    a <= b
-    a > b
-    a < b
-
-      a と b を比較します.
-      b は GmpInt か long を取ります.
-
-    a + b
-    a - b
-    a * b
-    a / b
-
-      四則演算の結果を返します.
-      b は GmpInt か long を取ります.
-
-    a += b
-    a -= b
-    a *= b
-    a /= b
-
-      四則演算を行います.
-      b は GmpInt か long を取ります.
-
-    a % b
-
-      a を b で割った余りを返します.
-      b は GmpInt を取ります.
-
-    a %= b
-
-      a を b で割った余りを計算します.
-      b は GmpInt を取ります.
-
-    a ^^ b
-
-      a の b 乗を返します.
-      b は long を取ります.
-
-    a ^^= b
-
-      a の b 乗を計算します.
-      b は long を取ります.
-
-    GmpInt sqrt()
-
-      平方根を返します. 値は切り捨てです.
-
-    size_t popcnt()
-
-      立っているビットの数を返します.
-
-    bool probabPrime(int reps = 10)
-
-      Miller-Rabin 法により素数かどうかを判定して返します.
-      reps に試行回数を指定します.
-
-*/
 
 unittest
 {

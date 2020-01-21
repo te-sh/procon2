@@ -2,18 +2,29 @@ module lib.math.geom;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.math.geom
+/**
+ ** 点を表します.
+ ** eps は同一性判定用の数値です.
+ **/
 struct Point(T, T eps = 1e-10L)
 {
   T x, y;
   auto isNaN() { return x.isNaN || y.isNaN; }
 }
 
+/**
+ ** 直線を表します.
+ ** eps は同一性判定用の数値です.
+ **/
 struct Line(T, T eps = 1e-10L)
 {
   T a, b, c;
   auto isNaN() { return a.isNaN || b.isNaN || c.isNaN; }
 }
 
+/**
+ ** 点 p1, p2 を通る直線を返します.
+ **/
 pure Line!(T, eps) line(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 {
   auto x = p2.x-p1.x;
@@ -21,16 +32,26 @@ pure Line!(T, eps) line(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
   return Line!(T, eps)(y, -x, p2.y*x-p2.x*y);
 }
 
+/**
+ ** 点 p1, p2 の距離を返します.
+ **/
 pure T dist(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 {
   return ((p1.x-p2.x)^^2 + (p1.y-p2.y)^^2).sqrt;
 }
 
+/**
+ ** 点 p, と直線 l の距離を返します.
+ **/
 pure T dist(T, alias eps1, alias eps2)(Point!(T, eps1) p, Line!(T, eps2) l)
 {
   return (l.a*p.x + l.b*p.y + l.c).abs / (l.a^^2 + l.b^^2).sqrt;
 }
 
+/**
+ ** 直線 l1, l2 の交点を返します.
+ ** l1, l2 が平行とみなされる場合は (x, y) = (nan, nan) を返します.
+ **/
 pure Point!(T, eps) intersect(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 {
   auto det = l1.a*l2.b - l1.b*l2.a;
@@ -40,6 +61,10 @@ pure Point!(T, eps) intersect(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
   return Point!(T, eps)(x, y);
 }
 
+/**
+ ** 点 p1, p2 の垂直二等分線を返します.
+ ** p1, p2 が同一点とみなされる場合は (a, b, c) = (nan, nan, nan) を返します.
+ **/
 pure Line!(T, eps) bisector(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
 {
   auto a = p2.x-p1.x;
@@ -49,6 +74,10 @@ pure Line!(T, eps) bisector(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
   return Line!(T, eps)(a, b, c);
 }
 
+/**
+ ** 直線 l1, l2 の角の二等分線を配列で返します.
+ ** l1, l2 が平行とみなされる場合は1つだけを返します.
+ **/
 pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
 {
   auto d1 = (l1.a^^2 + l1.b^^2).sqrt;
@@ -69,47 +98,6 @@ pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
   return r;
 }
 // ::::::::::::::::::::
-
-/*
-
-  struct Point(T, T eps = 1e-10L)
-
-    点 (x, y) を表します.
-    eps は同一性判断に使用します.
-
-  struct Line(T, T eps = 1e-10L)
-
-    直線 ax+by+c=0 を表します.
-    eps は同一性判断に使用します.
-
-  pure Line!(T, eps) line(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
-
-    点 p1, p2 を通る直線を返します.
-
-  pure T dist(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
-
-    点 p1, p2 の距離を返します.
-
-  pure T dist(T, alias eps1, alias eps2)(Point!(T, eps1) p, Line!(T, eps2) l)
-
-    点 p と直線 l の距離を返します.
-
-  pure Point!(T, eps) intersect(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
-
-    直線 l1, l2 の交点を返します.
-    l1, l2 が平行とみなされる場合は (x, y) = (nan, nan) を返します.
-
-  pure Line!(T, eps) bisector(T, alias eps)(Point!(T, eps) p1, Point!(T, eps) p2)
-
-    点 p1, p2 の垂直二等分線を返します.
-    p1, p2 が同一点とみなされる場合は (a, b, c) = (nan, nan, nan) を返します.
-
-  pure Line!(T, eps)[] bisector(T, alias eps)(Line!(T, eps) l1, Line!(T, eps) l2)
-
-    直線 l1, l2 の角の二等分線を配列で返します.
-    l1, l2 が平行とみなされる場合は1つだけを返します.
-
-*/
 
 unittest
 {

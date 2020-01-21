@@ -4,6 +4,9 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.math.convex_hull
 import lib.math.point;
 
+/**
+ ** p の凸包を返します.
+ **/
 pure Point2!T[] convexHull(T)(Point2!T[] p)
 {
   p.multiSort!("a.x < b.x", "a.y < b.y");
@@ -25,6 +28,9 @@ pure Point2!T[] convexHull(T)(Point2!T[] p)
   return (lower.dropBackOne ~ upper.dropBackOne).array;
 }
 
+/**
+ ** 凸包 p の "直径" (最も長い2点間の距離) の2乗を返します.
+ **/
 pure T convexHullDiameter2(T)(Point2!T[] p)
 {
   auto n = p.length;
@@ -48,18 +54,6 @@ pure T convexHullDiameter2(T)(Point2!T[] p)
   return maxD;
 }
 // ::::::::::::::::::::
-
-/*
-
-  pure Point2!T[] convexHull(T)(Point2!T[] p)
-
-    p の凸包を返します.
-
-  pure T convexHullDiameter2(T)(Point2!T[] p)
-
-    凸包の "直径" (最も長い2点間の距離) の2乗を返します.
-
-*/
 
 unittest
 {

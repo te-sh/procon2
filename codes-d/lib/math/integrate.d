@@ -2,6 +2,10 @@ module lib.math.integrate;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.math.integrate
+/**
+ ** 関数 f の lo から hi までの積分値を返します.
+ ** 計算には Gauss-Robatto 求積法を使用します.
+ **/
 T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
 {
   const auto th = eps / 1e-14;
@@ -24,6 +28,10 @@ T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
   return rec(lo, hi, f(lo), f(hi), 0);
 }
 
+/**
+ ** 関数 f の lo から hi までの積分値を返します.
+ ** 計算には二重指数関数型数値積分公式を使用します.
+ **/
 T integrateDE(T)(T delegate(T) f, T a, T b, T eps = 1e-8)
 {
   const auto c = asin(1.0), tm = 10.0;
@@ -56,18 +64,6 @@ T integrateDE(T)(T delegate(T) f, T a, T b, T eps = 1e-8)
   }
 }
 // ::::::::::::::::::::
-
-/*
-
-  T integrate(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
-
-    Gauss-Robatto 求積法により積分の値を計算します.
-
-  T integrateDE(T)(T delegate(T) f, T lo, T hi, T eps = 1e-8)
-
-    二重指数関数型数値積分公式により積分の値を計算します.
-
-*/
 
 unittest
 {

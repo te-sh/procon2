@@ -2,36 +2,91 @@ module lib.graph.graph;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.graph.graph
+/**
+ ** グラフを表します. 隣接リスト構造を持ちます.
+ ** 辺の重み情報は持ちません.
+ **/
 struct Graph
 {
   alias Node = int;
+  /**
+   ** 頂点数です.
+   **/
   Node n;
+  /**
+   ** 辺の隣接リストです.
+   **/
   Node[][] g;
   alias g this;
+  /**
+   ** 頂点数が n のグラフを返します.
+   **/
   this(Node n) { this.n = n; g = new Node[][](n); }
+  /**
+   ** グラフに頂点 u から頂点 v への有向辺を追加します.
+   **/
   void addEdge(Node u, Node v) { g[u] ~= v; }
+  /**
+   ** グラフに頂点 u から頂点 v への有向辺および頂点 v から頂点 u への有向辺を作成します.
+   **/
   void addEdgeB(Node u, Node v) { g[u] ~= v; g[v] ~= u; }
 }
 
+/**
+ ** グラフを表します. 隣接リスト構造を持ちます.
+ ** 辺の重み情報を持ちます.
+ ** i は無限大の代用値です.
+ **/
 struct GraphW(W = int, W i = 10^^9)
 {
   alias Node = int, Wt = W, inf = i;
   struct Edge { Node src, dst; Wt wt; alias cap = wt; }
+  /**
+   ** 頂点数です.
+   **/
   Node n;
+  /**
+   ** 辺の隣接リストです.
+   **/
   Edge[][] g;
   alias g this;
+  /**
+   ** 頂点数が n のグラフを返します.
+   **/
   this(Node n) { this.n = n; g = new Edge[][](n); }
+  /**
+   ** グラフに頂点 u から頂点 v への有向辺を追加します.
+   **/
   void addEdge(Node u, Node v, Wt w) { g[u] ~= Edge(u, v, w); }
+  /**
+   ** グラフに頂点 u から頂点 v への有向辺および頂点 v から頂点 u への有向辺を作成します.
+   **/
   void addEdgeB(Node u, Node v, Wt w) { g[u] ~= Edge(u, v, w); g[v] ~= Edge(v, u, w); }
 }
 
+/**
+ ** グラフを表します. 隣接行列構造を持ちます.
+ ** i は無限大の代用値です.
+ **/
 struct GraphM(W = int, W i = 10^^9)
 {
   alias Node = int, Wt = W, inf = i;
+  /**
+   ** 頂点数です.
+   **/
   Node n;
+  /**
+   ** 辺の隣接行列です.
+   **/
   Wt[][] g;
   alias g this;
+  /**
+   ** 頂点数が n のグラフを返します.
+   **/
   this(int n) { this.n = n; g = new Wt[][](n, n); }
+  /**
+   ** 頂点数が n, 同じ頂点間の距離が 0, 異なる頂点間の距離が i であるグラフを返します.
+   **/
   static GraphM!(W, i) init(Node n)
   {
     auto g = GraphM!(W, i)(n);
@@ -40,51 +95,6 @@ struct GraphM(W = int, W i = 10^^9)
   }
 }
 // ::::::::::::::::::::
-
-/*
-
-  struct Graph
-
-    グラフを表します. 隣接リスト構造を持ちます.
-    辺の重み情報は持ちません.
-
-    Graph(Node n)
-
-      n 頂点の空グラフを返します.
-
-    void addEdge(Node u, Node v)
-
-      頂点 u から頂点 v への有向辺を追加します.
-
-    void addEdge(Node u, Node v)
-
-      頂点 u から頂点 v への有向辺と逆向きの有向辺を追加します.
-
-  struct GraphW(W = int, W i = 10^^9)
-
-    グラフを表します. 隣接リスト構造を持ちます.
-    辺の重み情報を型 W で持ちます. i は無限大を代用する数値です.
-    重み情報はフロー計算時などでは辺の容量を表します.
-
-    void addEdge(Node u, Node v, Wt w)
-
-      頂点 u から頂点 v への重み w の有向辺を追加します.
-
-    void addEdgeB(Node u, Node v, Wt w)
-
-      頂点 u から頂点 v への重み w 有向辺と逆向きの有向辺を追加します.
-
-  struct GraphM(W = int, W i = 10^^9)
-
-    グラフを表します. 隣接行列構造を持ちます.
-    辺の重み情報を型 W で持ちます. i は無限大を代用する数値です.
-    ほぼ Floyd-Warshall 専用です.
-
-    static GraphM!(W, i) init(Node n)
-
-      同一頂点間の重みを 0 にし, 異なる頂点間の重みを inf にしたグラフを返します.
-
-*/
 
 unittest
 {

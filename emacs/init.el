@@ -30,7 +30,11 @@
                                 (re-search-forward "^// ::::::::::::::::::::$" nil t)
                                 (- (match-beginning 0) 1))))
                 (switch-to-buffer work-buffer)
-                (insert-buffer-substring import-buffer code-min code-max)))))
-      (copy-region-as-kill (point-min) (point-max))))))
+                (insert-buffer-substring import-buffer code-min code-max))))))
+      (while (progn
+	       (goto-char (point-min))
+	       (re-search-forward "^\\s-*\\(/?\\*\\*/?\\|///\\)" nil t))
+	(delete-region (line-beginning-position) (+ (line-end-position) 1)))
+      (copy-region-as-kill (point-min) (point-max)))))
 
 (define-key d-mode-map (kbd "C-c p c") 'procon-copy-for-submit)

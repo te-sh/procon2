@@ -2,6 +2,9 @@ module lib.math.misc;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.math.misc
+/**
+ ** n の平方根を超えない最大の整数を返します.
+ **/
 pure T isqrt(T)(T n)
 {
   static if (is(T == int)) auto max = 46341;
@@ -10,6 +13,9 @@ pure T isqrt(T)(T n)
   return bs.lowerBound(tuple(0, n)).back[0];
 }
 
+/**
+ ** n の立方根を超えない最大の整数を返します.
+ **/
 pure T icbrt(T)(T n)
 {
   static if (is(T == int)) auto max = 1291;
@@ -18,6 +24,11 @@ pure T icbrt(T)(T n)
   return bs.lowerBound(tuple(0, n)).back[0];
 }
 
+/**
+ ** a の n 乗を返します. 内部では繰り返し2乗法を使用しています.
+ ** pred には乗法演算です.
+ ** one は乗法単位元です.
+ **/
 pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
 {
   import std.functional;
@@ -27,8 +38,13 @@ pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
   for (; n > 0; n >>= 1) { if (n&1) r = predFun(r, a); a = predFun(a, a); }
   return r;
 }
+/// ditto
 pure T powr(alias pred = "a*b", T, U)(T a, U n) { return powr!(pred, T, U)(a, n, T(1)); }
 
+/**
+ ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
+ ** x, y は ax + by = g を満たす x, y の1つを返します.
+ **/
 pure T extGcd(T)(T a, T b, out T x, out T y)
 {
   auto g = a; x = 1; y = 0;
@@ -36,30 +52,6 @@ pure T extGcd(T)(T a, T b, out T x, out T y)
   return g;
 }
 // ::::::::::::::::::::
-
-/*
-
-  pure T isqrt(T)(T n)
-
-    n の平方根を超えない最大の整数を返します.
-
-  pure T icbrt(T)(T n)
-
-    n の立方根を超えない最大の整数を返します.
-
-  pure T powr(alias pred = "a*b", T, U)(T a, U n)
-  pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
-
-    a の n 乗を返します. 内部では繰り返し2乗法を使用しています.
-    one には乗法単位元を指定します. (デフォルト値は 1 です)
-    pred には乗法演算を指定します.
-
-  pure T extGcd(T)(T a, T b, out T x, out T y)
-
-    拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
-    x, y は ax + by = g を満たす x, y の1つを返します.
-
-*/
 
 unittest
 {

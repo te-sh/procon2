@@ -3,27 +3,71 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 
 // :::::::::::::::::::: lib.io
 import std.stdio;
+/**
+ ** 競技プログラミング用の読み書きを行います.
+ ** IN, OUT は入力ソースおよび出力ソースです.
+ ** delimiter は出力時の区切り文字です.
+ ** floatFormat は浮動小数点出力時のフォーマットです.
+ **/
 struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
 {
   import std.conv, std.format, std.meta, std.traits;
   alias assignable = hasAssignableElements;
 
-  dchar[] buf;
-  auto sp = (new dchar[](0)).splitter;
-  void nextLine() { IN.readln(buf); sp = buf.splitter; }
-
-  auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
+  /**
+   ** v に入力からの値をセットします.
+   ** v は複数指定できます.
+   **/
   auto getV(T...)(ref T v) { foreach (ref w; v) get(w); }
+  /**
+   ** v を n 要素の配列にして入力からの値をセットします.
+   ** 入力値が1行で与えられる場合に使います.
+   **/
   auto getA(T)(size_t n, ref T v) if (assignable!T) { v = new T(n); foreach (ref w; v) get(w); }
+  /**
+   ** v を n 要素の配列にして入力からの値をセットします.
+   ** v は複数指定できます.
+   ** 入力値が複数行で与えられる場合に使います.
+   **/
   auto getC(T...)(size_t n, ref T v) if (allSatisfy!(assignable, T))
   {
     foreach (ref w; v) w = new typeof(w)(n);
     foreach (i; 0..n) foreach (ref w; v) get(w[i]);
   }
+  /**
+   ** v を r 行 c 列の配列にして入力からの値をセットします.
+   **/
   auto getM(T)(size_t r, size_t c, ref T v) if (assignable!T && assignable!(ElementType!T))
   {
     v = new T(r); foreach (ref w; v) getA(c, w);
   }
+
+  /**
+   ** v の値を delimiter 区切りで1行に出力します. 最後は改行します.
+   ** v は複数指定できます.
+   ** flush が true ならば出力後に flush します.
+   **/
+  auto put(bool flush = false, T...)(T v)
+  {
+    foreach (i, w; v) { putA(w); if (i < v.length-1) OUT.write(delimiter); }
+    OUT.writeln;
+    static if (flush) OUT.flush();
+  }
+  /**
+   ** c が true ならば t を, そうでなければ f を出力します. 最後は改行します.
+   **/
+  auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
+  /**
+   ** v をそのまま OUT.write に渡します. 最後は改行します.
+   ** v は複数指定できます.
+   **/
+  auto putRaw(T...)(T v) { OUT.write(v); OUT.writeln; }
+
+private:
+  dchar[] buf;
+  auto sp = (new dchar[](0)).splitter;
+  void nextLine() { IN.readln(buf); sp = buf.splitter; }
+  auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
 
   auto putR(T)(T v)
   {
@@ -36,15 +80,6 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
     else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
     else OUT.write(v);
   }
-  auto put(bool flush = false, T...)(T v)
-  {
-    foreach (i, w; v) { putA(w); if (i < v.length-1) OUT.write(delimiter); }
-    OUT.writeln;
-    static if (flush) OUT.flush();
-  }
-
-  auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
-  auto putRaw(T...)(T v) { OUT.write(v); OUT.writeln; }
 }
 // ::::::::::::::::::::
 
