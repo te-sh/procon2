@@ -9,12 +9,12 @@ import lib.graph.graph;
  **/
 struct TopologicalSort(Graph)
 {
+  alias Node = Graph.Node;
   /**
    ** 計算に使用したグラフです.
    **/
   Graph g;
   alias g this;
-  alias Node = g.Node;
   /**
    ** トポロジカルソートの結果の頂点列です.
    **/

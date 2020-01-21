@@ -9,12 +9,12 @@ import lib.graph.graph;
  **/
 struct Dinic(Graph)
 {
+  alias Node = Graph.Node, Wt = Graph.Wt;
   /**
    ** 計算に使用したグラフです.
    **/
   Graph g;
   alias g this;
-  alias Node = g.Node, Wt = g.Wt;
   /**
    ** 指定された2頂点間の最大流です.
    **/
@@ -72,18 +72,19 @@ struct Dinic(Graph)
         flow += f;
   }
 
-private:
-
-  struct EdgeR { Node src, dst; Wt cap, flow; Node rev; }
-  EdgeR[][] withRev()
+  private
   {
-    auto r = new EdgeR[][](n);
-    foreach (gi; g)
-      foreach (e; gi) {
-        r[e.src] ~= EdgeR(e.src, e.dst, e.cap, 0, cast(Node)(r[e.dst].length));
-        r[e.dst] ~= EdgeR(e.dst, e.src, 0, 0, cast(Node)(r[e.src].length) - 1);
-      }
-    return r;
+    struct EdgeR { Node src, dst; Wt cap, flow; Node rev; }
+    EdgeR[][] withRev()
+    {
+      auto r = new EdgeR[][](n);
+      foreach (gi; g)
+        foreach (e; gi) {
+          r[e.src] ~= EdgeR(e.src, e.dst, e.cap, 0, cast(Node)(r[e.dst].length));
+          r[e.dst] ~= EdgeR(e.dst, e.src, 0, 0, cast(Node)(r[e.src].length) - 1);
+        }
+      return r;
+    }
   }
 }
 /**
@@ -91,9 +92,7 @@ private:
  ** 計算した結果を保持する構造体を返します.
  **/
 Dinic!Graph dinic(Graph, Node)(Graph g, Node s, Node t)
-{
-  return Dinic!Graph(g, s, t);
-}
+{ return Dinic!Graph(g, s, t); }
 // ::::::::::::::::::::
 
 unittest

@@ -159,9 +159,7 @@ struct GmpInt
     return __gmpz_probab_prime_p(&z, reps) != 0;
   }
 
-private:
-
-  __mpz_struct z;
+  private __mpz_struct z;
 }
 
 extern(C) pragma(inline, false)

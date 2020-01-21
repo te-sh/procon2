@@ -4,14 +4,39 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.hl_decomposition
 import lib.graph.tree;
 
+/**
+ ** HL 分解を計算します.
+ ** setPath が false のときは辺の情報は計算されません.
+ **/
 struct HlDecomposition(bool setPath = false, Tree)
 {
   alias Node = Tree.Node;
+  /**
+   ** 計算に使用した木です.
+   **/
   Tree t;
   alias t this;
-  Node[] head, path;
-  static if (setPath) Node[][] paths;
+  /**
+   ** 頂点ごとのその頂点を含む辺の最も根に近い頂点を保持する配列です.
+   **/
+  Node[] head;
 
+  static if (setPath) {
+    /**
+     ** 頂点ごとのその頂点を含む辺の番号を保持する配列です.
+     ** setPath が false のときは定義されません.
+     **/
+    Node[] path;
+    /**
+     ** 辺ごとのその辺に含まれる頂点の配列を保持する配列です.
+     ** setPath が false のときは定義されません.
+     **/
+    Node[][] paths;
+  }
+
+  /**
+   ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
+   **/
   this(Tree t)
   {
     this.t = t;
@@ -35,37 +60,14 @@ struct HlDecomposition(bool setPath = false, Tree)
     static if (setPath) makePath();
   }
 
-private:
+  /**
+   ** 頂点 u を含む辺の中での頂点 u の深さを返します.
+   **/
+  pure int depthInPath(Node u) { return depth[u] - depth[head[u]]; }
 
-  static if (setPath) {
-    auto makePath()
-    {
-      auto pathIndex = 0;
-      path = new Node[](n);
-
-      auto q = DList!Node(root);
-      while (!q.empty) {
-        auto u = q.front; q.removeFront();
-
-        if (u == head[u]) {
-          path[u] = pathIndex++;
-          paths ~= [u];
-        } else {
-          path[u] = path[head[u]];
-          paths[path[u]] ~= u;
-        }
-
-        foreach (v; t[u])
-          if (v != parent[u]) q.insertBack(v);
-      }
-    }
-  }
-
-  pure int depthInPath(Node u)
-  {
-    return depth[u] - depth[head[u]];
-  }
-
+  /**
+   ** 頂点 u, v の LCA を返します.
+   **/
   pure Node lca(Node u, Node v)
   {
     while (head[u] != head[v])
@@ -73,52 +75,40 @@ private:
       else                                 u = parent[head[u]];
     return depth[u] < depth[v] ? u : v;
   }
+
+  static if (setPath) {
+    private
+    {
+      auto makePath()
+      {
+        auto pathIndex = 0;
+        path = new Node[](n);
+
+        auto q = DList!Node(root);
+        while (!q.empty) {
+          auto u = q.front; q.removeFront();
+
+          if (u == head[u]) {
+            path[u] = pathIndex++;
+            paths ~= [u];
+          } else {
+            path[u] = path[head[u]];
+            paths[path[u]] ~= u;
+          }
+
+          foreach (v; t[u])
+            if (v != parent[u]) q.insertBack(v);
+        }
+      }
+    }
+  }
 }
+/**
+ ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
+ **/
 HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree t)
-{
-  return HlDecomposition!(setPath, Tree)(t);
-}
+{ return HlDecomposition!(setPath, Tree)(t); }
 // ::::::::::::::::::::
-
-/*
-
-  struct HlDecomposition(bool setPath = false, Tree)
-
-    HL 分解を表します.
-    これを用いて LCA を求めることもできます.
-    setPath が true のときは path, paths もあわせてセットします.
-
-    HlDecomposition(bool setPath = false, Tree)(Tree t)
-
-      木 t を元に HL 分解を作成します.
-
-    Node[] head;
-
-      ある頂点を含む辺の最も根に近い頂点を保持する配列です.
-
-    pure int depthInPath(Node n)
-
-      頂点 u を含む辺の中での頂点 u の深さを返します.
-
-    pure Node lca(Node u, Node v)
-
-      頂点 u, v の LCA を返します.
-
-    Node[] path;
-
-      ある頂点を含む辺の番号を保持する配列です.
-      setPath が false のときは定義されません.
-
-    Node[][] paths;
-
-      ある辺のその辺に含まれる頂点の配列を保持する配列です.
-      setPath が false のときは定義されません.
-
-  HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree t)
-
-    木 t を元に HL 分解を作成します.
-
-*/
 
 unittest
 {

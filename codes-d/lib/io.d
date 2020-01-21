@@ -63,22 +63,24 @@ struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string f
    **/
   auto putRaw(T...)(T v) { OUT.write(v); OUT.writeln; }
 
-private:
-  dchar[] buf;
-  auto sp = (new dchar[](0)).splitter;
-  void nextLine() { IN.readln(buf); sp = buf.splitter; }
-  auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
+  private
+  {
+    dchar[] buf;
+    auto sp = (new dchar[](0)).splitter;
+    void nextLine() { IN.readln(buf); sp = buf.splitter; }
+    auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
 
-  auto putR(T)(T v)
-  {
-    auto w = v;
-    while (!w.empty) { putA(w.front); w.popFront(); if (!w.empty) OUT.write(delimiter); }
-  }
-  auto putA(T)(T v)
-  {
-    static if (isInputRange!T && !isSomeString!T) putR(v);
-    else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
-    else OUT.write(v);
+    auto putR(T)(T v)
+    {
+      auto w = v;
+      while (!w.empty) { putA(w.front); w.popFront(); if (!w.empty) OUT.write(delimiter); }
+    }
+    auto putA(T)(T v)
+    {
+      static if (isInputRange!T && !isSomeString!T) putR(v);
+      else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
+      else OUT.write(v);
+    }
   }
 }
 // ::::::::::::::::::::

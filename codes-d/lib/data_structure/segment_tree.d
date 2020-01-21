@@ -94,14 +94,15 @@ class SegmentTree(alias pred = "a+b", T)
    **/
   pure size_t opDollar() { return n; }
 
-private:
+  private
+  {
+    const size_t an;
+    const T dflt;
+    T[] buf;
 
-  const size_t an;
-  const T dflt;
-  T[] buf;
-
-  void propagateAll() { foreach_reverse (i; 1..an) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
-  void propagate(size_t i) { while (i /= 2) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
+    void propagateAll() { foreach_reverse (i; 1..an) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
+    void propagate(size_t i) { while (i /= 2) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
+  }
 }
 /**
  ** 要素数 n の Segment Tree を返します.

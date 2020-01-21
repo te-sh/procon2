@@ -42,17 +42,21 @@ class FenwickTree(T)
    **/
   pure size_t opDollar() { return n; }
 
-private:
-
-  T[] buf;
-
-  pure T get(size_t i)
+  private
   {
-    auto s = T(0);
-    for (; i > 0; i -= i & -i) s += buf[i];
-    return s;
+    T[] buf;
+
+    pure T get(size_t i)
+    {
+      auto s = T(0);
+      for (; i > 0; i -= i & -i) s += buf[i];
+      return s;
+    }
   }
 }
+/**
+ ** 要素数が n の Fenwick Tree を返します.
+ **/
 FenwickTree!T fenwickTree(T)(size_t n) { return new FenwickTree!T(n); }
 // ::::::::::::::::::::
 

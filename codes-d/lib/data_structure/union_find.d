@@ -62,14 +62,15 @@ class UnionFind
     return g.filter!(l => !l.empty);
   }
 
-private:
+  private
+  {
+    int[] p;
+    int s;
+    size_t cf;
+    size_t[] cn;
 
-  int[] p;
-  int s;
-  size_t cf;
-  size_t[] cn;
-
-  int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
+    int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
+  }
 }
 // ::::::::::::::::::::
 

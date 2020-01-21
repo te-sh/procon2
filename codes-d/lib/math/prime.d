@@ -76,17 +76,18 @@ struct Prime
     return r;
   }
 
-private:
-
-  int[] primes;
-
-  pure int[] divisorsProc(Factor[] factors, int i, int c)
+  private
   {
-    if (i == factors.length) return [c];
-    int[] r;
-    foreach (j; 0..factors[i].exp+1)
-      r ~= divisorsProc(factors, i+1, c*factors[i].prime^^j);
-    return r;
+    int[] primes;
+
+    pure int[] divisorsProc(Factor[] factors, int i, int c)
+    {
+      if (i == factors.length) return [c];
+      int[] r;
+      foreach (j; 0..factors[i].exp+1)
+        r ~= divisorsProc(factors, i+1, c*factors[i].prime^^j);
+      return r;
+    }
   }
 }
 // ::::::::::::::::::::

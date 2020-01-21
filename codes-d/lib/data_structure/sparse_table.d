@@ -2,15 +2,22 @@ module lib.data_structure.sparse_table;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.data_structure.sparse_table
+/**
+ ** Sparse Table を表します.
+ ** pred は合成関数です.
+ **/
 class SparseTable(alias pred = min, T)
 {
   import std.functional;
   alias predFun = binaryFun!pred;
+  /**
+   ** 要素数です.
+   **/
   const size_t n;
-  T[] a;
-  size_t[] logTable;
-  size_t[][] rmq;
 
+  /**
+   ** a を元にした Sparse Table を返します.
+   **/
   this(T[] a)
   {
     this.n = a.length;
@@ -32,6 +39,9 @@ class SparseTable(alias pred = min, T)
       }
   }
 
+  /**
+   ** 区間 [l, r) の合成値を返します.
+   **/
   pure T opSlice(size_t l, size_t r)
   {
     auto k = logTable[r-l-1];
@@ -40,30 +50,25 @@ class SparseTable(alias pred = min, T)
     return predFun(a[x], a[y]);
   }
 
+  /**
+   ** 要素数を返します.
+   **/
   pure size_t opDollar() { return n; }
+
+  private
+  {
+    T[] a;
+    size_t[] logTable;
+    size_t[][] rmq;
+  }
 }
-SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a) { return new SparseTable!(pred, T)(a); }
+/**
+ ** a を元にした Sparse Table を返します.
+ ** pred は合成関数です.
+ **/
+SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a)
+{ return new SparseTable!(pred, T)(a); }
 // ::::::::::::::::::::
-
-/*
-
-  class SparseTable(alias pred = min, T)
-
-    Sparse Table を管理します.
-
-    new SparseTable!(pred, T)(T[] a)
-
-      init を元に合成関数を pred とした Sparse Table を作成します.
-
-    s[l..r]
-
-      区間 [l, r) の合成値を返します.
-
-  SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a)
-
-    init を元に合成関数を pred とした Sparse Table を作成します.
-
-*/
 
 unittest
 {

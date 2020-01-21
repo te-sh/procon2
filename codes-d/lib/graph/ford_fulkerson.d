@@ -9,12 +9,12 @@ import lib.graph.graph;
  **/
 struct FordFulkerson(Graph)
 {
+  alias Node = Graph.Node, Wt = Graph.Wt;
   /**
    ** 計算に使用したグラフです.
    **/
   Graph g;
   alias g this;
-  alias Node = g.Node, Wt = g.Wt;
   /**
    ** 指定された2頂点間の最大流です.
    **/
@@ -54,18 +54,19 @@ struct FordFulkerson(Graph)
     }
   }
 
-private:
-
-  struct EdgeR { Node src, dst; Wt cap, flow; Node rev; }
-  EdgeR[][] withRev()
+  private
   {
-    auto r = new EdgeR[][](n);
-    foreach (gi; g)
-      foreach (e; gi) {
-        r[e.src] ~= EdgeR(e.src, e.dst, e.cap, 0, cast(Node)(r[e.dst].length));
-        r[e.dst] ~= EdgeR(e.dst, e.src, 0, 0, cast(Node)(r[e.src].length) - 1);
-      }
-    return r;
+    struct EdgeR { Node src, dst; Wt cap, flow; Node rev; }
+    EdgeR[][] withRev()
+    {
+      auto r = new EdgeR[][](n);
+      foreach (gi; g)
+        foreach (e; gi) {
+          r[e.src] ~= EdgeR(e.src, e.dst, e.cap, 0, cast(Node)(r[e.dst].length));
+          r[e.dst] ~= EdgeR(e.dst, e.src, 0, 0, cast(Node)(r[e.src].length) - 1);
+        }
+      return r;
+    }
   }
 }
 /**

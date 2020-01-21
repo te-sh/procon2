@@ -94,9 +94,7 @@ struct Vector(T, T zero = 0)
     return x;
   }
 
-private:
-
-  T[] a;
+  private T[] a;
 }
 /**
  ** n 次元の空ベクトルを返します.
@@ -264,9 +262,7 @@ struct Matrix(T, T zero = 0, T one = 1)
     return powr(this, n, M.unit(r));
   }
 
-private:
-
-  T[][] a;
+  private T[][] a;
 }
 /**
  ** r 行 c 列の零行列を返します.

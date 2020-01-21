@@ -4,13 +4,25 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.strongly_connected_components
 import lib.graph.graph;
 
+/**
+ ** Kosaraju 法による強連結成分分解を行います.
+ **/
 struct StronglyConnectedComponentsKosaraju(Graph)
 {
+  alias Node = Graph.Node;
+  /**
+   ** 計算に使用したグラフです.
+   **/
   Graph g;
   alias g this;
-  alias Node = g.Node;
+  /**
+   ** 強連結成分ごとの頂点の配列を保持する配列です.
+   **/
   Node[][] comps;
 
+  /**
+   ** グラフ g の Kosaraju 法による強連結成分分解の結果を保持する構造体を返します.
+   **/
   this(Graph g)
   {
     this.g = g;
@@ -44,18 +56,31 @@ struct StronglyConnectedComponentsKosaraju(Graph)
     foreach_reverse (u; ord) if (!visited[u]) comps ~= dfs(u, rdj);
   }
 }
+/**
+ ** グラフ g の Kosaraju 法による強連結成分分解の結果を保持する構造体を返します.
+ **/
 StronglyConnectedComponentsKosaraju!Graph stronglyConnectedComponentsKosaraju(Graph)(Graph g)
-{
-  return StronglyConnectedComponentsKosaraju!Graph(g);
-}
+{ return StronglyConnectedComponentsKosaraju!Graph(g); }
 
+/**
+ ** Gabow 法による強連結成分分解を行います.
+ **/
 struct StronglyConnectedComponentsGabow(Graph)
 {
+  alias Node = Graph.Node;
+  /**
+   ** 計算に使用したグラフです.
+   **/
   Graph g;
   alias g this;
-  alias Node = g.Node;
+  /**
+   ** 強連結成分ごとの頂点の配列を保持する配列です.
+   **/
   Node[][] comps;
 
+  /**
+   ** グラフ g の Gabow 法による強連結成分分解の結果を保持する構造体を返します.
+   **/
   this(Graph g)
   {
     this.g = g;
@@ -84,39 +109,12 @@ struct StronglyConnectedComponentsGabow(Graph)
     foreach (u; 0..n) if (!i[u]) dfs(u);
   }
 }
+/**
+ ** グラフ g の Gabow 法による強連結成分分解の結果を保持する構造体を返します.
+ **/
 StronglyConnectedComponentsGabow!Graph stronglyConnectedComponentsGabow(Graph)(Graph g)
-{
-  return StronglyConnectedComponentsGabow!Graph(g);
-}
+{ return StronglyConnectedComponentsGabow!Graph(g); }
 // ::::::::::::::::::::
-
-/*
-
-  struct StronglyConnectedComponentsKosaraju(Graph)
-
-    Kosaraju 法による強連結成分分解を行います.
-
-    StronglyConnectedComponentsKosaraju(Graph)(Graph g)
-
-      グラフ g を元に強連結成分分解を行います.
-
-    Node[][] comps
-
-      強連結成分分解の結果を保持する配列です.
-
-  struct StronglyConnectedComponentsGabow(Graph)
-
-    Gabow 法による強連結成分分解を行います.
-
-    StronglyConnectedComponentsGabow(Graph)(Graph g)
-
-      グラフ g を元に強連結成分分解を行います.
-
-    Node[][] comps
-
-      強連結成分分解の結果を保持する配列です.
-
-*/
 
 unittest
 {

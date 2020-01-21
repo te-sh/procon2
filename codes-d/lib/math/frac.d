@@ -89,15 +89,16 @@ struct Frac(T)
     a = (a/g1)*(r.b/g2); b = (b/g2)*(r.a/g1); return normalizeSign();
   }
 
-private:
-
-  ref F reduction()
+  private
   {
-    auto g = gcd(a.abs, b);
-    a /= g; b /= g;
-    return this;
+    ref F reduction()
+    {
+      auto g = gcd(a.abs, b);
+      a /= g; b /= g;
+      return this;
+    }
+    ref F normalizeSign() { if (b < 0) { a = -a; b = -b; } return this; }
   }
-  ref F normalizeSign() { if (b < 0) { a = -a; b = -b; } return this; }
 }
 /**
  ** a/b を示す分数を返します.

@@ -4,13 +4,26 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.floyd_warshal
 import lib.graph.graph;
 
+/**
+ ** Floyd-Warshal 法で任意の2頂点間の最短距離を計算します.
+ **/
 struct FloydWarshal(Graph)
 {
+  alias Wt = Graph.Wt;
+  /**
+   ** 計算に使用したグラフです.
+   **/
   Graph g;
   alias g this;
-  alias Wt = g.Wt;
+  /**
+   ** 任意の2頂点間の最短距離を持つ配列です.
+   **/
   Wt[][] dist;
 
+  /**
+   ** グラフ g の任意の2頂点間の最短距離を Floyd-Warshal 法で
+   ** 計算した結果を保持する構造体を返します.
+   **/
   this(Graph g)
   {
     this.g = g;
@@ -23,28 +36,13 @@ struct FloydWarshal(Graph)
             dist[i][j] = dist[i][k] + dist[k][j];
   }
 }
-FloydWarshal!Graph floydWarshal(Graph)(Graph g) { return FloydWarshal!Graph(g); }
+/**
+ ** グラフ g の任意の2頂点間の最短距離を Floyd-Warshal 法で
+ ** 計算した結果を保持する構造体を返します.
+ **/
+FloydWarshal!Graph floydWarshal(Graph)(Graph g)
+{ return FloydWarshal!Graph(g); }
 // ::::::::::::::::::::
-
-/*
-
-  struct FloydWarshal(Graph)
-
-    Floyd-Warshal 法により最短距離を計算します. Graph は隣接行列によるグラフです.
-
-    FloydWarshal!Graph(Graph g, Node s)
-
-      各頂点間の最短距離を dist にセットします.
-
-    Wt[][] dist;
-
-      各頂点間の最短距離を保持する配列です.
-
-  FloydWarshal!Graph floydWarshal(Graph)(Graph g)
-
-    各頂点間の最短距離を dist にセットします.
-
-*/
 
 unittest
 {

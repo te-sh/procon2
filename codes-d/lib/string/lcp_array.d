@@ -39,9 +39,7 @@ struct LcpArray
       }
   }
 
-private:
-
-  size_t[] rank;
+  private size_t[] rank;
 }
 // ::::::::::::::::::::
 

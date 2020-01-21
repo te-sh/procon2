@@ -124,10 +124,11 @@ struct ModInt(int m, bool pos = false)
     pure M inv() { int x = i, a, b; extGcd(x, m, a, b); return M(a); }
   }
 
-private:
-
-  pure int nm(int v) { static if (pos) return v%m; else return (v%m+m)%m; }
-  pure int nm(long v) { static if (pos) return cast(int)(v%m); else return cast(int)((v%m+m)%m); }
+  private
+  {
+    pure int nm(int v) { static if (pos) return v%m; else return (v%m+m)%m; }
+    pure int nm(long v) { static if (pos) return cast(int)(v%m); else return cast(int)((v%m+m)%m); }
+  }
 }
 // ::::::::::::::::::::
 
