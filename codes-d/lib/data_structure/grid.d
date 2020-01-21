@@ -7,11 +7,11 @@ import lib.math.point;
 struct Grid(T)
 {
   alias G = Grid!T, P = Point2!int;
-  size_t r, c;
+  size_t c, r;
   T[][] data;
 
-  this(size_t r, size_t c) { this.r = r; this.c = c; data = new T[][](r, c); }
-  this(T[][] data) { r = data.length; c = data[0].length; this.data = data; }
+  this(size_t c, size_t r) { this.c = c; this.r = r; data = new T[][](r, c); }
+  this(T[][] data) { c = data[0].length; r = data.length; this.data = data; }
 
   pure T opIndex(size_t x, size_t y) { return data[y][x]; }
   pure T opIndex(P p) { return data[p.y][p.x]; }
@@ -36,9 +36,9 @@ Grid!T grid(T)(T[][] data) { return Grid!T(data); }
 
     グリッドを表します.
 
-    Grid!T(size_t r, size_t c)
+    Grid!T(size_t c, size_t r)
 
-      r 行 c 列のグリッドを作成します.
+      c 列 r 行のグリッドを作成します.
 
     Grid!T(T[][] data)
 
