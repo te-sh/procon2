@@ -4,14 +4,29 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.bellman_ford
 import lib.graph.graph;
 
+/**
+ ** Bellman-Ford 法で指定された頂点から各頂点への最短距離を計算します.
+ **/
 struct BellmanFord(Graph)
 {
+  /**
+   ** 計算に使用したグラフです.
+   **/
   Graph g;
   alias g this;
   alias Node = g.Node, Wt = g.Wt;
+  /**
+   ** 頂点ごとの指定された頂点からの最短距離を持つ配列です.
+   **/
   Wt[] dist;
+  /**
+   ** 頂点ごとの指定された頂点からの最短距離のルートにおけるの前の頂点を持つ配列です.
+   **/
   Node[] prev;
 
+  /**
+   ** 頂点 s から各頂点への最短距離を計算した結果を保持する構造体を返します.
+   **/
   this(Graph g, Node s)
   {
     this.g = g;
@@ -34,32 +49,11 @@ struct BellmanFord(Graph)
           }
   }
 }
+/**
+ ** 頂点 s から各頂点への最短距離を Bellman-Ford 法で計算した結果を保持する構造体を返します.
+ **/
 BellmanFord!Graph bellmanFord(Graph, Node)(Graph g, Node s) { return BellmanFord!Graph(g, s); }
 // ::::::::::::::::::::
-
-/*
-
-  struct BellmanFord(Graph)
-
-    Bellman-Ford 法により最短距離を計算します. Graph は重みつきグラフです.
-
-    BellmanFord!Graph(Graph g, Node s)
-
-      頂点 s から各頂点への最短距離を dist に, 前の頂点を prev にセットします.
-
-    Wt[] dist;
-
-      ある頂点の頂点 s からの最短距離を保持する配列です.
-
-    Node[] prev;
-
-      ある頂点の頂点 s からの最短距離になる経路の前の頂点を保持する配列です.
-
-  BellmanFord!Graph bellmanFord(Graph, Node)(Graph g, Node s)
-
-    頂点 s から各頂点への最短距離を dist に, 前の頂点を prev にセットします.
-
-*/
 
 unittest
 {

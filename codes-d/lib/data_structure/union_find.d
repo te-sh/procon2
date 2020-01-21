@@ -2,13 +2,19 @@ module lib.data_structure.union_find;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.data_structure.union_find
+/**
+ ** Union-Find を用いてグラフの連結を管理します.
+ **/
 class UnionFind
 {
-  int[] p;
-  int n, s;
-  size_t cf;
-  size_t[] cn;
+  /**
+   ** グラフの頂点数です.
+   **/
+  int n;
 
+  /**
+   ** n 頂点のグラフの連結を管理する構造体を返します.
+   **/
   this(int n)
   {
     this.n = this.s = n;
@@ -17,23 +23,38 @@ class UnionFind
     cn = new size_t[](n); cn[] = 1;
   }
 
-  bool unite(int i, int j)
+  /**
+   ** 頂点 u と頂点 v を連結します.
+   **/
+  bool unite(int u, int v)
   {
-    auto pi = subst(i), pj = subst(j);
-    if (pi != pj) {
-      p[pj] = pi;
+    auto pu = subst(u), pv = subst(v);
+    if (pu != pv) {
+      p[pv] = pu;
       --cf;
-      cn[pi] += cn[pj];
+      cn[pu] += cn[pv];
       return true;
     } else {
       return false;
     }
   }
 
+  /**
+   ** 頂点 u と頂点 v が同じ連結部分にあるかどうかを返します.
+   **/
   bool isSame(int u, int v) { return subst(u) == subst(v); }
+  /**
+   ** グラフの連結部分の数を返します.
+   **/
   size_t countForests() { return cf; }
+  /**
+   ** 頂点 u を含む連結部分に含まれる頂点の数を返します.
+   **/
   size_t countNodes(int u) { return cn[subst(u)]; }
 
+  /**
+   ** 連結部分ごとの頂点を配列にしたものを列挙して Range で返します.
+   **/
   auto groups()
   {
     auto g = new int[][](n);
@@ -43,42 +64,14 @@ class UnionFind
 
 private:
 
+  int[] p;
+  int s;
+  size_t cf;
+  size_t[] cn;
+
   int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
 }
 // ::::::::::::::::::::
-
-/*
-
-  UnionFind
-
-    Union-Find を管理します.
-
-    new UnionFind(int n)
-
-      頂点数が n の Union-Find を作成します.
-
-    bool unite(int i, int j)
-
-      頂点 u と頂点 v を連結します.
-      別の森に含まれる頂点が連結されたかどうかを返します.
-
-    bool isSame(int u, int v)
-
-      頂点 u と頂点 v が同じ森に含まれるかどうかを返します.
-
-    size_t countForests()
-
-      森の数を返します.
-
-    size_t countNodes(int u)
-
-      頂点 u が所属する森に所属する頂点数を返します.
-
-    auto groups()
-
-      森ごとに含まれる頂点の配列の Range を返します.
-
-*/
 
 unittest
 {

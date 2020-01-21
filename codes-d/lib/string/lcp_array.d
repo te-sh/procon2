@@ -4,12 +4,24 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.string.lcp_array
 import lib.string.suffix_array;
 
+/**
+ ** LCP Array (最長共通接尾辞配列) を計算します.
+ **/
 struct LcpArray
 {
+  /**
+   ** 計算の元となった文字列の長さです.
+   **/
   size_t n;
-  size_t[] x, rank;
+  /**
+   ** i 番目の LCP を保持する配列です.
+   **/
+  size_t[] x;
   alias x this;
 
+  /**
+   ** Suffix Array sa を元に LCP を計算した結果を保持する構造体を返します.
+   **/
   this(SuffixArray sa)
   {
     n = sa.n;
@@ -26,24 +38,12 @@ struct LcpArray
         if (h > 0) --h;
       }
   }
+
+private:
+
+  size_t[] rank;
 }
 // ::::::::::::::::::::
-
-/*
-
-  struct LcpArray
-
-    LCP Array (最長共通接尾辞配列) を管理します.
-
-    LcpArray(SuffixArray s)
-
-      Suffix Array sa を元に LCP Array を作成します.
-
-    size_t la[n]
-
-      n 番目の LCP を返します.
-
-*/
 
 unittest
 {

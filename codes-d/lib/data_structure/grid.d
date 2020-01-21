@@ -4,79 +4,85 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.data_structure.grid
 import lib.math.point;
 
+/**
+ ** グリッドを表します.
+ **/
 struct Grid(T)
 {
-  alias G = Grid!T, P = Point2!int;
+  alias G = Grid!T, P = Point2!int, Point = P;
+  /**
+   ** c は列数, r は行数です.
+   **/
   size_t c, r;
+  /**
+   ** グリッドの要素を保持する配列です.
+   **/
   T[][] data;
 
+  /**
+   ** c 列 n 行のグリッドを返します.
+   **/
   this(size_t c, size_t r) { this.c = c; this.r = r; data = new T[][](r, c); }
+  /**
+   ** data を元にしたグリッドを返します.
+   **/
   this(T[][] data) { c = data[0].length; r = data.length; this.data = data; }
 
+  /**
+   ** 位置 (x, y) の要素を返します.
+   **/
   pure T opIndex(size_t x, size_t y) { return data[y][x]; }
+  /**
+   ** 位置 p の要素を返します.
+   **/
   pure T opIndex(P p) { return data[p.y][p.x]; }
+  /**
+   ** 位置 (x, y) の要素を v に変更します.
+   **/
   G opIndexAssign(T v, size_t x, size_t y) { data[y][x] = v; return this; }
+  /**
+   ** 位置 p の要素を v に変更します.
+   **/
   G opIndexAssign(T v, P p) { data[p.y][p.x] = v; return this; }
+  /**
+   ** 位置 (x, y) の値を演算子 op を値 v で適用したしたものに変更します.
+   **/
   G opIndexOpAssign(string op)(T v, size_t x, size_t y) { mixin("data[y][x]"~op~"=v;"); return this; }
+  /**
+   ** 位置 p の値を演算子 op を値 v でを適用したしたものに変更します.
+   **/
   G opIndexOpAssign(string op)(T v, P p) { mixin("data[p.y][p.x]"~op~"=v;"); return this; }
 
+  /**
+   ** 位置 (x, y) がグリッド内かどうかを返します.
+   **/
   pure bool valid(size_t x, size_t y) { return 0 <= x && x < c && 0 <= y && y < r; }
+  /**
+   ** 位置 p がグリッド内かどうかを返します.
+   **/
   pure bool valid(P p) { return valid(p.x, p.y); }
+  /**
+   ** 周囲4方向を表す配列です.
+   **/
   auto d4 = [P(-1, 0), P(0, -1), P(1, 0), P(0, 1)];
+  /**
+   ** p の周囲4方向の位置のうち, グリッド内にある位置を列挙して Range で返します.
+   **/
   pure auto around4(P p) { return d4.map!(d => d+p).filter!(np => valid(np)); }
+  /**
+   ** 周囲8方向を表す配列です.
+   **/
   auto d8 = [P(-1, 0), P(-1, -1), P(0, -1), P(1, -1), P(1, 0), P(1, 1), P(0, 1), P(-1, 1)];
+  /**
+   ** p の周囲8方向の位置のうち, グリッド内にある位置を列挙して Range で返します.
+   **/
   pure auto around8(P p) { return d8.map!(d => d+p).filter!(np => valid(np)); }
 }
+/**
+ ** data を元にしたグリッドを返します.
+ **/
 Grid!T grid(T)(T[][] data) { return Grid!T(data); }
 // ::::::::::::::::::::
-
-/*
-
-  struct Grid(T)
-
-    グリッドを表します.
-
-    Grid!T(size_t c, size_t r)
-
-      c 列 r 行のグリッドを作成します.
-
-    Grid!T(T[][] data)
-
-      data を元にグリッドを作成します.
-
-    g[x, y]
-    g[Point2!int(x, y)]
-
-      x 列 y 行の値を返します.
-
-    g[x, y] = v
-    g[Point2!int(x, y)] = v
-
-      x 列 y 行の値を v に変更します.
-
-    g[x, y] op= v
-    g[Point2!int(x, y)] op= v
-
-      x 列 y 行の値に op を v に適用した値に変更します.
-
-    pure bool g.valid(x, y)
-    pure bool g.valid(Point2!int(x, y))
-
-      x 列 y 行がグリッド内かどうかを返します.
-
-    pure auto g.around4(Point2!int(x, y))
-
-      x 列 y 行の周囲4マスのうちグリッド内にあるマスの座標を Range で返します.
-
-    pure auto g.around8(Point2!int(x, y))
-
-      x 列 y 行の周囲8マスのうちグリッド内にあるマスの座標を Range で返します.
-
-  Grid!T grid(T)(T[][] data)
-
-    data を元にグリッドを作成します.
-
-*/
 
 unittest
 {

@@ -2,11 +2,23 @@ module lib.data_structure.cumulative_sum;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.data_structure.cumulative_sum
+/**
+ ** 配列の累積和を表します.
+ **/
 class CumulativeSum(T)
 {
+  /**
+   ** 配列の要素数です.
+   **/
   const size_t n;
+  /**
+   ** 配列の累積和です.
+   **/
   T[] s;
 
+  /**
+   ** 配列 a の累積和の計算結果を保持する構造体を返します.
+   **/
   this(T[] a)
   {
     n = a.length;
@@ -15,27 +27,17 @@ class CumulativeSum(T)
     foreach (i; 0..n) s[i+1] = s[i]+a[i];
   }
 
+  /**
+   ** 配列の区間 [l, r) の和を返します.
+   **/
   T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
+  /**
+   ** 配列の要素数を返します.
+   **/
   size_t opDollar() { return n; }
 }
 CumulativeSum!T cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
 // ::::::::::::::::::::
-
-/*
-
-  class CumulativeSum(T)
-
-    累積和を管理します.
-
-    new CumulativeSum!T(T[] a)
-
-      a を元に累積和を管理します.
-
-    T c[l..r]
-
-      区間 [l, r) の和を返します.
-
-*/
 
 unittest
 {

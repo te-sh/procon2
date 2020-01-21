@@ -4,13 +4,26 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.ford_fulkerson
 import lib.graph.graph;
 
+/**
+ ** Ford-Fulkerson 法で指定された2頂点間の最大流を計算します.
+ **/
 struct FordFulkerson(Graph)
 {
+  /**
+   ** 計算に使用したグラフです.
+   **/
   Graph g;
   alias g this;
   alias Node = g.Node, Wt = g.Wt;
+  /**
+   ** 指定された2頂点間の最大流です.
+   **/
   Wt flow = 0;
 
+  /**
+   ** グラフ g の頂点 s から頂点 t への最大流を Ford-Fulkerson 法で
+   ** 計算した結果を保持する構造体を返します.
+   **/
   this(Graph g, Node s, Node t)
   {
     this.g = g;
@@ -55,31 +68,15 @@ private:
     return r;
   }
 }
+/**
+ ** グラフ g の頂点 s から頂点 t への最大流を Ford-Fulkerson 法で
+ ** 計算した結果を保持する構造体を返します.
+ **/
 FordFulkerson!Graph fordFulkerson(Graph, Node)(Graph g, Node s, Node t)
 {
   return FordFulkerson!(Graph)(g, s, t);
 }
 // ::::::::::::::::::::
-
-/*
-
-  struct FordFulkerson(Graph)
-
-    Ford-Fulkerson 法により最大フローを計算します. Graph は重みつきグラフです.
-
-    FordFulerson!Graph(Graph g, Node s, Node t)
-
-      頂点 s から頂点 t への最大フローを flow にセットします.
-
-    Wt flow;
-
-      最大フローを保持します.
-
-  FordFulkerson!Graph fordFulkerson(Graph, Node)(Graph g, Node s, Node t)
-
-    頂点 s から頂点 t への最大フローを flow にセットします.
-
-*/
 
 unittest
 {

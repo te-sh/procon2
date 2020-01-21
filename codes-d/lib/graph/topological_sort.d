@@ -4,13 +4,25 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.topological_sort
 import lib.graph.graph;
 
+/**
+ ** トポロジカルソートを行います.
+ **/
 struct TopologicalSort(Graph)
 {
-  alias Node = g.Node;
+  /**
+   ** 計算に使用したグラフです.
+   **/
   Graph g;
   alias g this;
+  alias Node = g.Node;
+  /**
+   ** トポロジカルソートの結果の頂点列です.
+   **/
   Node[] nodes;
 
+  /**
+   ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
+   **/
   this(Graph g)
   {
     this.g = g;
@@ -34,30 +46,16 @@ struct TopologicalSort(Graph)
     }
   }
 
+  /**
+   ** グラフに閉路があるかどうかを返します.
+   **/
   pure bool hasCycle() { return nodes.length != n; }
 }
+/**
+ ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
+ **/
 TopologicalSort!(Graph) topologicalSort(Graph)(Graph g) { return TopologicalSort!Graph(g); }
 // ::::::::::::::::::::
-
-/*
-
-  struct TopologicalSort(Graph)
-
-    トポロジカルソートを表します.
-
-    TopologicalSort!Graph(Graph g)
-
-      グラフ g を元にトポロジカルソートを作成します.
-
-    Node[] nodes
-
-      トポロジカルソートの結果を保持する配列です.
-
-    pure bool hasCycle()
-
-      グラフが閉路を含むかどうかを返します.
-
-*/
 
 unittest
 {

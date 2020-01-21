@@ -4,15 +4,37 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.graph.tree
 import lib.graph.graph;
 
+/**
+ ** 木を表します.
+ **/
 struct Tree(Graph)
 {
   alias Node = Graph.Node;
+  /**
+   ** 木の元になったグラフです.
+   **/
   Graph g;
   alias g this;
+  /**
+   ** 根の頂点です.
+   **/
   Node root;
+  /**
+   ** 頂点ごとの親の頂点を持つ配列です.
+   **/
   Node[] parent;
-  int[] size, depth;
+  /**
+   ** 頂点ごとのその頂点を根とする部分木に含まれる頂点の数を持つ配列です.
+   **/
+  int[] size;
+  /**
+   ** 頂点ごとのその頂点の根からの深さを持つ配列です.
+   **/
+  int[] depth;
 
+  /**
+   ** グラフ g を元にした根が r の木を返します.
+   **/
   this(Graph g, Node r)
   {
     this.g = g;
@@ -47,42 +69,16 @@ struct Tree(Graph)
     }
   }
 
+  /**
+   ** 頂点 u の子を列挙して Range で返します.
+   **/
   pure auto children(Node u) { return g[u].filter!(v => v != parent[u]); }
 }
+/**
+ ** グラフ g を元にした根が r の木を返します.
+ **/
 Tree!Graph tree(Graph, Node)(Graph g, Node r) { return Tree!Graph(g, r); }
 // ::::::::::::::::::::
-
-/*
-
-  struct Tree(Graph)
-
-    木を表します.
-
-    Tree!(Graph)(ref Graph g, Node r) { this.g = g; }
-
-      グラフ g を元に頂点 r を根とする木を作成します.
-
-    Node[] parent;
-
-      ある頂点の親頂点を保持する配列です.
-
-    int[] depth;
-
-      ある頂点の根からの深さを保持する配列です.
-
-    int[] size;
-
-      ある頂点のその頂点を根とする部分木の頂点数を保持する配列です.
-
-    pure auto children(Node u)
-
-      頂点 u の子頂点を Range で返します.
-
-  Tree!Graph tree(Graph, Node)(Graph g, Node r)
-
-    グラフ g を元に木を作成します.
-
-*/
 
 unittest
 {

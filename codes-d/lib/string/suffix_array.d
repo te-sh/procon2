@@ -2,12 +2,27 @@ module lib.string.suffix_array;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.string.suffix_array
+/**
+ ** Suffix Array (接尾辞配列) を計算します.
+ **/
 struct SuffixArray
 {
+  /**
+   ** 計算の元となった文字列です.
+   **/
   string s;
+  /**
+   ** 計算の元となった文字列の長さです.
+   **/
   size_t n;
+  /**
+   ** i 番目の Suffix が何文字目から始まるかを保持する配列です.
+   **/
   size_t[] x;
 
+  /**
+   ** 文字列 s を元に Suffix Array を計算した結果を保持する構造体を返します.
+   **/
   this(string s)
   {
     this.s = s;
@@ -28,25 +43,12 @@ struct SuffixArray
     }
   }
 
+  /**
+   ** n 番目の Suffix を返します.
+   **/
   string opIndex(size_t i) { return s[x[i]..$]; }
 }
 // ::::::::::::::::::::
-
-/*
-
-  struct SuffixArray
-
-    Suffix Array (接尾辞配列) を管理します.
-
-    SuffixArray(string s)
-
-      文字列 s を元に Suffix Array を作成します.
-
-    string sa[n]
-
-      n 番目の Suffix を返します.
-
-*/
 
 unittest
 {
