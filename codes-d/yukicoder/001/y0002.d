@@ -8,7 +8,7 @@ void main()
   int N; io.getV(N);
 
   auto primes = Prime(N.isqrt), d = primes.div(N);
-  io.putB(d.map!"a[1]".reduce!"a^b" != 0, "Alice", "Bob");
+  io.putB(d.map!"a.exp".reduce!"a^b" != 0, "Alice", "Bob");
 }
 
 import lib.math.misc;

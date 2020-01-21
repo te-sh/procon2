@@ -347,7 +347,7 @@ unittest
   a = vector([1, 2]); a *= 2;
   assert(a == vector([2, 4]));
 
-  import mod_int;
+  import lib.math.mod_int;
   alias mint = ModInt!7;
   auto c = vector!mint([5, 18, -1]);
   assert(c == vector!mint([5, 4, 6]));
@@ -385,7 +385,7 @@ unittest
   auto f = matrix!double([[3, 4, -1], [2, 5, -2], [1, 6, -4]]);
   assert(approxEqual(f.det, -7, 1e-7));
 
-  import mod_int;
+  import lib.math.mod_int;
   alias mint = ModInt!7;
   auto c = matrix!mint([[5, 18, -1], [2, -13, 8]]);
   assert(c == matrix!mint([[5, 4, 6], [2, 1, 1]]));

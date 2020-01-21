@@ -7,7 +7,7 @@ import lib.math.misc;
 struct Prime
 {
   import std.bitmanip;
-  alias Factor = Tuple!(int, int);
+  struct Factor { int prime, exp; }
 
   int n;
   int[] primes;
@@ -60,8 +60,8 @@ private:
   {
     if (i == factors.length) return [c];
     int[] r;
-    foreach (j; 0..factors[i][1]+1)
-      r ~= divisorsProc(factors, i+1, c*factors[i][0]^^j);
+    foreach (j; 0..factors[i].exp+1)
+      r ~= divisorsProc(factors, i+1, c*factors[i].prime^^j);
     return r;
   }
 }
@@ -69,13 +69,13 @@ private:
 
 /*
 
-  Prime
+  struct Prime
 
     素数を保持します.
 
-    Factor
+    struct Factor
 
-      (素因数, べき乗数) を表すタプルです.
+      素因数 prime, べき指数 exp を保持します.
 
     this(int n)
 

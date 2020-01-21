@@ -69,7 +69,7 @@ struct Fact(T, bool inv = true)
 
 unittest
 {
-  import std.algorithm, mod_int;
+  import lib.math.mod_int;
 
   auto fact = Fact!(ModInt!7)(5);
   assert(equal(fact.table, [1, 1, 2, 6, 3, 1]));
