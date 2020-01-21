@@ -15,7 +15,7 @@ struct ModInt(int m, bool pos = false)
   /**
    ** 剰余群の初期値 0 を返します.
    **/
-  static init() { return M(0); }
+  @property static init() { return M(0); }
   /**
    ** 値を int で返します.
    **/
@@ -94,33 +94,33 @@ struct ModInt(int m, bool pos = false)
      ** a*r^{-1} を返します. r は a と同じタイプです.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
-     */
+     **/
     pure M opBinary(Op op: "/")(M r) { return M(l*r.inv.i); }
     /**
      ** a*=r^{-1} を計算します. r は a と同じタイプです.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
-     */
+     **/
     ref M opOpAssign(Op op: "/")(M r) { i=nm(l*r.inv.i); return this; }
 
     /**
      ** a*r^{-1} を返します. r は int です.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
-     */
+     **/
     pure M opBinary(Op op: "/")(int r) { return opBinary!op(M(r)); }
     /**
      ** a*=r^{-1} を計算します. r は int です.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
-     */
+     **/
     ref M opOpAssign(Op op: "/")(int r) { return opOpAssign!op(M(r)); }
 
     /**
      ** 自身の逆数を計算します.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
-     */
+     **/
     pure M inv() { int x = i, a, b; extGcd(x, m, a, b); return M(a); }
   }
 
