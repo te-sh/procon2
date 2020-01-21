@@ -46,7 +46,7 @@ struct SuffixArray
   /**
    ** n 番目の Suffix を返します.
    **/
-  string opIndex(size_t i) { return s[x[i]..$]; }
+  pure string opIndex(size_t i) { return s[x[i]..$]; }
 }
 // ::::::::::::::::::::
 

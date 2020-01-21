@@ -30,11 +30,11 @@ class CumulativeSum(T)
   /**
    ** 配列の区間 [l, r) の和を返します.
    **/
-  T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
+  pure T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
   /**
    ** 配列の要素数を返します.
    **/
-  size_t opDollar() { return n; }
+  pure size_t opDollar() { return n; }
 }
 /**
  ** 配列 a の累積和の計算結果を保持する構造体を返します.

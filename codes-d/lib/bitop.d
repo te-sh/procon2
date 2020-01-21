@@ -37,17 +37,17 @@ pragma(inline)
 
 struct BitSubsetRange(bool includeZero = false, T)
 {
-  T n, i;
+  private T n, i;
 
   this(T n) { this.n = this.i = n; }
   static if (includeZero) {
-    @property T front() { return i&n; }
+    @property pure T front() { return i&n; }
     void popFront() { i &= n; i--; }
-    bool empty() { return i < 0; }
+    pure bool empty() { return i < 0; }
   } else {
-    @property T front() { return i; }
+    @property pure T front() { return i; }
     void popFront() { i = (i-1)&n; }
-    bool empty() { return i <= 0; }
+    pure bool empty() { return i <= 0; }
   }
 }
 /**
@@ -71,7 +71,6 @@ unittest
   assert(bsr(6) == 2);
   assert(popcnt(6) == 2);
 
-  import std.algorithm;
   assert(equal(bitSubset(11), [11, 10, 9, 8, 3, 2, 1]));
   assert(equal(bitSubset!true(11), [11, 10, 9, 8, 3, 2, 1, 0]));
 }

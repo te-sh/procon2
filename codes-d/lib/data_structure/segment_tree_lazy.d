@@ -2,72 +2,123 @@ module lib.data_structure.segment_tree_lazy;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.data_structure.segment_tree_lazy
+/**
+ ** 遅延伝播 Segment Tree を表します.
+ ** このクラスは継承されて使われることを想定しています.
+ ** opNone は操作がない Op 型です.
+ **/
 class SegmentTreeLazy(T, Op, Op opNone)
 {
-  struct Section { T val, laz; Op op; }
-  const size_t n, an;
-  Section[] sec;
-  T unit;
+  /**
+   ** 要素数です.
+   **/
+  const size_t n;
 
-  this(size_t n, T unit = T.init)
+  /**
+   ** 要素数 n の遅延伝播 Segment Tree を返します.
+   ** dflt は値がない要素のデフォルト値です.
+   **/
+  this(size_t n, T dflt = T.init)
   {
     this.n = n;
-    this.unit = unit;
+    this.dflt = dflt;
     an = (n-1).nextPow2;
     sec = new Section[](an*2);
-    if (T.init != unit)
-      foreach (ref seci; sec) seci.val = unit;
+    if (T.init != dflt)
+      foreach (ref seci; sec) seci.val = dflt;
   }
 
-  abstract T compose(T a, T b);
-  abstract void updateSection(ref Section sec, Op op, T val, size_t s);
-
-  void propagate(size_t k, size_t nl, size_t nr)
-  {
-    if (sec[k].op == opNone) return;
-
-    size_t nm = (nl+nr)/2;
-    updateSection(sec[k*2],   sec[k].op, sec[k].laz, nm-nl);
-    updateSection(sec[k*2+1], sec[k].op, sec[k].laz, nr-nm);
-
-    sec[k].op = opNone;
-  }
-
+  /**
+   ** 区間 [l, r) に演算 op を値 val に適用します.
+   ** 外部からこの関数を直接呼び出すか, このクラスを継承したクラスに扱いやすいような関数を
+   ** 定義してこの関数を呼び出すかで使用することになるでしょう.
+   **/
   void apply(Op op, T val, size_t l, size_t r) { apply(op, val, l, r, 1, 0, an); }
-  void apply(Op op, T val, size_t l, size_t r, size_t k, size_t nl, size_t nr)
-  {
-    if (nr <= l || r <= nl) return;
 
-    if (l <= nl && nr <= r) {
-      updateSection(sec[k], op, val, nr-nl);
-      return;
+  /**
+   ** 区間 [l, r) の合成値を返します.
+   **/
+  T opSlice(size_t l, size_t r) { return summary(l, r, 1, 0, an); }
+
+  /**
+   ** 要素数を返します.
+   **/
+  pure size_t opDollar() { return n; }
+
+  protected
+  {
+    /**
+     ** セクション情報を表す構造体です.
+     ** val はこのセクションが持ってる値です.
+     ** laz は子セクションの伝播に使う値です.
+     ** op は子セクションの伝播に使う演算です.
+     **/
+    struct Section { T val, laz; Op op; }
+    /**
+     ** セクションごとのセクション情報の配列です.
+     **/
+    Section[] sec;
+    /**
+     ** 要素の合成に使う関数です.
+     ** このクラスを継承したクラスで定義します.
+     **/
+    abstract T compose(T a, T b);
+    /**
+     ** セクション情報を更新する関数です.
+     ** op, val を使って自セクションの情報を更新します.
+     ** このクラスを継承したクラスで定義します.
+     **/
+    abstract void updateSection(ref Section sec, Op op, T val, size_t s);
+  }
+
+  private
+  {
+    const size_t an;
+    T dflt;
+
+    T summary(size_t l, size_t r, size_t k, size_t nl, size_t nr)
+    {
+      if (nr <= l || r <= nl) return dflt;
+      if (l <= nl && nr <= r) return sec[k].val;
+
+      propagate(k, nl, nr);
+
+      auto nm = (nl+nr)/2;
+      auto vl = summary(l, r, k*2,   nl, nm);
+      auto vr = summary(l, r, k*2+1, nm, nr);
+
+      return compose(vl, vr);
     }
 
-    propagate(k, nl, nr);
+    void propagate(size_t k, size_t nl, size_t nr)
+    {
+      if (sec[k].op == opNone) return;
 
-    auto nm = (nl+nr)/2;
-    apply(op, val, l, r, k*2,   nl, nm);
-    apply(op, val, l, r, k*2+1, nm, nr);
+      size_t nm = (nl+nr)/2;
+      updateSection(sec[k*2],   sec[k].op, sec[k].laz, nm-nl);
+      updateSection(sec[k*2+1], sec[k].op, sec[k].laz, nr-nm);
 
-    sec[k].val = compose(sec[k*2].val, sec[k*2+1].val);
+      sec[k].op = opNone;
+    }
+
+    void apply(Op op, T val, size_t l, size_t r, size_t k, size_t nl, size_t nr)
+    {
+      if (nr <= l || r <= nl) return;
+
+      if (l <= nl && nr <= r) {
+        updateSection(sec[k], op, val, nr-nl);
+        return;
+      }
+
+      propagate(k, nl, nr);
+
+      auto nm = (nl+nr)/2;
+      apply(op, val, l, r, k*2,   nl, nm);
+      apply(op, val, l, r, k*2+1, nm, nr);
+
+      sec[k].val = compose(sec[k*2].val, sec[k*2+1].val);
+    }
   }
-
-  T summary(size_t l, size_t r, size_t k, size_t nl, size_t nr)
-  {
-    if (nr <= l || r <= nl) return unit;
-    if (l <= nl && nr <= r) return sec[k].val;
-
-    propagate(k, nl, nr);
-
-    auto nm = (nl+nr)/2;
-    auto vl = summary(l, r, k*2,   nl, nm);
-    auto vr = summary(l, r, k*2+1, nm, nr);
-
-    return compose(vl, vr);
-  }
-
-  T opSlice(size_t l, size_t r) { return summary(l, r, 1, 0, an); }
-  pure size_t opDollar() { return n; }
 }
 // ::::::::::::::::::::
 
@@ -76,7 +127,7 @@ unittest
   enum Op { none, fill, add }
   class SegTree(T) : SegmentTreeLazy!(T, Op, Op.none)
   {
-    this(size_t n, T unit = T.init) { super(n, unit); }
+    this(size_t n, T dflt = T.init) { super(n, dflt); }
     void opSliceAssign(T val, size_t l, size_t r) { apply(Op.fill, val, l, r); }
     void opSliceOpAssign(string op: "+")(T val, size_t l, size_t r) { apply(Op.add, val, l, r); }
 
