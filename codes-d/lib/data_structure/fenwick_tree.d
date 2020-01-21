@@ -15,29 +15,19 @@ class FenwickTree(T)
   /**
    ** 要素数が n の Fenwick Tree を返します.
    **/
-  this(size_t n)
-  {
-    this.n = n;
-    this.buf = new T[](n+1);
-  }
+  this(size_t n) { this.n = n; this.buf = new T[](n+1); }
 
   /**
    ** インデックス i の値を値 val だけ加算/減算します.
    **/
   void opIndexOpAssign(string op)(T val, size_t i) if (op=="+"||op=="-")
-  {
-    ++i;
-    for (; i <= n; i += i&-i) mixin("buf[i]"~op~"=val;");
-  }
+  { ++i; for (; i <= n; i += i&-i) mixin("buf[i]"~op~"=val;"); }
 
   /**
    ** インデックス i の値を 1 だけ加算/減算します.
    **/
   void opIndexUnary(string op)(size_t i) if (op=="++"||op=="--")
-  {
-    ++i;
-    for (; i <= n; i += i&-i) mixin(op~"buf[i];");
-  }
+  { ++i; for (; i <= n; i += i&-i) mixin(op~"buf[i];"); }
 
   /**
    ** インデックス i の値を返します.

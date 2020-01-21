@@ -103,17 +103,13 @@ private:
  ** zero は加法単位元です.
  **/
 Vector!(T, zero) vector(T, T zero = 0)(T[] a)
-{
-  return Vector!(T, zero)(a);
-}
+{ return Vector!(T, zero)(a); }
 /**
  ** 配列 b を元に作成したベクトルを返します.
  ** zero は加法単位元です.
  **/
 Vector!(T, zero) vector(T, U, T zero = 0)(U[] a) if (!is(T == U))
-{
-  return Vector!(T, zero)(a);
-}
+{ return Vector!(T, zero)(a); }
 
 /**
  ** ベクトル a 同士の内積を返します.
@@ -126,9 +122,7 @@ pure T hypot2(T, alias zero)(Vector!(T, zero) a) { return a*a; }
  **/
 pure Vector!(T, zero) cross(T, alias zero)(Vector!(T, zero) a, Vector!(T, zero) b)
 in { assert(a.n == 3 && b.n == 3); } do
-{
-  return Vector!(T, zero)([a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]);
-}
+{ return Vector!(T, zero)([a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]); }
 
 /**
  ** 行列を表します.
@@ -280,18 +274,14 @@ private:
  ** one は乗法単位元です.
  **/
 Matrix!(T, zero, one) matrix(T, T zero = 0, T one = 1)(T[][] a)
-{
-  return Matrix!(T, zero, one)(a);
-}
+{ return Matrix!(T, zero, one)(a); }
 /**
  ** 配列 b を元に作成した行列を返します.
  ** zero は加法単位元です.
  ** one は乗法単位元です.
  **/
 Matrix!(T, zero, one) matrix(T, U, T zero = 0, T one = 1)(U[][] a) if (!is(T == U))
-{
-  return Matrix!(T, zero, one)(a);
-}
+{ return Matrix!(T, zero, one)(a); }
 
 /**
  ** 行列 a の行列式を返します.

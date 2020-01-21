@@ -4,16 +4,30 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.math.prime
 import lib.math.misc;
 
+/**
+ ** 素数を列挙します.
+ **/
 struct Prime
 {
   import std.bitmanip;
+  /**
+   ** 素因数 prime とベキ指数 exp を表します.
+   **/
   struct Factor { int prime, exp; }
 
-  int n;
-  int[] primes;
+  /**
+   ** この構造体は n 以下の素数を保持します.
+   **/
+  const int n;
+  /**
+   ** 素数の配列を返します.
+   **/
   @property array() { return primes; }
   alias array this;
 
+  /**
+   ** n 以下の素数を保持する構造体を返します.
+   **/
   this(int n)
   {
     this.n = n;
@@ -31,6 +45,10 @@ struct Prime
     primes[0] = 2;
   }
 
+  /**
+   ** x の素因数分解を行い, 結果を Factor の配列で返します.
+   ** x は n^2 より小さい必要があります.
+   **/
   pure Factor[] div(int x) in { assert(x > 0 && x.isqrt <= n); } do
   {
     Factor[] factors;
@@ -46,6 +64,10 @@ struct Prime
     return factors;
   }
 
+  /**
+   ** x の約数の配列を返します.
+   ** x は n^2 より小さい必要があります.
+   **/
   pure int[] divisors(int x) in { assert(x > 0 && x.isqrt <= n); } do
   {
     auto factors = div(x);
@@ -55,6 +77,8 @@ struct Prime
   }
 
 private:
+
+  int[] primes;
 
   pure int[] divisorsProc(Factor[] factors, int i, int c)
   {
@@ -66,32 +90,6 @@ private:
   }
 }
 // ::::::::::::::::::::
-
-/*
-
-  struct Prime
-
-    素数を保持します.
-
-    struct Factor
-
-      素因数 prime, べき指数 exp を保持します.
-
-    this(int n)
-
-      n 以下の素数を計算して primes にセットします.
-
-    pure Factor[] div(int x)
-
-      x を素因数分解して Factor の配列で返します
-      x は n^2 より小さい必要があります.
-
-    pure int[] divisors(int x)
-
-      x の約数の配列を返します.
-      x は n^2 より小さい必要があります.
-
-*/
 
 unittest
 {

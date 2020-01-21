@@ -45,27 +45,21 @@ struct Fact(T, bool inv = true)
    ** n >= a >= b である必要があります.
    **/
   pure T perm(size_t a, size_t b) in { assert(inv && n >= a && a >= b); } do
-  {
-    return table[a]*invTable[a-b];
-  }
+  { return table[a]*invTable[a-b]; }
 
   /**
    ** 組み合わせ数 aCb を返します.
    ** n >= a >= b である必要があります.
    **/
   pure T combi(size_t a, size_t b) in { assert(inv && n >= a && a >= b); } do
-  {
-    return table[a]*invTable[b]*invTable[a-b];
-  }
+  { return table[a]*invTable[b]*invTable[a-b]; }
 
   /**
    ** 重複組み合わせ数 aHb を返します.
    ** n >= a + b - 1 である必要があります.
    **/
   pure T homo(size_t a, size_t b) in { assert(inv && n >= a+b-1); } do
-  {
-    return combi(a+b-1, b);
-  }
+  { return combi(a+b-1, b); }
 }
 // ::::::::::::::::::::
 

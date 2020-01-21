@@ -36,6 +36,9 @@ class CumulativeSum(T)
    **/
   size_t opDollar() { return n; }
 }
+/**
+ ** 配列 a の累積和の計算結果を保持する構造体を返します.
+ **/
 CumulativeSum!T cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
 // ::::::::::::::::::::
 
