@@ -5,11 +5,11 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 import std.stdio;
 /**
  ** 競技プログラミング用の読み書きを行います.
- ** IN, OUT は入力ソースおよび出力ソースです.
- ** delimiter は出力時の区切り文字です.
  ** floatFormat は浮動小数点出力時のフォーマットです.
+ ** delimiter は出力時の区切り文字です.
+ ** IN, OUT は入力ソースおよび出力ソースです.
  **/
-struct IO(alias IN = stdin, alias OUT = stdout, string delimiter = " ", string floatFormat = "%.10f")
+struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin, alias OUT = stdout)
 {
   import std.conv, std.format, std.meta, std.traits;
   alias assignable = hasAssignableElements;
@@ -114,7 +114,7 @@ unittest
   }
   auto dummyOut = new DummyOut();
 
-  auto io = IO!(dummyIn, dummyOut)();
+  auto io = IO!("%.10f", " ", dummyIn, dummyOut)();
 
   dummyIn.buf ~= "45\n123456789012\n3.5\ntest\n";
   int a; io.getV(a);
