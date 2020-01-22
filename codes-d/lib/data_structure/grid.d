@@ -29,6 +29,15 @@ struct Grid(T)
   this(T[][] data) { c = data[0].length; r = data.length; this.data = data; }
 
   /**
+   ** 1次元インデックス i を位置にしたものを返します.
+   **/
+  pure P i2p(size_t i) { return P(cast(int)(i%c), cast(int)(i/c)); }
+  /**
+   ** 位置 p を1次元インデックスにしたものを返します.
+   **/
+  pure size_t p2i(P p) { return p.x*c + p.y; }
+
+  /**
    ** 位置 (x, y) の要素を返します.
    **/
   pure T opIndex(size_t x, size_t y) { return data[y][x]; }
@@ -103,6 +112,9 @@ unittest
 
   assert(a[1, 0] == 2);
   assert(a[P(0, 1)] == 3);
+
+  assert(a.i2p(2) == P(0, 1));
+  assert(a.p2i(P(1, 1)) == 3);
 
   a[1, 0] = 5;
   assert(a[1, 0] == 5);
