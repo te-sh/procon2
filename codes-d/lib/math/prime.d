@@ -13,7 +13,7 @@ struct Prime
   /**
    ** 素因数 prime とベキ指数 exp を表します.
    **/
-  struct Factor { int prime, exp; }
+  struct Factor(T) { T prime; int exp; }
 
   /**
    ** この構造体は n 以下の素数を保持します.
@@ -49,18 +49,18 @@ struct Prime
    ** x の素因数分解を行い, 結果を Factor の配列で返します.
    ** x は n^2 より小さい必要があります.
    **/
-  pure Factor[] div(int x) in { assert(x > 0 && x.isqrt <= n); } do
+  pure Factor!T[] div(T)(T x) in { assert(x > 0 && x.isqrt <= n); } do
   {
-    Factor[] factors;
+    Factor!T[] factors;
     auto t = isqrt(x);
     foreach (p; primes) {
       if (p > t) break;
       auto c = 0;
       for (; x%p == 0; x /= p) ++c;
-      if (c > 0) factors ~= Factor(p, c);
+      if (c > 0) factors ~= Factor!T(p, c);
       if (x == 1) break;
     }
-    if (x > 1) factors ~= [Factor(x, 1)];
+    if (x > 1) factors ~= [Factor!T(x, 1)];
     return factors;
   }
 
@@ -68,7 +68,7 @@ struct Prime
    ** x の約数の配列を返します.
    ** x は n^2 より小さい必要があります.
    **/
-  pure int[] divisors(int x) in { assert(x > 0 && x.isqrt <= n); } do
+  pure T[] divisors(T)(T x) in { assert(x > 0 && x.isqrt <= n); } do
   {
     auto factors = div(x);
     auto r = divisorsProc(factors, 0, 1);
@@ -80,10 +80,10 @@ struct Prime
   {
     int[] primes;
 
-    pure int[] divisorsProc(Factor[] factors, int i, int c)
+    pure T[] divisorsProc(T)(Factor!T[] factors, int i, T c)
     {
       if (i == factors.length) return [c];
-      int[] r;
+      T[] r;
       foreach (j; 0..factors[i].exp+1)
         r ~= divisorsProc(factors, i+1, c*factors[i].prime^^j);
       return r;
@@ -99,7 +99,7 @@ unittest
   assert(equal(Prime(30).array, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]));
 
   auto primes = Prime(5);
-  alias Factor = primes.Factor;
+  alias Factor = primes.Factor!int;
 
   assert(equal(primes.div(23), [Factor(23, 1)]));
   assert(equal(primes.div(24), [Factor(2, 3), Factor(3, 1)]));

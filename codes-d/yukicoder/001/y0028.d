@@ -30,14 +30,10 @@ void main()
 
     auto k = 10^^9;
     foreach (i; 0..bd.length) {
-      auto xd = new int[](N+1), s = 0;
-      foreach (j; 0..N+1) {
-	auto e = expo(X[j], bd[i].prime);
-	xd[j] = e;
-	s += e;
-      }
-      xd.sort!"a>b";
-      k = min(k, (s-xd[0..N+1-K].sum)/bd[i].exp);
+      auto xd = new int[](N+1);
+      foreach (j; 0..N+1) xd[j] = expo(X[j], bd[i].prime);
+      xd.sort;
+      k = min(k, (xd[0..K].sum)/bd[i].exp);
     }
 
     io.put(k);
