@@ -10,7 +10,7 @@ void main()
   int N; io.getV(N);
   int[] S, K; io.getC(N, S, K);
 
-  S.sort(); K.sort();
+  S.sort; K.sort;
   io.put(W*H - (W-S.uniq.walkLength)*(H-K.uniq.walkLength) - N);
 }
 

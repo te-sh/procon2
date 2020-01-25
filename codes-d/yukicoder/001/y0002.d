@@ -6,7 +6,6 @@ version(unittest) {} else
 void main()
 {
   int N; io.getV(N);
-
   auto primes = Prime(N.isqrt), d = primes.div(N);
   io.putB(d.map!"a.exp".reduce!"a^b" != 0, "Alice", "Bob");
 }

@@ -9,7 +9,7 @@ void main()
   int N; io.getV(N);
   int[] W; io.getA(N, W);
 
-  W.sort();
+  W.sort;
   io.put(W.cumulativeFold!"a+b".array.assumeSorted.lowerBound(L+1).length); 
 }
 

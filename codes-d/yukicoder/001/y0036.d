@@ -6,7 +6,6 @@ version(unittest) {} else
 void main()
 {
   long N; io.getV(N);
-
   auto primes = Prime(cast(int)N.isqrt);
   io.putB(primes.div(N).map!"a.exp".sum >= 3, "YES", "NO");
 }

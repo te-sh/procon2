@@ -23,7 +23,7 @@ void main()
     auto b = i.bsr;
     mp2[i] = MP(i, mp2[i.bitReset(b)].p + P[n1+b]);
   }
-  mp2.sort!("a.p<b.p");
+  mp2.sort!"a.p<b.p";
   auto bs = mp2.assumeSorted!"a.p<b.p";
 
   size_t[][] ans;

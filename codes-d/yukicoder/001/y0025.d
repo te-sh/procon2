@@ -16,10 +16,7 @@ void main()
   for (; M%2 == 0; M /= 2) ++e2;
   for (; M%5 == 0; M /= 5) ++e5;
 
-  if (M != 1) {
-    io.put(-1);
-    return;
-  }
+  if (M != 1) { io.put(-1); return; }
 
   auto n = BigInt(N);
   foreach (_; 0..max(0, e5-e2)) n *= 2;

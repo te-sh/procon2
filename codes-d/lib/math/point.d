@@ -43,6 +43,12 @@ struct Point2(T)
 }
 
 /**
+ ** p1, p2 のマンハッタン距離を返します.
+ **/
+pure T distManhattan(T)(Point2!T p1, Point2!T p2)
+{ return (p1.x-p2.x).abs + (p1.y-p2.y).abs; }
+
+/**
  ** p1, p2 を平面上にある3次元ベクトルとしてそのクロス積の z 成分を返します.
  **/
 pure T cross(T)(Point2!T p1, Point2!T p2)

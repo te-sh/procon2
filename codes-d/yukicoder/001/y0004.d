@@ -9,10 +9,7 @@ void main()
   int[] W; io.getA(N, W);
 
   auto s = W.sum;
-  if (s%2 == 1) {
-    io.put("impossible");
-    return;
-  }
+  if (s%2 == 1) { io.put("impossible"); return; }
 
   s /= 2;
 
