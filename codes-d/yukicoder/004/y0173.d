@@ -1,33 +1,22 @@
 // URL: https://yukicoder.me/problems/no/173
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-import std.random;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.conv, std.random;
 
 const iter = 100_000;
 
 version(unittest) {} else
 void main()
 {
-  int n; real pa, pb; readV(n, pa, pb);
-  int[] a; readA(n, a);
-  int[] b; readA(n, b);
+  int N; real Pa, Pb; io.getV(N, Pa, Pb);
+  int[] A; io.getA(N, A);
+  int[] B; io.getA(N, B);
 
-  a.sort();
-  b.sort();
+  A.sort; B.sort;
 
   auto calc()
   {
-    auto decide(ref int[] a, real p)
+    auto decide(ref int[] a, double p)
     {
       if (a.length == 1) {
         auto r = a[0];
@@ -48,10 +37,10 @@ void main()
       }
     }
 
-    auto da = a.dup, db = b.dup, sa = 0, sb = 0;
+    auto a = A.dup, b = B.dup, sa = 0, sb = 0;
 
-    foreach (_; 0..n) {
-      auto ca = decide(da, pa), cb = decide(db, pb);
+    foreach (_; 0..N) {
+      auto ca = decide(a, Pa), cb = decide(b, Pb);
       if (ca > cb)      sa += ca+cb;
       else if (ca < cb) sb += ca+cb;
     }
@@ -62,5 +51,8 @@ void main()
   auto r = 0;
   foreach (_; 0..iter) r += calc;
 
-  writefln("%.4f", r.to!real/iter);
+  io.put(r.to!double/iter);
 }
+
+auto io = IO!("%.4f")();
+import lib.io;
