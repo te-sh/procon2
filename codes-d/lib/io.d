@@ -41,6 +41,17 @@ struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin
   {
     v = new T(r); foreach (ref w; v) getA(c, w);
   }
+  /**
+   ** v を n 要素の配列にして入力からの値をセットします.
+   ** E に v のフィールド名を指定します.
+   **/
+  template getS(E...)
+  {
+    auto getS(T)(size_t n, ref T v)
+    {
+      v = new T(n); foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");");
+    }
+  }
 
   /**
    ** v の値を delimiter 区切りで1行に出力します. 最後は改行します.
@@ -149,6 +160,11 @@ unittest
   dummyIn.buf ~= "2 3\n3 4\n4 5\n";
   int[][] l; io.getM(3, 2, l);
   assert(equal(l, [[2, 3], [3, 4], [4, 5]]));
+
+  struct S { string s; int i, j; }
+  dummyIn.buf ~= "a 3\nb 4\n";
+  S[] m; io.getS!("s", "i")(2, m);
+  assert(equal(m, [S("a", 3, 0), S("b", 4, 0)]));
 
   io.put(a);
   io.put(b);

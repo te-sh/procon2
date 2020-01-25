@@ -5,7 +5,7 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 /**
  ** 座標圧縮/展開を行います.
  **/
-class Zaatsu(T)
+struct Zaatsu(T)
 {
   /**
    ** 座標圧縮した結果の数値の種類数です.
@@ -59,9 +59,7 @@ unittest
 {
   auto a = [1, 8, 2, 6];
 
-  auto za1 = new Zaatsu!int(a);
-  import std.stdio;
-  writeln(za1.n);
+  auto za1 = Zaatsu!int(a);
   assert(za1.n == 4);
   assert(za1.comp(1) == 0);
   assert(equal(za1.comp(a), [0, 3, 1, 2]));
@@ -69,7 +67,7 @@ unittest
   assert(equal(za1.uncomp([3, 1]), [8, 2]));
 
   auto b = [4, 1];
-  auto za2 = new Zaatsu!int(a, b);
+  auto za2 = Zaatsu!int(a, b);
   assert(za2.n == 5);
   assert(za2.comp(2) == 1);
   assert(equal(za2.comp(a), [0, 4, 1, 3]));

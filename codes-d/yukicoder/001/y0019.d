@@ -13,7 +13,7 @@ void main()
 
   auto groups = uf.groups, r = 0;
   foreach (group; uf.groups) {
-    auto za = new Zaatsu!int(group);
+    auto za = Zaatsu!int(group);
     auto g = Graph(cast(int)group.length);
     foreach (u; group)
       g.addEdge(za.comp(S[u]), za.comp(u));
