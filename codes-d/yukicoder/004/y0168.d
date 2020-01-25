@@ -6,7 +6,6 @@ version(unittest) {} else
 void main()
 {
   int N; io.getV(N);
-  alias Point = Point2!long;
   Point[] p; io.getS!("x", "y")(N, p);
 
   struct D { int s, t; long d; }
@@ -30,6 +29,7 @@ void main()
   }
 }
 
+alias Point = Point2!long;
 import lib.math.point;
 
 import lib.data_structure.union_find;
