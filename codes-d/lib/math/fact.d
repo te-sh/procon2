@@ -40,26 +40,31 @@ struct Fact(T, bool inv = true)
     }
   }
 
-  /**
-   ** 順列数 aPb を返します.
-   ** n >= a >= b である必要があります.
-   **/
-  pure T perm(size_t a, size_t b) in { assert(inv && n >= a && a >= b); } do
-  { return table[a]*invTable[a-b]; }
+  static if (inv) {
+    /**
+     ** 順列数 aPb を返します.
+     ** inv が false なら定義されません.
+     ** n >= a >= b である必要があります.
+     **/
+    pure T perm(size_t a, size_t b) in { assert(n >= a && a >= b); } do
+    { return table[a]*invTable[a-b]; }
 
-  /**
-   ** 組み合わせ数 aCb を返します.
-   ** n >= a >= b である必要があります.
-   **/
-  pure T combi(size_t a, size_t b) in { assert(inv && n >= a && a >= b); } do
-  { return table[a]*invTable[b]*invTable[a-b]; }
+    /**
+     ** 組み合わせ数 aCb を返します.
+     ** inv が false なら定義されません.
+     ** n >= a >= b である必要があります.
+     **/
+    pure T combi(size_t a, size_t b) in { assert(n >= a && a >= b); } do
+    { return table[a]*invTable[b]*invTable[a-b]; }
 
-  /**
-   ** 重複組み合わせ数 aHb を返します.
-   ** n >= a + b - 1 である必要があります.
-   **/
-  pure T homo(size_t a, size_t b) in { assert(inv && n >= a+b-1); } do
-  { return combi(a+b-1, b); }
+    /**
+     ** 重複組み合わせ数 aHb を返します.
+     ** inv が false なら定義されません.
+     ** n >= a + b - 1 である必要があります.
+     **/
+    pure T homo(size_t a, size_t b) in { assert(n >= a+b-1); } do
+    { return combi(a+b-1, b); }
+  }
 }
 // ::::::::::::::::::::
 
