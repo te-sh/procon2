@@ -12,7 +12,6 @@ import std.stdio;
 struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin, alias OUT = stdout)
 {
   import std.conv, std.format, std.meta, std.traits;
-  alias assignable = hasAssignableElements;
 
   /**
    ** v に入力からの値をセットします.
@@ -23,13 +22,15 @@ struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin
    ** v を n 要素の配列にして入力からの値をセットします.
    ** 入力値が1行で与えられる場合に使います.
    **/
-  auto getA(T)(size_t n, ref T v) if (assignable!T) { v = new T(n); foreach (ref w; v) get(w); }
+  auto getA(T)(size_t n, ref T v) if (hasAssignableElements!T)
+  { v = new T(n); foreach (ref w; v) get(w); }
   /**
    ** v を n 要素の配列にして入力からの値をセットします.
    ** v は複数指定できます.
    ** 入力値が複数行で与えられる場合に使います.
    **/
-  auto getC(T...)(size_t n, ref T v) if (allSatisfy!(assignable, T))
+  auto getC(T...)(size_t n, ref T v)
+  if (allSatisfy!(hasAssignableElements, T))
   {
     foreach (ref w; v) w = new typeof(w)(n);
     foreach (i; 0..n) foreach (ref w; v) get(w[i]);
@@ -37,7 +38,8 @@ struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin
   /**
    ** v を r 行 c 列の配列にして入力からの値をセットします.
    **/
-  auto getM(T)(size_t r, size_t c, ref T v) if (assignable!T && assignable!(ElementType!T))
+  auto getM(T)(size_t r, size_t c, ref T v)
+  if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
   {
     v = new T(r); foreach (ref w; v) getA(c, w);
   }
