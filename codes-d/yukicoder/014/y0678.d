@@ -1,42 +1,31 @@
 // URL: https://yukicoder.me/problems/no/678
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n, bl, br; readV(n, bl, br);
+  int N, xLB, xRB; io.getV(N, xLB, xRB);
 
-  struct E { int l, u, r, d, i; bool a; }
-  auto e = new E[](n);
-  foreach (i; 0..n) {
-    int l, u, r, d; readV(l, u, r, d);
-    e[i] = E(l, u, r, d, i, false);
-  }
+  struct E { int XL, YU, XR, YD, i; bool a; }
+  E[] e; io.getS!("XL", "YU", "XR", "YD")(N, e);
+  foreach (i, ref ei; e) ei.i = cast(int)i;
 
-  e.sort!"a.d > b.d";
+  e.sort!"a.YD>b.YD";
   auto a = new int[](1281), ans = 0;
   a[] = 1;
 
   foreach (ref ei; e) {
-    if (ei.r < bl || ei.l > br) continue;
-    auto l = max(bl, ei.l), r = min(br, ei.r);
+    if (ei.XR < xLB || ei.XL > xRB) continue;
+    auto l = max(xLB, ei.XL), r = min(xRB, ei.XR);
     if (a[l..r+1].sum) ei.a = true;
     a[l..r+1][] = 0;
   }
 
-  e.sort!"a.i < b.i";
+  e.sort!"a.i<b.i";
 
-  foreach (ei; e)
-    writeln(ei.a ? 1 : 0);
+  foreach (ei; e) io.putB(ei.a, 1, 0);
 }
+
+auto io = IO!()();
+import lib.io;
