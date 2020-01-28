@@ -1,43 +1,36 @@
 // URL: https://yukicoder.me/problems/no/731
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n; readV(n);
-  int[] a; readA(n, a);
+  int N; io.getV(N);
+  int[] a; io.getA(N, a);
 
-  auto x = new real[](n), y = new real[](n);
-  foreach (i; 0..n) {
+  auto x = new double[](N), y = new double[](N);
+  foreach (i; 0..N) {
     x[i] = i;
     y[i] = a[i];
   }
 
-  auto ax = x.sum/n, ay = y.sum/n;
+  auto ax = x.sum/N, ay = y.sum/N;
   x[] -= ax; y[] -= ay;
 
-  auto sxy = 0.0L, sx = 0.0L;
-  foreach (i; 0..n) {
+  auto sxy = 0.0, sx = 0.0;
+  foreach (i; 0..N) {
     sxy += x[i]*y[i];
     sx += x[i]^^2;
   }
 
   auto d = sxy/sx, b = ay-ax*d;
 
-  auto c = 0.0L;
-  foreach (i; 0..n) c += (d*i+b-a[i])^^2;
+  auto c = 0.0;
+  foreach (i; 0..N) c += (d*i+b-a[i])^^2;
 
-  writefln("%.7f %.7f", b, d);
-  writefln("%.7f", c);
+  io.put(b, d);
+  io.put(c);
 }
+
+auto io = IO!()();
+import lib.io;
