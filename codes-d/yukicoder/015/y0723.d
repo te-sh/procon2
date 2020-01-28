@@ -1,24 +1,18 @@
 // URL: https://yukicoder.me/problems/no/723
+// URL: 
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n, x; readV(n, x);
-  int[] a; readA(n, a);
+  int N, X; io.getV(N, X);
+  int[] a; io.getA(N, a);
 
-  auto as = a.sort(), r = 0L;
-  foreach (i; 0..n) r += as.equalRange(x-a[i]).length;
-  writeln(r);
+  auto as = a.sort, r = 0L;
+  foreach (i; 0..N) r += as.equalRange(X-a[i]).length;
+  io.put(r);
 }
+
+auto io = IO!()();
+import lib.io;
