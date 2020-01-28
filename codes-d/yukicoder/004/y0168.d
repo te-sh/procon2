@@ -20,14 +20,13 @@ void main()
   foreach (di; d) {
     uf.unite(di.s, di.t);
     if (uf.isSame(0, N-1)) {
-      auto bs = iota(10, cast(long)int.max, 10)
-        .map!(l => tuple(l, di.d <= l^^2))
-        .assumeSorted!"a[1]<b[1]";
-      io.put(bs.upperBound(tuple(0, false)).front[0]);
+      io.put(iota(10, cast(long)int.max, 10).upperBoundBy!(l => di.d <= l^^2)(false).front);
       return;
     }
   }
 }
+
+import lib.bound_by;
 
 alias Point = Point2!long;
 import lib.math.point;

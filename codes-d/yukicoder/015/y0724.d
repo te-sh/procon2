@@ -30,8 +30,7 @@ void main()
       auto e = Cir(x);
       return e.r - e.y;
     }
-    auto bs = iota(0.0, a+b, eps).map!(x => tuple(x, calc1(x))).assumeSorted!"a[1]<b[1]";
-    auto x = bs.lowerBound(tuple(0, 0)).back[0];
+    auto x = iota(0.0, a+b, eps).lowerBoundBy!(x => calc1(x))(0).back;
     e = Cir(x);
     n = n/2-1;
   }
@@ -43,13 +42,14 @@ void main()
   }
 
   foreach (_; 0..n) {
-    auto bs = iota(0.0, e.x, eps).map!(x2 => tuple(x2, calc(e, x2))).assumeSorted!"a[1]<b[1]";
-    auto x2 = bs.lowerBound(tuple(0, 0)).back[0];
+    auto x2 = iota(0.0, e.x, eps).lowerBoundBy!(x2 => calc(e, x2))(0).back;
     e = Cir(x2);
   }
 
   io.put(e.r);
 }
+
+import lib.bound_by;
 
 auto io = IO!()();
 import lib.io;

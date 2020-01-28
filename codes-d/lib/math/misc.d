@@ -2,6 +2,8 @@ module lib.math.misc;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.math.misc
+import lib.bound_by;
+
 /**
  ** n の平方根を超えない最大の整数を返します.
  **/
@@ -9,8 +11,7 @@ pure T isqrt(T)(T n)
 {
   static if (is(T == int)) auto max = 46341;
   else static if (is(T == long)) auto max = 3037000500L;
-  auto bs = iota(T(0), max).map!(x => tuple(x, x^^2)).assumeSorted!"a[1]<=b[1]";
-  return bs.lowerBound(tuple(0, n)).back[0];
+  return iota(T(0), max).lowerBoundBy!("a^^2", "a<=b")(n).back;
 }
 
 /**
@@ -20,8 +21,7 @@ pure T icbrt(T)(T n)
 {
   static if (is(T == int)) auto max = 1291;
   else static if (is(T == long)) auto max = 2097152L;
-  auto bs = iota(T(0), max).map!(x => tuple(x, x^^3)).assumeSorted!"a[1]<=b[1]";
-  return bs.lowerBound(tuple(0, n)).back[0];
+  return iota(T(0), max).lowerBoundBy!("a^^3", "a<=b")(n).back;
 }
 
 /**
