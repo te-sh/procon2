@@ -1,39 +1,29 @@
 // URL: https://yukicoder.me/problems/no/728
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n; readV(n);
-  int[] a; readA(n, a);
-  int[] l, r; readC(n, l, r);
+  int N; io.getV(N);
+  int[] A; io.getA(N, A);
+  int[] L, R; io.getC(N, L, R);
 
   struct B { int x, i, t; }
-  auto b = new B[](n*2);
-  foreach (i; 0..n) {
-    b[i] = B(a[i], i, 0);
-    b[i+n] = B(a[i]-l[i], i, 1);
+  auto b = new B[](N*2);
+  foreach (i; 0..N) {
+    b[i] = B(A[i], i, 0);
+    b[i+N] = B(A[i]-L[i], i, 1);
   }
-  b.sort!"a.x == b.x ? a.t > b.t : a.x < b.x";
+  b.multiSort!("a.x<b.x", "a.t>b.t");
 
-  auto as = a.assumeSorted, ft = new FenwickTree!int(n), ans = 0L;
+  auto as = A.assumeSorted, ft = fenwickTree!int(N), ans = 0L;
 
   foreach (bi; b) {
     auto i = bi.i;
     switch (bi.t) {
     case 0:
-      auto k = as.lowerBound(a[i]+r[i]+1).length.to!int;
+      auto k = as.lowerBound(A[i]+R[i]+1).length;
       ans += ft[i+1..k];
       break;
     case 1:
@@ -44,42 +34,10 @@ void main()
     }
   }
 
-  writeln(ans);
+  io.put(ans);
 }
 
-class FenwickTree(T)
-{
-  const size_t n;
-  T[] buf;
+import lib.data_structure.fenwick_tree;
 
-  this(size_t n)
-  {
-    this.n = n;
-    this.buf = new T[](n+1);
-  }
-
-  void opIndexOpAssign(string op)(T val, size_t i) if (op == "+" || op == "-")
-  {
-    ++i;
-    for (; i <= n; i += i & -i) mixin("buf[i] " ~ op ~ "= val;");
-  }
-
-  void opIndexUnary(string op)(size_t i) if (op == "++" || op == "--")
-  {
-    ++i;
-    for (; i <= n; i += i & -i) mixin("buf[i]" ~ op ~ ";");
-  }
-
-  pure T opSlice(size_t r, size_t l) { return get(l) - get(r); }
-  pure T opIndex(size_t i) { return opSlice(i, i+1); }
-  pure size_t opDollar() { return n; }
-
-private:
-
-  pure T get(size_t i)
-  {
-    auto s = T(0);
-    for (; i > 0; i -= i & -i) s += buf[i];
-    return s;
-  }
-}
+auto io = IO!()();
+import lib.io;
