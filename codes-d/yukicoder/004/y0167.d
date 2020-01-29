@@ -9,7 +9,7 @@ void main()
   string N; io.getV(N);
   string M; io.getV(M);
 
-  if (M == "0") { io.put(1); return; }
+  if (M == "0") io.put!"{exit: true}"(1);
 
   auto n1 = N[$-1..$].to!int;
   auto m2 = M[$-min(M.length, 2)..$].to!int;

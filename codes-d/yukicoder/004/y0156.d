@@ -13,7 +13,7 @@ void main()
   auto r = 0;
   foreach (i, Ci; C) {
     r += Ci;
-    if (r > M) { io.put(i); return; }
+    if (r > M) io.put!"{exit: true}"(i);
   }
 
   io.put(N);

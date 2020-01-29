@@ -9,7 +9,7 @@ void main()
   Point[] b; io.getS!("x", "y")(K, b);
   foreach (ref bi; b) { --bi.x; --bi.y; }
 
-  if (N == 1) { io.put(0); return; }
+  if (N == 1) io.put!"{exit: true}"(0);
 
   auto a = kaidan!long(N);
   foreach (ref ai; a) ai[] = -1;

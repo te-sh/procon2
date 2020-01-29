@@ -22,7 +22,7 @@ void main()
     r += L.indexed(group).sum/2 + L.indexed(za.uncomp(scc[0])).minElement/2;
   }
 
-  io.put(cast(double)r/2);
+  io.put!`{floatFormat: "%.1f"}`(cast(double)r/2);
 }
 
 import lib.data_structure.union_find;
@@ -33,5 +33,5 @@ import lib.graph.graph;
 
 import lib.graph.strongly_connected_components;
 
-auto io = IO!("%.1f")();
+auto io = IO!()();
 import lib.io;

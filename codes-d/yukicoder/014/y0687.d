@@ -8,7 +8,7 @@ void main()
   int N; io.getV(N);
   foreach (a1; 1..11)
     foreach (a2; 1..11)
-      if (a1+a2 == N) { io.put(a1, a2); return; }
+      if (a1+a2 == N) io.put!"{exit: true}"(a1, a2);
 }
 
 auto io = IO!()();
