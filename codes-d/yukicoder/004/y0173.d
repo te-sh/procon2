@@ -54,5 +54,5 @@ void main()
   io.put(r.to!double/iter);
 }
 
-auto io = IO!("%.4f")();
+auto io = IO!()();
 import lib.io;

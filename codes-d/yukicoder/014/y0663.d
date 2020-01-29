@@ -37,5 +37,5 @@ const mod = 10^^9+7;
 alias mint = ModInt!mod;
 import lib.math.mod_int;
 
-auto io = IO!("%.2f")();
+auto io = IO!()();
 import lib.io;
