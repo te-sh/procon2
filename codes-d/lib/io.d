@@ -48,9 +48,7 @@ struct IO(alias IN = stdin, alias OUT = stdout)
   template getS(E...)
   {
     auto getS(T)(size_t n, ref T v)
-    {
-      v = new T(n); foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");");
-    }
+    { v = new T(n); foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");"); }
   }
 
   /**
@@ -61,13 +59,11 @@ struct IO(alias IN = stdin, alias OUT = stdout)
   auto put(alias conf = "{}", T...)(T v)
   {
     import core.stdc.stdlib;
-    mixin("
-    const PutConf c = "~conf~";
+    mixin("const PutConf c = "~conf~";
     foreach (i, w; v) { putA!c(w); if (i < v.length-1) OUT.write(c.delimiter); }
     static if (c.newline) OUT.writeln;
     static if (c.flush) OUT.flush();
-    static if (c.exit) exit(0);
-    ");
+    static if (c.exit) exit(0);");
   }
   /**
    ** c が true ならば t を, そうでなければ f を出力します.
@@ -106,25 +102,16 @@ struct IO(alias IN = stdin, alias OUT = stdout)
 const struct PutConf
 {
   /**
-   ** true ならば出力の最後に改行を出力します.
-   **/
-  bool newline = true;
-  /**
-   ** true ならば出力の後に flush します.
-   **/
-  bool flush;
-  /**
+   ** newline が true ならば出力の最後に改行を出力します.
+   ** flush が true ならば出力の後に flush します.
    ** true ならば出力の後にプログラムを終了します.
    **/
-  bool exit;
+  bool newline = true, flush, exit;
   /**
-   ** 浮動小数点出力のフォーマットを指定します.
+   ** floatFormat に浮動小数点出力のフォーマットを指定します.
+   ** delimiter に出力の際のデリミタを指定します.
    **/
-  string floatFormat = "%.10f";
-  /**
-   ** 出力の際のデリミタを指定します.
-   **/
-  string delimiter = " ";
+  string floatFormat = "%.10f", delimiter = " ";
 }
 // ::::::::::::::::::::
 
