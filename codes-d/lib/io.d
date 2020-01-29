@@ -38,9 +38,7 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    **/
   auto getM(T)(size_t r, size_t c, ref T v)
   if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
-  {
-    v = new T(r); foreach (ref w; v) getA(c, w);
-  }
+  { v = new T(r); foreach (ref w; v) getA(c, w); }
   /**
    ** v を n 要素の配列にして入力からの値をセットします.
    ** E に v のフィールド名を指定します.
