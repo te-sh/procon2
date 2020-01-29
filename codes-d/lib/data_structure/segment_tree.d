@@ -27,7 +27,7 @@ class SegmentTree(alias pred = "a+b", T)
   {
     this.n = n;
     this.dflt = dflt;
-    an = (n-1).nextPow2;
+    an = n == 1 ? 1 : (n-1).nextPow2;
     buf = new T[](an*2);
 
     if (T.init != dflt) {

@@ -22,7 +22,7 @@ class SegmentTreeLazy(T, Op, Op opNone)
   {
     this.n = n;
     this.dflt = dflt;
-    an = (n-1).nextPow2;
+    an = n == 1 ? 1 : (n-1).nextPow2;
     sec = new Section[](an*2);
     if (T.init != dflt)
       foreach (ref seci; sec) seci.val = dflt;
