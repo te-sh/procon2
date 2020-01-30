@@ -9,7 +9,7 @@ import std.stdio;
  **/
 struct IO(alias IN = stdin, alias OUT = stdout)
 {
-  import std.conv, std.format, std.meta, std.traits;
+  import std.conv, std.format, std.meta, std.traits, core.stdc.stdlib;
 
   /**
    ** v に入力からの値をセットします.
@@ -55,19 +55,13 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    ** conf に出力時の設定を指定します.
    **/
   auto put(alias conf = "{}", T...)(T v)
-  {
-    import core.stdc.stdlib;
-    mixin("const PutConf c = "~conf~";
-    foreach (i, w; v) { putA!c(w); if (i < v.length-1) OUT.write(c.delimiter); }
-    static if (c.newline) OUT.writeln;
-    static if (c.flush) OUT.flush();
-    static if (c.exit) exit(0);");
-  }
+  { mixin("const PutConf c = "~conf~"; putMain!c(v);"); }
   /**
    ** c が true ならば t を, そうでなければ f を出力します.
    ** conf に出力時の設定を指定します.
    **/
-  auto putB(alias conf = "{}", S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
+  auto putB(alias conf = "{}", S, T)(bool c, S t, T f)
+  { if (c) put(t); else put(f); }
   /**
    ** v をそのまま OUT.write に渡します. 最後は改行します.
    ** v は複数指定できます.
@@ -81,16 +75,29 @@ struct IO(alias IN = stdin, alias OUT = stdout)
     void nextLine() { IN.readln(buf); sp = buf.splitter; }
     auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
 
-    auto putR(alias c, T)(T v)
+    auto putMain(PutConf c, T...)(T v)
     {
-      auto w = v;
-      while (!w.empty) { putA!c(w.front); w.popFront(); if (!w.empty) OUT.write(c.delimiter); }
+      foreach (i, w; v) {
+        putOne!c(w);
+        if (i < v.length-1) OUT.write(c.delimiter);
+      }
+      static if (c.newline) OUT.writeln;
+      static if (c.flush) OUT.flush();
+      static if (c.exit) exit(0);
     }
-    auto putA(alias c, T)(T v)
+    auto putOne(PutConf c, T)(T v)
     {
-      static if (isInputRange!T && !isSomeString!T) putR!c(v);
+      static if (isInputRange!T && !isSomeString!T) putRange!c(v);
       else if (isFloatingPoint!T) OUT.write(format(c.floatFormat, v));
       else OUT.write(v);
+    }
+    auto putRange(PutConf c, T)(T v)
+    {
+      auto w = v;
+      while (!w.empty) {
+        putOne!c(w.front); w.popFront();
+        if (!w.empty) OUT.write(c.delimiter);
+      }
     }
   }
 }
