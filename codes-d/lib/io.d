@@ -5,11 +5,9 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 import std.stdio;
 /**
  ** 競技プログラミング用の読み書きを行います.
- ** floatFormat は浮動小数点出力時のフォーマットです.
- ** delimiter は出力時の区切り文字です.
  ** IN, OUT は入力ソースおよび出力ソースです.
  **/
-struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin, alias OUT = stdout)
+struct IO(alias IN = stdin, alias OUT = stdout)
 {
   import std.conv, std.format, std.meta, std.traits;
 
@@ -40,9 +38,7 @@ struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin
    **/
   auto getM(T)(size_t r, size_t c, ref T v)
   if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
-  {
-    v = new T(r); foreach (ref w; v) getA(c, w);
-  }
+  { v = new T(r); foreach (ref w; v) getA(c, w); }
   /**
    ** v を n 要素の配列にして入力からの値をセットします.
    ** E に v のフィールド名を指定します.
@@ -50,26 +46,28 @@ struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin
   template getS(E...)
   {
     auto getS(T)(size_t n, ref T v)
-    {
-      v = new T(n); foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");");
-    }
+    { v = new T(n); foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");"); }
   }
 
   /**
-   ** v の値を delimiter 区切りで1行に出力します. 最後は改行します.
+   ** v の値を1行に出力します.
    ** v は複数指定できます.
-   ** flush が true ならば出力後に flush します.
+   ** conf に出力時の設定を指定します.
    **/
-  auto put(bool flush = false, T...)(T v)
+  auto put(alias conf = "{}", T...)(T v)
   {
-    foreach (i, w; v) { putA(w); if (i < v.length-1) OUT.write(delimiter); }
-    OUT.writeln;
-    static if (flush) OUT.flush();
+    import core.stdc.stdlib;
+    mixin("const PutConf c = "~conf~";
+    foreach (i, w; v) { putA!c(w); if (i < v.length-1) OUT.write(c.delimiter); }
+    static if (c.newline) OUT.writeln;
+    static if (c.flush) OUT.flush();
+    static if (c.exit) exit(0);");
   }
   /**
-   ** c が true ならば t を, そうでなければ f を出力します. 最後は改行します.
+   ** c が true ならば t を, そうでなければ f を出力します.
+   ** conf に出力時の設定を指定します.
    **/
-  auto putB(S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
+  auto putB(alias conf = "{}", S, T)(bool c, S t, T f) { if (c) put(t); else put(f); }
   /**
    ** v をそのまま OUT.write に渡します. 最後は改行します.
    ** v は複数指定できます.
@@ -83,18 +81,35 @@ struct IO(string floatFormat = "%.10f", string delimiter = " ", alias IN = stdin
     void nextLine() { IN.readln(buf); sp = buf.splitter; }
     auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
 
-    auto putR(T)(T v)
+    auto putR(alias c, T)(T v)
     {
       auto w = v;
-      while (!w.empty) { putA(w.front); w.popFront(); if (!w.empty) OUT.write(delimiter); }
+      while (!w.empty) { putA!c(w.front); w.popFront(); if (!w.empty) OUT.write(c.delimiter); }
     }
-    auto putA(T)(T v)
+    auto putA(alias c, T)(T v)
     {
-      static if (isInputRange!T && !isSomeString!T) putR(v);
-      else if (isFloatingPoint!T) OUT.write(format(floatFormat, v));
+      static if (isInputRange!T && !isSomeString!T) putR!c(v);
+      else if (isFloatingPoint!T) OUT.write(format(c.floatFormat, v));
       else OUT.write(v);
     }
   }
+}
+/**
+ ** 出力の設定を表します.
+ **/
+const struct PutConf
+{
+  /**
+   ** newline が true ならば出力の最後に改行を出力します.
+   ** flush が true ならば出力の後に flush します.
+   ** true ならば出力の後にプログラムを終了します.
+   **/
+  bool newline = true, flush, exit;
+  /**
+   ** floatFormat に浮動小数点出力のフォーマットを指定します.
+   ** delimiter に出力の際のデリミタを指定します.
+   **/
+  string floatFormat = "%.10f", delimiter = " ";
 }
 // ::::::::::::::::::::
 
@@ -127,7 +142,7 @@ unittest
   }
   auto dummyOut = new DummyOut();
 
-  auto io = IO!("%.10f", " ", dummyIn, dummyOut)();
+  auto io = IO!(dummyIn, dummyOut)();
 
   dummyIn.buf ~= "45\n123456789012\n3.5\ntest\n";
   int a; io.getV(a);
@@ -183,8 +198,20 @@ unittest
   assert(dummyOut.buf == "45 2 5 6\n");
   dummyOut.clear();
 
-  io.put!true(a);
+  io.put!"{newline: false}"(a);
+  assert(dummyOut.buf == "45");
+  dummyOut.clear();
+
+  io.put!"{flush: true}"(a);
   assert(dummyOut.buf == "45\nF");
+  dummyOut.clear();
+
+  io.put!`{floatFormat: "%.1f"}`(f3);
+  assert(dummyOut.buf == "5.5\n");
+  dummyOut.clear();
+
+  io.put!`{delimiter: ""}`(e1, e2);
+  assert(dummyOut.buf == "1223\n");
   dummyOut.clear();
 
   io.putB(true, a, b);

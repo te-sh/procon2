@@ -28,5 +28,5 @@ void main()
   foreach (ui; u) io.put(ui);
 }
 
-auto io = IO!("%.2f")();
+auto io = IO!()();
 import lib.io;

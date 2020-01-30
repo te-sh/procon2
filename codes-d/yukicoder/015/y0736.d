@@ -10,8 +10,8 @@ void main()
   long[] a; io.getA(N, a);
 
   auto g = a.reduce!gcd;
-  io.put(a.map!(ai => ai/g));
+  io.put!`{delimiter: ":"}`(a.map!(ai => ai/g));
 }
 
-auto io = IO!("%.10f", ":")();
+auto io = IO!()();
 import lib.io;

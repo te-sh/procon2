@@ -12,7 +12,7 @@ void main()
   L *= 60;
   auto S = st.map!(sti => sti[0..2].to!int*60+sti[3..5].to!int).array;
 
-  if (S.sum < L) { io.put(N); return; }
+  if (S.sum < L) io.put!"{exit: true}"(N);
 
   auto dp1 = new long[][][](N+1, N+1, L); dp1[0][0][0] = 1;
   foreach (i, Si; S)

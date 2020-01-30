@@ -8,7 +8,7 @@ void main()
   int N; io.getV(N);
 
   foreach (i; 1..32)
-    if ((N+i).popcnt == i) { io.put("YES"); return; }
+    if ((N+i).popcnt == i) io.put!"{exit: true}"("YES");
 
   io.put("NO");
 }

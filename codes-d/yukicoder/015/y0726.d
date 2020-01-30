@@ -9,7 +9,7 @@ void main()
 
   int Y, X; io.getV(Y, X);
 
-  if (Y == 2 || X == 2) { io.put("Second"); return; }
+  if (Y == 2 || X == 2) io.put!"{exit: true}"("Second");
 
   auto isPrime(int n)
   {
@@ -31,11 +31,11 @@ void main()
   }
 
   auto yp = isPrime(Y), xp = isPrime(X);
-  if (yp && xp) { io.put("Second"); return; }
+  if (yp && xp) io.put!"{exit: true}"("Second");
 
   auto ny = nextPrime(Y), nx = nextPrime(X);
   auto t = (ny-Y)+(nx-X);
-  io.putB(t%2 == 0, "Second", "First");
+  io.putB(t%2 != 0, "First", "Second");
 }
 
 import lib.math.misc;
