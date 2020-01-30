@@ -15,4 +15,5 @@ ENV DOCS=/docs
 WORKDIR $DOCS
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--destination", "/site"]
+CMD ["bundle", "exec", "jekyll", "serve", "--incremental", \
+     "--host", "0.0.0.0", "--destination", "/site"]
