@@ -72,6 +72,7 @@ class UnionFind
     int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
   }
 }
+UnionFind unionFind(int n) { return new UnionFind(n); }
 // ::::::::::::::::::::
 
 unittest

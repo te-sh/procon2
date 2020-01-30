@@ -21,6 +21,15 @@ struct Frac(T)
   this(T a, T b) in { assert(b != 0); } do { this.a = a; this.b = b; }
 
   /**
+   ** f==r かどうかを返します.
+   **/
+  pure bool opEquals(F r) { return a == 0 && r.a == 0 || a == r.a && b == r.b;  }
+  /**
+   ** f<r のときは -1, f=r のときは 0, f>r のときは 1 を返します.
+   **/
+  pure int opCmp(F r) { return a*r.b<r.a*b ? -1 : a*r.b>r.a*b ? 1 : 0; }
+
+  /**
    ** 1/f を返します.
    ** f の分子は 0 以外である必要があります.
    **/
@@ -91,12 +100,7 @@ struct Frac(T)
 
   private
   {
-    ref F reduction()
-    {
-      auto g = gcd(a.abs, b);
-      a /= g; b /= g;
-      return this;
-    }
+    ref F reduction() { auto g = gcd(a.abs, b); a /= g; b /= g; return this; }
     ref F normalizeSign() { if (b < 0) { a = -a; b = -b; } return this; }
   }
 }
@@ -111,8 +115,10 @@ auto frac(T)(T a, T b) { return Frac!T(a, b).normalizeSign().reduction(); }
 unittest
 {
   alias F = Frac!int;
-  auto a = frac(2, -12), b = frac(3, 8);
+  auto a = frac(2, -12), b = frac(3, 8), c = frac(0, 5);
   assert(a == F(-1, 6));
+  assert(c == F(0, 1));
+  assert(a < b);
 
   assert(-a == F(1, 6));
   assert(a.inv == F(-6, 1));
