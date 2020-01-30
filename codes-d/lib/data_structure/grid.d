@@ -27,6 +27,10 @@ struct Grid(T)
    ** data を元にしたグリッドを返します.
    **/
   this(T[][] data) { c = data[0].length; r = data.length; this.data = data; }
+  /**
+   ** コピーを返します.
+   **/
+  pure G dup() { return G(data.map!"a.dup".array); }
 
   /**
    ** 1次元インデックス i を位置にしたものを返します.
@@ -109,6 +113,9 @@ unittest
 {
   auto a = Grid!int([[1, 2], [3, 4]]);
   alias P = a.P;
+
+  auto b = a.dup; b[0, 0] = 2;
+  assert(a[0, 0] == 1);
 
   assert(a[1, 0] == 2);
   assert(a[P(0, 1)] == 3);
