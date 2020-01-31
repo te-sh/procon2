@@ -40,7 +40,7 @@ struct IO(alias IN = stdin, alias OUT = stdout)
   if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
   { v = new T(r); foreach (ref w; v) getA(c, w); }
   /**
-   ** v を n 要素の配列にして入力からの値をセットします.
+   ** v を n 要素の構造体にして入力からの値をセットします.
    ** E に v のフィールド名を指定します.
    **/
   template getS(E...)
