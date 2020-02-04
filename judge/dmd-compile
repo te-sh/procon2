@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 eval PATH=$DLANG/$(echo \${DMD_$SITE})/$(echo \${DMD_BINDIR_$SITE}):$PATH
 eval LIBRARY_PATH=$DLANG/$(echo \$DMD_$SITE)/$(echo \$DMD_LIBDIR_$SITE):$LIBRARY_PATH

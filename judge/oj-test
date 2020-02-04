@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 eval export LD_LIBRARY_PATH=$DLANG/$(echo \$DMD_$SITE)/$(echo \$DMD_LIBDIR_$SITE):$LD_LIBRARY_PATH
 

@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
 crystal build -o a.out $@

@@ -69,7 +69,7 @@ RUN curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s - -y
 
 RUN pip install online-judge-tools
 
-COPY runoj.py start-monitor oj-download dmd-compile nim-compile crystal-compile oj-test ./
+COPY runoj.py monitor-code.sh oj-download dmd-compile nim-compile crystal-compile oj-test ./
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["./start-monitor"]
+CMD ["./monitor-code.sh"]
