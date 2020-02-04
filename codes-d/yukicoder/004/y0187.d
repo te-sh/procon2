@@ -12,7 +12,7 @@ void main()
   foreach (i; 1..N)
     if (!calc(x, y, GmpInt(X[i]), GmpInt(Y[i]))) io.put!"{exit: true}"(-1);
 
-  auto mod = GmpInt(10^^9+7);
+  auto mod = 10^^9+7;
   io.putB(x == 0, y%mod, x%mod);
 }
 
@@ -27,8 +27,6 @@ auto calc(T)(ref T X1, ref T Y1, T X2, T Y2)
   X1 = ((b1*y1*(X2-X1)+X1)%Y1+Y1)%Y1;
   return true;
 }
-
-import lib.math.misc;
 
 import lib.math.gmp_int;
 

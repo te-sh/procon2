@@ -21,18 +21,18 @@ struct GmpInt
   /**
    ** 値を long でセットします.
    **/
-  @property value(long v) { __gmpz_set_si(&z, v); }
+  @property value(long v) { __gmpz_init_set_si(&z, v); }
   alias value this;
 
   /**
    ** long の値 v から作成します.
    **/
-  this(long v) { __gmpz_init(&z); __gmpz_set_si(&z, v); }
+  this(long v) { __gmpz_init_set_si(&z, v); }
   /**
    ** 文字列 s から作成します.
    ** base は進法です.
    **/
-  this(string s, int base = 10) { __gmpz_init(&z); __gmpz_set_str(&z, s.toStringz, base); }
+  this(string s, int base = 10) { __gmpz_init_set_str(&z, s.toStringz, base); }
 
   /**
    ** long に変換した値を返します.
@@ -57,23 +57,23 @@ struct GmpInt
    **/
   bool opEquals(GmpInt v) { return __gmpz_cmp(&z, &v.z) == 0; }
   /// ditto
-  bool opEquals(long v) { return __gmpz_cmp_ui(&z, v) == 0; }
+  bool opEquals(long v) { return __gmpz_cmp_si(&z, v) == 0; }
   /**
    ** g > v ならば 1 を, g == v ならば 0 を, g < v ならば -1 を返します.
    ** v は GmpInt か long です.
    **/
   int opCmp(GmpInt v) { return __gmpz_cmp(&z, &v.z); }
   /// ditto
-  int opCmp(long v) { return __gmpz_cmp_ui(&z, v); }
+  int opCmp(long v) { return __gmpz_cmp_si(&z, v); }
 
   /**
    ** long の値 v を代入します.
    **/
-  GmpInt opAssign(long v) { __gmpz_init(&z); __gmpz_set_si(&z, v); return this; }
+  GmpInt opAssign(long v) { __gmpz_init_set_si(&z, v); return this; }
   /**
    ** GmpInt の v を代入します.
    **/
-  GmpInt opAssign(GmpInt v) { __gmpz_init(&z); __gmpz_set(&z, &v.z); return this; }
+  GmpInt opAssign(GmpInt v) { __gmpz_init_set(&z, &v.z); return this; }
 
   /**
    ** g+v, g-v, g*v, g/v, g%v を返します.
@@ -81,12 +81,12 @@ struct GmpInt
    **/
   GmpInt opBinary(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
   {
-    auto r = GmpInt(0);
+    auto r = GmpInt.init;
     static if (op == "+") __gmpz_add(&r.z, &z, &v.z);
     else   if (op == "-") __gmpz_sub(&r.z, &z, &v.z);
     else   if (op == "*") __gmpz_mul(&r.z, &z, &v.z);
     else   if (op == "/") __gmpz_tdiv_q(&r.z, &z, &v.z);
-    else   if (op == "%") __gmpz_mod(&r.z, &z, &v.z);
+    else   if (op == "%") __gmpz_tdiv_r(&r.z, &z, &v.z);
     return r;
   }
   /**
@@ -99,34 +99,36 @@ struct GmpInt
     else   if (op == "-") __gmpz_sub(&z, &z, &v.z);
     else   if (op == "*") __gmpz_mul(&z, &z, &v.z);
     else   if (op == "/") __gmpz_tdiv_q(&z, &z, &v.z);
-    else   if (op == "%") __gmpz_mod(&z, &z, &v.z);
+    else   if (op == "%") __gmpz_tdiv_r(&z, &z, &v.z);
     return this;
   }
 
   /**
-   ** g+v, g-v, g*v, g/v, g^^v を返します.
+   ** g+v, g-v, g*v, g/v, g%v, g^^v を返します.
    ** v は long です.
    **/
-  GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="^^")
+  GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
   {
-    auto r = GmpInt(0);
+    auto r = GmpInt.init;
     static if (op == "+") __gmpz_add_ui(&r.z, &z, v);
     else   if (op == "-") __gmpz_sub_ui(&r.z, &z, v);
     else   if (op == "*") __gmpz_mul_ui(&r.z, &z, v);
     else   if (op == "/") __gmpz_tdiv_q_ui(&r.z, &z, v);
+    else   if (op == "%") __gmpz_tdiv_r_ui(&r.z, &z, v);
     else   if (op == "^^") __gmpz_pow_ui(&r.z, &z, v);
     return r;
   }
   /**
-   ** g+=v, g-=v, g*=v, g/=v, g^^=v を計算します.
+   ** g+=v, g-=v, g*=v, g/=v, g%=v, g^^=v を計算します.
    ** v は long です.
    **/
-  ref GmpInt opOpAssign(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="^^")
+  ref GmpInt opOpAssign(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
   {
     static if (op == "+") __gmpz_add_ui(&z, &z, v);
     else   if (op == "-") __gmpz_sub_ui(&z, &z, v);
     else   if (op == "*") __gmpz_mul_ui(&z, &z, v);
     else   if (op == "/") __gmpz_tdiv_q_ui(&z, &z, v);
+    else   if (op == "%") __gmpz_tdiv_r_ui(&z, &z, v);
     else   if (op == "^^") __gmpz_pow_ui(&z, &z, v);
     return this;
   }
@@ -136,7 +138,7 @@ struct GmpInt
    **/
   GmpInt sqrt()
   {
-    auto r = GmpInt(0);
+    auto r = GmpInt.init;
     __gmpz_sqrt(&r.z, &z);
     return r;
   }
@@ -162,6 +164,17 @@ struct GmpInt
   private __mpz_struct z;
 }
 
+/**
+ ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
+ ** x, y は ax + by = g を満たす x, y の1つを返します.
+ **/
+GmpInt extGcd(GmpInt a, GmpInt b, out GmpInt x, out GmpInt y)
+{
+  auto g = a; x = 1; y = 0;
+  if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
+  return g;
+}
+
 extern(C) pragma(inline, false)
 {
   alias __mp_limb_t = ulong;
@@ -176,18 +189,16 @@ extern(C) pragma(inline, false)
   alias mpz_srcptr = const(__mpz_struct)*;
   alias mpz_ptr = __mpz_struct*;
 
-  void __gmpz_init(mpz_ptr);
-
-  void __gmpz_set(mpz_ptr, mpz_srcptr);
-  void __gmpz_set_si(mpz_ptr, long);
-  int __gmpz_set_str(mpz_ptr, const char*, int);
+  void __gmpz_init_set(mpz_ptr, mpz_srcptr);
+  void __gmpz_init_set_si(mpz_ptr, long);
+  int __gmpz_init_set_str(mpz_ptr, const char*, int);
 
   long __gmpz_get_si(mpz_srcptr);
   char *__gmpz_get_str(char*, int, mpz_srcptr);
   size_t __gmpz_sizeinbase(mpz_srcptr, int);
 
   int __gmpz_cmp(mpz_srcptr, mpz_srcptr);
-  int __gmpz_cmp_ui(mpz_srcptr, ulong);
+  int __gmpz_cmp_si(mpz_srcptr, long);
 
   void __gmpz_add(mpz_ptr, mpz_srcptr, mpz_srcptr);
   void __gmpz_add_ui(mpz_ptr, mpz_srcptr, ulong);
@@ -196,8 +207,9 @@ extern(C) pragma(inline, false)
   void __gmpz_mul(mpz_ptr, mpz_srcptr, mpz_srcptr);
   void __gmpz_mul_ui(mpz_ptr, mpz_srcptr, ulong);
   void __gmpz_tdiv_q(mpz_ptr, mpz_srcptr, mpz_srcptr);
+  void __gmpz_tdiv_r(mpz_ptr, mpz_srcptr, mpz_srcptr);
   ulong __gmpz_tdiv_q_ui(mpz_ptr, mpz_srcptr, ulong);
-  void __gmpz_mod(mpz_ptr, mpz_srcptr, mpz_srcptr);
+  ulong __gmpz_tdiv_r_ui(mpz_ptr, mpz_srcptr, ulong);
   void __gmpz_pow_ui(mpz_ptr, mpz_srcptr, ulong);
 
   void __gmpz_sqrt(mpz_ptr, mpz_srcptr);
@@ -254,6 +266,7 @@ unittest
   assert(a-c == 115);
   assert(a*c == 5250);
   assert(a/c == 4);
+  assert(a%c == 10);
   assert(a^^3 == 3375000);
 
   a = 150; a += c;
@@ -264,6 +277,8 @@ unittest
   assert(a == 5250);
   a = 150; a /= c;
   assert(a == 4);
+  a = 150; a %= c;
+  assert(a == 10);
   a = 150; a ^^= 3;
   assert(a == 3375000);
 
@@ -273,4 +288,15 @@ unittest
 
   assert(!GmpInt(150).probabPrime);
   assert(GmpInt(97).probabPrime);
+}
+
+unittest
+{
+  GmpInt x, y, g;
+
+  g = extGcd(GmpInt(29), GmpInt(17), x, y);
+  assert(g == 1 && x == -7 && y == 12);
+
+  g = extGcd(GmpInt(12), GmpInt(42), x, y);
+  assert(g == 6 && x == -3 && y == 1);
 }
