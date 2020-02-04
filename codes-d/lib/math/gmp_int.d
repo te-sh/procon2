@@ -10,6 +10,11 @@ struct GmpInt
   import std.conv;
 
   /**
+   ** 初期値 0 を返します.
+   **/
+  @property static init() { return GmpInt(0); }
+
+  /**
    ** 値を long で返します.
    **/
   @property value() { return toLong(); }
@@ -22,21 +27,12 @@ struct GmpInt
   /**
    ** long の値 v から作成します.
    **/
-  this(long v)
-  {
-    __gmpz_init(&z);
-    __gmpz_set_si(&z, v);
-  }
+  this(long v) { __gmpz_init(&z); __gmpz_set_si(&z, v); }
   /**
    ** 文字列 s から作成します.
    ** base は進法です.
    **/
-  this(string s, int base = 10)
-  {
-    import std.string;
-    __gmpz_init(&z);
-    __gmpz_set_str(&z, s.toStringz, base);
-  }
+  this(string s, int base = 10) { __gmpz_init(&z); __gmpz_set_str(&z, s.toStringz, base); }
 
   /**
    ** long に変換した値を返します.
@@ -71,9 +67,13 @@ struct GmpInt
   int opCmp(long v) { return __gmpz_cmp_ui(&z, v); }
 
   /**
-   ** long 値 v を代入します.
+   ** long の値 v を代入します.
    **/
-  GmpInt opAssign(long v) { __gmpz_set_si(&z, v); return this; }
+  GmpInt opAssign(long v) { __gmpz_init(&z); __gmpz_set_si(&z, v); return this; }
+  /**
+   ** GmpInt の v を代入します.
+   **/
+  GmpInt opAssign(GmpInt v) { __gmpz_init(&z); __gmpz_set(&z, &v.z); return this; }
 
   /**
    ** g+v, g-v, g*v, g/v, g%v を返します.
@@ -178,6 +178,7 @@ extern(C) pragma(inline, false)
 
   void __gmpz_init(mpz_ptr);
 
+  void __gmpz_set(mpz_ptr, mpz_srcptr);
   void __gmpz_set_si(mpz_ptr, long);
   int __gmpz_set_str(mpz_ptr, const char*, int);
 
