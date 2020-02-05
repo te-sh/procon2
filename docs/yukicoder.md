@@ -59,7 +59,7 @@ No.601-650
 
 No.151-200
 
-|[No.191](yuk/004/y0191.html)|[No.192](yuk/004/y0192.html)|[No.193](yuk/004/y0193.html)|
+|[No.191](yuk/004/y0191.html)|[No.192](yuk/004/y0192.html)|[No.193](yuk/004/y0193.html)|[No.194](yuk/004/y0194.html)|[No.195](yuk/004/y0195.html)|
 |[No.186](yuk/004/y0186.html)|[No.187](yuk/004/y0187.html)|[No.188](yuk/004/y0188.html)|[No.189](yuk/004/y0189.html)|[No.190](yuk/004/y0190.html)|
 |No.181|[No.182](yuk/004/y0182.html)|[No.183](yuk/004/y0183.html)|[No.184](yuk/004/y0184.html)|[No.185](yuk/004/y0185.html)|
 |[No.176](yuk/004/y0176.html)|[No.177](yuk/004/y0177.html)|[No.178](yuk/004/y0178.html)|[No.179](yuk/004/y0179.html)|[No.180](yuk/004/y0180.html)|

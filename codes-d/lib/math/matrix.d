@@ -8,7 +8,7 @@ import lib.math.misc;
  ** ベクトルを表します.
  ** zero は加法単位元です.
  **/
-struct Vector(T, T zero = 0)
+struct Vector(T, T zero = T(0))
 {
   alias V = Vector!(T, zero), Op = string;
   /**
@@ -100,13 +100,13 @@ struct Vector(T, T zero = 0)
  ** n 次元の空ベクトルを返します.
  ** zero は加法単位元です.
  **/
-Vector!(T, zero) vector(T, T zero = 0)(T[] a)
+Vector!(T, zero) vector(T, T zero = T(0))(T[] a)
 { return Vector!(T, zero)(a); }
 /**
  ** 配列 b を元に作成したベクトルを返します.
  ** zero は加法単位元です.
  **/
-Vector!(T, zero) vector(T, U, T zero = 0)(U[] a) if (!is(T == U))
+Vector!(T, zero) vector(T, U, T zero = T(0))(U[] a) if (!is(T == U))
 { return Vector!(T, zero)(a); }
 
 /**
@@ -127,7 +127,7 @@ in { assert(a.n == 3 && b.n == 3); } do
  ** zero は加法単位元です.
  ** one は乗法単位元です.
  **/
-struct Matrix(T, T zero = 0, T one = 1)
+struct Matrix(T, T zero = T(0), T one = T(1))
 {
   alias M = Matrix!(T, zero, one), V = Vector!(T, zero), Op = string;
   /**
@@ -269,7 +269,7 @@ struct Matrix(T, T zero = 0, T one = 1)
  ** zero は加法単位元です.
  ** one は乗法単位元です.
  **/
-Matrix!(T, zero, one) matrix(T, T zero = 0, T one = 1)(T[][] a)
+Matrix!(T, zero, one) matrix(T, T zero = T(0), T one = T(1))(T[][] a)
 { return Matrix!(T, zero, one)(a); }
 /**
  ** 配列 b を元に作成した行列を返します.
