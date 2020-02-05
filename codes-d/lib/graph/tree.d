@@ -24,6 +24,10 @@ struct Tree(Graph)
    **/
   Node[] parent;
   /**
+   ** 頂点を根からの DFS で訪れた順に並べた配列です.
+   **/
+  Node[] dfsOrder;
+  /**
    ** 頂点ごとのその頂点を根とする部分木に含まれる頂点の数を持つ配列です.
    **/
   int[] size;
@@ -45,28 +49,22 @@ struct Tree(Graph)
     depth[] = -1;
 
     struct UP { Node u, p; }
-    auto st1 = SList!UP(UP(r, r));
-    auto st2 = SList!UP();
-    while (!st1.empty) {
-      auto up = st1.front; st1.removeFront();
+    auto st = SList!UP(UP(r, r));
+    while (!st.empty) {
+      auto up = st.front; st.removeFront();
 
       parent[up.u] = up.p;
       depth[up.u] = depth[up.p] + 1;
+      dfsOrder ~= up.u;
 
       foreach (v; g[up.u])
-        if (v != up.p) {
-          st1.insertFront(UP(v, up.u));
-          st2.insertFront(UP(v, up.u));
-        }
+        if (v != up.p) st.insertFront(UP(v, up.u));
     }
 
     size = new int[](n);
     size[] = 1;
-
-    while (!st2.empty) {
-      auto up = st2.front; st2.removeFront();
-      size[up.p] += size[up.u];
-    }
+    foreach_reverse (u; dfsOrder.drop(1))
+      size[parent[u]] += size[u];
   }
 
   /**
@@ -102,6 +100,8 @@ unittest
   assert(tr.parent[0] == 0);
   assert(tr.parent[1] == 0);
   assert(tr.parent[3] == 1);
+
+  assert(equal(tr.dfsOrder, [0, 2, 6, 11, 12, 10, 1, 5, 4, 8, 9, 7, 3]));
 
   assert(tr.depth[0] == 0);
   assert(tr.depth[1] == 1);

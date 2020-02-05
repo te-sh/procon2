@@ -50,6 +50,24 @@ struct IO(alias IN = stdin, alias OUT = stdout)
   }
 
   /**
+   ** 出力の設定を表します.
+   **/
+  const struct PutConf
+  {
+    /**
+     ** newline が true ならば出力の最後に改行を出力します.
+     ** flush が true ならば出力の後に flush します.
+     ** true ならば出力の後にプログラムを終了します.
+     **/
+    bool newline = true, flush, exit;
+    /**
+     ** floatFormat に浮動小数点出力のフォーマットを指定します.
+     ** delimiter に出力の際のデリミタを指定します.
+     **/
+    string floatFormat = "%.10f", delimiter = " ";
+  }
+
+  /**
    ** v の値を1行に出力します.
    ** v は複数指定できます.
    ** conf に出力時の設定を指定します.
@@ -100,23 +118,6 @@ struct IO(alias IN = stdin, alias OUT = stdout)
       }
     }
   }
-}
-/**
- ** 出力の設定を表します.
- **/
-const struct PutConf
-{
-  /**
-   ** newline が true ならば出力の最後に改行を出力します.
-   ** flush が true ならば出力の後に flush します.
-   ** true ならば出力の後にプログラムを終了します.
-   **/
-  bool newline = true, flush, exit;
-  /**
-   ** floatFormat に浮動小数点出力のフォーマットを指定します.
-   ** delimiter に出力の際のデリミタを指定します.
-   **/
-  string floatFormat = "%.10f", delimiter = " ";
 }
 // ::::::::::::::::::::
 
