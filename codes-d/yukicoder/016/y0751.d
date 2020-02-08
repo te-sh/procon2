@@ -1,39 +1,26 @@
 // URL: https://yukicoder.me/problems/no/751
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-import std.numeric;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n1; readV(n1);
-  int[] a; readA(n1, a);
-  int n2; readV(n2);
-  int[] b; readA(n2, b);
+  int n1; io.getV(n1);
+  long[] A; io.getA(n1, A);
+  int n2; io.getV(n2);
+  long[] B; io.getA(n2, B);
 
-  struct F { long n, p; }
+  auto c = frac(A[0], 1);
+  foreach (Ai; A[1..$]) c = c*frac(1, Ai);
 
-  auto c = F(a[0], 1);
-  foreach (ai; a[1..$]) c = F(c.n, c.p*ai);
+  auto d = frac(1L, 1L);
+  foreach_reverse (Bi; B) d = frac(Bi, 1)/d;
 
-  auto d = F(1, 1);
-  foreach_reverse (bi; b) d = F(d.p*bi, d.n);
-
-  auto e = F(c.n*d.p, c.p*d.n);
-  if (e.p < 0) { e.n = -e.n; e.p = -e.p; }
-
-  auto g = gcd(e.n.abs, e.p.abs);
-  e.n /= g; e.p /= g;
-
-  writeln(e.n, " ", e.p);
+  auto e = c/d;
+  io.put(e.a, e.b);
 }
+
+import lib.math.frac;
+
+auto io = IO!()();
+import lib.io;
