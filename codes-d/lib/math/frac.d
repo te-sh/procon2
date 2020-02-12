@@ -49,7 +49,7 @@ struct Frac(T)
     return F(mixin("r.b/g*a"~op~"b/g*r.a"), b/g*r.b).reduction();
   }
   /**
-   ** f+= r, f-=r を計算します.
+   ** f+=r, f-=r を計算します.
    ** 自動的に約分されます.
    **/
   ref F opOpAssign(Op op)(F r) if (op=="+"||op=="-")
@@ -68,7 +68,7 @@ struct Frac(T)
     return F((a/g1)*(r.a/g2), (b/g2)*(r.b/g1));
   }
   /**
-   ** f*= r を計算します.
+   ** f*=r を計算します.
    ** 自動的に約分されます.
    **/
   ref F opOpAssign(Op op: "*")(F r)
@@ -88,7 +88,7 @@ struct Frac(T)
     return F((a/g1)*(r.b/g2), (b/g2)*(r.a/g1)).normalizeSign();
   }
   /**
-   ** f/= r を計算します.
+   ** f/=r を計算します.
    ** r の分子は 0 以外である必要があります.
    ** 自動的に約分されます.
    **/
