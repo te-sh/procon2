@@ -79,7 +79,7 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    ** conf に出力時の設定を指定します.
    **/
   auto putB(alias conf = "{}", S, T)(bool c, S t, T f)
-  { if (c) put(t); else put(f); }
+  { if (c) put!conf(t); else put!conf(f); }
   /**
    ** v をそのまま OUT.write に渡します. 最後は改行します.
    ** v は複数指定できます.
