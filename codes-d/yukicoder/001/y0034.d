@@ -9,24 +9,21 @@ void main()
   int[][] L; io.getM(N, N, L);
 
   auto m = grid(L);
-  alias Point = m.Point;
-  auto S = Point(Sx, Sy), G = Point(Gx, Gy);
+  alias Pos = m.Pos;
+  auto S = m.pos(Sy, Sx), G = m.pos(Gy, Gx);
 
-  auto v = Grid!int(N, N), inf = 10^^6;
-  foreach (x; 0..N) foreach (y; 0..N) v[x, y] = inf;
+  auto v = grid!int(N, N), inf = 10^^6;
+  foreach (p; v.walk) v[p] = inf;
   v[S] = 0;
 
-  struct E { Point p; int d, h; }
+  struct E { Pos p; int d, h; }
   auto q = DList!E(E(S, 0, 0));
   while (!q.empty) {
     auto e = q.front; q.removeFront();
-    foreach (np; m.around4(e.p)) {
+    foreach (np; e.p.around4) {
       auto nh = e.h+m[np];
       if (nh >= V) continue;
-      if (np == G) {
-        io.put(e.d+1);
-        return;
-      }
+      if (np == G) io.put!"{exit: true}"(e.d+1);
       if (nh < v[np]) {
         v[np] = nh;
         q.insertBack(E(np, e.d+1, nh));

@@ -8,31 +8,27 @@ void main()
   int W, H; io.getV(W, H);
   int[][] M; io.getM(H, W, M);
 
-  auto g = grid(M), v = Grid!bool(W, H);
-  alias P = g.P;
+  auto g = grid(M), v = grid!bool(H, W);
+  alias Pos = g.Pos;
 
-  auto hasCycle(P p)
+  auto hasCycle(Pos p)
   {
-    struct P2 { P curr, prev; }
-    auto q = DList!P2(P2(p, p)); v[p] = true;
+    struct Pos2 { Pos curr, prev; }
+    auto q = DList!Pos2(Pos2(p, p)); v[p] = true;
 
     while (!q.empty) {
       auto e = q.front; q.removeFront();
-      foreach (d; g.around4(e.curr).filter!(d => d != e.prev && g[d] == g[p])) {
+      foreach (d; e.curr.around4.filter!(d => d != e.prev && g[d] == g[p])) {
 	if (v[d]) return true;
-	q.insertBack(P2(d, e.curr)); v[d] = true;
+	q.insertBack(Pos2(d, e.curr)); v[d] = true;
       }
     }
 
     return false;
   }
 
-  foreach (y; 0..H)
-    foreach (x; 0..W)
-      if (!v[x, y] && hasCycle(P(x, y))) {
-	io.put("possible");
-	return;
-      }
+  foreach (p; g.walk)
+    if (!v[p] && hasCycle(p)) io.put!"{exit: true}"("possible");
 
   io.put("impossible");
 }

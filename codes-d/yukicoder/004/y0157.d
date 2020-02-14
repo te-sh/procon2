@@ -8,29 +8,26 @@ void main()
   int W, H; io.getV(W, H);
   string[] C; io.getC(H, C);
 
-  auto c = grid(cast(char[][])C), b = Grid!bool(W, H);
-  alias Point = c.Point;
+  auto c = grid(cast(char[][])C), b = grid!bool(H, W);
+
   auto findSpace()
   {
-    foreach (y; 0..H)
-      foreach (x; 0..W) {
-        auto p = Point(x, y);
-        if (c[p] == '.' && !b[p]) {
-          auto r = [p];
-          b[p] = true;
-          auto q = DList!Point(p);
-          while (!q.empty) {
-            auto u = q.front; q.removeFront();
-            foreach (v; c.around4(u)) {
-              if (c[v] == '.' && !b[v]) {
-                r ~= v;
-                b[v] = true;
-                q.insertBack(v);
-              }
+    foreach (p; c.walk)
+      if (c[p] == '.' && !b[p]) {
+        auto r = [p];
+        b[p] = true;
+        auto q = DList!(c.Pos)(p);
+        while (!q.empty) {
+          auto u = q.front; q.removeFront();
+          foreach (v; u.around4) {
+            if (c[v] == '.' && !b[v]) {
+              r ~= v;
+              b[v] = true;
+              q.insertBack(v);
             }
           }
-          return r;
         }
+        return r;
       }
     assert(0);
   }

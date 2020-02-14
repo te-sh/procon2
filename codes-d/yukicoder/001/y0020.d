@@ -8,29 +8,17 @@ void main()
   int N, V, Ox, Oy; io.getV(N, V, Ox, Oy); --Ox; --Oy;
   int[][] L; io.getM(N, N, L);
 
-  auto a = grid(L);
-  alias P = a.P;
+  auto a = grid(L), g = GraphW!int(N*N);
+  foreach (p; a.walk)
+    foreach (np; p.around4)
+      g.addEdge(p.p2i, np.p2i, a[np]);
 
-  auto g = GraphW!int(N*N);
-  foreach (y; 0..N)
-    foreach (x; 0..N) {
-      auto p = P(x, y);
-      foreach (np; a.around4(p))
-	g.addEdge(cast(int)a.p2i(p), cast(int)a.p2i(np), a[np]);
-    }
-
-  auto d1 = g.dijkstra(cast(int)a.p2i(P(0, 0))).dist;
-  if (V - d1[a.p2i(P(N-1, N-1))] > 0) {
-    io.put("YES");
-    return;
-  }
+  auto d1 = g.dijkstra(a.pos(0, 0).p2i).dist;
+  if (V - d1[a.pos(N-1, N-1).p2i] > 0) io.put!"{exit: true}"("YES");
 
   if (Ox >= 0 && Oy >= 0) {
-    auto d2 = g.dijkstra(cast(int)a.p2i(P(Ox, Oy))).dist;
-    if ((V - d1[a.p2i(P(Ox, Oy))])*2 - d2[a.p2i(P(N-1, N-1))] > 0) {
-      io.put("YES");
-      return;
-    }
+    auto d2 = g.dijkstra(a.pos(Oy, Ox).p2i).dist;
+    if ((V - d1[a.pos(Oy, Ox).p2i])*2 - d2[a.pos(N-1, N-1).p2i] > 0) io.put!"{exit: true}"("YES");
   }
 
   io.put("NO");

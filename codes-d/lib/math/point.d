@@ -119,6 +119,7 @@ unittest
 
   assert(p1.hypot2 == 20);
   assert(cross(p1, p2) == 2);
+  assert(distManhattan(p1, p2) == 2);
 
   p1 = point(2, 4); p1 += p2;
   assert(p1 == point(3, 7));
