@@ -23,7 +23,7 @@ struct Frac(T)
   /**
    ** f==r かどうかを返します.
    **/
-  pure bool opEquals(F r) { return a == 0 && r.a == 0 || a == r.a && b == r.b;  }
+  pure bool opEquals(F r) { return a == 0 && r.a == 0 || a == r.a && b == r.b; }
   /**
    ** f<r のときは -1, f=r のときは 0, f>r のときは 1 を返します.
    **/

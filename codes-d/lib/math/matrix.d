@@ -89,7 +89,7 @@ struct Vector(T, T zero = T(0))
    **/
   pure T opBinary(Op op: "*")(V b) in { assert(n == b.n); } do
   {
-    auto x = T(zero);
+    auto x = zero;
     foreach (i; 0..n) x += a[i]*b[i];
     return x;
   }
@@ -248,7 +248,7 @@ struct Matrix(T, T zero = T(0), T one = T(1))
    **/
   pure V opBinary(Op op: "*")(V b) in { assert(c == b.n); } do
   {
-    auto x = V(b.n);
+    auto x = V(r);
     foreach (i; 0..r) foreach (j; 0..c) x[i] += a[i][j]*b[j];
     return x;
   }
