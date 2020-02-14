@@ -2,14 +2,12 @@ module lib.data_structure.grid;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.data_structure.grid
-class Grid(T)
+template Grid(alias h, alias w)
 {
-  import std.format, std.traits;
-
   /**
    ** 位置を表します.
    **/
-  class Pos
+  struct Pos
   {
     /**
      ** 行, 列の値です.
@@ -19,14 +17,6 @@ class Grid(T)
      ** 行 r, 列 c の位置を作成します.
      **/
     this(int r, int c) { this.r = r; this.c = c; }
-    /**
-     ** 文字列に変換したものを返します.
-     **/
-    pure override string toString() { return format("(%d, %d)", r, c); }
-    /**
-     ** p==q かどうかを返します.
-     **/
-    pure override bool opEquals(Object q) { return r == (cast(Pos)q).r && c == (cast(Pos)q).c; }
     /**
      ** 位置がグリッド内かどうかを返します.
      **/
@@ -39,27 +29,27 @@ class Grid(T)
     /**
      ** p, q をベクトルとして, p+q, p-q を返します.
      **/
-    pure Pos opBinary(string op, U)(U q) if (op=="+"||op=="-")
-    { return mixin("pos(r"~op~"q.r, c"~op~"q.c)"); }
+    pure Pos opBinary(string op)(Pos q) if (op=="+"||op=="-")
+    { return mixin("Pos(r"~op~"q.r, c"~op~"q.c)"); }
     /**
      ** p, q をベクトルとして, p+=q, p-=q を計算します.
      **/
-    Pos opOpAssign(string op, U)(U q) if (op=="+"||op=="-")
+    Pos opOpAssign(string op)(Pos q) if (op=="+"||op=="-")
     { mixin("r"~op~"=q.r; c"~op~"=q.c;"); return this; }
     /**
      ** p をベクトルとして, p*a, p/a を返します. r は数値です.
      **/
-    pure Pos opBinary(string op, U)(U a) if ((op=="*"||op=="/") && isNumeric!U)
-    { return mixin("pos(r"~op~"a, c"~op~"a)"); }
+    pure Pos opBinary(string op, U)(U a) if (op=="*"||op=="/")
+    { return mixin("Pos(r"~op~"a, c"~op~"a)"); }
     /**
      ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
      **/
-    Pos opOpAssign(string op, U)(U a) if ((op=="*"||op=="/") && isNumeric!U)
+    Pos opOpAssign(string op, U)(U a) if (op=="*"||op=="/")
     { mixin("r"~op~"=a; c"~op~"=a;"); return this; }
     /**
      ** p, q をベクトルとして, p と q の内積を返します.
      **/
-    pure int opBinary(string op: "*", U)(U q) if (!isNumeric!U)
+    pure int opBinary(string op: "*")(Pos q)
     { return r*q.r+c*q.c; }
 
     /**
@@ -67,7 +57,7 @@ class Grid(T)
      **/
     pure auto around4()
     {
-      return [pos(r-1, c), pos(r, c+1), pos(r+1, c), pos(r, c-1)]
+      return [Pos(r-1, c), Pos(r, c+1), Pos(r+1, c), Pos(r, c-1)]
         .filter!(p => p.inGrid);
     }
     /**
@@ -75,110 +65,108 @@ class Grid(T)
      **/
     pure auto around8()
     {
-      return [pos(r-1, c), pos(r-1, c+1), pos(r, c+1), pos(r+1, c+1),
-              pos(r+1, c), pos(r+1, c-1), pos(r, c-1), pos(r-1, c-1)]
+      return [Pos(r-1, c), Pos(r-1, c+1), Pos(r, c+1), Pos(r+1, c+1),
+              Pos(r+1, c), Pos(r+1, c-1), Pos(r, c-1), Pos(r-1, c-1)]
         .filter!(p => p.inGrid);
     }
   }
 
-  /**
-   ** h は行数, w は列数です.
-   **/
-  size_t h, w;
-  /**
-   ** グリッドの要素を保持する配列です.
-   **/
-  T[][] data;
-
-  /**
-   ** data を元にしたグリッドを返します.
-   **/
-  this(size_t h, size_t w) { this.h = h; this.w = w; data = new T[][](h, w); }
-  /**
-   ** data を元にしたグリッドを返します.
-   **/
-  this(T[][] data) { h = data.length; w = data[0].length; this.data = data; }
-  /**
-   ** コピーを返します.
-   **/
-  pure Grid!T dup() { return new Grid!T(data.map!"a.dup".array); }
-
-  /**
-   ** 位置 (r, c) を返します.
-   **/
-  pure Pos pos(int r, int c) { return new Pos(r, c); }
-
-  /**
-   ** 位置 (r, c) の要素を返します.
-   **/
-  pure T opIndex(size_t r, size_t c) { return data[r][c]; }
-  /**
-   ** 位置 p の要素を返します.
-   **/
-  pure T opIndex(U)(U p) { return data[p.r][p.c]; }
-  /**
-   ** 位置 (r, c) の要素を v に変更します.
-   **/
-  Grid!T opIndexAssign(T v, size_t r, size_t c) { data[r][c] = v; return this; }
-  /**
-   ** 位置 p の要素を v に変更します.
-   **/
-  Grid!T opIndexAssign(U)(T v, U p) { data[p.r][p.c] = v; return this; }
-  /**
-   ** 位置 (r, c) の値を演算子 op を値 v で適用したしたものに変更します.
-   **/
-  Grid!T opIndexOpAssign(string op)(T v, size_t r, size_t c)
-  { mixin("data[r][c]"~op~"=v;"); return this; }
-  /**
-   ** 位置 p の値を演算子 op を値 v でを適用したしたものに変更します.
-   **/
-  Grid!T opIndexOpAssign(string op, U)(T v, U p)
-  { mixin("data[p.r][p.c]"~op~"=v;"); return this; }
-  /**
-   ** 位置 (r, c) の値を 1 だけ加算/減算します.
-   **/
-  Grid!T opIndexUnary(string op)(size_t r, size_t c) if (op=="++"||op=="--")
-  { mixin(op~"data[r][c];"); return this; }
-  /**
-   ** 位置 p の値を 1 だけ加算/減算します.
-   **/
-  Grid!T opIndexUnary(string op, U)(U p) if (op=="++"||op=="--")
-  { mixin(op~"data[p.r][p.c];"); return this; }
-
-  /**
-   ** すべての位置を列挙して Range で返します.
-   **/
-  auto walk()
-  { return WalkRange(this); }
-
-  private struct WalkRange
+  struct Data(T)
   {
-    Grid!T g;
-    int r, c;
-    this(Grid!T g) { this.g = g; r = 0; c = 0; }
-    @property pure Pos front() { return g.pos(r, c); }
-    void popFront() { if (++c >= g.w) { c = 0; ++r; } }
-    pure bool empty() { return r >= g.h; }
+    alias Pos = Grid!(h, w).Pos;
+
+    /**
+     ** グリッドの要素を保持する配列です.
+     **/
+    T[][] data;
+    /**
+     ** data を元にしたグリッドを返します.
+     **/
+    this(T[][] data) { h = data.length; w = data[0].length; this.data = data; }
+    /**
+     ** コピーを返します.
+     **/
+    pure Data!T dup() { return Data!T(data.map!"a.dup".array); }
+
+    /**
+     ** 位置 (r, c) を返します.
+     **/
+    pure Pos pos(int r, int c) { return Pos(r, c); }
+    /**
+     ** 同じ大きさで型 U のグリッドを返します.
+     **/
+    pure Data!U grid(U)() { return Data!U(new U[][](h, w)); }
+
+    /**
+     ** 位置 (r, c) の要素を返します.
+     **/
+    pure T opIndex(size_t r, size_t c) { return data[r][c]; }
+    /**
+     ** 位置 p の要素を返します.
+     **/
+    pure T opIndex(Pos p) { return data[p.r][p.c]; }
+    /**
+     ** 位置 (r, c) の要素を v に変更します.
+     **/
+    Data!T opIndexAssign(T v, size_t r, size_t c) { data[r][c] = v; return this; }
+    /**
+     ** 位置 p の要素を v に変更します.
+     **/
+    Data!T opIndexAssign(T v, Pos p) { data[p.r][p.c] = v; return this; }
+    /**
+     ** 位置 (r, c) の値を演算子 op を値 v で適用したしたものに変更します.
+     **/
+    Data!T opIndexOpAssign(string op)(T v, size_t r, size_t c)
+    { mixin("data[r][c]"~op~"=v;"); return this; }
+    /**
+     ** 位置 p の値を演算子 op を値 v でを適用したしたものに変更します.
+     **/
+    Data!T opIndexOpAssign(string op)(T v, Pos p)
+    { mixin("data[p.r][p.c]"~op~"=v;"); return this; }
+    /**
+     ** 位置 (r, c) の値を 1 だけ加算/減算します.
+     **/
+    Data!T opIndexUnary(string op)(size_t r, size_t c) if (op=="++"||op=="--")
+      { mixin(op~"data[r][c];"); return this; }
+    /**
+     ** 位置 p の値を 1 だけ加算/減算します.
+     **/
+    Data!T opIndexUnary(string op)(Pos p) if (op=="++"||op=="--")
+      { mixin(op~"data[p.r][p.c];"); return this; }
+
+    /**
+     ** すべての位置を列挙して Range で返します.
+     **/
+    auto walk()
+    { return WalkRange(this); }
+
+    private struct WalkRange
+    {
+      int r, c;
+      this(Data!T g) { r = 0; c = 0; }
+      @property pure Pos front() { return Pos(r, c); }
+      void popFront() { if (++c >= w) { c = 0; ++r; } }
+      pure bool empty() { return r >= h; }
+    }
   }
 }
-/**
- ** data を元にしたグリッドを返します.
- **/
-Grid!T grid(T)(size_t h, size_t w) { return new Grid!T(h, w); }
-/**
- ** data を元にしたグリッドを返します.
- **/
-Grid!T grid(T)(T[][] data) { return new Grid!T(data); }
 
 /**
- ** p1, p2 のマンハッタン距離を返します.
+ ** 行数 h, 列数 w のグリッドを返します.
  **/
-pure int distManhattan(T)(T p1, T p2) { return abs(p1.r-p2.r) + abs(p1.c-p2.c); }
+auto grid(T)(size_t h, size_t w)
+{ return Grid!(h, w).Data!T(new T[][](h, w)); }
+/**
+ ** data を元にしたグリッドを返します.
+ **/
+auto grid(T)(T[][] data)
+{ auto h = data.length, w = data[0].length; return Grid!(h, w).Data!T(data); }
 // ::::::::::::::::::::
 
 unittest
 {
-  auto a = new Grid!int([[1, 2], [3, 4]]);
+  auto a = grid([[1, 2], [3, 4]]);
+  alias Pos = a.Pos;
 
   auto p1 = a.pos(2, 4);
 
@@ -225,6 +213,4 @@ unittest
   assert(equal(a.walk, [a.pos(0, 0), a.pos(0, 1), a.pos(1, 0), a.pos(1, 1)]));
   assert(equal(a.pos(0, 0).around4, [a.pos(0, 1), a.pos(1, 0)]));
   assert(equal(a.pos(1, 1).around8, [a.pos(0, 1), a.pos(1, 0), a.pos(0, 0)]));
-
-  assert(distManhattan(p1, p2) == 1);
 }

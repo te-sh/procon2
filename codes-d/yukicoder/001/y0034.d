@@ -12,7 +12,7 @@ void main()
   alias Pos = m.Pos;
   auto S = m.pos(Sy, Sx), G = m.pos(Gy, Gx);
 
-  auto v = grid!int(N, N), inf = 10^^6;
+  auto v = m.grid!int, inf = 10^^6;
   foreach (p; v.walk) v[p] = inf;
   v[S] = 0;
 

@@ -8,7 +8,7 @@ void main()
   int W, H; io.getV(W, H);
   string[] C; io.getC(H, C);
 
-  auto c = grid(cast(char[][])C), b = grid!bool(H, W);
+  auto c = grid(cast(char[][])C), b = c.grid!bool;
 
   auto findSpace()
   {
@@ -31,6 +31,8 @@ void main()
       }
     assert(0);
   }
+
+  auto distManhattan(c.Pos p1, c.Pos p2) { return abs(p1.r-p2.r)+abs(p1.c-p2.c); }
 
   auto s1 = findSpace(), s2 = findSpace(), r = 1000;
   foreach (p1; s1)

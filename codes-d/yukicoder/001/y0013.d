@@ -8,7 +8,7 @@ void main()
   int W, H; io.getV(W, H);
   int[][] M; io.getM(H, W, M);
 
-  auto g = grid(M), v = grid!bool(H, W);
+  auto g = grid(M), v = g.grid!bool;
   alias Pos = g.Pos;
 
   auto hasCycle(Pos p)
