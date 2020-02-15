@@ -2,6 +2,10 @@ module lib.data_structure.grid;
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
 // :::::::::::::::::::: lib.data_structure.grid
+/**
+ ** グリッドと位置を表します.
+ ** 後述の grid 関数を用いて作成されることを想定しています.
+ **/
 template Grid(alias h, alias w)
 {
   /**
@@ -209,6 +213,11 @@ unittest
   assert(a[1, 0] == 6);
   --a[a.pos(0, 1)];
   assert(a[0, 1] == -2);
+
+  auto c = grid([[1, 2]]), d = grid!int(2, 1);
+  assert(a.pos(1, 1).inGrid);
+  assert(!c.pos(1, 0).inGrid);
+  assert(!d.pos(0, 1).inGrid);
 
   assert(equal(a.walk, [a.pos(0, 0), a.pos(0, 1), a.pos(1, 0), a.pos(1, 1)]));
   assert(equal(a.pos(0, 0).around4, [a.pos(0, 1), a.pos(1, 0)]));
