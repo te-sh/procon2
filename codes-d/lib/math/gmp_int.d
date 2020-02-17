@@ -7,7 +7,7 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
  **/
 struct GmpInt
 {
-  import std.conv;
+  import std.conv, std.stdio;
 
   /**
    ** 初期値 0 を返します.
@@ -34,6 +34,21 @@ struct GmpInt
    **/
   this(string s, int base = 10) { __gmpz_init_set_str(&z, s.toStringz, base); }
 
+  import std.stdio;
+  this(ref return scope GmpInt v)
+  {
+    writeln("copy", v.toString());
+    __gmpz_init_set(&z, &v.z);
+  }
+  /**
+   ** デストラクタです.
+   **/
+  ~this()
+  {
+    writeln("dest", toString());
+    __gmpz_clear(&z);
+  }
+
   /**
    ** long に変換した値を返します.
    **/
@@ -44,12 +59,13 @@ struct GmpInt
    **/
   string toString(int base = 10)
   {
-    import std.string;
     auto sz = __gmpz_sizeinbase(&z, base);
     auto buf = new char[](sz + 2);
     __gmpz_get_str(buf.ptr, base, &z);
     return buf.ptr.fromStringz.to!string;
   }
+
+  size_t fprint(File f, int base = 10) { return __gmpz_out_str(f.getFP, base, &z); }
 
   /**
    ** g == v かどうかを返します.
@@ -82,11 +98,11 @@ struct GmpInt
   GmpInt opBinary(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
   {
     auto r = GmpInt.init;
-    static if (op == "+") __gmpz_add(&r.z, &z, &v.z);
-    else   if (op == "-") __gmpz_sub(&r.z, &z, &v.z);
-    else   if (op == "*") __gmpz_mul(&r.z, &z, &v.z);
-    else   if (op == "/") __gmpz_tdiv_q(&r.z, &z, &v.z);
-    else   if (op == "%") __gmpz_tdiv_r(&r.z, &z, &v.z);
+    static      if (op == "+") __gmpz_add(&r.z, &z, &v.z);
+    else static if (op == "-") __gmpz_sub(&r.z, &z, &v.z);
+    else static if (op == "*") __gmpz_mul(&r.z, &z, &v.z);
+    else static if (op == "/") __gmpz_tdiv_q(&r.z, &z, &v.z);
+    else static if (op == "%") __gmpz_tdiv_r(&r.z, &z, &v.z);
     return r;
   }
   /**
@@ -95,11 +111,11 @@ struct GmpInt
    **/
   ref GmpInt opOpAssign(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
   {
-    static if (op == "+") __gmpz_add(&z, &z, &v.z);
-    else   if (op == "-") __gmpz_sub(&z, &z, &v.z);
-    else   if (op == "*") __gmpz_mul(&z, &z, &v.z);
-    else   if (op == "/") __gmpz_tdiv_q(&z, &z, &v.z);
-    else   if (op == "%") __gmpz_tdiv_r(&z, &z, &v.z);
+    static      if (op == "+") __gmpz_add(&z, &z, &v.z);
+    else static if (op == "-") __gmpz_sub(&z, &z, &v.z);
+    else static if (op == "*") __gmpz_mul(&z, &z, &v.z);
+    else static if (op == "/") __gmpz_tdiv_q(&z, &z, &v.z);
+    else static if (op == "%") __gmpz_tdiv_r(&z, &z, &v.z);
     return this;
   }
 
@@ -110,12 +126,12 @@ struct GmpInt
   GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
   {
     auto r = GmpInt.init;
-    static if (op == "+") __gmpz_add_ui(&r.z, &z, v);
-    else   if (op == "-") __gmpz_sub_ui(&r.z, &z, v);
-    else   if (op == "*") __gmpz_mul_ui(&r.z, &z, v);
-    else   if (op == "/") __gmpz_tdiv_q_ui(&r.z, &z, v);
-    else   if (op == "%") __gmpz_tdiv_r_ui(&r.z, &z, v);
-    else   if (op == "^^") __gmpz_pow_ui(&r.z, &z, v);
+    static      if (op == "+") __gmpz_add_ui(&r.z, &z, v);
+    else static if (op == "-") __gmpz_sub_ui(&r.z, &z, v);
+    else static if (op == "*") __gmpz_mul_ui(&r.z, &z, v);
+    else static if (op == "/") __gmpz_tdiv_q_ui(&r.z, &z, v);
+    else static if (op == "%") __gmpz_tdiv_r_ui(&r.z, &z, v);
+    else static if (op == "^^") __gmpz_pow_ui(&r.z, &z, v);
     return r;
   }
   /**
@@ -124,12 +140,12 @@ struct GmpInt
    **/
   ref GmpInt opOpAssign(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
   {
-    static if (op == "+") __gmpz_add_ui(&z, &z, v);
-    else   if (op == "-") __gmpz_sub_ui(&z, &z, v);
-    else   if (op == "*") __gmpz_mul_ui(&z, &z, v);
-    else   if (op == "/") __gmpz_tdiv_q_ui(&z, &z, v);
-    else   if (op == "%") __gmpz_tdiv_r_ui(&z, &z, v);
-    else   if (op == "^^") __gmpz_pow_ui(&z, &z, v);
+    static      if (op == "+") __gmpz_add_ui(&z, &z, v);
+    else static if (op == "-") __gmpz_sub_ui(&z, &z, v);
+    else static if (op == "*") __gmpz_mul_ui(&z, &z, v);
+    else static if (op == "/") __gmpz_tdiv_q_ui(&z, &z, v);
+    else static if (op == "%") __gmpz_tdiv_r_ui(&z, &z, v);
+    else static if (op == "^^") __gmpz_pow_ui(&z, &z, v);
     return this;
   }
 
@@ -162,6 +178,7 @@ struct GmpInt
   }
 
   private __mpz_struct z;
+  private int refCounter;
 }
 
 /**
@@ -177,6 +194,7 @@ GmpInt extGcd(GmpInt a, GmpInt b, out GmpInt x, out GmpInt y)
 
 extern(C) pragma(inline, false)
 {
+  import core.stdc.stdio : FILE;
   alias __mp_limb_t = ulong;
 
   struct __mpz_struct
@@ -192,10 +210,13 @@ extern(C) pragma(inline, false)
   void __gmpz_init_set(mpz_ptr, mpz_srcptr);
   void __gmpz_init_set_si(mpz_ptr, long);
   int __gmpz_init_set_str(mpz_ptr, const char*, int);
+  void __gmpz_clear(mpz_ptr);
 
   long __gmpz_get_si(mpz_srcptr);
   char *__gmpz_get_str(char*, int, mpz_srcptr);
   size_t __gmpz_sizeinbase(mpz_srcptr, int);
+
+  size_t __gmpz_out_str(FILE*, int, mpz_ptr);
 
   int __gmpz_cmp(mpz_srcptr, mpz_srcptr);
   int __gmpz_cmp_si(mpz_srcptr, long);

@@ -106,7 +106,8 @@ struct IO(alias IN = stdin, alias OUT = stdout)
     auto putOne(PutConf c, T)(T v)
     {
       static if (isInputRange!T && !isSomeString!T) putRange!c(v);
-      else if (isFloatingPoint!T) OUT.write(format(c.floatFormat, v));
+      else static if (isFloatingPoint!T) OUT.write(format(c.floatFormat, v));
+      else static if (hasMember!(T, "fprint")) v.fprint(OUT);
       else OUT.write(v);
     }
     auto putRange(PutConf c, T)(T v)
