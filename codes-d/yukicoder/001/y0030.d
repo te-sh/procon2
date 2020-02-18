@@ -1,4 +1,4 @@
-// URL: https://ja.reactjs.org/tutorial/tutorial.html
+// URL: https://yukicoder.me/problems/no/30
 
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 

@@ -6,11 +6,9 @@ import lib.math.misc;
 
 /**
  ** ベクトルを表します.
- ** zero は加法単位元です.
  **/
-struct Vector(T, T zero = T(0))
+struct Vector(T)
 {
-  alias V = Vector!(T, zero), Op = string;
   /**
    ** ベクトルの次元です.
    **/
@@ -23,19 +21,21 @@ struct Vector(T, T zero = T(0))
 
   /**
    ** n 次元の零ベクトルを返します.
+   ** zero は加法単位元です.
    **/
-  this(size_t n) in { assert(n > 0); } do
+  this(size_t n, T zero = T(0)) in { assert(n > 0); } do
   {
-    this.n = n;
+    this.n = n; this.zero = zero;
     a = new T[](n);
-    static if (T.init != zero) a[] = zero;
+    if (T.init != zero) a[] = zero;
   }
   /**
    ** 配列 b を元に作成したベクトルを返します.
+   ** zero は加法単位元です.
    **/
-  this(U)(U[] b) in { assert(b.length > 0); } do
+  this(U)(U[] b, T zero = T(0)) in { assert(b.length > 0); } do
   {
-    n = b.length;
+    n = b.length; this.zero = zero;
     static if (is(T == U)) a = b;
     else { a = new T[](n); foreach (i; 0..n) a[i] = b[i]; }
   }
@@ -43,93 +43,64 @@ struct Vector(T, T zero = T(0))
   /**
    ** 自身のコピーを返します.
    **/
-  pure V dup() { auto b = V(n); b[] = a[]; return b; }
+  pure Vector!T dup()
+  { auto b = Vector!T(n, zero); b[] = a[]; return b; }
 
   /**
    ** v+b, v-b を返します. b はベクトルです.
    ** v と b の次元は同じである必要があります.
    **/
-  pure V opBinary(Op op)(V b) if (op=="+"||op=="-") in { assert(n == b.n); } do
-  {
-    auto x = V(n);
-    foreach (i; 0..n) x[i] = mixin("a[i]"~op~"b[i]");
-    return x;
-  }
+  pure Vector!T opBinary(string op)(Vector!T b) if (op=="+"||op=="-")
+  in { assert(n == b.n); } do
+  { auto x = Vector!T(n, zero); foreach (i; 0..n) x[i] = mixin("a[i]"~op~"b[i]"); return x; }
   /**
    ** v+=b, v-=b を計算します. b はベクトルです.
    ** v と b の次元は同じである必要があります.
    **/
-  ref V opOpAssign(Op op)(V b) if (op=="+"||op=="-") in { assert(n == b.n); } do
-  {
-    foreach (i; 0..n) mixin("a[i]"~op~"=b[i];");
-    return this;
-  }
-
+  ref Vector!T opOpAssign(string op)(Vector!T b) if (op=="+"||op=="-")
+  in { assert(n == b.n); } do
+  { foreach (i; 0..n) mixin("a[i]"~op~"=b[i];"); return this; }
   /**
    ** v*b を返します. b は数値です.
    **/
-  pure V opBinary(Op op: "*")(T b)
-  {
-    auto x = V(n);
-    foreach (i; 0..n) x[i] = a[i]*b;
-    return x;
-  }
+  pure Vector!T opBinary(string op: "*")(T b)
+  { auto x = Vector!T(n, zero); foreach (i; 0..n) x[i] = a[i]*b; return x; }
   /**
    ** v*=b を計算します. b は数値です.
    **/
-  ref V opOpAssign(Op op: "*")(T b)
-  {
-    foreach (i; 0..n) a[i] *= b;
-    return this;
-  }
-
+  ref Vector!T opOpAssign(string op: "*")(T b)
+  { foreach (i; 0..n) a[i] *= b; return this; }
   /**
    ** v と b の内積を返します.
    ** v と b の次元は同じである必要があります.
    **/
-  pure T opBinary(Op op: "*")(V b) in { assert(n == b.n); } do
-  {
-    auto x = zero;
-    foreach (i; 0..n) x += a[i]*b[i];
-    return x;
-  }
+  pure T opBinary(string op: "*")(Vector!T b) in { assert(n == b.n); } do
+  { auto x = zero; foreach (i; 0..n) x += a[i]*b[i]; return x; }
 
-  private T[] a;
+  private { T[] a; T zero; }
 }
 /**
- ** n 次元の空ベクトルを返します.
+ ** 配列 a を元に作成したベクトルを返します.
  ** zero は加法単位元です.
  **/
-Vector!(T, zero) vector(T, T zero = T(0))(T[] a)
-{ return Vector!(T, zero)(a); }
-/**
- ** 配列 b を元に作成したベクトルを返します.
- ** zero は加法単位元です.
- **/
-Vector!(T, zero) vector(T, U, T zero = T(0))(U[] a) if (!is(T == U))
-{ return Vector!(T, zero)(a); }
-
+Vector!T vector(T)(T[] a, T zero = T(0))
+{ return Vector!T(a, zero); }
 /**
  ** ベクトル a 同士の内積を返します.
  **/
-pure T hypot2(T, alias zero)(Vector!(T, zero) a) { return a*a; }
-
+pure T hypot2(T)(Vector!T a) { return a*a; }
 /**
  ** ベクトル a, b のクロス積を返します.
  ** a, b の次元は 3 である必要があります.
  **/
-pure Vector!(T, zero) cross(T, alias zero)(Vector!(T, zero) a, Vector!(T, zero) b)
-in { assert(a.n == 3 && b.n == 3); } do
-{ return Vector!(T, zero)([a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]); }
+pure Vector!T cross(T)(Vector!T a, Vector!T b) in { assert(a.n == 3 && b.n == 3); } do
+{ return Vector!T([a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]], a.zero); }
 
 /**
  ** 行列を表します.
- ** zero は加法単位元です.
- ** one は乗法単位元です.
  **/
-struct Matrix(T, T zero = T(0), T one = T(1))
+struct Matrix(T)
 {
-  alias M = Matrix!(T, zero, one), V = Vector!(T, zero), Op = string;
   /**
    ** r は行列の行数, c は行列の列数です.
    **/
@@ -142,10 +113,11 @@ struct Matrix(T, T zero = T(0), T one = T(1))
 
   /**
    ** n 行 n 列の単位行列を返します.
+   ** zero は加法単位元, one は乗法単位元です.
    **/
-  static auto unit(size_t n) in { assert(n > 0); } do
+  static auto unit(size_t n, T zero = T(0), T one = T(1)) in { assert(n > 0); } do
   {
-    auto r = M(n, n);
+    auto r = Matrix!T(n, n, zero, one);
     foreach (i; 0..n) r[i][i] = one;
     return r;
   }
@@ -153,19 +125,19 @@ struct Matrix(T, T zero = T(0), T one = T(1))
   /**
    ** r 行 c 列の空行列を返します.
    **/
-  this(size_t r, size_t c) in { assert(r > 0 && c > 0); } do
+  this(size_t r, size_t c, T zero = T(0), T one = T(1)) in { assert(r > 0 && c > 0); } do
   {
-    this.r = r; this.c = c;
+    this.r = r; this.c = c; this.zero = zero; this.one = one;
     a = new T[][](r, c);
-    static if (T.init != zero) foreach (i; 0..r) a[i][] = zero;
+    if (T.init != zero) foreach (i; 0..r) a[i][] = zero;
   }
   /**
    ** 配列 b を元に作成した行列を返します.
    **/
-  this(U)(U[][] b)
+  this(U)(U[][] b, T zero = T(0), T one = T(1))
   in { assert(b.length > 0 && b[0].length > 0 && b.all!(l => l.length == b[0].length)); } do
   {
-    r = b.length; c = b[0].length;
+    r = b.length; c = b[0].length; this.zero = zero; this.one = one;
     static if (is(T == U)) a = b;
     else { a = new T[][](r, c); foreach (i; 0..r) foreach (j; 0..c) a[i][j] = b[i][j]; }
   }
@@ -173,23 +145,22 @@ struct Matrix(T, T zero = T(0), T one = T(1))
   /**
    ** 自身のコピーを返します.
    **/
-  pure M dup() { auto b = M(r, c); foreach (i; 0..r) b[i][] = a[i][]; return b; }
-
+  pure Matrix!T dup()
+  { auto b = Matrix!T(r, c, zero, one); foreach (i; 0..r) b[i][] = a[i][]; return b; }
   /**
    ** 自身と b の要素がすべて一致するかどうかを返します. b は行列です.
    **/
-  pure bool opEquals(M b)
-  {
-    return r == b.r && c == b.c && zip(a, b.a).all!"a[0]==a[1]";
-  }
+  pure bool opEquals(Matrix!T b)
+  { return r == b.r && c == b.c && zip(a, b.a).all!"a[0]==a[1]"; }
 
   /**
    ** m+b, m-b を返します. b は行列です.
    ** m と b の行数, 列数は同じである必要があります.
    **/
-  pure M opBinary(Op op)(M b) if (op=="+"||op=="-") in { assert(r == b.r && c == b.c); } do
+  pure Matrix!T opBinary(string op)(Matrix!T b) if (op=="+"||op=="-")
+  in { assert(r == b.r && c == b.c); } do
   {
-    auto x = M(r, c);
+    auto x = Matrix!T(r, c, zero, one);
     foreach (i; 0..r) foreach (j; 0..c) x[i][j] = mixin("a[i][j]"~op~"b[i][j]");
     return x;
   }
@@ -197,37 +168,36 @@ struct Matrix(T, T zero = T(0), T one = T(1))
    ** m+=b, m-=b を計算します. b は行列です.
    ** m と b の行数, 列数は同じである必要があります.
    **/
-  ref M opOpAssign(Op op)(M b) if (op=="+"||op=="-") in { assert(r == b.r && c == b.c); } do
+  ref Matrix!T opOpAssign(string op)(Matrix!T b) if (op=="+"||op=="-")
+  in { assert(r == b.r && c == b.c); } do
   {
     foreach (i; 0..r) foreach (j; 0..c) mixin("a[i][j]"~op~"=b[i][j];");
     return this;
   }
-
   /**
    ** m*b を返します. b は数値です.
    **/
-  pure M opBinary(Op op: "*")(T b)
+  pure Matrix!T opBinary(string op: "*")(T b)
   {
-    auto x = M(r, c);
+    auto x = Matrix!T(r, c, zero, one);
     foreach (i; 0..r) foreach (j; 0..c) x[i][j] = a[i][j]*b;
     return x;
   }
   /**
    ** m*=b を計算します. b は数値です.
    **/
-  ref M opOpAssign(Op op: "*")(T b)
+  ref Matrix!T opOpAssign(string op: "*")(T b)
   {
     foreach (i; 0..r) foreach (j; 0..c) a[i][j] *= b;
     return this;
   }
-
   /**
    ** m*b を返します. b は行列です.
    ** m の列数と b の行数は同じである必要があります.
    **/
-  pure M opBinary(Op op: "*")(M b) in { assert(c == b.r); } do
+  pure Matrix!T opBinary(string op: "*")(Matrix!T b) in { assert(c == b.r); } do
   {
-    auto x = M(r, b.c);
+    auto x = Matrix!T(r, b.c, zero, one);
     foreach (i; 0..r) foreach (j; 0..b.c) foreach (k; 0..c) x[i][j] += a[i][k]*b[k][j];
     return x;
   }
@@ -235,57 +205,46 @@ struct Matrix(T, T zero = T(0), T one = T(1))
    ** m*=b を計算します. b は行列です.
    ** m の列数と b の行数は同じである必要があります.
    **/
-  ref M opOpAssign(Op op: "*")(M b) in { assert(c == b.r); } do
+  ref Matrix!T opOpAssign(string op: "*")(Matrix!T b) in { assert(c == b.r); } do
   {
     auto x = this*b;
     r = x.r; c = x.c; a = x.a;
     return this;
   }
-
   /**
    ** m*b を返します. b はベクトルです.
    ** m の列数と b の次元は同じである必要があります.
    **/
-  pure V opBinary(Op op: "*")(V b) in { assert(c == b.n); } do
+  pure Vector!T opBinary(string op: "*")(Vector!T b) in { assert(c == b.n); } do
   {
-    auto x = V(r);
+    auto x = Vector!T(r, zero);
     foreach (i; 0..r) foreach (j; 0..c) x[i] += a[i][j]*b[j];
     return x;
   }
-
   /**
    ** m^^b を返します. 内部では繰り返し2乗法を使用しています.
    ** m は正方行列である必要があります.
    **/
-  pure M opBinary(Op op: "^^", U)(U n) in { assert(r == c); } do
-  {
-    return powr(this, n, M.unit(r));
-  }
+  pure Matrix!T opBinary(string op: "^^", U)(U n) in { assert(r == c); } do
+  { return powr(this, n, Matrix!T.unit(r, zero, one)); }
 
-  private T[][] a;
+  private { T[][] a; T zero, one; }
 }
 /**
- ** r 行 c 列の零行列を返します.
+ ** 配列 a を元に作成したベクトルを返します.
  ** zero は加法単位元です.
  ** one は乗法単位元です.
  **/
-Matrix!(T, zero, one) matrix(T, T zero = T(0), T one = T(1))(T[][] a)
-{ return Matrix!(T, zero, one)(a); }
-/**
- ** 配列 b を元に作成した行列を返します.
- ** zero は加法単位元です.
- ** one は乗法単位元です.
- **/
-Matrix!(T, zero, one) matrix(T, U, T zero = 0, T one = 1)(U[][] a) if (!is(T == U))
-{ return Matrix!(T, zero, one)(a); }
+Matrix!T matrix(T)(T[][] a, T zero = T(0), T one = T(1))
+{ return Matrix!T(a, zero, one); }
 
 /**
  ** 行列 a の行列式を返します.
  ** a は正方行列である必要があります.
  **/
-pure T det(T, alias zero, alias one)(Matrix!(T, zero, one) a) in { assert(a.r == a.c); } do
+pure T det(T)(Matrix!T a) in { assert(a.r == a.c); } do
 {
-  auto n = a.r, b = a.dup, d = one;
+  auto n = a.r, b = a.dup, d = a.one;
 
   foreach (i; 0..n) {
     auto p = i;
@@ -326,8 +285,8 @@ unittest
 
   import lib.math.mod_int;
   alias mint = ModInt!7;
-  auto c = vector!mint([5, 18, -1]);
-  assert(c == vector!mint([5, 4, 6]));
+  auto c = Vector!mint([5, 18, -1]);
+  assert(c == Vector!mint([5, 4, 6]));
 
   auto d = vector([2, 4, 5]), e = vector([1, 3, 2]);
   assert(cross(d, e) == vector([-7, 1, 2]));
@@ -364,6 +323,6 @@ unittest
 
   import lib.math.mod_int;
   alias mint = ModInt!7;
-  auto c = matrix!mint([[5, 18, -1], [2, -13, 8]]);
-  assert(c == matrix!mint([[5, 4, 6], [2, 1, 1]]));
+  auto c = Matrix!mint([[5, 18, -1], [2, -13, 8]]);
+  assert(c == Matrix!mint([[5, 4, 6], [2, 1, 1]]));
 }
