@@ -21,7 +21,7 @@ struct GmpInt
   /**
    ** 値を long でセットします.
    **/
-  @property value(long v) { __gmpz_init_set_si(&z, v); }
+  @property value(long v) { __gmpz_set_si(&z, v); }
   alias value this;
 
   /**
@@ -33,21 +33,14 @@ struct GmpInt
    ** base は進法です.
    **/
   this(string s, int base = 10) { __gmpz_init_set_str(&z, s.toStringz, base); }
-
-  import std.stdio;
-  this(ref return scope GmpInt v)
-  {
-    writeln("copy", v.toString());
-    __gmpz_init_set(&z, &v.z);
-  }
+  /**
+   ** コピーコンストラクタです.
+   **/
+  this(ref return scope GmpInt v) { __gmpz_init_set(&z, &v.z); }
   /**
    ** デストラクタです.
    **/
-  ~this()
-  {
-    writeln("dest", toString());
-    __gmpz_clear(&z);
-  }
+  ~this() { __gmpz_clear(&z); }
 
   /**
    ** long に変換した値を返します.
@@ -65,6 +58,10 @@ struct GmpInt
     return buf.ptr.fromStringz.to!string;
   }
 
+  /**
+   ** 値を f に出力します.
+   ** base は進法です.
+   **/
   size_t fprint(File f, int base = 10) { return __gmpz_out_str(f.getFP, base, &z); }
 
   /**
@@ -162,23 +159,15 @@ struct GmpInt
   /**
    ** 1 になっているビットの数を返します.
    **/
-  size_t popcnt()
-  {
-    return __gmpz_popcount(&z);
-  }
-
+  size_t popcnt() { return __gmpz_popcount(&z); }
   /**
    ** 素数かどうかを返します.
    ** 内部では Miller-Rabin 法を使用しています.
    ** reps は Miller-Rabin 法の試行回数です.
    **/
-  bool probabPrime(int reps = 20)
-  {
-    return __gmpz_probab_prime_p(&z, reps) != 0;
-  }
+  bool probabPrime(int reps = 20) { return __gmpz_probab_prime_p(&z, reps) != 0; }
 
   private __mpz_struct z;
-  private int refCounter;
 }
 
 /**
@@ -207,10 +196,15 @@ extern(C) pragma(inline, false)
   alias mpz_srcptr = const(__mpz_struct)*;
   alias mpz_ptr = __mpz_struct*;
 
+  void __gmpz_init(mpz_ptr);
+  void __gmpz_clear(mpz_ptr);
+
   void __gmpz_init_set(mpz_ptr, mpz_srcptr);
   void __gmpz_init_set_si(mpz_ptr, long);
   int __gmpz_init_set_str(mpz_ptr, const char*, int);
-  void __gmpz_clear(mpz_ptr);
+
+  void __gmpz_set(mpz_ptr, mpz_srcptr);
+  void __gmpz_set_si(mpz_ptr, long);
 
   long __gmpz_get_si(mpz_srcptr);
   char *__gmpz_get_str(char*, int, mpz_srcptr);

@@ -9,25 +9,19 @@ void main()
 
   if (L == 2) { io.put(3); io.put!"{exit: true}"("INF"); }
 
+  auto calc(int n)
+  {
+    auto m = matrix!GmpInt([[GmpInt(1), GmpInt(1)], [GmpInt(1), GmpInt(0)]]);
+    return (m^^n)[0].sum;
+  }
+
   io.put(L);
   io.put(calc(L) - (L%2 == 0 ? calc(L/2)^^2 : 0));
 }
 
-auto calc(int n)
-{
-  auto r = GmpInt(1), so = GmpInt(1), se = GmpInt(0);
-
-  foreach (i; 2..n+1) {
-    if (i%2 == 0)
-      se += (r = so);
-    else
-      so += (r = se+1);
-  }
-
-  return r;
-}
-
 import lib.math.gmp_int;
+
+import lib.math.matrix;
 
 auto io = IO!()();
 import lib.io;
