@@ -15,11 +15,11 @@ void main()
     foreach (i; N+1..K) f[i] = f[i-1]*2-f[i-N-1];
     io.put(f[$-1], f.sum);
   } else {
-    auto m = Matrix(N+1, N+1);
+    auto m = Matrix!mint(N+1, N+1);
     foreach (i; 1..N) m[i-1][i] = 1;
     foreach (i; 0..N) { m[N-1][i] = 1; m[N][i] = 1; }
     m[N][N] = 1;
-    auto v = Vector(N+1);
+    auto v = Vector!mint(N+1);
     foreach (i, Ai; A) v[i] = Ai;
     v[N] = v[0..N].sum;
     auto r = m^^(K-N)*v;
@@ -27,7 +27,6 @@ void main()
   }
 }
 
-alias me = MatrixElement!(mint, mint(0), mint(1)), Matrix = me.Matrix, Vector = me.Vector;
 import lib.math.matrix;
 
 const mod = 10^^9+7;

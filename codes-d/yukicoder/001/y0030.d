@@ -1,4 +1,4 @@
-// URL: https://yukicoder.me/problems/no/30
+// URL: https://ja.reactjs.org/tutorial/tutorial.html
 
 import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
 
@@ -8,9 +8,9 @@ void main()
   int N; io.getV(N);
 
   auto g = Graph(N);
-  auto p = new Vector[](N);
+  auto p = new Vector!int[](N);
   foreach (i, ref pi; p) {
-    pi = Vector(N);
+    pi = Vector!int(N);
     pi[i] = 1;
   }
 
@@ -24,7 +24,7 @@ void main()
 
   foreach_reverse (u; g.topologicalSort.nodes) {
     if (!g[u].empty) {
-      auto q = Vector(N);
+      auto q = Vector!int(N);
       foreach (v; g[u]) q += p[v]*p[u][v];
       p[u] = q;
     }
@@ -33,7 +33,6 @@ void main()
   foreach (i; 0..N-1) io.put(p[N-1][i]);
 }
 
-alias me = MatrixElement!int, Vector = me.Vector;
 import lib.math.matrix;
 
 import lib.graph.graph;

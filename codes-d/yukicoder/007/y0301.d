@@ -7,7 +7,7 @@ void main()
 {
   int T; io.getV(T);
 
-  auto m = Matrix(7, 7);
+  auto m = Matrix!double(7, 7);
   foreach (i; 0..6) m[0][i] = 1.0/6;
   foreach (i; 0..5) m[i+1][i] = 1;
   m[0][6] = m[6][6] = 1;
@@ -23,7 +23,6 @@ void main()
   }
 }
 
-alias me = MatrixElement!(double, 0.0, 1.0), Matrix = me.Matrix;
 import lib.math.matrix;
 
 auto io = IO!()();
