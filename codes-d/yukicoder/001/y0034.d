@@ -8,12 +8,12 @@ void main()
   int N, V, Sx, Sy, Gx, Gy; io.getV(N, V, Sx, Sy, Gx, Gy); --Sx; --Sy; --Gx; --Gy;
   int[][] L; io.getM(N, N, L);
 
-  auto m = grid(L);
-  alias Pos = m.Pos;
-  auto S = m.pos(Sy, Sx), G = m.pos(Gy, Gx);
+  alias rg = Region!(N, N), Pos = rg.Pos;
+  auto m = rg.grid(L);
+  auto S = Pos(Sy, Sx), G = Pos(Gy, Gx);
 
-  auto v = m.grid!int, inf = 10^^6;
-  foreach (p; v.walk) v[p] = inf;
+  auto v = rg.grid!int, inf = 10^^6;
+  foreach (p; rg.allPos) v[p] = inf;
   v[S] = 0;
 
   struct E { Pos p; int d, h; }

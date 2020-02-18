@@ -8,15 +8,16 @@ void main()
   int W, H; io.getV(W, H);
   string[] C; io.getC(H, C);
 
-  auto c = grid(cast(char[][])C), b = c.grid!bool;
+  alias rg = Region!(H, W), Pos = rg.Pos;
+  auto c = rg.grid(cast(char[][])C), b = rg.grid!bool;
 
   auto findSpace()
   {
-    foreach (p; c.walk)
+    foreach (p; rg.allPos)
       if (c[p] == '.' && !b[p]) {
         auto r = [p];
         b[p] = true;
-        auto q = DList!(c.Pos)(p);
+        auto q = DList!(Pos)(p);
         while (!q.empty) {
           auto u = q.front; q.removeFront();
           foreach (v; u.around4) {
@@ -32,7 +33,7 @@ void main()
     assert(0);
   }
 
-  auto distManhattan(c.Pos p1, c.Pos p2) { return abs(p1.r-p2.r)+abs(p1.c-p2.c); }
+  auto distManhattan(Pos p1, Pos p2) { return abs(p1.r-p2.r)+abs(p1.c-p2.c); }
 
   auto s1 = findSpace(), s2 = findSpace(), r = 1000;
   foreach (p1; s1)

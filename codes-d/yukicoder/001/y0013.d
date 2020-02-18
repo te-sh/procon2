@@ -8,8 +8,8 @@ void main()
   int W, H; io.getV(W, H);
   int[][] M; io.getM(H, W, M);
 
-  auto g = grid(M), v = g.grid!bool;
-  alias Pos = g.Pos;
+  alias rg = Region!(H, W), Pos = rg.Pos;
+  auto g = rg.grid(M), v = rg.grid!bool;
 
   auto hasCycle(Pos p)
   {
@@ -27,7 +27,7 @@ void main()
     return false;
   }
 
-  foreach (p; g.walk)
+  foreach (p; rg.allPos)
     if (!v[p] && hasCycle(p)) io.put!"{exit: true}"("possible");
 
   io.put("impossible");
