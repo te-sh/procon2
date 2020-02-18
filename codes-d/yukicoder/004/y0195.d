@@ -11,7 +11,7 @@ void main()
   auto n = 41, c = new long[](n), d = new long[](n);
   c[0] = 1; d[0] = 0;
 
-  auto m = matrix([[0, 1], [1, 1]]);
+  auto m = Matrix([[0, 1], [1, 1]]);
   foreach (i; 1..n) {
     auto mi = m^^(i-1);
     c[i] = mi[1][0]; d[i] = mi[1][1];
@@ -54,6 +54,7 @@ void main()
 
 import lib.math.frac;
 
+alias me = MatrixElement!int, Matrix = me.Matrix;
 import lib.math.matrix;
 
 auto io = IO!()();
