@@ -20,62 +20,61 @@ struct Tree(Graph)
    **/
   Node root;
   /**
-   ** 頂点ごとの親の頂点を持つ配列です.
+   ** parent は頂点ごとの親の頂点を持つ配列です.
+   ** dfsOrder は頂点を根からの DFS で訪れた順に並べた配列です.
    **/
-  Node[] parent;
+  Node[] parent, dfsOrder;
   /**
-   ** 頂点を根からの DFS で訪れた順に並べた配列です.
+   ** size は頂点ごとのその頂点を根とする部分木に含まれる頂点の数を持つ配列です.
+   ** depth は頂点ごとのその頂点の根からの深さを持つ配列です.
    **/
-  Node[] dfsOrder;
-  /**
-   ** 頂点ごとのその頂点を根とする部分木に含まれる頂点の数を持つ配列です.
-   **/
-  int[] size;
-  /**
-   ** 頂点ごとのその頂点の根からの深さを持つ配列です.
-   **/
-  int[] depth;
+  int[] size, depth;
 
-  /**
-   ** グラフ g を元にした根が r の木を返します.
-   **/
-  this(Graph g, Node r)
+  pure nothrow @safe
   {
-    this.g = g;
-    this.root = r;
+    /**
+     ** グラフ g を元にした根が r の木を返します.
+     **/
+    this(Graph g, Node r) in { assert(0 <= r && r < g.n); } do
+    {
+      this.g = g;
+      this.root = r;
 
-    parent = new Node[](n);
-    depth = new int[](n);
-    depth[] = -1;
+      parent = new Node[](n);
+      depth = new int[](n);
+      depth[] = -1;
 
-    struct UP { Node u, p; }
-    auto st = SList!UP(UP(r, r));
-    while (!st.empty) {
-      auto up = st.front; st.removeFront();
+      struct UP { Node u, p; }
+      auto st = SList!UP(UP(r, r));
+      while (!st.empty) {
+        auto up = st.front; st.removeFront();
 
-      parent[up.u] = up.p;
-      depth[up.u] = depth[up.p] + 1;
-      dfsOrder ~= up.u;
+        parent[up.u] = up.p;
+        depth[up.u] = depth[up.p] + 1;
+        dfsOrder ~= up.u;
 
-      foreach (v; g[up.u])
-        if (v != up.p) st.insertFront(UP(v, up.u));
+        foreach (v; g[up.u])
+          if (v != up.p) st.insertFront(UP(v, up.u));
+      }
+
+      size = new int[](n);
+      size[] = 1;
+      foreach_reverse (u; dfsOrder.drop(1))
+        size[parent[u]] += size[u];
     }
 
-    size = new int[](n);
-    size[] = 1;
-    foreach_reverse (u; dfsOrder.drop(1))
-      size[parent[u]] += size[u];
+    /**
+     ** 頂点 u の子を列挙して Range で返します.
+     **/
+    auto children(Node u) { return g[u].filter!(v => v != parent[u]); }
   }
-
-  /**
-   ** 頂点 u の子を列挙して Range で返します.
-   **/
-  pure auto children(Node u) { return g[u].filter!(v => v != parent[u]); }
 }
 /**
  ** グラフ g を元にした根が r の木を返します.
  **/
-Tree!Graph tree(Graph, Node)(Graph g, Node r) { return Tree!Graph(g, r); }
+pure nothrow @safe Tree!Graph tree(Graph, Node)(Graph g, Node r)
+in { assert(0 <= r && r < g.n); } do
+{ return Tree!Graph(g, r); }
 // ::::::::::::::::::::
 
 unittest

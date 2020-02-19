@@ -43,8 +43,6 @@ void main()
   io.put(r-1);
 }
 
-import lib.math.point;
-
 import lib.data_structure.grid;
 
 auto io = IO!()();

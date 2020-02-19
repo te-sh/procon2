@@ -11,37 +11,57 @@ pragma(inline)
     /**
      ** n の i ビット目が 1 かどうかを返します.
      **/
-    bool bitTest(T)(T n, size_t i) if (isIntegral!T) { return (n & (T(1) << i)) != 0; }
+    bool bitTest(T)(T n, size_t i)
+      if (isIntegral!T)
+    { return (n & (T(1) << i)) != 0; }
     /**
      ** n の i ビット目を 1 にした結果の数値を返します.
      **/
-    T bitSet(T)(T n, size_t i) if (isIntegral!T) { return n | (T(1) << i); }
+    T bitSet(T)(T n, size_t i)
+      if (isIntegral!T)
+    { return n | (T(1) << i); }
     /**
      ** n の i ビット目を 0 にした結果の数値を返します.
      **/
-    T bitReset(T)(T n, size_t i) if (isIntegral!T) { return n & ~(T(1) << i); }
+    T bitReset(T)(T n, size_t i)
+      if (isIntegral!T)
+    { return n & ~(T(1) << i); }
     /**
      ** n の i ビット目を反転させた結果の数値を返します.
      **/
-    T bitComp(T)(T n, size_t i) if (isIntegral!T) { return n ^ (T(1) << i); }
+    T bitComp(T)(T n, size_t i)
+      if (isIntegral!T)
+    { return n ^ (T(1) << i); }
     /**
      ** n の最初に 1 になっているビットを返します.
      **/
-    int bsf(T)(T n) if (is(T == int) || is(T == uint)) { return _bsf(cast(uint)(n)); }
+    int bsf(T)(T n)
+      if (is(T == int) || is(T == uint))
+    { return _bsf(cast(uint)(n)); }
     /// ditto
-    int bsf(T)(T n) if (is(T == long) || is(T == ulong)) { return _bsf(cast(ulong)(n)); }
+    int bsf(T)(T n)
+      if (is(T == long) || is(T == ulong))
+    { return _bsf(cast(ulong)(n)); }
     /**
      ** n の最後に 1 になっているビットを返します.
      **/
-    int bsr(T)(T n) if (is(T == int) || is(T == uint)) { return _bsr(cast(uint)n); }
+    int bsr(T)(T n)
+      if (is(T == int) || is(T == uint))
+    { return _bsr(cast(uint)n); }
     /// ditto
-    int bsr(T)(T n) if (is(T == long) || is(T == ulong)) { return _bsr(cast(ulong)n); }
+    int bsr(T)(T n)
+      if (is(T == long) || is(T == ulong))
+    { return _bsr(cast(ulong)n); }
     /**
      ** n の 1 になっているビットの数を返します.
      **/
-    int popcnt(T)(T n) if (is(T == int) || is(T == uint)) { return _popcnt(cast(uint)n); }
+    int popcnt(T)(T n)
+      if (is(T == int) || is(T == uint))
+    { return _popcnt(cast(uint)n); }
     /// ditto
-    int popcnt(T)(T n) if (is(T == long) || is(T == ulong)) { return _popcnt(cast(ulong)n); }
+    int popcnt(T)(T n)
+      if (is(T == long) || is(T == ulong))
+    { return _popcnt(cast(ulong)n); }
   }
 }
 
@@ -50,21 +70,25 @@ struct BitSubsetRange(bool includeZero = false, T)
   private T n, i;
 
   this(T n) { this.n = this.i = n; }
-  static if (includeZero) {
-    @property pure T front() { return i&n; }
-    void popFront() { i &= n; i--; }
-    pure bool empty() { return i < 0; }
-  } else {
-    @property pure T front() { return i; }
-    void popFront() { i = (i-1)&n; }
-    pure bool empty() { return i <= 0; }
+  pure nothrow @nogc @safe
+  {
+    static if (includeZero) {
+      @property T front() { return i&n; }
+      void popFront() { i &= n; i--; }
+      bool empty() { return i < 0; }
+    } else {
+      @property T front() { return i; }
+      void popFront() { i = (i-1)&n; }
+      bool empty() { return i <= 0; }
+    }
   }
 }
 /**
  ** n のビットによる部分集合になっている数値を列挙して Range で返します.
  ** includeZero が true の場合は部分集合に 0 を含めます.
  **/
-auto bitSubset(bool includeZero = false, T)(T n) { return BitSubsetRange!(includeZero, T)(n); }
+pure nothrow @nogc @safe BitSubsetRange!(includeZero, T) bitSubset(bool includeZero = false, T)(T n)
+{ return BitSubsetRange!(includeZero, T)(n); }
 // ::::::::::::::::::::
 
 unittest

@@ -18,18 +18,24 @@ struct Graph
    **/
   Node[][] g;
   alias g this;
-  /**
-   ** 頂点数が n のグラフを返します.
-   **/
-  this(Node n) { this.n = n; g = new Node[][](n); }
-  /**
-   ** グラフに頂点 u から頂点 v への有向辺を追加します.
-   **/
-  void addEdge(Node u, Node v) { g[u] ~= v; }
-  /**
-   ** グラフに頂点 u から頂点 v への有向辺および頂点 v から頂点 u への有向辺を作成します.
-   **/
-  void addEdgeB(Node u, Node v) { g[u] ~= v; g[v] ~= u; }
+
+  pure nothrow @safe
+  {
+    /**
+     ** 頂点数が n のグラフを返します.
+     **/
+    this(Node n) { this.n = n; g = new Node[][](n); }
+    /**
+     ** グラフに頂点 u から頂点 v への有向辺を追加します.
+     **/
+    void addEdge(Node u, Node v) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    { g[u] ~= v; }
+    /**
+     ** グラフに頂点 u から頂点 v への有向辺および頂点 v から頂点 u への有向辺を作成します.
+     **/
+    void addEdgeB(Node u, Node v) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    { g[u] ~= v; g[v] ~= u; }
+  }
 }
 
 /**
@@ -50,18 +56,24 @@ struct GraphW(W = int, W i = 10^^9)
    **/
   Edge[][] g;
   alias g this;
-  /**
-   ** 頂点数が n のグラフを返します.
-   **/
-  this(Node n) { this.n = n; g = new Edge[][](n); }
-  /**
-   ** グラフに頂点 u から頂点 v への有向辺を追加します.
-   **/
-  void addEdge(Node u, Node v, Wt w) { g[u] ~= Edge(u, v, w); }
-  /**
-   ** グラフに頂点 u から頂点 v への有向辺および頂点 v から頂点 u への有向辺を作成します.
-   **/
-  void addEdgeB(Node u, Node v, Wt w) { g[u] ~= Edge(u, v, w); g[v] ~= Edge(v, u, w); }
+
+  pure nothrow @safe
+  {
+    /**
+     ** 頂点数が n のグラフを返します.
+     **/
+    this(Node n) { this.n = n; g = new Edge[][](n); }
+    /**
+     ** グラフに頂点 u から頂点 v への有向辺を追加します.
+     **/
+    void addEdge(Node u, Node v, Wt w) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    { g[u] ~= Edge(u, v, w); }
+    /**
+     ** グラフに頂点 u から頂点 v への有向辺および頂点 v から頂点 u への有向辺を作成します.
+     **/
+    void addEdgeB(Node u, Node v, Wt w) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    { g[u] ~= Edge(u, v, w); g[v] ~= Edge(v, u, w); }
+  }
 }
 
 /**
@@ -80,18 +92,22 @@ struct GraphM(W = int, W i = 10^^9)
    **/
   Wt[][] g;
   alias g this;
-  /**
-   ** 頂点数が n のグラフを返します.
-   **/
-  this(int n) { this.n = n; g = new Wt[][](n, n); }
-  /**
-   ** 頂点数が n, 同じ頂点間の距離が 0, 異なる頂点間の距離が i であるグラフを返します.
-   **/
-  static GraphM!(W, i) init(Node n)
+
+  pure nothrow @safe
   {
-    auto g = GraphM!(W, i)(n);
-    foreach (i; 0..n) { g[i][] = inf; g[i][i] = 0; }
-    return g;
+    /**
+     ** 頂点数が n のグラフを返します.
+     **/
+    this(int n) { this.n = n; g = new Wt[][](n, n); }
+    /**
+     ** 頂点数が n, 同じ頂点間の距離が 0, 異なる頂点間の距離が i であるグラフを返します.
+     **/
+    static GraphM!(W, i) init(Node n)
+    {
+      auto g = GraphM!(W, i)(n);
+      foreach (i; 0..n) { g[i][] = inf; g[i][i] = 0; }
+      return g;
+    }
   }
 }
 // ::::::::::::::::::::

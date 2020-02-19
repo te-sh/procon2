@@ -27,7 +27,7 @@ struct Dijkstra(Graph)
   /**
    ** グラフ g の頂点 s から各頂点への最短距離を Dijkstra 法で計算した結果を保持する構造体を返します.
    **/
-  this(Graph g, Node s)
+  pure @trusted this(Graph g, Node s) in { assert(0 <= s && s < g.n); } do
   {
     this.g = g;
     auto sent = n;
@@ -57,7 +57,8 @@ struct Dijkstra(Graph)
 /**
  ** グラフ g の頂点 s から各頂点への最短距離を Dijkstra 法で計算した結果を保持する構造体を返します.
  **/
-Dijkstra!Graph dijkstra(Graph, Node)(Graph g, Node s)
+pure @trusted Dijkstra!Graph dijkstra(Graph, Node)(Graph g, Node s)
+in { assert(0 <= s && s < g.n); } do
 { return Dijkstra!Graph(g, s); }
 // ::::::::::::::::::::
 

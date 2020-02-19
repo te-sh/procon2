@@ -7,51 +7,56 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
  **/
 struct Point2(T)
 {
-  alias P = Point2!T, Op = string;
+  import std.traits;
+
   /**
    ** x 座標, y 座標の値です.
    **/
   T x, y;
-  /**
-   ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
-   **/
-  pure P opBinary(Op o)(P r) if (o=="+"||o=="-")
-  { return mixin("P(x"~o~"r.x, y"~o~"r.y)"); }
-  /**
-   ** p, r をベクトルとして, p+=r, p-=r を計算します. r は p と同じタイプです.
-   **/
-  P opOpAssign(Op o)(P r) if (o=="+"||o=="-")
-  { mixin("x"~o~"=r.x; y"~o~"=r.y;"); return this; }
-  /**
-   ** p をベクトルとして, p*a, p/a を返します. r は数値です.
-   **/
-  pure P opBinary(Op o)(T a) if (o=="*"||o=="/")
-  { return mixin("P(x"~o~"a, y"~o~"a)"); }
-  /**
-   ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
-   **/
-  P opOpAssign(Op o)(T a) if (o=="*"||o=="/")
-  { mixin("x"~o~"=a; y"~o~"=a;"); return this; }
-  /**
-   ** p, r をベクトルとして, p と r の内積を返します.
-   **/
-  pure T opBinary(Op o: "*")(P r) { return x*r.x+y*r.y; }
-  /**
-   ** p をベクトルとして, p とそれ自身の内積を返します.
-   **/
-  pure T hypot2() { return x^^2+y^^2; }
+
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
+     **/
+    Point2!T opBinary(string o)(Point2!T r) if (o=="+"||o=="-")
+    { return mixin("Point2(x"~o~"r.x, y"~o~"r.y)"); }
+    /**
+     ** p, r をベクトルとして, p+=r, p-=r を計算します. r は p と同じタイプです.
+     **/
+    Point2!T opOpAssign(string o)(Point2!T r) if (o=="+"||o=="-")
+    { mixin("x"~o~"=r.x; y"~o~"=r.y;"); return this; }
+    /**
+     ** p をベクトルとして, p*a, p/a を返します. r は数値です.
+     **/
+    Point2!T opBinary(string o, U)(U a) if ((o=="*"||o=="/")&&isIntegral!U)
+    { return mixin("Point2(x"~o~"a, y"~o~"a)"); }
+    /**
+     ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
+     **/
+    Point2!T opOpAssign(string o, U)(U a) if ((o=="*"||o=="/")&&isIntegral!U)
+    { mixin("x"~o~"=a; y"~o~"=a;"); return this; }
+    /**
+     ** p, r をベクトルとして, p と r の内積を返します.
+     **/
+    T opBinary(string o: "*")(Point2!T r) { return x*r.x+y*r.y; }
+    /**
+     ** p をベクトルとして, p とそれ自身の内積を返します.
+     **/
+    pure T hypot2() { return x^^2+y^^2; }
+  }
 }
 
 /**
  ** p1, p2 のマンハッタン距離を返します.
  **/
-pure T distManhattan(T)(Point2!T p1, Point2!T p2)
+pure nothrow @nogc @safe T distManhattan(T)(Point2!T p1, Point2!T p2)
 { return (p1.x-p2.x).abs + (p1.y-p2.y).abs; }
 
 /**
  ** p1, p2 を平面上にある3次元ベクトルとしてそのクロス積の z 成分を返します.
  **/
-pure T cross(T)(Point2!T p1, Point2!T p2)
+pure nothrow @nogc @safe T cross(T)(Point2!T p1, Point2!T p2)
 { return p1.x*p2.y - p1.y*p2.x; }
 
 /**
@@ -59,45 +64,50 @@ pure T cross(T)(Point2!T p1, Point2!T p2)
  **/
 struct Point3(T)
 {
-  alias P = Point3!T, Op = string;
+  import std.traits;
+
   /**
    ** x 座標, y 座標, z 座標の値です.
    **/
   T x, y, z;
-  /**
-   ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
-   **/
-  pure P opBinary(Op o)(P r) if (o=="+"||o=="-")
-  { return mixin("P(x"~o~"r.x, y"~o~"r.y, z"~o~"r.z)"); }
-  /**
-   ** p, r をベクトルとして, p+=r, p-=r を計算します. r は p と同じタイプです.
-   **/
-  P opOpAssign(Op o)(P r) if (o=="+"||o=="-")
-  { mixin("x"~o~"=r.x; y"~o~"=r.y; z"~o~"=r.z;"); return this; }
-  /**
-   ** p をベクトルとして, p*a, p/a を返します. r は数値です.
-   **/
-  pure P opBinary(Op o)(T a) if (o=="*"||o=="/")
-  { return mixin("P(x"~o~"a, y"~o~"a, z"~o~"a)"); }
-  /**
-   ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
-   **/
-  P opOpAssign(Op o)(T a) if (o=="*"||o=="/")
-  { mixin("x"~o~"=a; y"~o~"=a; z"~o~"=a;"); return this; }
-  /**
-   ** p, r をベクトルとして, p と r の内積を返します.
-   **/
-  pure T opBinary(Op o: "*")(P r) { return x*r.x+y*r.y+z*r.z; }
-  /**
-   ** p をベクトルとして, p とそれ自身の内積を返します.
-   **/
-  pure T hypot2() { return x^^2+y^^2+z^^2; }
+
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
+     **/
+    Point3!T opBinary(string o)(Point3!T r) if (o=="+"||o=="-")
+    { return mixin("Point3!T(x"~o~"r.x, y"~o~"r.y, z"~o~"r.z)"); }
+    /**
+     ** p, r をベクトルとして, p+=r, p-=r を計算します. r は p と同じタイプです.
+     **/
+    Point3!T opOpAssign(string o)(Point3!T r) if (o=="+"||o=="-")
+    { mixin("x"~o~"=r.x; y"~o~"=r.y; z"~o~"=r.z;"); return this; }
+    /**
+     ** p をベクトルとして, p*a, p/a を返します. r は数値です.
+     **/
+    Point3!T opBinary(string o, U)(U a) if ((o=="*"||o=="/")&&isIntegral!U)
+    { return mixin("Point3!T(x"~o~"a, y"~o~"a, z"~o~"a)"); }
+    /**
+     ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
+     **/
+    Point3!T opOpAssign(string o, U)(U a) if ((o=="*"||o=="/")&&isIntegral!U)
+    { mixin("x"~o~"=a; y"~o~"=a; z"~o~"=a;"); return this; }
+    /**
+     ** p, r をベクトルとして, p と r の内積を返します.
+     **/
+    T opBinary(string o: "*")(Point3!T r) { return x*r.x+y*r.y+z*r.z; }
+    /**
+     ** p をベクトルとして, p とそれ自身の内積を返します.
+     **/
+    T hypot2() { return x^^2+y^^2+z^^2; }
+  }
 }
 
 /**
  ** p1, p2 をベクトルとしてそのクロス積を返します.
  **/
-pure Point3!T cross(T)(Point3!T p1, Point3!T p2)
+pure nothrow @nogc @safe Point3!T cross(T)(Point3!T p1, Point3!T p2)
 { return Point3!T(p1.y*p2.z - p1.z*p2.y, p1.z*p2.x - p1.x*p2.z, p1.x*p2.y - p1.y*p2.x); }
 // ::::::::::::::::::::
 

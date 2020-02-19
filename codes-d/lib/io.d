@@ -20,7 +20,8 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    ** v を n 要素の配列にして入力からの値をセットします.
    ** 入力値が1行で与えられる場合に使います.
    **/
-  auto getA(T)(size_t n, ref T v) if (hasAssignableElements!T)
+  auto getA(T)(size_t n, ref T v)
+  if (hasAssignableElements!T)
   { v = new T(n); foreach (ref w; v) get(w); }
   /**
    ** v を n 要素の配列にして入力からの値をセットします.

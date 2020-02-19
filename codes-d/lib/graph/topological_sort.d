@@ -23,7 +23,7 @@ struct TopologicalSort(Graph)
   /**
    ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
    **/
-  this(Graph g)
+  pure nothrow @trusted this(Graph g)
   {
     this.g = g;
     auto h = new int[](n);
@@ -49,12 +49,13 @@ struct TopologicalSort(Graph)
   /**
    ** グラフに閉路があるかどうかを返します.
    **/
-  pure bool hasCycle() { return nodes.length != n; }
+  pure nothrow @nogc @safe bool hasCycle() { return nodes.length != n; }
 }
 /**
  ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
  **/
-TopologicalSort!(Graph) topologicalSort(Graph)(Graph g) { return TopologicalSort!Graph(g); }
+pure nothrow @trusted TopologicalSort!(Graph) topologicalSort(Graph)(Graph g)
+{ return TopologicalSort!Graph(g); }
 // ::::::::::::::::::::
 
 unittest

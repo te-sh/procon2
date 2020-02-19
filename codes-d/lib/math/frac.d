@@ -14,94 +14,105 @@ struct Frac(T)
    **/
   T a, b;
 
-  /**
-   ** a/b を示す分数を返します.
-   ** b は 0 以外である必要があります.
-   **/
-  this(T a, T b) in { assert(b != 0); } do { this.a = a; this.b = b; }
+  pure nothrow @nogc @safe {
+    /**
+     ** a/b を示す分数を返します.
+     ** b は 0 以外である必要があります.
+     **/
+    this(T a, T b)
+      in { assert(b != 0); }
+    do { this.a = a; this.b = b; }
 
-  /**
-   ** f==r かどうかを返します.
-   **/
-  pure bool opEquals(F r) { return a == 0 && r.a == 0 || a == r.a && b == r.b; }
-  /**
-   ** f<r のときは -1, f=r のときは 0, f>r のときは 1 を返します.
-   **/
-  pure int opCmp(F r) { return a*r.b<r.a*b ? -1 : a*r.b>r.a*b ? 1 : 0; }
+    /**
+     ** f==r かどうかを返します.
+     **/
+    bool opEquals(F r)
+    { return a == 0 && r.a == 0 || a == r.a && b == r.b; }
+    /**
+     ** f<r のときは -1, f=r のときは 0, f>r のときは 1 を返します.
+     **/
+    int opCmp(F r)
+    { return a*r.b<r.a*b ? -1 : a*r.b>r.a*b ? 1 : 0; }
 
-  /**
-   ** 1/f を返します.
-   ** f の分子は 0 以外である必要があります.
-   **/
-  pure F inv() in { assert(a != 0); } do { return F(b, a).normalizeSign; }
-  /**
-   ** -f を返します.
-   **/
-  pure F opUnary(Op op: "-")() { return F(-a, b); }
+    /**
+     ** 1/f を返します.
+     ** f の分子は 0 以外である必要があります.
+     **/
+    F inv()
+      in { assert(a != 0); }
+    do { return F(b, a).normalizeSign; }
+    /**
+     ** -f を返します.
+     **/
+    F opUnary(Op op: "-")() { return F(-a, b); }
 
-  /**
-   ** f+r, f-r を返します.
-   ** 自動的に約分されます.
-   **/
-  pure F opBinary(Op op)(F r) if (op=="+"||op=="-")
-  {
-    auto g = gcd(b, r.b);
-    return F(mixin("r.b/g*a"~op~"b/g*r.a"), b/g*r.b).reduction();
-  }
-  /**
-   ** f+=r, f-=r を計算します.
-   ** 自動的に約分されます.
-   **/
-  ref F opOpAssign(Op op)(F r) if (op=="+"||op=="-")
-  {
-    auto g = gcd(b, r.b);
-    a = mixin("r.b/g*a"~op~"b/g*r.a"); b = b/g*r.b; return reduction();
-  }
+    /**
+     ** f+r, f-r を返します.
+     ** 自動的に約分されます.
+     **/
+    F opBinary(Op op)(F r)
+      if (op == "+" || op == "-")
+    {
+      auto g = gcd(b, r.b);
+      return F(mixin("r.b/g*a"~op~"b/g*r.a"), b/g*r.b).reduction();
+    }
+    /**
+     ** f+=r, f-=r を計算します.
+     ** 自動的に約分されます.
+     **/
+    F opOpAssign(Op op)(F r)
+      if (op=="+"||op=="-")
+    {
+      auto g = gcd(b, r.b);
+      a = mixin("r.b/g*a"~op~"b/g*r.a"); b = b/g*r.b; return reduction();
+    }
 
-  /**
-   ** f*r を返します.
-   ** 自動的に約分されます.
-   **/
-  pure F opBinary(Op op: "*")(F r)
-  {
-    auto g1 = gcd(a.abs, r.b), g2 = gcd(r.a.abs, b);
-    return F((a/g1)*(r.a/g2), (b/g2)*(r.b/g1));
-  }
-  /**
-   ** f*=r を計算します.
-   ** 自動的に約分されます.
-   **/
-  ref F opOpAssign(Op op: "*")(F r)
-  {
-    auto g1 = gcd(a.abs, r.b), g2 = gcd(r.a.abs, b);
-    a = (a/g1)*(r.a/g2); b = (b/g2)*(r.b/g1); return this;
-  }
+    /**
+     ** f*r を返します.
+     ** 自動的に約分されます.
+     **/
+    F opBinary(Op op: "*")(F r)
+    {
+      auto g1 = gcd(a.abs, r.b), g2 = gcd(r.a.abs, b);
+      return F((a/g1)*(r.a/g2), (b/g2)*(r.b/g1));
+    }
+    /**
+     ** f*=r を計算します.
+     ** 自動的に約分されます.
+     **/
+    ref F opOpAssign(Op op: "*")(F r)
+    {
+      auto g1 = gcd(a.abs, r.b), g2 = gcd(r.a.abs, b);
+      a = (a/g1)*(r.a/g2); b = (b/g2)*(r.b/g1); return this;
+    }
 
-  /**
-   ** f/r を返します.
-   ** r の分子は 0 以外である必要があります.
-   ** 自動的に約分されます.
-   **/
-  pure F opBinary(Op op: "/")(F r) in { assert(r.b != 0); } do
-  {
-    auto g1 = gcd(a.abs, r.a.abs), g2 = gcd(b, r.b);
-    return F((a/g1)*(r.b/g2), (b/g2)*(r.a/g1)).normalizeSign();
-  }
-  /**
-   ** f/=r を計算します.
-   ** r の分子は 0 以外である必要があります.
-   ** 自動的に約分されます.
-   **/
-  ref F opOpAssign(Op op: "/")(F r) in { assert(r.b != 0); } do
-  {
-    auto g1 = gcd(a.abs, r.a.abs), g2 = gcd(b, r.b);
-    a = (a/g1)*(r.b/g2); b = (b/g2)*(r.a/g1); return normalizeSign();
-  }
+    /**
+     ** f/r を返します.
+     ** r の分子は 0 以外である必要があります.
+     ** 自動的に約分されます.
+     **/
+    F opBinary(Op op: "/")(F r)
+      in { assert(r.b != 0); }
+    do {
+      auto g1 = gcd(a.abs, r.a.abs), g2 = gcd(b, r.b);
+      return F((a/g1)*(r.b/g2), (b/g2)*(r.a/g1)).normalizeSign();
+    }
+    /**
+     ** f/=r を計算します.
+     ** r の分子は 0 以外である必要があります.
+     ** 自動的に約分されます.
+     **/
+    ref F opOpAssign(Op op: "/")(F r)
+      in { assert(r.b != 0); }
+    do {
+      auto g1 = gcd(a.abs, r.a.abs), g2 = gcd(b, r.b);
+      a = (a/g1)*(r.b/g2); b = (b/g2)*(r.a/g1); return normalizeSign();
+    }
 
-  private
-  {
-    ref F reduction() { auto g = gcd(a.abs, b); a /= g; b /= g; return this; }
-    ref F normalizeSign() { if (b < 0) { a = -a; b = -b; } return this; }
+    private {
+      ref F reduction() { auto g = gcd(a.abs, b); a /= g; b /= g; return this; }
+      ref F normalizeSign() { if (b < 0) { a = -a; b = -b; } return this; }
+    }
   }
 }
 /**
@@ -109,7 +120,8 @@ struct Frac(T)
  ** b は 0 以外である必要があります.
  ** 自動的に約分されます.
  **/
-auto frac(T)(T a, T b) { return Frac!T(a, b).normalizeSign().reduction(); }
+pure nothrow @nogc @safe Frac!T frac(T)(T a, T b)
+{ return Frac!T(a, b).normalizeSign().reduction(); }
 // ::::::::::::::::::::
 
 unittest

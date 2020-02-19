@@ -16,31 +16,36 @@ struct Section(T)
    ** 区間を返します.
    ** start < end である必要があります.
    **/
-  this(T start, T end) in { assert(start < end); } do { this.start = start; this.end = end; }
+  pure nothrow @nogc @safe this(T start, T end) in { assert(start < end); } do
+  { this.start = start; this.end = end; }
 }
-/**
- ** 区間を返します.
- ** start < end である必要があります.
- **/
-Section!T section(T)(T start, T end) in { assert(start < end); } do
-{ return Section!T(start, end); }
 
-/**
- ** 区間 a, b に重なりがあるかどうかを返します.
- **/
-pure bool overlaped(T)(Section!T a, Section!T b)
-{ return a.start < b.end && a.end > b.start; }
-/**
- ** 区間 a, b が結合可能かどうかを返します.
- **/
-pure bool mergeable(T)(Section!T a, Section!T b)
-{ return overlaped(a, b) || a.start == b.end || a.end == b.start; }
-/**
- ** 区間 a, b を結合した区間を返します.
- ** 区間 a, b は結合可能である必要があります.
- **/
-pure Section!T merge(T)(Section!T a, Section!T b) in { assert(mergeable(a, b)); } do
-{ return section(min(a.start, b.start), max(a.end, b.end)); }
+pure nothrow @nogc @safe
+{
+  /**
+   ** 区間を返します.
+   ** start < end である必要があります.
+   **/
+  Section!T section(T)(T start, T end) in { assert(start < end); } do
+  { return Section!T(start, end); }
+
+  /**
+   ** 区間 a, b に重なりがあるかどうかを返します.
+   **/
+  bool overlaped(T)(Section!T a, Section!T b)
+  { return a.start < b.end && a.end > b.start; }
+  /**
+   ** 区間 a, b が結合可能かどうかを返します.
+   **/
+  bool mergeable(T)(Section!T a, Section!T b)
+  { return overlaped(a, b) || a.start == b.end || a.end == b.start; }
+  /**
+   ** 区間 a, b を結合した区間を返します.
+   ** 区間 a, b は結合可能である必要があります.
+   **/
+  Section!T merge(T)(Section!T a, Section!T b) in { assert(mergeable(a, b)); } do
+  { return section(min(a.start, b.start), max(a.end, b.end)); }
+}
 // ::::::::::::::::::::
 
 unittest

@@ -24,7 +24,8 @@ struct FordFulkerson(Graph)
    ** グラフ g の頂点 s から頂点 t への最大流を Ford-Fulkerson 法で
    ** 計算した結果を保持する構造体を返します.
    **/
-  this(Graph g, Node s, Node t)
+  pure nothrow @safe this(Graph g, Node s, Node t)
+  in { assert(0 <= s && s < g.n && 0 <= t && t < g.n); } do
   {
     this.g = g;
     auto adj = withRev(), visited = new bool[](n);
@@ -57,7 +58,7 @@ struct FordFulkerson(Graph)
   private
   {
     struct EdgeR { Node src, dst; Wt cap, flow; Node rev; }
-    EdgeR[][] withRev()
+    pure nothrow @safe EdgeR[][] withRev()
     {
       auto r = new EdgeR[][](n);
       foreach (gi; g)
@@ -73,7 +74,8 @@ struct FordFulkerson(Graph)
  ** グラフ g の頂点 s から頂点 t への最大流を Ford-Fulkerson 法で
  ** 計算した結果を保持する構造体を返します.
  **/
-FordFulkerson!Graph fordFulkerson(Graph, Node)(Graph g, Node s, Node t)
+pure nothrow @safe FordFulkerson!Graph fordFulkerson(Graph, Node)(Graph g, Node s, Node t)
+in { assert(0 <= s && s < g.n && 0 <= t && t < g.n); } do
 {
   return FordFulkerson!(Graph)(g, s, t);
 }
