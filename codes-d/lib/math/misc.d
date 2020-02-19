@@ -26,7 +26,7 @@ pure T icbrt(T)(T n)
 
 /**
  ** a の n 乗を返します. 内部では繰り返し2乗法を使用しています.
- ** pred には乗法演算です.
+ ** pred は乗法演算です.
  ** one は乗法単位元です.
  **/
 pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)

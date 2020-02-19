@@ -12,7 +12,7 @@ void main()
   auto calc(int n)
   {
     auto m = matrix!GmpInt([[GmpInt(1), GmpInt(1)], [GmpInt(1), GmpInt(0)]]);
-    return (m^^n)[0].sum;
+    return (m^^(n-2))[0].sum;
   }
 
   io.put(L);

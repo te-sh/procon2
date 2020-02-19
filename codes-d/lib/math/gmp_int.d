@@ -7,17 +7,15 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
  **/
 struct GmpInt
 {
-  import std.conv, std.stdio;
-
   /**
    ** 初期値 0 を返します.
    **/
-  @property static init() { return GmpInt(0); }
+  @property pure static init() { return GmpInt(0); }
 
   /**
    ** 値を long で返します.
    **/
-  @property value() { return toLong(); }
+  @property pure value() { return toLong(); }
   /**
    ** 値を long でセットします.
    **/
@@ -27,30 +25,30 @@ struct GmpInt
   /**
    ** long の値 v から作成します.
    **/
-  this(long v) { __gmpz_init_set_si(&z, v); }
+  pure this(long v) { __gmpz_init_set_si(&z, v); }
   /**
    ** 文字列 s から作成します.
    ** base は進法です.
    **/
-  this(string s, int base = 10) { __gmpz_init_set_str(&z, s.toStringz, base); }
+  pure this(string s, int base = 10) { __gmpz_init_set_str(&z, s.toStringz, base); }
   /**
    ** コピーコンストラクタです.
    **/
-  this(ref return scope GmpInt v) { __gmpz_init_set(&z, &v.z); }
+  pure this(ref return scope GmpInt v) { __gmpz_init_set(&z, &v.z); }
   /**
    ** デストラクタです.
    **/
-  ~this() { __gmpz_clear(&z); }
+  pure ~this() { __gmpz_clear(&z); }
 
   /**
    ** long に変換した値を返します.
    **/
-  long toLong() { return __gmpz_get_si(&z); }
+  pure long toLong() { return __gmpz_get_si(&z); }
   /**
    ** 文字列に変換した値を返します.
    ** base は進法です.
    **/
-  string toString(int base = 10)
+  pure string toString(int base = 10)
   {
     auto sz = __gmpz_sizeinbase(&z, base);
     auto buf = new char[](sz + 2);
@@ -68,31 +66,31 @@ struct GmpInt
    ** g == v かどうかを返します.
    ** v は GmpInt か long です.
    **/
-  bool opEquals(GmpInt v) { return __gmpz_cmp(&z, &v.z) == 0; }
+  pure bool opEquals(GmpInt v) { return __gmpz_cmp(&z, &v.z) == 0; }
   /// ditto
-  bool opEquals(long v) { return __gmpz_cmp_si(&z, v) == 0; }
+  pure bool opEquals(long v) { return __gmpz_cmp_si(&z, v) == 0; }
   /**
    ** g > v ならば 1 を, g == v ならば 0 を, g < v ならば -1 を返します.
    ** v は GmpInt か long です.
    **/
-  int opCmp(GmpInt v) { return __gmpz_cmp(&z, &v.z); }
+  pure int opCmp(GmpInt v) { return __gmpz_cmp(&z, &v.z); }
   /// ditto
-  int opCmp(long v) { return __gmpz_cmp_si(&z, v); }
+  pure int opCmp(long v) { return __gmpz_cmp_si(&z, v); }
 
   /**
    ** long の値 v を代入します.
    **/
-  GmpInt opAssign(long v) { __gmpz_init_set_si(&z, v); return this; }
+  pure ref GmpInt opAssign(long v) { __gmpz_init_set_si(&z, v); return this; }
   /**
    ** GmpInt の v を代入します.
    **/
-  GmpInt opAssign(GmpInt v) { __gmpz_init_set(&z, &v.z); return this; }
+  pure ref GmpInt opAssign(GmpInt v) { __gmpz_init_set(&z, &v.z); return this; }
 
   /**
    ** g+v, g-v, g*v, g/v, g%v を返します.
    ** v は GmpInt です.
    **/
-  GmpInt opBinary(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
+  pure GmpInt opBinary(string op)(GmpInt v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%")
   {
     auto r = GmpInt.init;
     static      if (op == "+") __gmpz_add(&r.z, &z, &v.z);
@@ -120,7 +118,7 @@ struct GmpInt
    ** g+v, g-v, g*v, g/v, g%v, g^^v を返します.
    ** v は long です.
    **/
-  GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
+  pure GmpInt opBinary(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
   {
     auto r = GmpInt.init;
     static      if (op == "+") __gmpz_add_ui(&r.z, &z, v);
@@ -135,7 +133,7 @@ struct GmpInt
    ** g+=v, g-=v, g*=v, g/=v, g%=v, g^^=v を計算します.
    ** v は long です.
    **/
-  ref GmpInt opOpAssign(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
+  pure ref GmpInt opOpAssign(string op)(ulong v) if (op=="+"||op=="-"||op=="*"||op=="/"||op=="%"||op=="^^")
   {
     static      if (op == "+") __gmpz_add_ui(&z, &z, v);
     else static if (op == "-") __gmpz_sub_ui(&z, &z, v);
@@ -147,38 +145,28 @@ struct GmpInt
   }
 
   /**
+   ** 絶対値を返します.
+   **/
+  pure GmpInt abs() { auto r = GmpInt.init; __gmpz_abs(&r.z, &z); return r; }
+  /**
    ** 平方根を超えない最大の整数を返します.
    **/
-  GmpInt sqrt()
-  {
-    auto r = GmpInt.init;
-    __gmpz_sqrt(&r.z, &z);
-    return r;
-  }
-
+  pure GmpInt sqrt() { auto r = GmpInt.init; __gmpz_sqrt(&r.z, &z); return r; }
   /**
    ** 1 になっているビットの数を返します.
    **/
-  size_t popcnt() { return __gmpz_popcount(&z); }
+  pure size_t popcnt() { return __gmpz_popcount(&z); }
   /**
-   ** 素数かどうかを返します.
-   ** 内部では Miller-Rabin 法を使用しています.
+   ** 素数かどうかを返します. 内部では Miller-Rabin 法を使用しています.
    ** reps は Miller-Rabin 法の試行回数です.
    **/
-  bool probabPrime(int reps = 20) { return __gmpz_probab_prime_p(&z, reps) != 0; }
+  pure bool probabPrime(int reps = 20) { return __gmpz_probab_prime_p(&z, reps) != 0; }
 
-  private __mpz_struct z;
-}
-
-/**
- ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
- ** x, y は ax + by = g を満たす x, y の1つを返します.
- **/
-GmpInt extGcd(GmpInt a, GmpInt b, out GmpInt x, out GmpInt y)
-{
-  auto g = a; x = 1; y = 0;
-  if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
-  return g;
+  private
+  {
+    import std.conv, std.stdio;
+    private __mpz_struct z;
+  }
 }
 
 extern(C) pragma(inline, false)
@@ -195,6 +183,8 @@ extern(C) pragma(inline, false)
 
   alias mpz_srcptr = const(__mpz_struct)*;
   alias mpz_ptr = __mpz_struct*;
+
+  pure @trusted:
 
   void __gmpz_init(mpz_ptr);
   void __gmpz_clear(mpz_ptr);
@@ -227,6 +217,7 @@ extern(C) pragma(inline, false)
   ulong __gmpz_tdiv_r_ui(mpz_ptr, mpz_srcptr, ulong);
   void __gmpz_pow_ui(mpz_ptr, mpz_srcptr, ulong);
 
+  void __gmpz_abs(mpz_ptr, mpz_srcptr);
   void __gmpz_sqrt(mpz_ptr, mpz_srcptr);
   size_t __gmpz_popcount(mpz_srcptr);
   int __gmpz_probab_prime_p(mpz_ptr, int reps);
@@ -298,20 +289,10 @@ unittest
   assert(a == 3375000);
 
   a = 150;
+  assert(a.abs == 150);
   assert(a.sqrt == 12);
   assert(a.popcnt == 4);
 
   assert(!GmpInt(150).probabPrime);
   assert(GmpInt(97).probabPrime);
-}
-
-unittest
-{
-  GmpInt x, y, g;
-
-  g = extGcd(GmpInt(29), GmpInt(17), x, y);
-  assert(g == 1 && x == -7 && y == 12);
-
-  g = extGcd(GmpInt(12), GmpInt(42), x, y);
-  assert(g == 6 && x == -3 && y == 1);
 }

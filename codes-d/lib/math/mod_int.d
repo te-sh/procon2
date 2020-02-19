@@ -10,8 +10,7 @@ import lib.math.misc;
  **/
 struct ModInt(int m, bool pos = false)
 {
-  version(BigEndian) union { long l; struct { int i2; int i; } } else union { long l; int i; }
-  alias M = ModInt!(m, pos), Op = string;
+  pure nothrow @nogc @safe:
   /**
    ** 剰余群の初期値 0 を返します.
    **/
@@ -28,66 +27,79 @@ struct ModInt(int m, bool pos = false)
 
   /**
    ** v から作成した剰余群を返します.
+   ** v は Integral です.
    **/
-  this(T)(T v = 0) { i = nm(v); }
+  this(T)(T v = 0) if (isIntegral!T) { i = nm(v); }
   /**
    ** 自身に v から作成した剰余群を代入します.
+   ** v は Integral です.
    **/
-  ref M opAssign(T)(T v) { i = nm(v); return this; }
+  ref M opAssign(T)(T v) if (isIntegral!T) { i = nm(v); return this; }
+  /**
+   ** 自身に v を代入します.
+   ** v は同じタイプです.
+   **/
+  ref M opAssign(M v) { i = v.i; return this; }
 
   /**
    ** -a を返します.
    ** pos が true のときは定義されません.
    **/
-  static if (!pos) pure M opUnary(Op op: "-")() { return M(-i); }
+  static if (!pos) M opUnary(string op: "-")() { return M(-i); }
 
   static if (m < int.max / 2) {
     /**
-     ** a+r, a-r を返します. r は int です.
+     ** a+r, a-r を返します. r は Integral です.
      ** pos が false のときは a-b は定義されません.
      **/
-    pure M opBinary(Op op)(int r) if(op=="+"||!pos&&op=="-") { return M(mixin("i"~op~"r")); }
+    M opBinary(string op, T)(T r) if ((op=="+"||!pos&&op=="-")&&isIntegral!T)
+    { return M(mixin("i"~op~"r")); }
     /**
-     ** a+=r, a-=r を計算します. r は int です.
+     ** a+=r, a-=r を計算します. r は Integral です.
      ** pos が false のときは a-=b は定義されません.
      **/
-    ref M opOpAssign(Op op)(int r) if(op=="+"||!pos&&op=="-") { i=nm(mixin("i"~op~"r")); return this; }
+    ref M opOpAssign(string op, T)(T r) if ((op=="+"||!pos&&op=="-")&&isIntegral!T)
+    { i = nm(mixin("i"~op~"r")); return this; }
   } else {
     /**
-     ** a+r, a-r を返します. r は int です.
+     ** a+r, a-r を返します. r は Integral です.
      ** pos が false のときは a-b は定義されません.
      **/
-    pure M opBinary(Op op)(int r) if(op=="+"||!pos&&op=="-") { return M(mixin("l"~op~"r")); }
+    M opBinary(string op, T)(T r) if ((op=="+"||!pos&&op=="-")&&isIntegral!T)
+    { return M(mixin("l"~op~"r")); }
     /**
      ** a+=r, a-=r を計算します. r は int です.
      ** pos が false のときは a-=b は定義されません.
      **/
-    ref M opOpAssign(Op op)(int r) if(op=="+"||!pos&&op=="-") { i=nm(mixin("l"~op~"r")); return this; }
+    ref M opOpAssign(string op, T)(T r) if ((op=="+"||!pos&&op=="-")&&isIntegral!T)
+    { i = nm(mixin("l"~op~"r")); return this; }
   }
   /**
-   ** a*r を返します. r は int です.
+   ** a*r を返します. r は Integral です.
    **/
-  pure M opBinary(Op op: "*")(int r) { return M(l*r); }
+  M opBinary(string op: "*", T)(T r) if (isIntegral!T) { return M(l*r); }
   /**
-   ** a*=r を計算します. r は int です.
+   ** a*=r を計算します. r は Integral です.
    **/
-  ref M opOpAssign(Op op: "*")(int r) { i=nm(l*r); return this; }
+  ref M opOpAssign(string op: "*", T)(T r) if (isIntegral!T) { i = nm(l*r); return this; }
 
   /**
    ** a+r, a-r, a*r を返します. r は a と同じタイプです.
    ** pos が false のときは a-b は定義されません.
    **/
-  pure M opBinary(Op op)(M r) if(op=="+"||!pos&&op=="-"||op=="*") { return opBinary!op(r.i); }
+  M opBinary(string op)(M r) if (op=="+"||!pos&&op=="-"||op=="*")
+  { return opBinary!op(r.i); }
   /**
    ** a+=r, a-=r, a*=r を計算します. r は a と同じタイプです.
    ** pos が false のときは a-=b は定義されません.
    **/
-  ref M opOpAssign(Op op)(M r) if(op=="+"||!pos&&op=="-"||op=="*") { return opOpAssign!op(r.i); }
+  ref M opOpAssign(string op)(M r) if (op=="+"||!pos&&op=="-"||op=="*")
+  { return opOpAssign!op(r.i); }
 
   /**
    ** a^^n を返します. 内部では繰り返し2乗法を使用しています.
    **/
-  pure M opBinary(Op op: "^^", T)(T n) { return this.powr(n); }
+  M opBinary(string op: "^^", T)(T n) if (isIntegral!T) { return this.powr(n); }
 
   static if (!pos) {
     /**
@@ -95,39 +107,42 @@ struct ModInt(int m, bool pos = false)
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    pure M opBinary(Op op: "/")(M r) { return M(l*r.inv.i); }
+    M opBinary(string op: "/")(M r) { return M(l*r.inv.i); }
     /**
      ** a*=r^{-1} を計算します. r は a と同じタイプです.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    ref M opOpAssign(Op op: "/")(M r) { i=nm(l*r.inv.i); return this; }
+    ref M opOpAssign(string op: "/")(M r) { i = nm(l*r.inv.i); return this; }
 
     /**
-     ** a*r^{-1} を返します. r は int です.
+     ** a*r^{-1} を返します. r は Integral です.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    pure M opBinary(Op op: "/")(int r) { return opBinary!op(M(r)); }
+    M opBinary(string op: "/", T)(T r) if (isIntegral!T) { return opBinary!op(M(r)); }
     /**
-     ** a*=r^{-1} を計算します. r は int です.
+     ** a*=r^{-1} を計算します. r は Integral です.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    ref M opOpAssign(Op op: "/")(int r) { return opOpAssign!op(M(r)); }
+    M opOpAssign(string op: "/", T)(T r) if (isIntegral!T) { return opOpAssign!op(M(r)); }
 
     /**
      ** 自身の逆数を計算します.
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    pure M inv() { int x = i, a, b; extGcd(x, m, a, b); return M(a); }
+    M inv() { int x = i, a, b; extGcd(x, m, a, b); return M(a); }
   }
 
   private
   {
-    pure int nm(int v) { static if (pos) return v%m; else return (v%m+m)%m; }
-    pure int nm(long v) { static if (pos) return cast(int)(v%m); else return cast(int)((v%m+m)%m); }
+    import std.traits;
+    alias M = ModInt!(m, pos);
+    version(BigEndian) union { long l; struct { int i2; int i; } } else union { long l; int i; }
+    int nm(T)(T v) if (isIntegral!T)
+    { static if (pos) return cast(int)(v%m); else return cast(int)((v%m+m)%m); }
   }
 }
 // ::::::::::::::::::::

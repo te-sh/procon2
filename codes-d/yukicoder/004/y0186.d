@@ -26,6 +26,8 @@ auto calc(T)(ref T X1, ref T Y1, T X2, T Y2)
   return true;
 }
 
+import lib.math.misc;
+
 import lib.math.gmp_int;
 
 auto io = IO!()();
