@@ -12,72 +12,76 @@ template Region(alias h, alias w)
    **/
   struct Pos
   {
-    /**
-     ** 行, 列の値です.
-     **/
-    int r, c;
-    /**
-     ** 行 r, 列 c の位置を作成します.
-     **/
-    pure this(int r, int c) { this.r = r; this.c = c; }
-    /**
-     ** 位置が領域内かどうかを返します.
-     **/
-    pure bool inRegion() { return 0 <= r && r < h && 0 <= c && c < w; }
-    /**
-     ** 1次元で考えたときのインデックスを返します.
-     **/
-    pure int p2i() { return cast(int)w*r+c; }
-
-    /**
-     ** p, q をベクトルとして, p+q, p-q を返します.
-     **/
-    pure Pos opBinary(string op)(Pos q) if (op=="+"||op=="-")
-    { return mixin("Pos(r"~op~"q.r, c"~op~"q.c)"); }
-    /**
-     ** p, q をベクトルとして, p+=q, p-=q を計算します.
-     **/
-    Pos opOpAssign(string op)(Pos q) if (op=="+"||op=="-")
-    { mixin("r"~op~"=q.r; c"~op~"=q.c;"); return this; }
-    /**
-     ** p をベクトルとして, p*a, p/a を返します. r は数値です.
-     **/
-    pure Pos opBinary(string op, U)(U a) if (op=="*"||op=="/")
-    { return mixin("Pos(r"~op~"a, c"~op~"a)"); }
-    /**
-     ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
-     **/
-    Pos opOpAssign(string op, U)(U a) if (op=="*"||op=="/")
-    { mixin("r"~op~"=a; c"~op~"=a;"); return this; }
-    /**
-     ** p, q をベクトルとして, p と q の内積を返します.
-     **/
-    pure int opBinary(string op: "*")(Pos q)
-    { return r*q.r+c*q.c; }
-
-    /**
-     ** 周囲4方向の位置のうち, 領域内にある位置を列挙して Range で返します.
-     **/
-    pure auto around4()
+    pure nothrow @nogc @safe
     {
-      return [Pos(r-1, c), Pos(r, c+1), Pos(r+1, c), Pos(r, c-1)]
-        .filter!(p => p.inRegion);
+      /**
+       ** 行, 列の値です.
+       **/
+      int r, c;
+      /**
+       ** 行 r, 列 c の位置を作成します.
+       **/
+      this(int r, int c) { this.r = r; this.c = c; }
+      /**
+       ** 位置が領域内かどうかを返します.
+       **/
+      bool inRegion() { return 0 <= r && r < h && 0 <= c && c < w; }
+      /**
+       ** 1次元で考えたときのインデックスを返します.
+       **/
+      int p2i() { return cast(int)w*r+c; }
+
+      /**
+       ** p, q をベクトルとして, p+q, p-q を返します.
+       **/
+      Pos opBinary(string op)(Pos q) if (op=="+"||op=="-")
+      { return mixin("Pos(r"~op~"q.r, c"~op~"q.c)"); }
+      /**
+       ** p, q をベクトルとして, p+=q, p-=q を計算します.
+       **/
+      Pos opOpAssign(string op)(Pos q) if (op=="+"||op=="-")
+      { mixin("r"~op~"=q.r; c"~op~"=q.c;"); return this; }
+      /**
+       ** p をベクトルとして, p*a, p/a を返します. r は数値です.
+       **/
+      Pos opBinary(string op, U)(U a) if (op=="*"||op=="/")
+      { return mixin("Pos(r"~op~"a, c"~op~"a)"); }
+      /**
+       ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
+       **/
+      Pos opOpAssign(string op, U)(U a) if (op=="*"||op=="/")
+      { mixin("r"~op~"=a; c"~op~"=a;"); return this; }
+      /**
+       ** p, q をベクトルとして, p と q の内積を返します.
+       **/
+      int opBinary(string op: "*")(Pos q) { return r*q.r+c*q.c; }
     }
-    /**
-     ** 周囲8方向の位置のうち, 領域内にある位置を列挙して Range で返します.
-     **/
-    pure auto around8()
+    pure nothrow @safe
     {
-      return [Pos(r-1, c), Pos(r-1, c+1), Pos(r, c+1), Pos(r+1, c+1),
-              Pos(r+1, c), Pos(r+1, c-1), Pos(r, c-1), Pos(r-1, c-1)]
-        .filter!(p => p.inRegion);
+      /**
+       ** 周囲4方向の位置のうち, 領域内にある位置を列挙して Range で返します.
+       **/
+      auto around4()
+      {
+        return [Pos(r-1, c), Pos(r, c+1), Pos(r+1, c), Pos(r, c-1)]
+          .filter!(p => p.inRegion);
+      }
+      /**
+       ** 周囲8方向の位置のうち, 領域内にある位置を列挙して Range で返します.
+       **/
+      auto around8()
+      {
+        return [Pos(r-1, c), Pos(r-1, c+1), Pos(r, c+1), Pos(r+1, c+1),
+                Pos(r+1, c), Pos(r+1, c-1), Pos(r, c-1), Pos(r-1, c-1)]
+          .filter!(p => p.inRegion);
+      }
     }
   }
 
   /**
    ** すべての位置を列挙して Range で返します.
    **/
-  auto allPos() { return AllPosRange(); }
+  pure nothrow @safe auto allPos() { return AllPosRange(); }
 
   private struct AllPosRange
   {
@@ -96,56 +100,61 @@ template Region(alias h, alias w)
      ** グリッドの要素を保持する配列です.
      **/
     T[][] data;
-    /**
-     ** data を元にしたグリッドを返します.
-     **/
-    pure this(T[][] data) { this.data = data; }
+
     /**
      ** コピーを返します.
      **/
-    pure Grid!T dup() { return Grid!T(data.map!"a.dup".array); }
+    pure nothrow @safe Grid!T dup() { return Grid!T(data.map!"a.dup".array); }
 
-    /**
-     ** 位置 (r, c) の要素を返します.
-     **/
-    pure T opIndex(size_t r, size_t c) { return data[r][c]; }
-    /**
-     ** 位置 p の要素を返します.
-     **/
-    pure T opIndex(Pos p) { return data[p.r][p.c]; }
-    /**
-     ** 位置 (r, c) の要素を v に変更します.
-     **/
-    Grid!T opIndexAssign(T v, size_t r, size_t c) { data[r][c] = v; return this; }
-    /**
-     ** 位置 p の要素を v に変更します.
-     **/
-    Grid!T opIndexAssign(T v, Pos p) { data[p.r][p.c] = v; return this; }
-    /**
-     ** 位置 (r, c) の値を演算子 op を値 v で適用したしたものに変更します.
-     **/
-    Grid!T opIndexOpAssign(string op)(T v, size_t r, size_t c)
-    { mixin("data[r][c]"~op~"=v;"); return this; }
-    /**
-     ** 位置 p の値を演算子 op を値 v でを適用したしたものに変更します.
-     **/
-    Grid!T opIndexOpAssign(string op)(T v, Pos p)
-    { mixin("data[p.r][p.c]"~op~"=v;"); return this; }
-    /**
-     ** 位置 (r, c) の値を 1 だけ加算/減算します.
-     **/
-    Grid!T opIndexUnary(string op)(size_t r, size_t c) if (op=="++"||op=="--")
+    pure nothrow @nogc @safe
+    {
+      /**
+       ** data を元にしたグリッドを返します.
+       **/
+      this(T[][] data) { this.data = data; }
+
+      /**
+       ** 位置 (r, c) の要素を返します.
+       **/
+      T opIndex(size_t r, size_t c) { return data[r][c]; }
+      /**
+       ** 位置 p の要素を返します.
+       **/
+      T opIndex(Pos p) { return data[p.r][p.c]; }
+      /**
+       ** 位置 (r, c) の要素を v に変更します.
+       **/
+      Grid!T opIndexAssign(T v, size_t r, size_t c) { data[r][c] = v; return this; }
+      /**
+       ** 位置 p の要素を v に変更します.
+       **/
+      Grid!T opIndexAssign(T v, Pos p) { data[p.r][p.c] = v; return this; }
+      /**
+       ** 位置 (r, c) の値を演算子 op を値 v で適用したしたものに変更します.
+       **/
+      Grid!T opIndexOpAssign(string op)(T v, size_t r, size_t c)
+      { mixin("data[r][c]"~op~"=v;"); return this; }
+      /**
+       ** 位置 p の値を演算子 op を値 v でを適用したしたものに変更します.
+       **/
+      Grid!T opIndexOpAssign(string op)(T v, Pos p)
+      { mixin("data[p.r][p.c]"~op~"=v;"); return this; }
+      /**
+       ** 位置 (r, c) の値を 1 だけ加算/減算します.
+       **/
+      Grid!T opIndexUnary(string op)(size_t r, size_t c) if (op=="++"||op=="--")
       { mixin(op~"data[r][c];"); return this; }
-    /**
-     ** 位置 p の値を 1 だけ加算/減算します.
-     **/
-    Grid!T opIndexUnary(string op)(Pos p) if (op=="++"||op=="--")
+      /**
+       ** 位置 p の値を 1 だけ加算/減算します.
+       **/
+      Grid!T opIndexUnary(string op)(Pos p) if (op=="++"||op=="--")
       { mixin(op~"data[p.r][p.c];"); return this; }
+    }
   }
   /**
    ** 型 T のグリッドを返します.
    **/
-  pure Grid!T grid(T)(T[][] data = new T[][](h, w)) { return Grid!T(data); }
+  pure nothrow @safe Grid!T grid(T)(T[][] data = new T[][](h, w)) { return Grid!T(data); }
 }
 // ::::::::::::::::::::
 

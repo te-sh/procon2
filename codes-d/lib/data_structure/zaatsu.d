@@ -15,37 +15,40 @@ struct Zaatsu(T)
   /**
    ** v を元にした座標圧縮の元データを保持するオブジェクトを返します.
    **/
-  this(U...)(U v)
+  pure nothrow @safe
   {
-    T[] d;
-    foreach (w; v) d ~= w.array;
-    auto u = d.sort.uniq;
-    n = u.walkLength;
-    c2 = new T[](n);
+    this(U...)(U v)
+    {
+      T[] d;
+      foreach (w; v) d ~= w.array;
+      auto u = d.sort.uniq;
+      n = u.walkLength;
+      c2 = new T[](n);
 
-    foreach (i, ui; u.enumerate(0)) {
-      c1[ui] = i;
-      c2[i] = ui;
+      foreach (i, ui; u.enumerate(0)) {
+        c1[ui] = i;
+        c2[i] = ui;
+      }
     }
+
+    /**
+     ** 1つの値 v を座標圧縮した値を返します.
+     **/
+    int comp(T v) { return c1[v]; }
+    /**
+     ** Range v の各値を座標圧縮した Range を返します.
+     **/
+    auto comp(R)(R v) if (isInputRange!R) { return v.map!(w => c1[w]); }
+
+    /**
+     ** 座標圧縮された1つの値 v を元に戻した値を返します.
+     **/
+    T uncomp(int v) { return c2[v]; }
+    /**
+     ** 座標圧縮された Range v の各値を元に戻した Range を返します.
+     **/
+    auto uncomp(R)(R v) if (isInputRange!R) { return v.map!(w => c2[w]); }
   }
-
-  /**
-   ** 1つの値 v を座標圧縮した値を返します.
-   **/
-  int comp(T v) { return c1[v]; }
-  /**
-   ** Range v の各値を座標圧縮した Range を返します.
-   **/
-  auto comp(R)(R v) if (isInputRange!R) { return v.map!(w => c1[w]); }
-
-  /**
-   ** 座標圧縮された1つの値 v を元に戻した値を返します.
-   **/
-  T uncomp(int v) { return c2[v]; }
-  /**
-   ** 座標圧縮された Range v の各値を元に戻した Range を返します.
-   **/
-  auto uncomp(R)(R v) if (isInputRange!R) { return v.map!(w => c2[w]); }
 
   private
   {

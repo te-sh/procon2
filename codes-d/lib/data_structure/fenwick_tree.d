@@ -15,38 +15,41 @@ class FenwickTree(T)
   /**
    ** 要素数が n の Fenwick Tree を返します.
    **/
-  this(size_t n) { this.n = n; this.buf = new T[](n+1); }
+  pure nothrow @safe this(size_t n) { this.n = n; this.buf = new T[](n+1); }
 
-  /**
-   ** インデックス i の値を値 val だけ加算/減算します.
-   **/
-  void opIndexOpAssign(string op)(T val, size_t i) if (op=="+"||op=="-")
-  { ++i; for (; i <= n; i += i&-i) mixin("buf[i]"~op~"=val;"); }
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** インデックス i の値を値 val だけ加算/減算します.
+     **/
+    void opIndexOpAssign(string op)(T val, size_t i) if (op=="+"||op=="-")
+    { ++i; for (; i <= n; i += i&-i) mixin("buf[i]"~op~"=val;"); }
 
-  /**
-   ** インデックス i の値を 1 だけ加算/減算します.
-   **/
-  void opIndexUnary(string op)(size_t i) if (op=="++"||op=="--")
-  { ++i; for (; i <= n; i += i&-i) mixin(op~"buf[i];"); }
+    /**
+     ** インデックス i の値を 1 だけ加算/減算します.
+     **/
+    void opIndexUnary(string op)(size_t i) if (op=="++"||op=="--")
+    { ++i; for (; i <= n; i += i&-i) mixin(op~"buf[i];"); }
 
-  /**
-   ** インデックス i の値を返します.
-   **/
-  pure T opIndex(size_t i) { return opSlice(i, i+1); }
-  /**
-   ** 区間 [l, r) の和を返します.
-   **/
-  pure T opSlice(size_t r, size_t l) { return get(l) - get(r); }
-  /**
-   ** 要素数を返します.
-   **/
-  pure size_t opDollar() { return n; }
+    /**
+     ** インデックス i の値を返します.
+     **/
+    T opIndex(size_t i) { return opSlice(i, i+1); }
+    /**
+     ** 区間 [l, r) の和を返します.
+     **/
+    T opSlice(size_t r, size_t l) { return get(l) - get(r); }
+    /**
+     ** 要素数を返します.
+     **/
+    size_t opDollar() { return n; }
+  }
 
   private
   {
     T[] buf;
 
-    pure T get(size_t i)
+    pure nothrow @nogc @safe T get(size_t i)
     {
       auto s = T(0);
       for (; i > 0; i -= i & -i) s += buf[i];
@@ -57,7 +60,7 @@ class FenwickTree(T)
 /**
  ** 要素数が n の Fenwick Tree を返します.
  **/
-FenwickTree!T fenwickTree(T)(size_t n) { return new FenwickTree!T(n); }
+pure nothrow @safe FenwickTree!T fenwickTree(T)(size_t n) { return new FenwickTree!T(n); }
 // ::::::::::::::::::::
 
 unittest

@@ -19,7 +19,7 @@ class CumulativeSum(T)
   /**
    ** 配列 a の累積和の計算結果を保持する構造体を返します.
    **/
-  this(T[] a)
+  pure nothrow @safe this(T[] a)
   {
     n = a.length;
     s = new T[](n+1);
@@ -27,19 +27,22 @@ class CumulativeSum(T)
     foreach (i; 0..n) s[i+1] = s[i]+a[i];
   }
 
-  /**
-   ** 配列の区間 [l, r) の和を返します.
-   **/
-  pure T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
-  /**
-   ** 配列の要素数を返します.
-   **/
-  pure size_t opDollar() { return n; }
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** 配列の区間 [l, r) の和を返します.
+     **/
+    T opSlice(size_t l, size_t r) { return s[r]-s[l]; }
+    /**
+     ** 配列の要素数を返します.
+     **/
+    size_t opDollar() { return n; }
+  }
 }
 /**
  ** 配列 a の累積和の計算結果を保持する構造体を返します.
  **/
-CumulativeSum!T cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
+pure nothrow @safe CumulativeSum!T cumulativeSum(T)(T[] a) { return new CumulativeSum!T(a); }
 // ::::::::::::::::::::
 
 unittest

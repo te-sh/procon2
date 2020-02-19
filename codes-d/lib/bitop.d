@@ -4,35 +4,45 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.bitop
 pragma(inline)
 {
-  import core.bitop;
-  /**
-   ** n の i ビット目が 1 かどうかを返します.
-   **/
-  pure bool bitTest(T)(T n, size_t i) { return (n & (T(1) << i)) != 0; }
-  /**
-   ** n の i ビット目を 1 にした結果の数値を返します.
-   **/
-  pure T bitSet(T)(T n, size_t i) { return n | (T(1) << i); }
-  /**
-   ** n の i ビット目を 0 にした結果の数値を返します.
-   **/
-  pure T bitReset(T)(T n, size_t i) { return n & ~(T(1) << i); }
-  /**
-   ** n の i ビット目を反転させた結果の数値を返します.
-   **/
-  pure T bitComp(T)(T n, size_t i) { return n ^ (T(1) << i); }
-  /**
-   ** n の最初に 1 になっているビットを返します.
-   **/
-  pure int bsf(T)(T n) { return core.bitop.bsf(ulong(n)); }
-  /**
-   ** n の最後に 1 になっているビットを返します.
-   **/
-  pure int bsr(T)(T n) { return core.bitop.bsr(ulong(n)); }
-  /**
-   ** n の 1 になっているビットの数を返します.
-   **/
-  pure int popcnt(T)(T n) { return core.bitop.popcnt(ulong(n)); }
+  import core.bitop : _bsf = bsf, _bsr = bsr, _popcnt = popcnt;
+  import std.traits;
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** n の i ビット目が 1 かどうかを返します.
+     **/
+    bool bitTest(T)(T n, size_t i) if (isIntegral!T) { return (n & (T(1) << i)) != 0; }
+    /**
+     ** n の i ビット目を 1 にした結果の数値を返します.
+     **/
+    T bitSet(T)(T n, size_t i) if (isIntegral!T) { return n | (T(1) << i); }
+    /**
+     ** n の i ビット目を 0 にした結果の数値を返します.
+     **/
+    T bitReset(T)(T n, size_t i) if (isIntegral!T) { return n & ~(T(1) << i); }
+    /**
+     ** n の i ビット目を反転させた結果の数値を返します.
+     **/
+    T bitComp(T)(T n, size_t i) if (isIntegral!T) { return n ^ (T(1) << i); }
+    /**
+     ** n の最初に 1 になっているビットを返します.
+     **/
+    int bsf(T)(T n) if (is(T == int) || is(T == uint)) { return _bsf(cast(uint)(n)); }
+    /// ditto
+    int bsf(T)(T n) if (is(T == long) || is(T == ulong)) { return _bsf(cast(ulong)(n)); }
+    /**
+     ** n の最後に 1 になっているビットを返します.
+     **/
+    int bsr(T)(T n) if (is(T == int) || is(T == uint)) { return _bsr(cast(uint)n); }
+    /// ditto
+    int bsr(T)(T n) if (is(T == long) || is(T == ulong)) { return _bsr(cast(ulong)n); }
+    /**
+     ** n の 1 になっているビットの数を返します.
+     **/
+    int popcnt(T)(T n) if (is(T == int) || is(T == uint)) { return _popcnt(cast(uint)n); }
+    /// ditto
+    int popcnt(T)(T n) if (is(T == long) || is(T == ulong)) { return _popcnt(cast(ulong)n); }
+  }
 }
 
 struct BitSubsetRange(bool includeZero = false, T)
@@ -68,8 +78,11 @@ unittest
   assert(bitComp(4, 1) == 6);
   assert(bitComp(6, 1) == 4);
   assert(bsf(6) == 1);
+  assert(bsf(6L) == 1);
   assert(bsr(6) == 2);
+  assert(bsr(6L) == 2);
   assert(popcnt(6) == 2);
+  assert(popcnt(6L) == 2);
 
   assert(equal(bitSubset(11), [11, 10, 9, 8, 3, 2, 1]));
   assert(equal(bitSubset!true(11), [11, 10, 9, 8, 3, 2, 1, 0]));

@@ -15,7 +15,7 @@ class UnionFind
   /**
    ** n 頂点のグラフの連結を管理する構造体を返します.
    **/
-  this(int n)
+  pure nothrow @safe this(int n)
   {
     this.n = this.s = n;
     p = new int[](n); p[] = s;
@@ -23,39 +23,43 @@ class UnionFind
     cn = new size_t[](n); cn[] = 1;
   }
 
-  /**
-   ** 頂点 u と頂点 v を連結します.
-   **/
-  bool unite(int u, int v)
+  pure nothrow @nogc @safe
   {
-    auto pu = subst(u), pv = subst(v);
-    if (pu != pv) {
-      p[pv] = pu;
-      --cf;
-      cn[pu] += cn[pv];
-      return true;
-    } else {
-      return false;
+    /**
+     ** 頂点 u と頂点 v を連結します.
+     **/
+    bool unite(int u, int v) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    {
+      auto pu = subst(u), pv = subst(v);
+      if (pu != pv) {
+        p[pv] = pu;
+        --cf;
+        cn[pu] += cn[pv];
+        return true;
+      } else {
+        return false;
+      }
     }
-  }
 
-  /**
-   ** 頂点 u と頂点 v が同じ連結部分にあるかどうかを返します.
-   **/
-  bool isSame(int u, int v) { return subst(u) == subst(v); }
-  /**
-   ** グラフの連結部分の数を返します.
-   **/
-  size_t countForests() { return cf; }
-  /**
-   ** 頂点 u を含む連結部分に含まれる頂点の数を返します.
-   **/
-  size_t countNodes(int u) { return cn[subst(u)]; }
+    /**
+     ** 頂点 u と頂点 v が同じ連結部分にあるかどうかを返します.
+     **/
+    bool isSame(int u, int v) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    { return subst(u) == subst(v); }
+    /**
+     ** グラフの連結部分の数を返します.
+     **/
+    size_t countForests() { return cf; }
+    /**
+     ** 頂点 u を含む連結部分に含まれる頂点の数を返します.
+     **/
+    size_t countNodes(int u) { return cn[subst(u)]; }
+  }
 
   /**
    ** 連結部分ごとの頂点を配列にしたものを列挙して Range で返します.
    **/
-  auto groups()
+  pure nothrow @safe auto groups()
   {
     auto g = new int[][](n);
     foreach (i; 0..n) g[subst(i)] ~= i;
@@ -64,15 +68,12 @@ class UnionFind
 
   private
   {
-    int[] p;
-    int s;
-    size_t cf;
-    size_t[] cn;
-
-    int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
+    int[] p; int s;
+    size_t cf; size_t[] cn;
+    pure nothrow @nogc @safe int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
   }
 }
-UnionFind unionFind(int n) { return new UnionFind(n); }
+pure nothrow @safe UnionFind unionFind(int n) { return new UnionFind(n); }
 // ::::::::::::::::::::
 
 unittest
