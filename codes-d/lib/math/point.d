@@ -1,5 +1,6 @@
 module lib.math.point;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.point
 /**
@@ -7,8 +8,6 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
  **/
 struct Point2(T)
 {
-  import std.traits;
-
   /**
    ** x 座標, y 座標の値です.
    **/
@@ -91,8 +90,6 @@ pure nothrow @nogc @safe
  **/
 struct Point3(T)
 {
-  import std.traits;
-
   /**
    ** x 座標, y 座標, z 座標の値です.
    **/

@@ -1,5 +1,6 @@
 module lib.math.matrix;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.matrix
 import lib.math.misc;
@@ -9,7 +10,6 @@ import lib.math.misc;
  **/
 struct Vector(T)
 {
-  import std.traits;
   /**
    ** ベクトルの次元です.
    **/
@@ -160,7 +160,6 @@ pure nothrow @safe
  **/
 struct Matrix(T)
 {
-  import std.traits;
   /**
    ** r は行列の行数, c は行列の列数です.
    **/

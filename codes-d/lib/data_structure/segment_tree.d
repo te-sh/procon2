@@ -1,5 +1,6 @@
 module lib.data_structure.segment_tree;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.data_structure.segment_tree
 /**
@@ -8,7 +9,6 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
  **/
 class SegmentTree(alias pred = "a+b", T)
 {
-  import std.functional;
   alias predFun = binaryFun!pred;
   /**
    ** 要素数です.

@@ -1,5 +1,6 @@
 module lib.math.frac;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.frac
 /**
@@ -7,7 +8,8 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
  **/
 struct Frac(T)
 {
-  import std.numeric;
+  import std.numeric: gcd;
+
   /**
    ** a は分子, b は分母です.
    **/

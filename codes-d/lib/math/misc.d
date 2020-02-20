@@ -1,5 +1,6 @@
 module lib.math.misc;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.misc
 import lib.bound_by;
@@ -49,7 +50,6 @@ pure nothrow @safe
    **/
   T powr(alias pred = "a*b", T, U)(T a, U n, T one)
   {
-    import std.functional;
     alias predFun = binaryFun!pred;
     if (n == 0) return one;
     auto r = one;

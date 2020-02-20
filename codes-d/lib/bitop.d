@@ -1,11 +1,11 @@
 module lib.bitop;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.bitop
 pragma(inline)
 {
   import core.bitop : _bsf = bsf, _bsr = bsr, _popcnt = popcnt;
-  import std.traits;
   pure nothrow @nogc @safe
   {
     /**

@@ -1,5 +1,6 @@
 module lib.math.mod_int;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.mod_int
 import lib.math.misc;
@@ -209,7 +210,6 @@ struct ModInt(int m, bool pos = false)
 
   private
   {
-    import std.traits;
     alias Mint = ModInt!(m, pos);
     version(BigEndian) union { long l; struct { int i2; int i; } }
     else union { long l; int i; }
@@ -229,7 +229,6 @@ struct ModInt(int m, bool pos = false)
 
 unittest
 {
-  import std.conv;
   alias mint = ModInt!7;
 
   assert(mint.init == 0);

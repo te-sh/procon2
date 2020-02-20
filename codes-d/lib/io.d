@@ -1,5 +1,6 @@
 module lib.io;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.io
 import std.stdio;
@@ -9,7 +10,7 @@ import std.stdio;
  **/
 struct IO(alias IN = stdin, alias OUT = stdout)
 {
-  import std.conv, std.format, std.meta, std.traits, core.stdc.stdlib;
+  import std.meta, core.stdc.stdlib;
 
   /**
    ** v に入力からの値をセットします.
@@ -156,8 +157,6 @@ struct IO(alias IN = stdin, alias OUT = stdout)
 
 unittest
 {
-  import std.conv;
-
   class DummyIn
   {
     string buf;

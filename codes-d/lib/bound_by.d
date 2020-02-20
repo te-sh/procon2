@@ -1,5 +1,6 @@
 module lib.bound_by;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.bound_by
 pure nothrow @nogc @safe
@@ -28,7 +29,6 @@ pure nothrow @nogc @safe
    **/
   auto sortedTuple(alias conv = "a", alias comp = "a<b", R)(R a)
   {
-    import std.functional;
     alias convFun = unaryFun!conv, compFun = binaryFun!comp;
     return a.map!(e => tuple(e, convFun(e))).assumeSorted!((a, b) => compFun(a[1], b[1]));
   }

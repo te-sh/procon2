@@ -1,5 +1,6 @@
 module lib.math.prime;
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.prime
 import lib.math.misc;
@@ -9,7 +10,6 @@ import lib.math.misc;
  **/
 struct Prime
 {
-  import std.bitmanip, std.traits;
   /**
    ** 素因数 prime とベキ指数 exp を表します.
    **/
