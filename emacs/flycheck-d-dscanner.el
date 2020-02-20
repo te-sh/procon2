@@ -35,7 +35,7 @@ See URL `https://github.com/Hackerpilot/Dscanner/'."
   "Set up for flycheck D dscanner checkers."
   (add-to-list 'flycheck-checkers 'd-dscanner-syntax 'append)
   (add-to-list 'flycheck-checkers 'd-dscanner-style 'append)
-  (flycheck-add-next-checker 'd-dmd '(warning . d-dscanner-style)))
+  (flycheck-add-next-checker 'd-dmd-unittest '(warning . d-dscanner-style)))
 
 (provide 'flycheck-d-dscanner)
 ;;; flycheck-d-dscanner.el ends here

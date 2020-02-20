@@ -47,7 +47,7 @@ class SparseTable(alias pred = min, T)
     /**
      ** 区間 [l, r) の合成値を返します.
      **/
-    T opSlice(size_t l, size_t r)
+    T opSlice(size_t l, size_t r) const
       in { assert(0 <= l && l <= r && r <= n); }
     do
     {
@@ -60,7 +60,7 @@ class SparseTable(alias pred = min, T)
     /**
      ** 要素数を返します.
      **/
-    size_t opDollar()
+    size_t opDollar() const
     {
       return n;
     }

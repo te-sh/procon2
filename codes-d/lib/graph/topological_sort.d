@@ -55,7 +55,7 @@ struct TopologicalSort(Graph)
     /**
      ** グラフに閉路があるかどうかを返します.
      **/
-    bool hasCycle()
+    bool hasCycle() const
     {
       return nodes.length != n;
     }

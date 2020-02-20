@@ -231,7 +231,7 @@ struct Matrix(T)
     /**
      ** 自身と b の要素がすべて一致するかどうかを返します. b は行列です.
      **/
-    bool opEquals(Matrix!T b)
+    bool opEquals(Matrix!T b) const
     {
       return r == b.r && c == b.c && zip(a, b.a).all!"a[0]==a[1]";
     }
@@ -409,7 +409,7 @@ unittest
 unittest
 {
   auto u = Matrix!int.unit(2);
-  assert(matrix([[1, 0], [0, 1]]));
+  assert(u == matrix([[1, 0], [0, 1]]));
 
   auto a = Matrix!int(2, 2);
   a[0] = [1, -1]; a[1] = [-2, 3];

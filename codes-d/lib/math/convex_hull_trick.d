@@ -28,7 +28,7 @@ struct ConvexHullTrick(T, alias comp = "a>=b")
      **/
     T query(T x)
     {
-      ptrdiff_t low = -1, high = lines.length-1;
+      ptrdiff_t low = -1, high = cast(ptrdiff_t)lines.length-1;
       while (high-low > 1) {
         auto mid = (high+low)/2;
         (compFun(lines[mid].f(x), lines[mid+1].f(x)) ? low : high) = mid;
@@ -44,7 +44,7 @@ struct ConvexHullTrick(T, alias comp = "a>=b")
     struct Line
     {
       T a, b;
-      auto opCmp(Line r)
+      auto opCmp(Line r) const
       {
         if (a < r.a) return -1;
         else if (a > r.a) return 1;

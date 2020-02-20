@@ -18,7 +18,7 @@ struct Point2(T)
     /**
      ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
      **/
-    Point2!T opBinary(string op)(Point2!T r)
+    Point2!T opBinary(string op)(Point2!T r) const
       if (op == "+" || op == "-")
     {
       return mixin("Point2(x"~op~"r.x, y"~op~"r.y)");
@@ -35,7 +35,7 @@ struct Point2(T)
     /**
      ** p をベクトルとして, p*a, p/a を返します. r は数値です.
      **/
-    Point2!T opBinary(string op, U)(U a)
+    Point2!T opBinary(string op, U)(U a) const
       if ((op == "*" || op == "/") && isIntegral!U)
     {
       return mixin("Point2(x"~op~"a, y"~op~"a)");
@@ -52,14 +52,14 @@ struct Point2(T)
     /**
      ** p, r をベクトルとして, p と r の内積を返します.
      **/
-    T opBinary(string op: "*")(Point2!T r)
+    T opBinary(string op: "*")(Point2!T r) const
     {
       return x*r.x+y*r.y;
     }
     /**
      ** p をベクトルとして, p とそれ自身の内積を返します.
      **/
-    T hypot2()
+    T hypot2() const
     {
       return x^^2+y^^2;
     }
@@ -100,7 +100,7 @@ struct Point3(T)
     /**
      ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
      **/
-    Point3!T opBinary(string op)(Point3!T r)
+    Point3!T opBinary(string op)(Point3!T r) const
       if (op == "+" || op == "-")
     {
       return mixin("Point3!T(x"~op~"r.x, y"~op~"r.y, z"~op~"r.z)");
@@ -117,7 +117,7 @@ struct Point3(T)
     /**
      ** p をベクトルとして, p*a, p/a を返します. r は数値です.
      **/
-    Point3!T opBinary(string op, U)(U a)
+    Point3!T opBinary(string op, U)(U a) const
       if ((op == "*" || op == "/") && isIntegral!U)
     {
       return mixin("Point3!T(x"~op~"a, y"~op~"a, z"~op~"a)");
@@ -134,14 +134,14 @@ struct Point3(T)
     /**
      ** p, r をベクトルとして, p と r の内積を返します.
      **/
-    T opBinary(string o: "*")(Point3!T r)
+    T opBinary(string o: "*")(Point3!T r) const
     {
       return x*r.x+y*r.y+z*r.z;
     }
     /**
      ** p をベクトルとして, p とそれ自身の内積を返します.
      **/
-    T hypot2()
+    T hypot2() const
     {
       return x^^2+y^^2+z^^2;
     }

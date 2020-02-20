@@ -36,7 +36,7 @@ class CumulativeSum(T)
     /**
      ** 配列の区間 [l, r) の和を返します.
      **/
-    T opSlice(size_t l, size_t r)
+    T opSlice(size_t l, size_t r) const
       in { assert(0 <= l && l <= r && r <= n); }
     do
     {
@@ -45,7 +45,7 @@ class CumulativeSum(T)
     /**
      ** 配列の要素数を返します.
      **/
-    size_t opDollar()
+    size_t opDollar() const
     {
       return n;
     }

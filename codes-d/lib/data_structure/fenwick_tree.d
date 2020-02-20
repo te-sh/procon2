@@ -54,7 +54,7 @@ class FenwickTree(T)
     /**
      ** インデックス i の値を返します.
      **/
-    T opIndex(size_t i)
+    T opIndex(size_t i) const
       in { assert(0 <= i && i < n); }
     do
     {
@@ -63,7 +63,7 @@ class FenwickTree(T)
     /**
      ** 区間 [l, r) の和を返します.
      **/
-    T opSlice(size_t l, size_t r)
+    T opSlice(size_t l, size_t r) const
       in { assert(0 <= l && l <= r && r <= n); }
     do
     {
@@ -72,7 +72,7 @@ class FenwickTree(T)
     /**
      ** 要素数を返します.
      **/
-    size_t opDollar()
+    size_t opDollar() const
     {
       return n;
     }
@@ -84,7 +84,7 @@ class FenwickTree(T)
 
     pure nothrow @nogc @safe
     {
-      T get(size_t i)
+      T get(size_t i) const
       {
         auto s = T(0);
         for (; i > 0; i -= i & -i) s += buf[i];

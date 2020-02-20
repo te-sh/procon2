@@ -12,7 +12,7 @@ void main()
   foreach (i, Si; S) uf.unite(cast(int)i, Si);
 
   auto groups = uf.groups, r = 0;
-  foreach (group; uf.groups) {
+  foreach (group; groups) {
     auto za = Zaatsu!int(group);
     auto g = Graph(cast(int)group.length);
     foreach (u; group)

@@ -10,7 +10,8 @@ import std.stdio;
  **/
 struct IO(alias IN = stdin, alias OUT = stdout)
 {
-  import std.meta, core.stdc.stdlib;
+  import std.meta : allSatisfy;
+  import core.stdc.stdlib : exit;
 
   /**
    ** v に入力からの値をセットします.
@@ -130,7 +131,7 @@ struct IO(alias IN = stdin, alias OUT = stdout)
     {
       foreach (i, w; v) {
         putOne!c(w);
-        if (i < v.length-1) OUT.write(c.delimiter);
+        if (i+1 < v.length) OUT.write(c.delimiter);
       }
       static if (c.newline) OUT.writeln;
       static if (c.flush) OUT.flush();
@@ -188,7 +189,7 @@ unittest
   int a; io.getV(a);
   assert(a == 45);
   long b; io.getV(b);
-  assert(b == 123456789012L);
+  assert(b == 123_456_789_012L);
   double c; io.getV(c);
   assert(approxEqual(c, 3.5));
   string d; io.getV(d);
@@ -204,7 +205,7 @@ unittest
   int[] g; io.getA(3, g);
   assert(equal(g, [2, 5, 6]));
   long[] h; io.getA(2, h);
-  assert(equal(h, [123456789012L, 9876543210L]));
+  assert(equal(h, [123_456_789_012L, 9_876_543_210L]));
 
   dummyIn.buf ~= "1.5\n2.7\n3.3\na 12 50\nb 11 2\n";
   double[] i; io.getC(3, i);

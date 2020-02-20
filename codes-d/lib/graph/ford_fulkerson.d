@@ -66,7 +66,7 @@ struct FordFulkerson(Graph)
 
     pure nothrow @safe
     {
-      EdgeR[][] withRev()
+      EdgeR[][] withRev() const
       {
         auto r = new EdgeR[][](n);
         foreach (gi; g)

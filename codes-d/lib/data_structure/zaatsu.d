@@ -35,14 +35,14 @@ struct Zaatsu(T)
     /**
      ** 1つの値 v を座標圧縮した値を返します.
      **/
-    int comp(T v)
+    int comp(T v) const
     {
       return c1[v];
     }
     /**
      ** Range v の各値を座標圧縮した Range を返します.
      **/
-    auto comp(R)(R v)
+    auto comp(R)(R v) const
       if (isInputRange!R)
     {
       return v.map!(w => c1[w]);
@@ -51,14 +51,14 @@ struct Zaatsu(T)
     /**
      ** 座標圧縮された1つの値 v を元に戻した値を返します.
      **/
-    T uncomp(int v)
+    T uncomp(int v) const
     {
       return c2[v];
     }
     /**
      ** 座標圧縮された Range v の各値を元に戻した Range を返します.
      **/
-    auto uncomp(R)(R v)
+    auto uncomp(R)(R v) const
       if (isInputRange!R)
     {
       return v.map!(w => c2[w]);

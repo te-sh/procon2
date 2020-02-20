@@ -11,9 +11,19 @@ import lib.math.misc;
 struct Prime
 {
   /**
-   ** 素因数 prime とベキ指数 exp を表します.
+   ** 素因数とベキ指数を表します.
    **/
-  struct Factor(T) { T prime; int exp; }
+  struct Factor(T)
+  {
+    /**
+     ** 素因数です.
+     **/
+    T prime;
+    /**
+     ** 素因数とベキ指数です.
+     **/
+    int exp;
+  }
 
   /**
    ** この構造体は n 以下の素数を保持します.
@@ -54,7 +64,7 @@ struct Prime
      ** x の素因数分解を行い, 結果を Factor の配列で返します.
      ** x は n^2 より小さい必要があります.
      **/
-    Factor!T[] div(T)(T x)
+    Factor!T[] div(T)(T x) const
       if (isIntegral!T)
       in { assert(x > 0 && x.isqrt <= n); }
     do
@@ -76,7 +86,7 @@ struct Prime
      ** x の約数の配列を返します.
      ** x は n^2 より小さい必要があります.
      **/
-    T[] divisors(T)(T x)
+    T[] divisors(T)(T x) const
       if (isIntegral!T)
       in { assert(x > 0 && x.isqrt <= n); }
     do
@@ -94,7 +104,7 @@ struct Prime
 
     pure nothrow @safe
     {
-      T[] divisorsProc(T)(Factor!T[] factors, int i, T c)
+      T[] divisorsProc(T)(Factor!T[] factors, int i, T c) const
       {
         if (i == factors.length) return [c];
         T[] r;

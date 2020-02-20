@@ -224,8 +224,8 @@ struct GmpInt
 
   private
   {
-    import std.stdio: File;
-    private __mpz_struct z;
+    import std.stdio : File;
+    __mpz_struct z;
   }
 }
 
@@ -244,7 +244,7 @@ extern(C) pragma(inline, false)
   alias mpz_srcptr = const(__mpz_struct)*;
   alias mpz_ptr = __mpz_struct*;
 
-  pure @trusted
+  pure @safe
   {
     void __gmpz_init(mpz_ptr);
     void __gmpz_clear(mpz_ptr);

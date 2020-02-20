@@ -22,40 +22,66 @@ template Region(alias h, alias w)
       /**
        ** 行 r, 列 c の位置を作成します.
        **/
-      this(int r, int c) { this.r = r; this.c = c; }
+      this(int r, int c)
+      {
+        this.r = r; this.c = c;
+      }
       /**
        ** 位置が領域内かどうかを返します.
        **/
-      bool inRegion() { return 0 <= r && r < h && 0 <= c && c < w; }
+      bool inRegion() const
+      {
+        return 0 <= r && r < h && 0 <= c && c < w;
+      }
       /**
        ** 1次元で考えたときのインデックスを返します.
        **/
-      int p2i() { return cast(int)w*r+c; }
+      int p2i() const
+      {
+        return cast(int)w*r+c;
+      }
 
       /**
        ** p, q をベクトルとして, p+q, p-q を返します.
        **/
-      Pos opBinary(string op)(Pos q) if (op=="+"||op=="-")
-      { return mixin("Pos(r"~op~"q.r, c"~op~"q.c)"); }
+      Pos opBinary(string op)(Pos q) const
+        if (op == "+" || op == "-")
+      {
+        return mixin("Pos(r"~op~"q.r, c"~op~"q.c)");
+      }
       /**
        ** p, q をベクトルとして, p+=q, p-=q を計算します.
        **/
-      Pos opOpAssign(string op)(Pos q) if (op=="+"||op=="-")
-      { mixin("r"~op~"=q.r; c"~op~"=q.c;"); return this; }
+      ref Pos opOpAssign(string op)(Pos q)
+        if (op == "+" || op == "-")
+      {
+        mixin("r"~op~"=q.r; c"~op~"=q.c;");
+        return this;
+      }
       /**
        ** p をベクトルとして, p*a, p/a を返します. r は数値です.
        **/
-      Pos opBinary(string op, U)(U a) if (op=="*"||op=="/")
-      { return mixin("Pos(r"~op~"a, c"~op~"a)"); }
+      Pos opBinary(string op, U)(U a) const
+        if ((op == "*" || op == "/") && isIntegral!U)
+      {
+        return mixin("Pos(r"~op~"a, c"~op~"a)");
+      }
       /**
        ** p をベクトルとして, p*=a, p/=a を計算します. r は数値です.
        **/
-      Pos opOpAssign(string op, U)(U a) if (op=="*"||op=="/")
-      { mixin("r"~op~"=a; c"~op~"=a;"); return this; }
+      ref Pos opOpAssign(string op, U)(U a)
+        if ((op == "*" || op == "/") && isIntegral!U)
+      {
+        mixin("r"~op~"=a; c"~op~"=a;");
+        return this;
+      }
       /**
        ** p, q をベクトルとして, p と q の内積を返します.
        **/
-      int opBinary(string op: "*")(Pos q) { return r*q.r+c*q.c; }
+      int opBinary(string op: "*")(Pos q) const
+      {
+        return r*q.r+c*q.c;
+      }
     }
 
     pure nothrow @safe
@@ -63,7 +89,7 @@ template Region(alias h, alias w)
       /**
        ** 周囲4方向の位置のうち, 領域内にある位置を列挙して Range で返します.
        **/
-      auto around4()
+      auto around4() const
       {
         return [Pos(r-1, c), Pos(r, c+1), Pos(r+1, c), Pos(r, c-1)]
           .filter!(p => p.inRegion);
@@ -71,7 +97,7 @@ template Region(alias h, alias w)
       /**
        ** 周囲8方向の位置のうち, 領域内にある位置を列挙して Range で返します.
        **/
-      auto around8()
+      auto around8() const
       {
         return [Pos(r-1, c), Pos(r-1, c+1), Pos(r, c+1), Pos(r+1, c+1),
                 Pos(r+1, c), Pos(r+1, c-1), Pos(r, c-1), Pos(r-1, c-1)]
@@ -98,7 +124,7 @@ template Region(alias h, alias w)
       int r, c;
       @property pure Pos front() { return Pos(r, c); }
       void popFront() { if (++c >= w) { c = 0; ++r; } }
-      pure bool empty() { return r >= h; }
+      pure bool empty() const { return r >= h; }
     }
   }
 
@@ -117,7 +143,7 @@ template Region(alias h, alias w)
      **/
     pure nothrow @safe
     {
-      Grid!T dup()
+      Grid!T dup() const
       {
         return Grid!T(data.map!"a.dup".array);
       }
@@ -136,7 +162,7 @@ template Region(alias h, alias w)
       /**
        ** 位置 (r, c) の要素を返します.
        **/
-      T opIndex(size_t r, size_t c)
+      T opIndex(size_t r, size_t c) const
         in { assert(0 <= r && r < h && 0 <= c && c < w); }
       do
       {
@@ -145,7 +171,7 @@ template Region(alias h, alias w)
       /**
        ** 位置 p の要素を返します.
        **/
-      T opIndex(Pos p)
+      T opIndex(Pos p) const
         in { assert(p.inRegion); }
       do
       {
@@ -228,7 +254,6 @@ template Region(alias h, alias w)
 
 unittest
 {
-  auto m = [[1, 2], [3, 4]];
   alias rg = Region!(2, 2), Pos = rg.Pos;
   auto a = rg.grid([[1, 2], [3, 4]]);
 
@@ -275,7 +300,6 @@ unittest
   assert(a[0, 1] == -2);
 
   alias rg2 = Region!(1, 2), rg3 = Region!(2, 1);
-  auto c = rg2.grid([[1, 2]]), d = rg3.grid!int();
   assert(Pos(1, 1).inRegion);
   assert(!rg2.Pos(1, 0).inRegion);
   assert(!rg3.Pos(0, 1).inRegion);

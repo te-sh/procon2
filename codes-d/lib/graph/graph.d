@@ -60,7 +60,22 @@ struct Graph
 struct GraphW(W = int, W i = 10^^9)
 {
   alias Node = int, Wt = W, inf = i;
-  struct Edge { Node src, dst; Wt wt; alias cap = wt; }
+  /**
+   ** 辺を表します.
+   **/
+  struct Edge
+  {
+    /**
+     ** 辺の始点および終点です.
+     **/
+    Node src, dst;
+    /**
+     ** 辺の重みです.
+     ** 最大フローの計算の場合には容量を表します.
+     **/
+    Wt wt;
+    alias cap = wt;
+  }
   /**
    ** 頂点数です.
    **/

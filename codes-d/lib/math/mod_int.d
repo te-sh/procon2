@@ -30,7 +30,7 @@ struct ModInt(int m, bool pos = false)
    ** v から作成した剰余群を返します.
    ** v は Integral です.
    **/
-  this(T)(T v = 0)
+  this(T)(T v)
     if (isIntegral!T)
   {
     i = nm(v);
@@ -60,7 +60,7 @@ struct ModInt(int m, bool pos = false)
    ** pos が true のときは定義されません.
    **/
   static if (!pos) {
-    Mint opUnary(string op: "-")()
+    Mint opUnary(string op: "-")() const
     {
       return Mint(-i);
     }
@@ -71,8 +71,8 @@ struct ModInt(int m, bool pos = false)
      ** a+r, a-r を返します. r は Integral です.
      ** pos が false のときは a-b は定義されません.
      **/
-    Mint opBinary(string op, T)(T r)
-      if ((op == "+" || !pos && op == "-") && isIntegral!T)
+    Mint opBinary(string op, T)(T r) const
+      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
     {
       return Mint(mixin("i"~op~"r"));
     }
@@ -81,7 +81,7 @@ struct ModInt(int m, bool pos = false)
      ** pos が false のときは a-=b は定義されません.
      **/
     ref Mint opOpAssign(string op, T)(T r)
-      if ((op == "+" || !pos && op == "-") && isIntegral!T)
+      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
     {
       i = nm(mixin("i"~op~"r"));
       return this;
@@ -91,8 +91,8 @@ struct ModInt(int m, bool pos = false)
      ** a+r, a-r を返します. r は Integral です.
      ** pos が false のときは a-b は定義されません.
      **/
-    Mint opBinary(string op, T)(T r)
-      if ((op == "+" || !pos && op == "-") && isIntegral!T)
+    Mint opBinary(string op, T)(T r) const
+      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
     {
       return Mint(mixin("l"~op~"r"));
     }
@@ -101,7 +101,7 @@ struct ModInt(int m, bool pos = false)
      ** pos が false のときは a-=b は定義されません.
      **/
     ref Mint opOpAssign(string op, T)(T r)
-      if ((op == "+" || !pos && op == "-") && isIntegral!T)
+      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
     {
       i = nm(mixin("l"~op~"r"));
       return this;
@@ -110,7 +110,7 @@ struct ModInt(int m, bool pos = false)
   /**
    ** a*r を返します. r は Integral です.
    **/
-  Mint opBinary(string op: "*", T)(T r)
+  Mint opBinary(string op: "*", T)(T r) const
     if (isIntegral!T)
   {
     return Mint(l*r);
@@ -129,7 +129,7 @@ struct ModInt(int m, bool pos = false)
    ** a+r, a-r, a*r を返します. r は a と同じタイプです.
    ** pos が false のときは a-b は定義されません.
    **/
-  Mint opBinary(string op)(Mint r)
+  Mint opBinary(string op)(Mint r) const
     if (op == "+" || !pos && op == "-" || op == "*")
   {
     return opBinary!op(r.i);
@@ -216,7 +216,7 @@ struct ModInt(int m, bool pos = false)
 
     pure nothrow @nogc @safe
     {
-      int nm(T)(T v)
+      int nm(T)(T v) const
         if (isIntegral!T)
       {
         static if (pos) return cast(int)(v%m);

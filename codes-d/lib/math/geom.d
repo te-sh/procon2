@@ -3,6 +3,10 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.geom
+/**
+ ** 平面幾何を表します.
+ ** eps は同一視する差分の最大値です.
+ **/
 template Geom(T, T eps = 1e-10)
   if (isFloatingPoint!T)
 {

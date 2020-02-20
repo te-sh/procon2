@@ -68,7 +68,7 @@ struct Tree(Graph)
     /**
      ** 頂点 u の子を列挙して Range で返します.
      **/
-    auto children(Node u)
+    auto children(Node u) const
       in { assert(0 <= u && u < g.n); }
     do
     {

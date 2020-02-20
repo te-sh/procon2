@@ -68,7 +68,7 @@ struct HlDecomposition(bool setPath = false, Tree)
     /**
      ** 頂点 u を含む辺の中での頂点 u の深さを返します.
      **/
-    int depthInPath(Node u)
+    int depthInPath(Node u) const
     {
       return depth[u] - depth[head[u]];
     }
@@ -76,7 +76,7 @@ struct HlDecomposition(bool setPath = false, Tree)
     /**
      ** 頂点 u, v の LCA を返します.
      **/
-    Node lca(Node u, Node v)
+    Node lca(Node u, Node v) const
     {
       while (head[u] != head[v])
         if (depth[head[u]] < depth[head[v]]) v = parent[head[v]];

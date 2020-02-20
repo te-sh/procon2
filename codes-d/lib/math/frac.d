@@ -8,7 +8,7 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
  **/
 struct Frac(T)
 {
-  import std.numeric: gcd;
+  import std.numeric : gcd;
 
   /**
    ** a は分子, b は分母です.
@@ -31,14 +31,14 @@ struct Frac(T)
     /**
      ** f==r かどうかを返します.
      **/
-    bool opEquals(Frac!T r)
+    bool opEquals(Frac!T r) const
     {
-      return a == 0 && r.a == 0 || a == r.a && b == r.b;
+      return (a == 0 && r.a == 0) || (a == r.a && b == r.b);
     }
     /**
      ** f<r のときは -1, f=r のときは 0, f>r のときは 1 を返します.
      **/
-    int opCmp(Frac!T r)
+    int opCmp(Frac!T r) const
     {
       return a*r.b<r.a*b ? -1 : a*r.b>r.a*b ? 1 : 0;
     }
