@@ -15,45 +15,54 @@ class SparseTable(alias pred = min, T)
    **/
   const size_t n;
 
-  /**
-   ** a を元にした Sparse Table を返します.
-   **/
-  this(T[] a)
+  pure nothrow @safe
   {
-    this.n = a.length;
-    this.a = a;
+    /**
+     ** a を元にした Sparse Table を返します.
+     **/
+    this(T[] a)
+    {
+      this.n = a.length;
+      this.a = a;
 
-    logTable = new size_t[n+1];
-    foreach (i; 2..n+1)
-      logTable[i] = logTable[i>>1]+1;
+      logTable = new size_t[n+1];
+      foreach (i; 2..n+1)
+        logTable[i] = logTable[i>>1]+1;
 
-    rmq = new size_t[][](logTable[n]+1, n);
+      rmq = new size_t[][](logTable[n]+1, n);
 
-    foreach (i; 0..n) rmq[0][i] = i;
+      foreach (i; 0..n) rmq[0][i] = i;
 
-    for (size_t k = 1; (1<<k) < n; ++k)
-      for (size_t i = 0; i+(1<<k) <= n; ++i) {
-        auto x = rmq[k-1][i];
-        auto y = rmq[k-1][i+(1<<k-1)];
-        rmq[k][i] = predFun(a[x], a[y]) == a[x] ? x : y;
-      }
+      for (size_t k = 1; (1<<k) < n; ++k)
+        for (size_t i = 0; i+(1<<k) <= n; ++i) {
+          auto x = rmq[k-1][i];
+          auto y = rmq[k-1][i+(1<<k-1)];
+          rmq[k][i] = predFun(a[x], a[y]) == a[x] ? x : y;
+        }
+    }
   }
 
-  /**
-   ** 区間 [l, r) の合成値を返します.
-   **/
-  pure T opSlice(size_t l, size_t r)
+  pure nothrow @nogc @safe
   {
-    auto k = logTable[r-l-1];
-    auto x = rmq[k][l];
-    auto y = rmq[k][r-(1<<k)];
-    return predFun(a[x], a[y]);
-  }
+    /**
+     ** 区間 [l, r) の合成値を返します.
+     **/
+    T opSlice(size_t l, size_t r)
+    {
+      auto k = logTable[r-l-1];
+      auto x = rmq[k][l];
+      auto y = rmq[k][r-(1<<k)];
+      return predFun(a[x], a[y]);
+    }
 
-  /**
-   ** 要素数を返します.
-   **/
-  pure size_t opDollar() { return n; }
+    /**
+     ** 要素数を返します.
+     **/
+    size_t opDollar()
+    {
+      return n;
+    }
+  }
 
   private
   {
@@ -62,12 +71,18 @@ class SparseTable(alias pred = min, T)
     size_t[][] rmq;
   }
 }
-/**
- ** a を元にした Sparse Table を返します.
- ** pred は合成関数です.
- **/
-SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a)
-{ return new SparseTable!(pred, T)(a); }
+
+pure nothrow @safe
+{
+  /**
+   ** a を元にした Sparse Table を返します.
+   ** pred は合成関数です.
+   **/
+  SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a)
+  {
+    return new SparseTable!(pred, T)(a);
+  }
+}
 // ::::::::::::::::::::
 
 unittest

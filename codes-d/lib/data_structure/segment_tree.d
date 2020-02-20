@@ -19,80 +19,111 @@ class SegmentTree(alias pred = "a+b", T)
    **/
   @property auto data() { return buf[an..an+n]; }
 
-  /**
-   ** 要素数 n の Segment Tree を返します.
-   ** dflt は値がない要素のデフォルト値です.
-   **/
-  this(size_t n, T dflt = T.init)
+  pure nothrow @safe
   {
-    this.n = n;
-    this.dflt = dflt;
-    an = n == 1 ? 1 : (n-1).nextPow2;
-    buf = new T[](an*2);
+    /**
+     ** 要素数 n の Segment Tree を返します.
+     ** dflt は値がない要素のデフォルト値です.
+     **/
+    this(size_t n, T dflt = T.init)
+    {
+      this.n = n;
+      this.dflt = dflt;
+      an = n == 1 ? 1 : (n-1).nextPow2;
+      buf = new T[](an*2);
 
-    if (T.init != dflt) {
-      buf[an..an+n][] = dflt;
+      if (T.init != dflt) {
+        buf[an..an+n][] = dflt;
+        propagateAll();
+      }
+    }
+
+    /**
+     ** init を元にした Segment Tree を返します.
+     ** dflt は値がない要素のデフォルト値です.
+     **/
+    this(T[] init, T dflt = T.init)
+    {
+      this.n = init.length;
+      this.dflt = dflt;
+      an = (n-1).nextPow2;
+      buf = new T[](an*2);
+
+      buf[an..an+n][] = init[];
       propagateAll();
     }
   }
 
-  /**
-   ** init を元にした Segment Tree を返します.
-   ** dflt は値がない要素のデフォルト値です.
-   **/
-  this(T[] init, T dflt = T.init)
+  pure nothrow @nogc @safe
   {
-    this.n = init.length;
-    this.dflt = dflt;
-    an = (n-1).nextPow2;
-    buf = new T[](an*2);
-
-    buf[an..an+n][] = init[];
-    propagateAll();
-  }
-
-  /**
-   ** インデックス i の値を val に変更します.
-   **/
-  void opIndexAssign(T val, size_t i)
-  { buf[i+=an] = val; propagate(i); }
-
-  /**
-   ** インデックス i の値を演算子 op を値 val で適用したしたものに変更します.
-   **/
-  void opIndexOpAssign(string op)(T val, size_t i)
-  { mixin("buf[i+=an]"~op~"=val;"); propagate(i); }
-
-  /**
-   ** インデックス i の値を 1 だけ加算/減算します.
-   **/
-  void opIndexUnary(string op)(size_t i) if (op=="++"||op=="--")
-  { mixin(op~"buf[i+=an];"); propagate(i); }
-
-  /**
-   ** インデックス i の値を返します.
-   **/
-  pure T opIndex(size_t i) { return buf[i+an]; }
-
-  /**
-   ** 区間 [l, r) の合成値を返します.
-   **/
-  pure T opSlice(size_t l, size_t r)
-  {
-    l += an; r += an;
-    T r1 = dflt, r2 = dflt;
-    while (l != r) {
-      if (l % 2) r1 = predFun(r1, buf[l++]);
-      if (r % 2) r2 = predFun(buf[--r], r2);
-      l /= 2; r /= 2;
+    /**
+     ** インデックス i の値を val に変更します.
+     **/
+    void opIndexAssign(T val, size_t i)
+      in { assert(0 <= i && i < n); }
+    do
+    {
+      buf[i+=an] = val; propagate(i);
     }
-    return predFun(r1, r2);
-  }
 
-  /**
-   ** 要素数を返します.
-   **/
-  pure size_t opDollar() { return n; }
+    /**
+     ** インデックス i の値を演算子 op を値 val で適用したしたものに変更します.
+     **/
+    void opIndexOpAssign(string op)(T val, size_t i)
+      in { assert(0 <= i && i < n); }
+    do
+    {
+      mixin("buf[i+=an]"~op~"=val;");
+      propagate(i);
+    }
+
+    /**
+     ** インデックス i の値を 1 だけ加算/減算します.
+     **/
+    void opIndexUnary(string op)(size_t i)
+      if (op == "++" || op == "--")
+      in { assert(0 <= i && i < n); }
+    do
+    {
+      mixin(op~"buf[i+=an];");
+      propagate(i);
+    }
+
+    /**
+     ** インデックス i の値を返します.
+     **/
+    T opIndex(size_t i)
+      in { assert(0 <= i && i < n); }
+    do
+    {
+      return buf[i+an];
+    }
+
+    /**
+     ** 区間 [l, r) の合成値を返します.
+     **/
+    T opSlice(size_t l, size_t r)
+      in { assert(0 <= l && l <= r && r <= n); }
+    do
+    {
+      l += an; r += an;
+      T r1 = dflt, r2 = dflt;
+      while (l != r) {
+        if (l % 2) r1 = predFun(r1, buf[l++]);
+        if (r % 2) r2 = predFun(buf[--r], r2);
+        l /= 2; r /= 2;
+      }
+      return predFun(r1, r2);
+    }
+
+    /**
+     ** 要素数を返します.
+     **/
+    size_t opDollar()
+    {
+      return n;
+    }
+  }
 
   private
   {
@@ -100,24 +131,43 @@ class SegmentTree(alias pred = "a+b", T)
     const T dflt;
     T[] buf;
 
-    void propagateAll() { foreach_reverse (i; 1..an) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
-    void propagate(size_t i) { while (i /= 2) buf[i] = predFun(buf[i*2], buf[i*2+1]); }
+    pure nothrow @nogc @safe
+    {
+      void propagateAll()
+      {
+        foreach_reverse (i; 1..an)
+          buf[i] = predFun(buf[i*2], buf[i*2+1]);
+      }
+      void propagate(size_t i)
+      {
+        while (i /= 2)
+          buf[i] = predFun(buf[i*2], buf[i*2+1]);
+      }
+    }
   }
 }
-/**
- ** 要素数 n の Segment Tree を返します.
- ** pred は合成関数です.
- ** dflt は値がない要素のデフォルト値です.
- **/
-SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(size_t n, T dflt = T.init)
-{ return new SegmentTree!(pred, T)(n, dflt); }
-/**
- ** init を元にした Segment Tree を返します.
- ** pred は合成関数です.
- ** dflt は値がない要素のデフォルト値です.
- **/
-SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T dflt = T.init)
-{ return new SegmentTree!(pred, T)(init, dflt); }
+
+pure nothrow @safe
+{
+  /**
+   ** 要素数 n の Segment Tree を返します.
+   ** pred は合成関数です.
+   ** dflt は値がない要素のデフォルト値です.
+   **/
+  SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(size_t n, T dflt = T.init)
+  {
+    return new SegmentTree!(pred, T)(n, dflt);
+  }
+  /**
+   ** init を元にした Segment Tree を返します.
+   ** pred は合成関数です.
+   ** dflt は値がない要素のデフォルト値です.
+   **/
+  SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T dflt = T.init)
+  {
+    return new SegmentTree!(pred, T)(init, dflt);
+  }
+}
 // ::::::::::::::::::::
 
 unittest

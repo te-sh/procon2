@@ -81,14 +81,23 @@ template Region(alias h, alias w)
   /**
    ** すべての位置を列挙して Range で返します.
    **/
-  pure nothrow @safe auto allPos() { return AllPosRange(); }
-
-  private struct AllPosRange
+  pure nothrow @safe
   {
-    int r, c;
-    @property pure Pos front() { return Pos(r, c); }
-    void popFront() { if (++c >= w) { c = 0; ++r; } }
-    pure bool empty() { return r >= h; }
+    auto allPos()
+    {
+      return AllPosRange();
+    }
+  }
+
+  private
+  {
+    struct AllPosRange
+    {
+      int r, c;
+      @property pure Pos front() { return Pos(r, c); }
+      void popFront() { if (++c >= w) { c = 0; ++r; } }
+      pure bool empty() { return r >= h; }
+    }
   }
 
   /**
@@ -104,57 +113,114 @@ template Region(alias h, alias w)
     /**
      ** コピーを返します.
      **/
-    pure nothrow @safe Grid!T dup() { return Grid!T(data.map!"a.dup".array); }
+    pure nothrow @safe
+    {
+      Grid!T dup()
+      {
+        return Grid!T(data.map!"a.dup".array);
+      }
+    }
 
     pure nothrow @nogc @safe
     {
       /**
        ** data を元にしたグリッドを返します.
        **/
-      this(T[][] data) { this.data = data; }
+      this(T[][] data)
+      {
+        this.data = data;
+      }
 
       /**
        ** 位置 (r, c) の要素を返します.
        **/
-      T opIndex(size_t r, size_t c) { return data[r][c]; }
+      T opIndex(size_t r, size_t c)
+        in { assert(0 <= r && r < h && 0 <= c && c < w); }
+      do
+      {
+        return data[r][c];
+      }
       /**
        ** 位置 p の要素を返します.
        **/
-      T opIndex(Pos p) { return data[p.r][p.c]; }
+      T opIndex(Pos p)
+        in { assert(p.inRegion); }
+      do
+      {
+        return data[p.r][p.c];
+      }
       /**
        ** 位置 (r, c) の要素を v に変更します.
        **/
-      Grid!T opIndexAssign(T v, size_t r, size_t c) { data[r][c] = v; return this; }
+      Grid!T opIndexAssign(T v, size_t r, size_t c)
+        in { assert(0 <= r && r < h && 0 <= c && c < w); }
+      do
+      {
+        data[r][c] = v;
+        return this;
+      }
       /**
        ** 位置 p の要素を v に変更します.
        **/
-      Grid!T opIndexAssign(T v, Pos p) { data[p.r][p.c] = v; return this; }
+      Grid!T opIndexAssign(T v, Pos p)
+        in { assert(p.inRegion); }
+      do
+      {
+        data[p.r][p.c] = v;
+        return this;
+      }
       /**
        ** 位置 (r, c) の値を演算子 op を値 v で適用したしたものに変更します.
        **/
       Grid!T opIndexOpAssign(string op)(T v, size_t r, size_t c)
-      { mixin("data[r][c]"~op~"=v;"); return this; }
+        in { assert(0 <= r && r < h && 0 <= c && c < w); }
+      do
+      {
+        mixin("data[r][c]"~op~"=v;");
+        return this;
+      }
       /**
        ** 位置 p の値を演算子 op を値 v でを適用したしたものに変更します.
        **/
       Grid!T opIndexOpAssign(string op)(T v, Pos p)
-      { mixin("data[p.r][p.c]"~op~"=v;"); return this; }
+        in { assert(p.inRegion); }
+      do
+      {
+        mixin("data[p.r][p.c]"~op~"=v;");
+        return this;
+      }
       /**
        ** 位置 (r, c) の値を 1 だけ加算/減算します.
        **/
-      Grid!T opIndexUnary(string op)(size_t r, size_t c) if (op=="++"||op=="--")
-      { mixin(op~"data[r][c];"); return this; }
+      Grid!T opIndexUnary(string op)(size_t r, size_t c)
+        if (op == "++" || op == "--")
+        in { assert(0 <= r && r < h && 0 <= c && c < w); }
+      do
+      {
+        mixin(op~"data[r][c];"); return this; }
       /**
        ** 位置 p の値を 1 だけ加算/減算します.
        **/
-      Grid!T opIndexUnary(string op)(Pos p) if (op=="++"||op=="--")
-      { mixin(op~"data[p.r][p.c];"); return this; }
+      Grid!T opIndexUnary(string op)(Pos p)
+        if (op == "++" || op == "--")
+        in { assert(p.inRegion); }
+      do
+      {
+        mixin(op~"data[p.r][p.c];");
+        return this;
+      }
     }
   }
   /**
    ** 型 T のグリッドを返します.
    **/
-  pure nothrow @safe Grid!T grid(T)(T[][] data = new T[][](h, w)) { return Grid!T(data); }
+  pure nothrow @safe
+  {
+    Grid!T grid(T)(T[][] data = new T[][](h, w))
+    {
+      return Grid!T(data);
+    }
+  }
 }
 // ::::::::::::::::::::
 

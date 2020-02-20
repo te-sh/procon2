@@ -15,12 +15,15 @@ class UnionFind
   /**
    ** n 頂点のグラフの連結を管理する構造体を返します.
    **/
-  pure nothrow @safe this(int n)
+  pure nothrow @safe
   {
-    this.n = this.s = n;
-    p = new int[](n); p[] = s;
-    cf = n;
-    cn = new size_t[](n); cn[] = 1;
+    this(int n)
+    {
+      this.n = this.s = n;
+      p = new int[](n); p[] = s;
+      cf = n;
+      cn = new size_t[](n); cn[] = 1;
+    }
   }
 
   pure nothrow @nogc @safe
@@ -28,7 +31,9 @@ class UnionFind
     /**
      ** 頂点 u と頂点 v を連結します.
      **/
-    bool unite(int u, int v) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
+    bool unite(int u, int v)
+      in { assert(0 <= u && u < n && 0 <= v && v < n); }
+    do
     {
       auto pu = subst(u), pv = subst(v);
       if (pu != pv) {
@@ -44,36 +49,66 @@ class UnionFind
     /**
      ** 頂点 u と頂点 v が同じ連結部分にあるかどうかを返します.
      **/
-    bool isSame(int u, int v) in { assert(0 <= u && u < n && 0 <= v && v < n); } do
-    { return subst(u) == subst(v); }
+    bool isSame(int u, int v)
+      in { assert(0 <= u && u < n && 0 <= v && v < n); }
+    do
+    {
+      return subst(u) == subst(v);
+    }
     /**
      ** グラフの連結部分の数を返します.
      **/
-    size_t countForests() { return cf; }
+    size_t countForests()
+    {
+      return cf;
+    }
     /**
      ** 頂点 u を含む連結部分に含まれる頂点の数を返します.
      **/
-    size_t countNodes(int u) { return cn[subst(u)]; }
+    size_t countNodes(int u)
+    {
+      return cn[subst(u)];
+    }
   }
 
   /**
    ** 連結部分ごとの頂点を配列にしたものを列挙して Range で返します.
    **/
-  pure nothrow @safe auto groups()
+  pure nothrow @safe
   {
-    auto g = new int[][](n);
-    foreach (i; 0..n) g[subst(i)] ~= i;
-    return g.filter!(l => !l.empty);
+    auto groups()
+    {
+      auto g = new int[][](n);
+      foreach (i; 0..n) g[subst(i)] ~= i;
+      return g.filter!(l => !l.empty);
+    }
   }
 
   private
   {
     int[] p; int s;
     size_t cf; size_t[] cn;
-    pure nothrow @nogc @safe int subst(int i) { return p[i] == s ? i : (p[i] = subst(p[i])); }
+
+    pure nothrow @nogc @safe
+    {
+      int subst(int i)
+      {
+        return p[i] == s ? i : (p[i] = subst(p[i]));
+      }
+    }
   }
 }
-pure nothrow @safe UnionFind unionFind(int n) { return new UnionFind(n); }
+
+pure nothrow @safe
+{
+  /**
+   ** n 頂点のグラフの連結を管理する構造体を返します.
+   **/
+  UnionFind unionFind(int n)
+  {
+    return new UnionFind(n);
+  }
+}
 // ::::::::::::::::::::
 
 unittest
