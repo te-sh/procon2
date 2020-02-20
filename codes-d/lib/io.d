@@ -15,21 +15,27 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    ** v に入力からの値をセットします.
    ** v は複数指定できます.
    **/
-  auto getV(T...)(ref T v) { foreach (ref w; v) get(w); }
+  void getV(T...)(ref T v)
+  {
+    foreach (ref w; v) get(w);
+  }
   /**
    ** v を n 要素の配列にして入力からの値をセットします.
    ** 入力値が1行で与えられる場合に使います.
    **/
-  auto getA(T)(size_t n, ref T v)
-  if (hasAssignableElements!T)
-  { v = new T(n); foreach (ref w; v) get(w); }
+  void getA(T)(size_t n, ref T v)
+    if (hasAssignableElements!T)
+  {
+    v = new T(n);
+    foreach (ref w; v) get(w);
+  }
   /**
    ** v を n 要素の配列にして入力からの値をセットします.
    ** v は複数指定できます.
    ** 入力値が複数行で与えられる場合に使います.
    **/
-  auto getC(T...)(size_t n, ref T v)
-  if (allSatisfy!(hasAssignableElements, T))
+  void getC(T...)(size_t n, ref T v)
+    if (allSatisfy!(hasAssignableElements, T))
   {
     foreach (ref w; v) w = new typeof(w)(n);
     foreach (i; 0..n) foreach (ref w; v) get(w[i]);
@@ -37,17 +43,23 @@ struct IO(alias IN = stdin, alias OUT = stdout)
   /**
    ** v を r 行 c 列の配列にして入力からの値をセットします.
    **/
-  auto getM(T)(size_t r, size_t c, ref T v)
-  if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
-  { v = new T(r); foreach (ref w; v) getA(c, w); }
+  void getM(T)(size_t r, size_t c, ref T v)
+    if (hasAssignableElements!T && hasAssignableElements!(ElementType!T))
+  {
+    v = new T(r);
+    foreach (ref w; v) getA(c, w);
+  }
   /**
    ** v を n 要素の構造体にして入力からの値をセットします.
    ** E に v のフィールド名を指定します.
    **/
   template getS(E...)
   {
-    auto getS(T)(size_t n, ref T v)
-    { v = new T(n); foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");"); }
+    void getS(T)(size_t n, ref T v)
+    {
+      v = new T(n);
+      foreach (ref w; v) foreach (e; E) mixin("get(w."~e~");");
+    }
   }
 
   /**
@@ -73,28 +85,47 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    ** v は複数指定できます.
    ** conf に出力時の設定を指定します.
    **/
-  auto put(alias conf = "{}", T...)(T v)
-  { mixin("const PutConf c = "~conf~"; putMain!c(v);"); }
+  void put(alias conf = "{}", T...)(T v)
+  {
+    mixin("const PutConf c = "~conf~"; putMain!c(v);");
+  }
   /**
    ** c が true ならば t を, そうでなければ f を出力します.
    ** conf に出力時の設定を指定します.
    **/
-  auto putB(alias conf = "{}", S, T)(bool c, S t, T f)
-  { if (c) put!conf(t); else put!conf(f); }
+  void putB(alias conf = "{}", S, T)(bool c, S t, T f)
+  {
+    if (c) put!conf(t);
+    else put!conf(f);
+  }
   /**
    ** v をそのまま OUT.write に渡します. 最後は改行します.
    ** v は複数指定できます.
    **/
-  auto putRaw(T...)(T v) { OUT.write(v); OUT.writeln; }
+  void putRaw(T...)(T v)
+  {
+    OUT.write(v);
+    OUT.writeln;
+  }
 
   private
   {
     dchar[] buf;
     auto sp = (new dchar[](0)).splitter;
-    void nextLine() { IN.readln(buf); sp = buf.splitter; }
-    auto get(T)(ref T v) { if (sp.empty) nextLine(); v = sp.front.to!T; sp.popFront(); }
 
-    auto putMain(PutConf c, T...)(T v)
+    void nextLine()
+    {
+      IN.readln(buf);
+      sp = buf.splitter;
+    }
+    void get(T)(ref T v)
+    {
+      if (sp.empty) nextLine();
+      v = sp.front.to!T;
+      sp.popFront();
+    }
+
+    void putMain(PutConf c, T...)(T v)
     {
       foreach (i, w; v) {
         putOne!c(w);
@@ -104,14 +135,14 @@ struct IO(alias IN = stdin, alias OUT = stdout)
       static if (c.flush) OUT.flush();
       static if (c.exit) exit(0);
     }
-    auto putOne(PutConf c, T)(T v)
+    void putOne(PutConf c, T)(T v)
     {
       static if (isInputRange!T && !isSomeString!T) putRange!c(v);
       else static if (isFloatingPoint!T) OUT.write(format(c.floatFormat, v));
       else static if (hasMember!(T, "fprint")) v.fprint(OUT);
       else OUT.write(v);
     }
-    auto putRange(PutConf c, T)(T v)
+    void putRange(PutConf c, T)(T v)
     {
       auto w = v;
       while (!w.empty) {
@@ -131,7 +162,7 @@ unittest
   {
     string buf;
 
-    auto readln(ref dchar[] r)
+    void readln(ref dchar[] r)
     {
       auto i = buf.indexOf('\n');
       r.length = i;
@@ -145,10 +176,10 @@ unittest
   {
     string buf;
 
-    auto write(T)(T v) { buf ~= v.to!string; }
-    auto writeln() { buf ~= "\n"; }
-    auto flush() { buf ~= "F"; }
-    auto clear() { buf = ""; }
+    void write(T)(T v) { buf ~= v.to!string; }
+    void writeln() { buf ~= "\n"; }
+    void flush() { buf ~= "F"; }
+    void clear() { buf = ""; }
   }
   auto dummyOut = new DummyOut();
 

@@ -4,52 +4,60 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 // :::::::::::::::::::: lib.math.misc
 import lib.bound_by;
 
-/**
- ** n の平方根を超えない最大の整数を返します.
- **/
-pure T isqrt(T)(T n)
+pure nothrow @nogc @safe
 {
-  static if (is(T == int)) auto max = 46341;
-  else static if (is(T == long)) auto max = 3037000500L;
-  return iota(T(0), max).lowerBoundBy!("a^^2", "a<=b")(n).back;
-}
+  /**
+   ** n の平方根を超えない最大の整数を返します.
+   **/
+  T isqrt(T)(T n)
+    if (is(T == int) || is(T == long))
+  {
+    static if (is(T == int)) auto max = 46341;
+    else static if (is(T == long)) auto max = 3037000500L;
+    return iota(T(0), max).lowerBoundBy!("a^^2", "a<=b")(n).back;
+  }
 
-/**
- ** n の立方根を超えない最大の整数を返します.
- **/
-pure T icbrt(T)(T n)
-{
-  static if (is(T == int)) auto max = 1291;
-  else static if (is(T == long)) auto max = 2097152L;
-  return iota(T(0), max).lowerBoundBy!("a^^3", "a<=b")(n).back;
-}
+  /**
+   ** n の立方根を超えない最大の整数を返します.
+   **/
+  T icbrt(T)(T n)
+    if (is(T == int) || is(T == long))
+  {
+    static if (is(T == int)) auto max = 1291;
+    else static if (is(T == long)) auto max = 2097152L;
+    return iota(T(0), max).lowerBoundBy!("a^^3", "a<=b")(n).back;
+  }
 
-/**
- ** a の n 乗を返します. 内部では繰り返し2乗法を使用しています.
- ** pred は乗法演算です.
- ** one は乗法単位元です.
- **/
-pure T powr(alias pred = "a*b", T, U)(T a, U n, T one)
-{
-  import std.functional;
-  alias predFun = binaryFun!pred;
-  if (n == 0) return one;
-  auto r = one;
-  for (; n > 0; n >>= 1) { if (n&1) r = predFun(r, a); a = predFun(a, a); }
-  return r;
-}
-/// ditto
-pure T powr(alias pred = "a*b", T, U)(T a, U n) { return powr!(pred, T, U)(a, n, T(1)); }
+  /**
+   ** a の n 乗を返します. 内部では繰り返し2乗法を使用しています.
+   ** pred は乗法演算です.
+   ** one は乗法単位元です.
+   **/
+  T powr(alias pred = "a*b", T, U)(T a, U n, T one)
+  {
+    import std.functional;
+    alias predFun = binaryFun!pred;
+    if (n == 0) return one;
+    auto r = one;
+    for (; n > 0; n >>= 1) { if (n&1) r = predFun(r, a); a = predFun(a, a); }
+    return r;
+  }
+  /// ditto
+  T powr(alias pred = "a*b", T, U)(T a, U n)
+  {
+    return powr!(pred, T, U)(a, n, T(1));
+  }
 
-/**
- ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
- ** x, y は ax + by = g を満たす x, y の1つを返します.
- **/
-pure T extGcd(T)(T a, T b, out T x, out T y)
-{
-  auto g = a; x = 1; y = 0;
-  if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
-  return g;
+  /**
+   ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
+   ** x, y は ax + by = g を満たす x, y の1つを返します.
+   **/
+  T extGcd(T)(T a, T b, out T x, out T y)
+  {
+    auto g = a; x = 1; y = 0;
+    if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
+    return g;
+  }
 }
 // ::::::::::::::::::::
 

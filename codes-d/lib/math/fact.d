@@ -27,20 +27,24 @@ struct Fact(T, bool inv = true)
   /**
    ** n 以下の階乗および逆元の計算結果を保持する構造体を返します.
    **/
-  pure nothrow @safe this(int n)
+  pure nothrow @safe
   {
-    this.n = n;
+    this(int n)
+    {
+      this.n = n;
 
-    table = new T[](n+1); table[0] = 1;
-    foreach (i; 1..n+1) table[i] = table[i-1]*i;
+      table = new T[](n+1); table[0] = 1;
+      foreach (i; 1..n+1) table[i] = table[i-1]*i;
 
-    static if (inv) {
-      invTable = new T[](n+1); invTable[n] = T(1)/table[n];
-      foreach_reverse (i; 1..n+1) invTable[i-1] = invTable[i]*i;
+      static if (inv) {
+        invTable = new T[](n+1); invTable[n] = T(1)/table[n];
+        foreach_reverse (i; 1..n+1) invTable[i-1] = invTable[i]*i;
+      }
     }
   }
 
-  pure nothrow @nogc @safe {
+  pure nothrow @nogc @safe
+  {
     static if (inv) {
       /**
        ** 順列数 aPb を返します.
@@ -49,7 +53,10 @@ struct Fact(T, bool inv = true)
        **/
       T perm(size_t a, size_t b)
         in { assert(n >= a && a >= b); }
-      do { return table[a]*invTable[a-b]; }
+      do
+      {
+        return table[a]*invTable[a-b];
+      }
 
       /**
        ** 組み合わせ数 aCb を返します.
@@ -58,7 +65,10 @@ struct Fact(T, bool inv = true)
        **/
       T combi(size_t a, size_t b)
         in { assert(n >= a && a >= b); }
-      do { return table[a]*invTable[b]*invTable[a-b]; }
+      do
+      {
+        return table[a]*invTable[b]*invTable[a-b];
+      }
 
       /**
        ** 重複組み合わせ数 aHb を返します.
@@ -67,16 +77,19 @@ struct Fact(T, bool inv = true)
        **/
       T homo(size_t a, size_t b)
         in { assert(n >= a+b-1); }
-      do { return combi(a+b-1, b); }
+      do
+      {
+        return combi(a+b-1, b);
+      }
     }
   }
 }
 // ::::::::::::::::::::
 
+import lib.math.mod_int;
+
 unittest
 {
-  import lib.math.mod_int;
-
   auto fact = Fact!(ModInt!7)(5);
   assert(equal(fact.table, [1, 1, 2, 6, 3, 1]));
   assert(equal(fact.invTable, [1, 1, 4, 6, 5, 1]));

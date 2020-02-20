@@ -10,34 +10,38 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 struct ConvexHullTrick(T, alias comp = "a>=b")
 {
   import std.functional;
-  alias compFun = binaryFun!comp;
 
-  /**
-   ** 直線 y=ax+b を追加します.
-   **/
-  void add(T a, T b)
+  pure nothrow @safe
   {
-    auto line = Line(a, b);
-    while (lines.length >= 2 && check(lines[$-2], lines[$-1], line))
-      lines = lines[0..$-1];
-    lines ~= line;
-  }
-
-  /**
-   ** min{fi(x')} を返します.
-   **/
-  pure T query(T x)
-  {
-    ptrdiff_t low = -1, high = lines.length-1;
-    while (high-low > 1) {
-      auto mid = (high+low)/2;
-      (compFun(lines[mid].f(x), lines[mid+1].f(x)) ? low : high) = mid;
+    /**
+     ** 直線 y=ax+b を追加します.
+     **/
+    void add(T a, T b)
+    {
+      auto line = Line(a, b);
+      while (lines.length >= 2 && check(lines[$-2], lines[$-1], line))
+        lines = lines[0..$-1];
+      lines ~= line;
     }
-    return lines[high].f(x);
+
+    /**
+     ** min{fi(x')} を返します.
+     **/
+    T query(T x)
+    {
+      ptrdiff_t low = -1, high = lines.length-1;
+      while (high-low > 1) {
+        auto mid = (high+low)/2;
+        (compFun(lines[mid].f(x), lines[mid+1].f(x)) ? low : high) = mid;
+      }
+      return lines[high].f(x);
+    }
   }
 
   private
   {
+    alias compFun = binaryFun!comp;
+
     struct Line
     {
       T a, b;
@@ -53,10 +57,13 @@ struct ConvexHullTrick(T, alias comp = "a>=b")
     }
     Line[] lines;
 
-    bool check(Line l1, Line l2, Line l3)
+    pure nothrow @nogc @safe
     {
-      if (l1 < l3) swap(l1, l3);
-      return (l3.b-l2.b)*(l2.a-l1.a) >= (l2.b-l1.b)*(l3.a-l2.a);
+      bool check(Line l1, Line l2, Line l3)
+      {
+        if (l1 < l3) swap(l1, l3);
+        return (l3.b-l2.b)*(l2.a-l1.a) >= (l2.b-l1.b)*(l3.a-l2.a);
+      }
     }
   }
 }

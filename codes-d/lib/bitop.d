@@ -88,7 +88,9 @@ struct BitSubsetRange(bool includeZero = false, T)
  ** includeZero が true の場合は部分集合に 0 を含めます.
  **/
 pure nothrow @nogc @safe BitSubsetRange!(includeZero, T) bitSubset(bool includeZero = false, T)(T n)
-{ return BitSubsetRange!(includeZero, T)(n); }
+{
+  return BitSubsetRange!(includeZero, T)(n);
+}
 // ::::::::::::::::::::
 
 unittest

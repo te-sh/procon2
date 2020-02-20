@@ -9,14 +9,18 @@ pure nothrow @nogc @safe
    ** 範囲を a の要素で返します.
    **/
   auto lowerBoundBy(alias conv = "a", alias comp = "a<b", R, T)(R a, T v)
-  { return a.sortedTuple!(conv, comp).lowerBound(tuple(a.front, v)).map!"a[0]"; }
+  {
+    return a.sortedTuple!(conv, comp).lowerBound(tuple(a.front, v)).map!"a[0]";
+  }
 
   /**
    ** a の要素を conv によって変換したものを comp で比較した結果 v を下回らない
    ** 範囲を a の要素で返します.
    **/
   auto upperBoundBy(alias conv = "a", alias comp = "a<b", R, T)(R a, T v)
-  { return a.sortedTuple!(conv, comp).upperBound(tuple(a.front, v)).map!"a[0]"; }
+  {
+    return a.sortedTuple!(conv, comp).upperBound(tuple(a.front, v)).map!"a[0]";
+  }
 
   /**
    ** a の要素を conv によって変換したものを comp で比較する SortedRange を
