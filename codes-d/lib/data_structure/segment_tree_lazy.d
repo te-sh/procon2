@@ -15,18 +15,21 @@ class SegmentTreeLazy(T, Op, Op opNone)
    **/
   const size_t n;
 
-  /**
-   ** 要素数 n の遅延伝播 Segment Tree を返します.
-   ** dflt は値がない要素のデフォルト値です.
-   **/
-  this(size_t n, T dflt = T.init)
+  pure nothrow @safe
   {
-    this.n = n;
-    this.dflt = dflt;
-    an = n == 1 ? 1 : (n-1).nextPow2;
-    sec = new Section[](an*2);
-    if (T.init != dflt)
-      foreach (ref seci; sec) seci.val = dflt;
+    /**
+     ** 要素数 n の遅延伝播 Segment Tree を返します.
+     ** dflt は値がない要素のデフォルト値です.
+     **/
+    this(size_t n, T dflt = T.init)
+    {
+      this.n = n;
+      this.dflt = dflt;
+      an = n == 1 ? 1 : (n-1).nextPow2;
+      sec = new Section[](an*2);
+      if (T.init != dflt)
+        foreach (ref seci; sec) seci.val = dflt;
+    }
   }
 
   /**
@@ -34,17 +37,33 @@ class SegmentTreeLazy(T, Op, Op opNone)
    ** 外部からこの関数を直接呼び出すか, このクラスを継承したクラスに扱いやすいような関数を
    ** 定義してこの関数を呼び出すかで使用することになるでしょう.
    **/
-  void apply(Op op, T val, size_t l, size_t r) { apply(op, val, l, r, 1, 0, an); }
+  void apply(Op op, T val, size_t l, size_t r)
+    in { assert(0 <= l && l <= r && r <= n); }
+  do
+  {
+    apply(op, val, l, r, 1, 0, an);
+  }
 
   /**
    ** 区間 [l, r) の合成値を返します.
    **/
-  T opSlice(size_t l, size_t r) { return summary(l, r, 1, 0, an); }
+  T opSlice(size_t l, size_t r)
+    in { assert(0 <= l && l <= r && r <= n); }
+  do
+  {
+    return summary(l, r, 1, 0, an);
+  }
 
-  /**
-   ** 要素数を返します.
-   **/
-  pure size_t opDollar() { return n; }
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** 要素数を返します.
+     **/
+    size_t opDollar()
+    {
+      return n;
+    }
+  }
 
   protected
   {

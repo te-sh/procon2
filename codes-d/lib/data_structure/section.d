@@ -1,8 +1,8 @@
-module lib.math.section;
+module lib.data_structure.section;
 import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
-// :::::::::::::::::::: lib.math.section
+// :::::::::::::::::::: lib.data_structure.section
 /**
  ** 区間を表します. 区間は右半開区間です.
  **/

@@ -32,7 +32,7 @@ void main()
   io.put(r);
 }
 
-import lib.math.section;
+import lib.data_structure.section;
 
 auto io = IO!()();
 import lib.io;
