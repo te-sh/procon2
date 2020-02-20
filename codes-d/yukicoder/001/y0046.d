@@ -6,8 +6,10 @@ version(unittest) {} else
 void main()
 {
   int a, b; io.getV(a, b);
-  io.put((b+a-1)/a);
+  io.put(cdiv(b, a));
 }
+
+import lib.math.misc;
 
 auto io = IO!()();
 import lib.io;

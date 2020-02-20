@@ -13,10 +13,6 @@ struct ModInt(int m, bool pos = false)
 {
   pure nothrow @nogc @safe:
   /**
-   ** 剰余群の初期値 0 を返します.
-   **/
-  @property static init() { return Mint(0); }
-  /**
    ** 値を int で返します.
    **/
   @property int value() { return i; }
@@ -159,7 +155,7 @@ struct ModInt(int m, bool pos = false)
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    Mint opBinary(string op: "/")(Mint r)
+    Mint opBinary(string op: "/")(Mint r) const
     {
       return Mint(l*r.inv.i);
     }
@@ -179,7 +175,7 @@ struct ModInt(int m, bool pos = false)
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    Mint opBinary(string op: "/", T)(T r)
+    Mint opBinary(string op: "/", T)(T r) const
       if (isIntegral!T)
     {
       return opBinary!op(Mint(r));
@@ -200,11 +196,9 @@ struct ModInt(int m, bool pos = false)
      ** m が素数でない場合は正しい値を返しません.
      ** pos が false のときは定義されません.
      **/
-    Mint inv()
+    Mint inv() const
     {
-      int x = i, a, b;
-      extGcd(x, m, a, b);
-      return Mint(a);
+      return Mint(extGcd(i, m).x);
     }
   }
 
@@ -220,7 +214,7 @@ struct ModInt(int m, bool pos = false)
         if (isIntegral!T)
       {
         static if (pos) return cast(int)(v%m);
-        else return cast(int)((v%m+m)%m);
+        else return cast(int)pmod(v, m);
       }
     }
   }

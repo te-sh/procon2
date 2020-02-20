@@ -8,6 +8,22 @@ import lib.bound_by;
 pure nothrow @nogc @safe
 {
   /**
+   ** a/b を小数点以下切り上げした値を返します.
+   ** a, b は正の値を仮定しています.
+   **/
+  T cdiv(T)(T a, T b)
+  {
+    return (a+b-1)/b;
+  }
+  /**
+   ** a/b の余りを正の範囲で返します.
+   **/
+  T pmod(T)(T a, T b)
+  {
+    return a >= 0 ? a%b : a%b+b;
+  }
+
+  /**
    ** n の平方根を超えない最大の整数を返します.
    **/
   T isqrt(T)(T n)
@@ -17,7 +33,6 @@ pure nothrow @nogc @safe
     else static if (is(T == long)) auto max = 3_037_000_500L;
     return iota(T(0), max).lowerBoundBy!("a^^2", "a<=b")(n).back;
   }
-
   /**
    ** n の立方根を超えない最大の整数を返します.
    **/
@@ -33,11 +48,19 @@ pure nothrow @nogc @safe
    ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
    ** x, y は ax + by = g を満たす x, y の1つを返します.
    **/
-  T extGcd(T)(T a, T b, out T x, out T y)
+  ExtGcdResult!T extGcd(T)(T a, T b)
   {
-    auto g = a; x = 1; y = 0;
-    if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
-    return g;
+    if (a == 0) {
+      return ExtGcdResult!T(b, T(0), T(1));
+    } else {
+      auto r = extGcd(b%a, a);
+      return ExtGcdResult!T(r.gcd, r.y-(b/a)*r.x, r.x);
+    }
+  }
+
+  struct ExtGcdResult(T)
+  {
+    T gcd, x, y;
   }
 }
 
@@ -63,6 +86,18 @@ pure nothrow @safe
   }
 }
 // ::::::::::::::::::::
+
+unittest
+{
+  assert(cdiv(5, 3) == 2);
+  assert(cdiv(6, 3) == 2);
+}
+
+unittest
+{
+  assert(pmod(5, 3) == 2);
+  assert(pmod(-5, 3) == 1);
+}
 
 unittest
 {
@@ -104,18 +139,16 @@ unittest
 
 unittest
 {
-  assert(2.powr(0) == 1);
-  assert(2.powr(1) == 2);
-  assert(2.powr(5) == 32);
+  auto r1 = extGcd(29, 17);
+  assert(r1.gcd == 1 && r1.x == -7 && r1.y == 12);
+
+  auto r2 = extGcd(12, 42);
+  assert(r2.gcd == 6 && r2.x == -3 && r2.y == 1);
 }
 
 unittest
 {
-  int x, y, g;
-
-  g = extGcd(29, 17, x, y);
-  assert(g == 1 && x == -7 && y == 12);
-
-  g = extGcd(12, 42, x, y);
-  assert(g == 6 && x == -3 && y == 1);
+  assert(2.powr(0) == 1);
+  assert(2.powr(1) == 2);
+  assert(2.powr(5) == 32);
 }

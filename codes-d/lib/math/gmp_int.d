@@ -8,7 +8,7 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
  **/
 struct GmpInt
 {
-  pure @trusted
+  pure nothrow @nogc @trusted
   {
     /**
      ** 初期値 0 を返します.
@@ -33,14 +33,6 @@ struct GmpInt
       __gmpz_init_set_si(&z, v);
     }
     /**
-     ** 文字列 s から作成します.
-     ** base は進法です.
-     **/
-    this(string s, int base = 10)
-    {
-      __gmpz_init_set_str(&z, s.toStringz, base);
-    }
-    /**
      ** コピーコンストラクタです.
      **/
     this(ref return scope GmpInt v)
@@ -62,28 +54,17 @@ struct GmpInt
     {
       return __gmpz_get_si(&z);
     }
-    /**
-     ** 文字列に変換した値を返します.
-     ** base は進法です.
-     **/
-    string toString(int base = 10)
-    {
-      auto sz = __gmpz_sizeinbase(&z, base);
-      auto buf = new char[](sz + 2);
-      __gmpz_get_str(buf.ptr, base, &z);
-      return buf.ptr.fromStringz.to!string;
-    }
 
     /**
      ** g == v かどうかを返します.
      ** v は GmpInt か long です.
      **/
-    bool opEquals(GmpInt v)
+    bool opEquals(GmpInt v) const
     {
       return __gmpz_cmp(&z, &v.z) == 0;
     }
     /// ditto
-    bool opEquals(long v)
+    bool opEquals(long v) const
     {
       return __gmpz_cmp_si(&z, v) == 0;
     }
@@ -91,12 +72,12 @@ struct GmpInt
      ** g > v ならば 1 を, g == v ならば 0 を, g < v ならば -1 を返します.
      ** v は GmpInt か long です.
      **/
-    int opCmp(GmpInt v)
+    int opCmp(GmpInt v) const
     {
       return __gmpz_cmp(&z, &v.z);
     }
     /// ditto
-    int opCmp(long v)
+    int opCmp(long v) const
     {
       return __gmpz_cmp_si(&z, v);
     }
@@ -106,7 +87,8 @@ struct GmpInt
      **/
     ref GmpInt opAssign(long v)
     {
-      __gmpz_init_set_si(&z, v); return this;
+      __gmpz_init_set_si(&z, v);
+      return this;
     }
     /**
      ** GmpInt の v を代入します.
@@ -120,7 +102,7 @@ struct GmpInt
      ** g+v, g-v, g*v, g/v, g%v を返します.
      ** v は GmpInt です.
      **/
-    GmpInt opBinary(string op)(GmpInt v)
+    GmpInt opBinary(string op)(GmpInt v) const
       if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%")
     {
       auto r = GmpInt.init;
@@ -150,7 +132,7 @@ struct GmpInt
      ** g+v, g-v, g*v, g/v, g%v, g^^v を返します.
      ** v は long です.
      **/
-    GmpInt opBinary(string op)(ulong v)
+    GmpInt opBinary(string op)(ulong v) const
       if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%" || op == "^^")
     {
       auto r = GmpInt.init;
@@ -181,7 +163,7 @@ struct GmpInt
     /**
      ** 絶対値を返します.
      **/
-    GmpInt abs()
+    GmpInt abs() const
     {
       auto r = GmpInt.init;
       __gmpz_abs(&r.z, &z);
@@ -190,7 +172,7 @@ struct GmpInt
     /**
      ** 平方根を超えない最大の整数を返します.
      **/
-    GmpInt sqrt()
+    GmpInt sqrt() const
     {
       auto r = GmpInt.init;
       __gmpz_sqrt(&r.z, &z);
@@ -199,7 +181,7 @@ struct GmpInt
     /**
      ** 1 になっているビットの数を返します.
      **/
-    size_t popcnt()
+    size_t popcnt() const
     {
       return __gmpz_popcount(&z);
     }
@@ -207,9 +189,32 @@ struct GmpInt
      ** 素数かどうかを返します. 内部では Miller-Rabin 法を使用しています.
      ** reps は Miller-Rabin 法の試行回数です.
      **/
-    bool probabPrime(int reps = 20)
+    bool probabPrime(int reps = 20) const
     {
       return __gmpz_probab_prime_p(&z, reps) != 0;
+    }
+  }
+
+  pure @trusted
+  {
+    /**
+     ** 文字列 s から作成します.
+     ** base は進法です.
+     **/
+    this(string s, int base = 10)
+    {
+      __gmpz_init_set_str(&z, s.toStringz, base);
+    }
+    /**
+     ** 文字列に変換した値を返します.
+     ** base は進法です.
+     **/
+    string toString(int base = 10) const
+    {
+      auto sz = __gmpz_sizeinbase(&z, base);
+      auto buf = new char[](sz + 2);
+      __gmpz_get_str(buf.ptr, base, &z);
+      return buf.ptr.fromStringz.to!string;
     }
   }
 
@@ -244,7 +249,7 @@ extern(C) pragma(inline, false)
   alias mpz_srcptr = const(__mpz_struct)*;
   alias mpz_ptr = __mpz_struct*;
 
-  pure @safe
+  pure nothrow @nogc @safe
   {
     void __gmpz_init(mpz_ptr);
     void __gmpz_clear(mpz_ptr);
@@ -280,7 +285,7 @@ extern(C) pragma(inline, false)
     void __gmpz_abs(mpz_ptr, mpz_srcptr);
     void __gmpz_sqrt(mpz_ptr, mpz_srcptr);
     size_t __gmpz_popcount(mpz_srcptr);
-    int __gmpz_probab_prime_p(mpz_ptr, int reps);
+    int __gmpz_probab_prime_p(mpz_srcptr, int reps);
   }
 }
 pragma(lib, "gmp");

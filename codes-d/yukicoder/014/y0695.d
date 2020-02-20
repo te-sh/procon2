@@ -28,8 +28,8 @@ void main()
   }
 
   auto r1 = BigInt(calc(mod1)), r2 = BigInt(calc(mod2));
-  long a, b; extGcd(mod1, mod2, a, b);
-  io.put(((r1*b*mod2+r2*a*mod1)%mod+mod)%mod);
+  auto r = extGcd(mod1, mod2);
+  io.put(((r1*r.y*mod2+r2*r.x*mod1)%mod+mod)%mod);
 }
 
 import lib.math.misc;

@@ -7,8 +7,10 @@ void main()
 {
   long A, B, C; io.getV(A, B, C);
   auto d = A*60-B;
-  io.putB(d <= 0, -1, (C*3600+d-1)/d);
+  io.putB(d <= 0, -1, cdiv(C*3600, d));
 }
+
+import lib.math.misc;
 
 auto io = IO!()();
 import lib.io;

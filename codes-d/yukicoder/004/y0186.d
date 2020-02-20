@@ -16,13 +16,12 @@ void main()
 
 auto calc(T)(ref T X1, ref T Y1, T X2, T Y2)
 {
-  T b1, b2;
-  auto g = extGcd(Y1, Y2, b1, b2);
-  if ((X2-X1)%g != 0) return false;
+  auto r = extGcd(Y1, Y2);
+  if ((X2-X1)%r.gcd != 0) return false;
 
-  auto y1 = Y1/g, y2 = Y2/g;
-  Y1 = y1*y2*g;
-  X1 = (((b1*y1)%Y1*(X2-X1)+X1)%Y1+Y1)%Y1;
+  auto y1 = Y1/r.gcd, y2 = Y2/r.gcd;
+  Y1 = y1*y2*r.gcd;
+  X1 = pmod(r.x*y1*(X2-X1)+X1, Y1);
   return true;
 }
 

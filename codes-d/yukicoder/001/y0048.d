@@ -11,18 +11,20 @@ void main()
 
   if (Y >= 0) {
     if (X == 0)
-      io.put((Y+L-1)/L);
+      io.put(cdiv(Y, L));
     else if (X >= 0)
-      io.put((Y+L-1)/L + 1 + (X+L-1)/L);
+      io.put(cdiv(Y, L) + 1 + cdiv(X, L));
     else
-      io.put((Y+L-1)/L + 1 + (X.abs+L-1)/L);
+      io.put(cdiv(Y, L) + 1 + cdiv(X.abs, L));
   } else {
     if (X >= 0)
-      io.put(1 + (X+L-1)/L + 1 + (Y.abs+L-1)/L);
+      io.put(1 + cdiv(X, L) + 1 + cdiv(Y.abs, L));
     else
-      io.put(1 + (X.abs+L-1)/L + 1 + (Y.abs+L-1)/L);
+      io.put(1 + cdiv(X.abs, L) + 1 + cdiv(Y.abs, L));
   }
 }
+
+import lib.math.misc;
 
 auto io = IO!()();
 import lib.io;
