@@ -23,11 +23,15 @@ struct HlDecomposition(bool setPath = false, Tree)
 
   static if (setPath) {
     /**
-     ** path は頂点ごとのその頂点を含む辺の番号を保持する配列です.
-     ** paths は辺ごとのその辺に含まれる頂点の配列を保持する配列です.
-     ** いずれも setPath が false のときは定義されません.
+     ** 頂点ごとのその頂点を含む辺の番号を保持する配列です.
+     ** setPath が false のときは定義されません.
      **/
-    Node[] path, paths;
+    Node[] path;
+    /**
+     ** 辺ごとのその辺に含まれる頂点の配列を保持する配列です.
+     ** setPath が false のときは定義されません.
+     **/
+    Node[][] paths;
   }
 
   pure nothrow @safe
@@ -118,7 +122,7 @@ pure nothrow @safe
   /**
    ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
    **/
-  HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree t)
+  auto hlDecomposition(bool setPath = false, Tree)(Tree t)
   {
     return HlDecomposition!(setPath, Tree)(t);
   }

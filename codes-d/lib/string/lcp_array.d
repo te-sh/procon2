@@ -19,27 +19,33 @@ struct LcpArray
   size_t[] x;
   alias x this;
 
-  /**
-   ** Suffix Array sa を元に LCP を計算した結果を保持する構造体を返します.
-   **/
-  this(SuffixArray sa)
+  pure nothrow @safe
   {
-    n = sa.n;
-    x = new size_t[](n);
-    rank = new size_t[](n);
-    foreach (i; 0..n) rank[sa.x[i]] = i;
+    /**
+     ** Suffix Array sa を元に LCP を計算した結果を保持する構造体を返します.
+     **/
+    this(SuffixArray sa)
+    {
+      n = sa.n;
+      x = new size_t[](n);
+      rank = new size_t[](n);
+      foreach (i; 0..n) rank[sa.x[i]] = i;
 
-    auto h = size_t(0);
-    foreach (i; 0..n)
-      if (rank[i]+1 < n) {
-        auto j = sa.x[rank[i]+1];
-        while (max(i, j)+h < n && sa.s[i+h] == sa.s[j+h]) ++h;
-        x[rank[i]+1] = h;
-        if (h > 0) --h;
-      }
+      auto h = size_t(0);
+      foreach (i; 0..n)
+        if (rank[i]+1 < n) {
+          auto j = sa.x[rank[i]+1];
+          while (max(i, j)+h < n && sa.s[i+h] == sa.s[j+h]) ++h;
+          x[rank[i]+1] = h;
+          if (h > 0) --h;
+        }
+    }
   }
 
-  private size_t[] rank;
+  private
+  {
+    size_t[] rank;
+  }
 }
 // ::::::::::::::::::::
 

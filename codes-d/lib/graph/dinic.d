@@ -20,79 +20,96 @@ struct Dinic(Graph)
    **/
   Wt flow = 0;
 
-  /**
-   ** グラフ g の頂点 s から頂点 t への最大流を Dinic 法で
-   ** 計算した結果を保持する構造体を返します.
-   **/
-  this(Graph g, Node s, Node t)
+  pure nothrow @safe
   {
-    this.g = g;
-    auto adj = withRev(), level = new int[](n);
-
-    auto levelize()
+    /**
+     ** グラフ g の頂点 s から頂点 t への最大流を Dinic 法で
+     ** 計算した結果を保持する構造体を返します.
+     **/
+    this(Graph g, Node s, Node t)
+      in { assert(0 <= s && s < g.n && 0 <= t && t < g.n); }
+    do
     {
-      level[] = -1; level[s] = 0;
+      this.g = g;
+      auto adj = withRev(), level = new int[](n);
 
-      auto q = DList!Node(s);
-      while (!q.empty) {
-        auto u = q.front; q.removeFront();
-        if (u == t) break;
-        foreach (ref e; adj[u])
-          if (e.cap > e.flow && level[e.dst] < 0) {
-            q.insertBack(e.dst);
-            level[e.dst] = level[u] + 1;
-          }
+      auto levelize()
+      {
+        level[] = -1; level[s] = 0;
+
+        auto q = DList!Node(s);
+        while (!q.empty) {
+          auto u = q.front; q.removeFront();
+          if (u == t) break;
+          foreach (ref e; adj[u])
+            if (e.cap > e.flow && level[e.dst] < 0) {
+              q.insertBack(e.dst);
+              level[e.dst] = level[u] + 1;
+            }
+        }
+
+        return level[t];
       }
 
-      return level[t];
-    }
+      Wt augment(Node u, Wt cur)
+      {
+        if (u == t) return cur;
 
-    Wt augment(Node u, Wt cur)
-    {
-      if (u == t) return cur;
-
-      foreach (ref e; adj[u]) {
-        auto r = &adj[e.dst][e.rev];
-        if (e.cap > e.flow && level[u] < level[e.dst]) {
-          auto f = augment(e.dst, min(cur, e.cap - e.flow));
-          if (f > 0) {
-            e.flow += f;
-            r.flow -= f;
-            return f;
+        foreach (ref e; adj[u]) {
+          auto r = &adj[e.dst][e.rev];
+          if (e.cap > e.flow && level[u] < level[e.dst]) {
+            auto f = augment(e.dst, min(cur, e.cap - e.flow));
+            if (f > 0) {
+              e.flow += f;
+              r.flow -= f;
+              return f;
+            }
           }
         }
+
+        return 0;
       }
 
-      return 0;
+      Wt f = 0;
+      while (levelize >= 0)
+        while ((f = augment(s, g.inf)) > 0)
+          flow += f;
     }
-
-    Wt f = 0;
-    while (levelize >= 0)
-      while ((f = augment(s, g.inf)) > 0)
-        flow += f;
   }
 
   private
   {
     struct EdgeR { Node src, dst; Wt cap, flow; Node rev; }
-    EdgeR[][] withRev()
+
+    pure nothrow @safe
     {
-      auto r = new EdgeR[][](n);
-      foreach (gi; g)
-        foreach (e; gi) {
-          r[e.src] ~= EdgeR(e.src, e.dst, e.cap, 0, cast(Node)(r[e.dst].length));
-          r[e.dst] ~= EdgeR(e.dst, e.src, 0, 0, cast(Node)(r[e.src].length) - 1);
-        }
-      return r;
+      EdgeR[][] withRev()
+      {
+        auto r = new EdgeR[][](n);
+        foreach (gi; g)
+          foreach (e; gi) {
+            r[e.src] ~= EdgeR(e.src, e.dst, e.cap, 0, cast(Node)(r[e.dst].length));
+            r[e.dst] ~= EdgeR(e.dst, e.src, 0, 0, cast(Node)(r[e.src].length) - 1);
+          }
+        return r;
+      }
     }
   }
 }
-/**
- ** グラフ g の頂点 s から頂点 t への最大流を Dinic 法で
- ** 計算した結果を保持する構造体を返します.
- **/
-Dinic!Graph dinic(Graph, Node)(Graph g, Node s, Node t)
-{ return Dinic!Graph(g, s, t); }
+
+pure nothrow @safe
+{
+  /**
+   ** グラフ g の頂点 s から頂点 t への最大流を Dinic 法で
+   ** 計算した結果を保持する構造体を返します.
+   **/
+  auto dinic(Graph, Node)(Graph g, Node s, Node t)
+    in { assert(0 <= s && s < g.n && 0 <= t && t < g.n); }
+  do
+  {
+    return Dinic!Graph(g, s, t);
+  }
+}
 // ::::::::::::::::::::
 
 unittest

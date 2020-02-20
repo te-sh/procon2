@@ -80,7 +80,7 @@ pure nothrow @safe
    ** a を元にした Sparse Table を返します.
    ** pred は合成関数です.
    **/
-  SparseTable!(pred, T) sparseTable(alias pred = min, T)(T[] a)
+  auto sparseTable(alias pred = min, T)(T[] a)
   {
     return new SparseTable!(pred, T)(a);
   }

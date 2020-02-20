@@ -104,7 +104,7 @@ pure nothrow @safe
   /**
    ** n 頂点のグラフの連結を管理する構造体を返します.
    **/
-  UnionFind unionFind(int n)
+  auto unionFind(int n)
   {
     return new UnionFind(n);
   }

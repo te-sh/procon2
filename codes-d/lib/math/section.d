@@ -34,7 +34,7 @@ pure nothrow @nogc @safe
    ** 区間を返します.
    ** start < end である必要があります.
    **/
-  Section!T section(T)(T start, T end)
+  auto section(T)(T start, T end)
     in { assert(start < end); }
   do
   {
@@ -59,7 +59,7 @@ pure nothrow @nogc @safe
    ** 区間 a, b を結合した区間を返します.
    ** 区間 a, b は結合可能である必要があります.
    **/
-  Section!T merge(T)(Section!T a, Section!T b)
+  auto merge(T)(Section!T a, Section!T b)
     in { assert(mergeable(a, b)); }
   do
   {

@@ -66,7 +66,7 @@ pure nothrow @safe
   /**
    ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
    **/
-  TopologicalSort!(Graph) topologicalSort(Graph)(Graph g)
+  auto topologicalSort(Graph)(Graph g)
   {
     return TopologicalSort!Graph(g);
   }

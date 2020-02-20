@@ -17,7 +17,7 @@ class SegmentTree(alias pred = "a+b", T)
   /**
    ** すべての要素を配列で返します.
    **/
-  @property auto data() { return buf[an..an+n]; }
+  @property T[] data() { return buf[an..an+n]; }
 
   pure nothrow @safe
   {
@@ -154,7 +154,7 @@ pure nothrow @safe
    ** pred は合成関数です.
    ** dflt は値がない要素のデフォルト値です.
    **/
-  SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(size_t n, T dflt = T.init)
+  auto segmentTree(alias pred = "a+b", T)(size_t n, T dflt = T.init)
   {
     return new SegmentTree!(pred, T)(n, dflt);
   }
@@ -163,7 +163,7 @@ pure nothrow @safe
    ** pred は合成関数です.
    ** dflt は値がない要素のデフォルト値です.
    **/
-  SegmentTree!(pred, T) segmentTree(alias pred = "a+b", T)(T[] init, T dflt = T.init)
+  auto segmentTree(alias pred = "a+b", T)(T[] init, T dflt = T.init)
   {
     return new SegmentTree!(pred, T)(init, dflt);
   }

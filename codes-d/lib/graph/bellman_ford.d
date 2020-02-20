@@ -31,6 +31,8 @@ struct BellmanFord(Graph)
      ** 計算した結果を保持する構造体を返します.
      **/
     this(Graph g, Node s)
+      in { assert(0 <= s && s < g.n); }
+    do
     {
       this.g = g;
       auto sent = n;
@@ -60,7 +62,9 @@ pure nothrow @safe
    ** グラフ g の頂点 s から各頂点への最短距離を Bellman-Ford 法で
    ** 計算した結果を保持する構造体を返します.
    **/
-  BellmanFord!Graph bellmanFord(Graph, Node)(Graph g, Node s)
+  auto bellmanFord(Graph, Node)(Graph g, Node s)
+    in { assert(0 <= s && s < g.n); }
+  do
   {
     return BellmanFord!Graph(g, s);
   }

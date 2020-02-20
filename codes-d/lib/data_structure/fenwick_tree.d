@@ -98,7 +98,7 @@ pure nothrow @safe
   /**
    ** 要素数が n の Fenwick Tree を返します.
    **/
-  FenwickTree!T fenwickTree(T)(size_t n)
+  auto fenwickTree(T)(size_t n)
   {
     return new FenwickTree!T(n);
   }

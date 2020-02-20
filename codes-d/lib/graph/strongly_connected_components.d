@@ -65,7 +65,7 @@ pure nothrow @safe
   /**
    ** グラフ g の Kosaraju 法による強連結成分分解の結果を保持する構造体を返します.
    **/
-  StronglyConnectedComponentsKosaraju!Graph stronglyConnectedComponentsKosaraju(Graph)(Graph g)
+  auto stronglyConnectedComponentsKosaraju(Graph)(Graph g)
   {
     return StronglyConnectedComponentsKosaraju!Graph(g);
   }
@@ -127,7 +127,7 @@ pure nothrow @safe
   /**
    ** グラフ g の Gabow 法による強連結成分分解の結果を保持する構造体を返します.
    **/
-  StronglyConnectedComponentsGabow!Graph stronglyConnectedComponentsGabow(Graph)(Graph g)
+  auto stronglyConnectedComponentsGabow(Graph)(Graph g)
   {
     return StronglyConnectedComponentsGabow!Graph(g);
   }

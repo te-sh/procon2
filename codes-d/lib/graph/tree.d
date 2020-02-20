@@ -86,7 +86,7 @@ pure nothrow @safe
   /**
    ** グラフ g を元にした根が r の木を返します.
    **/
-  Tree!Graph tree(Graph, Node)(Graph g, Node r)
+  auto tree(Graph, Node)(Graph g, Node r)
     in { assert(0 <= r && r < g.n); }
   do
   {

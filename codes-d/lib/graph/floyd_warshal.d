@@ -46,7 +46,7 @@ pure nothrow @safe
    ** グラフ g の任意の2頂点間の最短距離を Floyd-Warshal 法で
    ** 計算した結果を保持する構造体を返します.
    **/
-  FloydWarshal!Graph floydWarshal(Graph)(Graph g)
+  auto floydWarshal(Graph)(Graph g)
   {
     return FloydWarshal!Graph(g);
   }

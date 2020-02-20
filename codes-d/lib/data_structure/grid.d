@@ -56,6 +56,7 @@ template Region(alias h, alias w)
        **/
       int opBinary(string op: "*")(Pos q) { return r*q.r+c*q.c; }
     }
+
     pure nothrow @safe
     {
       /**
@@ -216,7 +217,7 @@ template Region(alias h, alias w)
    **/
   pure nothrow @safe
   {
-    Grid!T grid(T)(T[][] data = new T[][](h, w))
+    auto grid(T)(T[][] data = new T[][](h, w))
     {
       return Grid!T(data);
     }

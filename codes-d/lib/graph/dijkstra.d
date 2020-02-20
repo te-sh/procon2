@@ -64,7 +64,7 @@ struct Dijkstra(Graph)
  **/
 pure
 {
-  @trusted Dijkstra!Graph dijkstra(Graph, Node)(Graph g, Node s)
+  @trusted auto dijkstra(Graph, Node)(Graph g, Node s)
     in { assert(0 <= s && s < g.n); }
   do
   {

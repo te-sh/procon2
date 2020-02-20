@@ -20,33 +20,44 @@ struct SuffixArray
    **/
   size_t[] x;
 
-  /**
-   ** 文字列 s を元に Suffix Array を計算した結果を保持する構造体を返します.
-   **/
-  this(string s)
+  pure nothrow @safe
   {
-    this.s = s;
-    n = s.length;
-    x = new size_t[](n);
-    auto r = new size_t[](n), t = new size_t[](n);
+    /**
+     ** 文字列 s を元に Suffix Array を計算した結果を保持する構造体を返します.
+     **/
+    this(string s)
+    {
+      this.s = s;
+      n = s.length;
+      x = new size_t[](n);
+      auto r = new size_t[](n), t = new size_t[](n);
 
-    foreach (i; 0..n) r[x[i] = i] = s[i];
-    for (size_t h = 1; t[n-1] != n-1; h <<= 1) {
-      auto cmp(size_t i, size_t j)
-      {
-        if (r[i] != r[j]) return r[i] < r[j];
-        return i+h < n && j+h < n ? r[i+h] < r[j+h] : i > j;
+      foreach (i; 0..n) r[x[i] = i] = s[i];
+      for (size_t h = 1; t[n-1] != n-1; h <<= 1) {
+        auto cmp(size_t i, size_t j)
+        {
+          if (r[i] != r[j]) return r[i] < r[j];
+          return i+h < n && j+h < n ? r[i+h] < r[j+h] : i > j;
+        }
+        x.sort!((a, b) => cmp(a, b));
+        foreach (i; 0..n-1) t[i+1] = t[i] + cmp(x[i], x[i+1]);
+        foreach (i; 0..n) r[x[i]] = t[i];
       }
-      x.sort!((a, b) => cmp(a, b));
-      foreach (i; 0..n-1) t[i+1] = t[i] + cmp(x[i], x[i+1]);
-      foreach (i; 0..n) r[x[i]] = t[i];
     }
   }
 
-  /**
-   ** n 番目の Suffix を返します.
-   **/
-  pure string opIndex(size_t i) { return s[x[i]..$]; }
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** n 番目の Suffix を返します.
+     **/
+    pure string opIndex(size_t i)
+      in { assert(0 <= i && i < n); }
+    do
+    {
+      return s[x[i]..$];
+    }
+  }
 }
 // ::::::::::::::::::::
 
