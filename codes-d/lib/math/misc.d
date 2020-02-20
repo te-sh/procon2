@@ -58,7 +58,7 @@ pure nothrow @nogc @safe
     }
   }
 
-  struct ExtGcdResult(T)
+  private struct ExtGcdResult(T)
   {
     T gcd, x, y;
   }

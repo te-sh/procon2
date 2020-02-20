@@ -65,31 +65,35 @@ pragma(inline)
   }
 }
 
-struct BitSubsetRange(bool includeZero = false, T)
+pure nothrow @nogc @safe
 {
-  private T n, i;
-
-  this(T n) { this.n = this.i = n; }
-  pure nothrow @nogc @safe
+  /**
+   ** n のビットによる部分集合になっている数値を列挙して Range で返します.
+   ** includeZero が true の場合は部分集合に 0 を含めます.
+   **/
+  auto bitSubset(bool includeZero = false, T)(T n)
   {
-    static if (includeZero) {
-      @property T front() { return i&n; }
-      void popFront() { i &= n; i--; }
-      bool empty() { return i < 0; }
-    } else {
-      @property T front() { return i; }
-      void popFront() { i = (i-1)&n; }
-      bool empty() { return i <= 0; }
+    return BitSubsetRange!(includeZero, T)(n);
+  }
+
+  private struct BitSubsetRange(bool includeZero = false, T)
+  {
+    private T n, i;
+
+    this(T n) { this.n = this.i = n; }
+    pure nothrow @nogc @safe
+    {
+      static if (includeZero) {
+        @property T front() const { return i&n; }
+        void popFront() { i &= n; i--; }
+        bool empty() const { return i < 0; }
+      } else {
+        @property T front() const { return i; }
+        void popFront() { i = (i-1)&n; }
+        bool empty() const { return i <= 0; }
+      }
     }
   }
-}
-/**
- ** n のビットによる部分集合になっている数値を列挙して Range で返します.
- ** includeZero が true の場合は部分集合に 0 を含めます.
- **/
-pure nothrow @nogc @safe BitSubsetRange!(includeZero, T) bitSubset(bool includeZero = false, T)(T n)
-{
-  return BitSubsetRange!(includeZero, T)(n);
 }
 // ::::::::::::::::::::
 
