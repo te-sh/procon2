@@ -29,6 +29,20 @@ pure nothrow @nogc @safe
   }
 
   /**
+   ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
+   ** x, y は ax + by = g を満たす x, y の1つを返します.
+   **/
+  T extGcd(T)(T a, T b, out T x, out T y)
+  {
+    auto g = a; x = 1; y = 0;
+    if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
+    return g;
+  }
+}
+
+pure nothrow @safe
+{
+  /**
    ** a の n 乗を返します. 内部では繰り返し2乗法を使用しています.
    ** pred は乗法演算です.
    ** one は乗法単位元です.
@@ -46,17 +60,6 @@ pure nothrow @nogc @safe
   T powr(alias pred = "a*b", T, U)(T a, U n)
   {
     return powr!(pred, T, U)(a, n, T(1));
-  }
-
-  /**
-   ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
-   ** x, y は ax + by = g を満たす x, y の1つを返します.
-   **/
-  T extGcd(T)(T a, T b, out T x, out T y)
-  {
-    auto g = a; x = 1; y = 0;
-    if (b) { g = extGcd(b, a%b, y, x); y -= a/b*x; }
-    return g;
   }
 }
 // ::::::::::::::::::::
