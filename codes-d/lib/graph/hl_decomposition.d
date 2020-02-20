@@ -23,96 +23,112 @@ struct HlDecomposition(bool setPath = false, Tree)
 
   static if (setPath) {
     /**
-     ** 頂点ごとのその頂点を含む辺の番号を保持する配列です.
-     ** setPath が false のときは定義されません.
+     ** path は頂点ごとのその頂点を含む辺の番号を保持する配列です.
+     ** paths は辺ごとのその辺に含まれる頂点の配列を保持する配列です.
+     ** いずれも setPath が false のときは定義されません.
      **/
-    Node[] path;
-    /**
-     ** 辺ごとのその辺に含まれる頂点の配列を保持する配列です.
-     ** setPath が false のときは定義されません.
-     **/
-    Node[][] paths;
+    Node[] path, paths;
   }
 
-  /**
-   ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
-   **/
-  this(Tree t)
+  pure nothrow @safe
   {
-    this.t = t;
-    head = new Node[](n); head[] = n;
+    /**
+     ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
+     **/
+    this(Tree t)
+    {
+      this.t = t;
+      head = new Node[](n); head[] = n;
 
-    struct US { Node u, s; }
-    auto st = SList!US(US(root, root));
+      auto st = SList!US(US(root, root));
 
-    while (!st.empty) {
-      auto us = st.front; st.removeFront();
+      while (!st.empty) {
+        auto us = st.front; st.removeFront();
 
-      head[us.u] = us.s;
-      auto z = n;
-      foreach (v; t[us.u])
-        if (head[v] == n && (z == n || size[z] < size[v])) z = v;
+        head[us.u] = us.s;
+        auto z = n;
+        foreach (v; t[us.u])
+          if (head[v] == n && (z == n || size[z] < size[v])) z = v;
 
-      foreach (v; t[us.u])
-        if (head[v] == n) st.insertFront(US(v, v == z ? us.s : v));
+        foreach (v; t[us.u])
+          if (head[v] == n) st.insertFront(US(v, v == z ? us.s : v));
+      }
+
+      static if (setPath) makePath();
+    }
+  }
+
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** 頂点 u を含む辺の中での頂点 u の深さを返します.
+     **/
+    int depthInPath(Node u)
+    {
+      return depth[u] - depth[head[u]];
     }
 
-    static if (setPath) makePath();
-  }
-
-  /**
-   ** 頂点 u を含む辺の中での頂点 u の深さを返します.
-   **/
-  pure int depthInPath(Node u) { return depth[u] - depth[head[u]]; }
-
-  /**
-   ** 頂点 u, v の LCA を返します.
-   **/
-  pure Node lca(Node u, Node v)
-  {
-    while (head[u] != head[v])
-      if (depth[head[u]] < depth[head[v]]) v = parent[head[v]];
-      else                                 u = parent[head[u]];
-    return depth[u] < depth[v] ? u : v;
-  }
-
-  static if (setPath) {
-    private
+    /**
+     ** 頂点 u, v の LCA を返します.
+     **/
+    Node lca(Node u, Node v)
     {
-      auto makePath()
-      {
-        auto pathIndex = 0;
-        path = new Node[](n);
+      while (head[u] != head[v])
+        if (depth[head[u]] < depth[head[v]]) v = parent[head[v]];
+        else                                 u = parent[head[u]];
+      return depth[u] < depth[v] ? u : v;
+    }
+  }
 
-        auto q = DList!Node(root);
-        while (!q.empty) {
-          auto u = q.front; q.removeFront();
+  private
+  {
+    struct US { Node u, s; }
 
-          if (u == head[u]) {
-            path[u] = pathIndex++;
-            paths ~= [u];
-          } else {
-            path[u] = path[head[u]];
-            paths[path[u]] ~= u;
+    pure nothrow @safe
+    {
+      static if (setPath) {
+        void makePath()
+        {
+          auto pathIndex = 0;
+          path = new Node[](n);
+
+          auto q = DList!Node(root);
+          while (!q.empty) {
+            auto u = q.front; q.removeFront();
+
+            if (u == head[u]) {
+              path[u] = pathIndex++;
+              paths ~= [u];
+            } else {
+              path[u] = path[head[u]];
+              paths[path[u]] ~= u;
+            }
+
+            foreach (v; t[u])
+              if (v != parent[u]) q.insertBack(v);
           }
-
-          foreach (v; t[u])
-            if (v != parent[u]) q.insertBack(v);
         }
       }
     }
   }
 }
-/**
- ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
- **/
-HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree t)
-{ return HlDecomposition!(setPath, Tree)(t); }
+
+pure nothrow @safe
+{
+  /**
+   ** 木 t の HL 分解を計算した結果を保持する構造体を返します.
+   **/
+  HlDecomposition!(setPath, Tree) hlDecomposition(bool setPath = false, Tree)(Tree t)
+  {
+    return HlDecomposition!(setPath, Tree)(t);
+  }
+}
 // ::::::::::::::::::::
+
+import lib.graph.graph;
 
 unittest
 {
-  import lib.graph.graph;
   auto g = Graph(13);
 
   g.addEdgeB(0, 1);

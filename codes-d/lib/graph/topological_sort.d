@@ -23,39 +23,54 @@ struct TopologicalSort(Graph)
   /**
    ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
    **/
-  pure nothrow @trusted this(Graph g)
+  pure nothrow @safe
   {
-    this.g = g;
-    auto h = new int[](n);
+    this(Graph g)
+    {
+      this.g = g;
+      auto h = new int[](n);
 
-    foreach (u; 0..n)
-      foreach (v; g[u])
-        ++h[v];
+      foreach (u; 0..n)
+        foreach (v; g[u])
+          ++h[v];
 
-    auto st = SList!Node();
-    foreach (i; 0..n)
-      if (h[i] == 0) st.insertFront(i);
+      auto st = SList!Node();
+      foreach (i; 0..n)
+        if (h[i] == 0) st.insertFront(i);
 
-    while (!st.empty()) {
-      auto u = st.front; st.removeFront();
-      nodes ~= u;
-      foreach (v; g[u]) {
-        --h[v];
-        if (h[v] == 0) st.insertFront(v);
+      while (!st.empty()) {
+        auto u = st.front; st.removeFront();
+        nodes ~= u;
+        foreach (v; g[u]) {
+          --h[v];
+          if (h[v] == 0) st.insertFront(v);
+        }
       }
     }
   }
 
-  /**
-   ** グラフに閉路があるかどうかを返します.
-   **/
-  pure nothrow @nogc @safe bool hasCycle() { return nodes.length != n; }
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** グラフに閉路があるかどうかを返します.
+     **/
+    bool hasCycle()
+    {
+      return nodes.length != n;
+    }
+  }
 }
-/**
- ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
- **/
-pure nothrow @trusted TopologicalSort!(Graph) topologicalSort(Graph)(Graph g)
-{ return TopologicalSort!Graph(g); }
+
+pure nothrow @safe
+{
+  /**
+   ** グラフ g のトポロジカルソートを行った結果を保持する構造体を返します.
+   **/
+  TopologicalSort!(Graph) topologicalSort(Graph)(Graph g)
+  {
+    return TopologicalSort!Graph(g);
+  }
+}
 // ::::::::::::::::::::
 
 unittest

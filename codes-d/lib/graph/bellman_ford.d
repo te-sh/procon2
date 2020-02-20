@@ -24,38 +24,47 @@ struct BellmanFord(Graph)
    **/
   Node[] prev;
 
+  pure nothrow @safe
+  {
+    /**
+     ** グラフ g の頂点 s から各頂点への最短距離を Bellman-Ford 法で
+     ** 計算した結果を保持する構造体を返します.
+     **/
+    this(Graph g, Node s)
+    {
+      this.g = g;
+      auto sent = n;
+
+      dist = new Wt[](n);
+      dist[] = inf*2;
+      dist[s] = 0;
+
+      prev = new Node[](n);
+      prev[] = sent;
+
+      foreach (k; 0..n)
+        foreach (i; 0..n)
+          foreach (e; g[i])
+            if (dist[e.dst] > dist[e.src] + e.wt) {
+              dist[e.dst] = dist[e.src] + e.wt;
+              prev[e.dst] = e.src;
+              if (k == n-1) dist[e.dst] = -inf;
+            }
+    }
+  }
+}
+
+pure nothrow @safe
+{
   /**
    ** グラフ g の頂点 s から各頂点への最短距離を Bellman-Ford 法で
    ** 計算した結果を保持する構造体を返します.
    **/
-  this(Graph g, Node s)
+  BellmanFord!Graph bellmanFord(Graph, Node)(Graph g, Node s)
   {
-    this.g = g;
-    auto sent = n;
-
-    dist = new Wt[](n);
-    dist[] = inf*2;
-    dist[s] = 0;
-
-    prev = new Node[](n);
-    prev[] = sent;
-
-    foreach (k; 0..n)
-      foreach (i; 0..n)
-        foreach (e; g[i])
-          if (dist[e.dst] > dist[e.src] + e.wt) {
-            dist[e.dst] = dist[e.src] + e.wt;
-            prev[e.dst] = e.src;
-            if (k == n-1) dist[e.dst] = -inf;
-          }
+    return BellmanFord!Graph(g, s);
   }
 }
-/**
- ** グラフ g の頂点 s から各頂点への最短距離を Bellman-Ford 法で
- ** 計算した結果を保持する構造体を返します.
- **/
-BellmanFord!Graph bellmanFord(Graph, Node)(Graph g, Node s)
-{ return BellmanFord!Graph(g, s); }
 // ::::::::::::::::::::
 
 unittest

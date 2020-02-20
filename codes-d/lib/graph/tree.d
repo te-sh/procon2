@@ -35,7 +35,9 @@ struct Tree(Graph)
     /**
      ** グラフ g を元にした根が r の木を返します.
      **/
-    this(Graph g, Node r) in { assert(0 <= r && r < g.n); } do
+    this(Graph g, Node r)
+      in { assert(0 <= r && r < g.n); }
+    do
     {
       this.g = g;
       this.root = r;
@@ -44,7 +46,6 @@ struct Tree(Graph)
       depth = new int[](n);
       depth[] = -1;
 
-      struct UP { Node u, p; }
       auto st = SList!UP(UP(r, r));
       while (!st.empty) {
         auto up = st.front; st.removeFront();
@@ -66,15 +67,32 @@ struct Tree(Graph)
     /**
      ** 頂点 u の子を列挙して Range で返します.
      **/
-    auto children(Node u) { return g[u].filter!(v => v != parent[u]); }
+    auto children(Node u)
+      in { assert(0 <= u && u < g.n); }
+    do
+    {
+      return g[u].filter!(v => v != parent[u]);
+    }
+  }
+
+  private
+  {
+    struct UP { Node u, p; }
   }
 }
-/**
- ** グラフ g を元にした根が r の木を返します.
- **/
-pure nothrow @safe Tree!Graph tree(Graph, Node)(Graph g, Node r)
-in { assert(0 <= r && r < g.n); } do
-{ return Tree!Graph(g, r); }
+
+pure nothrow @safe
+{
+  /**
+   ** グラフ g を元にした根が r の木を返します.
+   **/
+  Tree!Graph tree(Graph, Node)(Graph g, Node r)
+    in { assert(0 <= r && r < g.n); }
+  do
+  {
+    return Tree!Graph(g, r);
+  }
+}
 // ::::::::::::::::::::
 
 unittest

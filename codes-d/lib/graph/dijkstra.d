@@ -27,28 +27,33 @@ struct Dijkstra(Graph)
   /**
    ** グラフ g の頂点 s から各頂点への最短距離を Dijkstra 法で計算した結果を保持する構造体を返します.
    **/
-  pure @trusted this(Graph g, Node s) in { assert(0 <= s && s < g.n); } do
+  pure
   {
-    this.g = g;
-    auto sent = n;
+    @trusted this(Graph g, Node s)
+      in { assert(0 <= s && s < g.n); }
+    do
+    {
+      this.g = g;
+      auto sent = n;
 
-    dist = new Wt[](n);
-    dist[] = g.inf;
-    dist[s] = 0;
+      dist = new Wt[](n);
+      dist[] = g.inf;
+      dist[s] = 0;
 
-    prev = new Node[](n);
-    prev[] = sent;
+      prev = new Node[](n);
+      prev[] = sent;
 
-    auto q = heapify!("a.wt>b.wt")(Array!Edge(Edge(sent, s, 0)));
-    while (!q.empty) {
-      auto e = q.front; q.removeFront();
-      if (prev[e.dst] != sent) continue;
-      prev[e.dst] = e.src;
-      foreach (f; g[e.dst]) {
-        auto w = e.wt+f.wt;
-        if (dist[f.dst] > w) {
-          dist[f.dst] = w;
-          q.insert(Edge(f.src, f.dst, w));
+      auto q = heapify!("a.wt>b.wt")(Array!Edge(Edge(sent, s, 0)));
+      while (!q.empty) {
+        auto e = q.front; q.removeFront();
+        if (prev[e.dst] != sent) continue;
+        prev[e.dst] = e.src;
+        foreach (f; g[e.dst]) {
+          auto w = e.wt+f.wt;
+          if (dist[f.dst] > w) {
+            dist[f.dst] = w;
+            q.insert(Edge(f.src, f.dst, w));
+          }
         }
       }
     }
@@ -57,9 +62,15 @@ struct Dijkstra(Graph)
 /**
  ** グラフ g の頂点 s から各頂点への最短距離を Dijkstra 法で計算した結果を保持する構造体を返します.
  **/
-pure @trusted Dijkstra!Graph dijkstra(Graph, Node)(Graph g, Node s)
-in { assert(0 <= s && s < g.n); } do
-{ return Dijkstra!Graph(g, s); }
+pure
+{
+  @trusted Dijkstra!Graph dijkstra(Graph, Node)(Graph g, Node s)
+    in { assert(0 <= s && s < g.n); }
+  do
+  {
+    return Dijkstra!Graph(g, s);
+  }
+}
 // ::::::::::::::::::::
 
 unittest

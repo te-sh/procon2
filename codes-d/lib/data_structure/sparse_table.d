@@ -48,6 +48,8 @@ class SparseTable(alias pred = min, T)
      ** 区間 [l, r) の合成値を返します.
      **/
     T opSlice(size_t l, size_t r)
+      in { assert(0 <= l && l <= r && r <= n); }
+    do
     {
       auto k = logTable[r-l-1];
       auto x = rmq[k][l];

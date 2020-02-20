@@ -20,28 +20,37 @@ struct FloydWarshal(Graph)
    **/
   Wt[][] dist;
 
+  pure nothrow @safe
+  {
+    /**
+     ** グラフ g の任意の2頂点間の最短距離を Floyd-Warshal 法で
+     ** 計算した結果を保持する構造体を返します.
+     **/
+    this(Graph g)
+    {
+      this.g = g;
+      dist = g.g.map!(i => i.dup).array;
+
+      foreach (k; 0..n)
+        foreach (i; 0..n)
+          foreach (j; 0..n)
+            if (dist[i][j] > dist[i][k] + dist[k][j])
+              dist[i][j] = dist[i][k] + dist[k][j];
+    }
+  }
+}
+
+pure nothrow @safe
+{
   /**
    ** グラフ g の任意の2頂点間の最短距離を Floyd-Warshal 法で
    ** 計算した結果を保持する構造体を返します.
    **/
-  this(Graph g)
+  FloydWarshal!Graph floydWarshal(Graph)(Graph g)
   {
-    this.g = g;
-    dist = g.g.map!(i => i.dup).array;
-
-    foreach (k; 0..n)
-      foreach (i; 0..n)
-        foreach (j; 0..n)
-          if (dist[i][j] > dist[i][k] + dist[k][j])
-            dist[i][j] = dist[i][k] + dist[k][j];
+    return FloydWarshal!Graph(g);
   }
 }
-/**
- ** グラフ g の任意の2頂点間の最短距離を Floyd-Warshal 法で
- ** 計算した結果を保持する構造体を返します.
- **/
-FloydWarshal!Graph floydWarshal(Graph)(Graph g)
-{ return FloydWarshal!Graph(g); }
 // ::::::::::::::::::::
 
 unittest
