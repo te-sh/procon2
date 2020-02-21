@@ -9,7 +9,7 @@ pure nothrow @nogc @safe
    ** a の要素を conv によって変換したものを comp で比較した結果 v を上回らない
    ** 範囲を a の要素で返します.
    **/
-  auto lowerBoundBy(alias conv = "a", alias comp = "a<b", R, T)(R a, T v)
+  auto lowerBoundBy(alias conv = "a", alias comp = "a<b", R, T)(const R a, const T v)
   {
     return a.sortedTuple!(conv, comp).lowerBound(tuple(a.front, v)).map!"a[0]";
   }
@@ -18,7 +18,7 @@ pure nothrow @nogc @safe
    ** a の要素を conv によって変換したものを comp で比較した結果 v を下回らない
    ** 範囲を a の要素で返します.
    **/
-  auto upperBoundBy(alias conv = "a", alias comp = "a<b", R, T)(R a, T v)
+  auto upperBoundBy(alias conv = "a", alias comp = "a<b", R, T)(const R a, const T v)
   {
     return a.sortedTuple!(conv, comp).upperBound(tuple(a.front, v)).map!"a[0]";
   }
@@ -27,7 +27,7 @@ pure nothrow @nogc @safe
    ** a の要素を conv によって変換したものを comp で比較する SortedRange を
    ** 返します.
    **/
-  auto sortedTuple(alias conv = "a", alias comp = "a<b", R)(R a)
+  auto sortedTuple(alias conv = "a", alias comp = "a<b", R)(const R a)
   {
     alias convFun = unaryFun!conv, compFun = binaryFun!comp;
     return a.map!(e => tuple(e, convFun(e))).assumeSorted!((a, b) => compFun(a[1], b[1]));

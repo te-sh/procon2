@@ -35,7 +35,7 @@ template Geom(T, T eps = 1e-10)
     /**
      ** 点 p1, p2 を通る直線を返します.
      **/
-    Line line(Point p1, Point p2)
+    Line line(const Point p1, const Point p2)
     {
       auto x = p2.x-p1.x;
       auto y = p2.y-p1.y;
@@ -45,7 +45,7 @@ template Geom(T, T eps = 1e-10)
     /**
      ** 点 p1, p2 の距離を返します.
      **/
-    T dist(Point p1, Point p2)
+    T dist(const Point p1, const Point p2)
     {
       return ((p1.x-p2.x)^^2 + (p1.y-p2.y)^^2).sqrt;
     }
@@ -53,7 +53,7 @@ template Geom(T, T eps = 1e-10)
     /**
      ** 点 p, と直線 l の距離を返します.
      **/
-    T dist(Point p, Line l)
+    T dist(const Point p, const Line l)
     {
       return (l.a*p.x + l.b*p.y + l.c).abs / (l.a^^2 + l.b^^2).sqrt;
     }
@@ -62,7 +62,7 @@ template Geom(T, T eps = 1e-10)
      ** 直線 l1, l2 の交点を返します.
      ** l1, l2 が平行とみなされる場合は (x, y) = (nan, nan) を返します.
      **/
-    Point intersect(Line l1, Line l2)
+    Point intersect(const Line l1, const Line l2)
     {
       auto det = l1.a*l2.b - l1.b*l2.a;
       if (approxEqual(det, 0, eps)) return Point(T.nan, T.nan);
@@ -75,7 +75,7 @@ template Geom(T, T eps = 1e-10)
      ** 点 p1, p2 の垂直二等分線を返します.
      ** p1, p2 が同一点とみなされる場合は (a, b, c) = (nan, nan, nan) を返します.
      **/
-    Line bisector(Point p1, Point p2)
+    Line bisector(const Point p1, const Point p2)
     {
       auto a = p2.x-p1.x;
       auto b = p2.y-p1.y;
@@ -92,7 +92,7 @@ template Geom(T, T eps = 1e-10)
      ** 直線 l1, l2 の角の二等分線を配列で返します.
      ** l1, l2 が平行とみなされる場合は1つだけを返します.
      **/
-    Line[] bisector(Line l1, Line l2)
+    Line[] bisector(const Line l1, const Line l2)
     {
       auto d1 = (l1.a^^2 + l1.b^^2).sqrt;
       auto d2 = (l2.a^^2 + l2.b^^2).sqrt;

@@ -101,7 +101,7 @@ struct PrimeFactor
   {
     pure nothrow @safe
     {
-      T[] divisorsProc(T)(Factor!T[] factors, int i, T c) const
+      T[] divisorsProc(T)(const Factor!T[] factors, int i, T c) const
       {
         if (i == factors.length) return [c];
         T[] r;

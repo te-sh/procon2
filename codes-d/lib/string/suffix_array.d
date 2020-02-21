@@ -52,7 +52,7 @@ struct SuffixArray
     /**
      ** n 番目の Suffix を返します.
      **/
-    pure string opIndex(size_t i)
+    string opIndex(size_t i) const
       in { assert(0 <= i && i < n); }
     do
     {

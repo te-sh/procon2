@@ -18,7 +18,7 @@ struct Point2(T)
     /**
      ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
      **/
-    Point2!T opBinary(string op)(Point2!T r) const
+    Point2!T opBinary(string op)(const Point2!T r) const
       if (op == "+" || op == "-")
     {
       return mixin("Point2(x"~op~"r.x, y"~op~"r.y)");
@@ -26,7 +26,7 @@ struct Point2(T)
     /**
      ** p, r をベクトルとして, p+=r, p-=r を計算します. r は p と同じタイプです.
      **/
-    Point2!T opOpAssign(string op)(Point2!T r)
+    Point2!T opOpAssign(string op)(const Point2!T r)
       if (op == "+" || op == "-")
     {
       mixin("x"~op~"=r.x; y"~op~"=r.y;");
@@ -52,7 +52,7 @@ struct Point2(T)
     /**
      ** p, r をベクトルとして, p と r の内積を返します.
      **/
-    T opBinary(string op: "*")(Point2!T r) const
+    T opBinary(string op: "*")(const Point2!T r) const
     {
       return x*r.x+y*r.y;
     }
@@ -71,7 +71,7 @@ pure nothrow @nogc @safe
   /**
    ** p1, p2 のマンハッタン距離を返します.
    **/
-  T distManhattan(T)(Point2!T p1, Point2!T p2)
+  T distManhattan(T)(const Point2!T p1, const Point2!T p2)
   {
     return (p1.x-p2.x).abs + (p1.y-p2.y).abs;
   }
@@ -79,7 +79,7 @@ pure nothrow @nogc @safe
   /**
    ** p1, p2 を平面上にある3次元ベクトルとしてそのクロス積の z 成分を返します.
    **/
-  T cross(T)(Point2!T p1, Point2!T p2)
+  T cross(T)(const Point2!T p1, const Point2!T p2)
   {
     return p1.x*p2.y - p1.y*p2.x;
   }
@@ -100,7 +100,7 @@ struct Point3(T)
     /**
      ** p, r をベクトルとして, p+r, p-r を返します. r は p と同じタイプです.
      **/
-    Point3!T opBinary(string op)(Point3!T r) const
+    Point3!T opBinary(string op)(const Point3!T r) const
       if (op == "+" || op == "-")
     {
       return mixin("Point3!T(x"~op~"r.x, y"~op~"r.y, z"~op~"r.z)");
@@ -108,7 +108,7 @@ struct Point3(T)
     /**
      ** p, r をベクトルとして, p+=r, p-=r を計算します. r は p と同じタイプです.
      **/
-    Point3!T opOpAssign(string op)(Point3!T r)
+    Point3!T opOpAssign(string op)(const Point3!T r)
       if (op == "+" || op == "-")
     {
       mixin("x"~op~"=r.x; y"~op~"=r.y; z"~op~"=r.z;");
@@ -134,7 +134,7 @@ struct Point3(T)
     /**
      ** p, r をベクトルとして, p と r の内積を返します.
      **/
-    T opBinary(string o: "*")(Point3!T r) const
+    T opBinary(string o: "*")(const Point3!T r) const
     {
       return x*r.x+y*r.y+z*r.z;
     }
@@ -153,7 +153,7 @@ pure nothrow @nogc @safe
   /**
    ** p1, p2 をベクトルとしてそのクロス積を返します.
    **/
-  Point3!T cross(T)(Point3!T p1, Point3!T p2)
+  Point3!T cross(T)(const Point3!T p1, const Point3!T p2)
   {
     return Point3!T(p1.y*p2.z - p1.z*p2.y, p1.z*p2.x - p1.x*p2.z, p1.x*p2.y - p1.y*p2.x);
   }

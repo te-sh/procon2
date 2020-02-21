@@ -50,46 +50,53 @@ struct Vector(T)
         foreach (i; 0..n) a[i] = b[i];
       }
     }
+    /**
+     ** コピーコンストラクタです.
+     **/
+    this(ref return scope const Vector!T v)
+    {
+      n = v.n; zero = v.zero;
+      a = new T[](n);
+      a[] = v.a[];
+    }
 
     /**
      ** 自身のコピーを返します.
      **/
-    Vector!T dup()
+    Vector!T dup() const
     {
-      auto b = Vector!T(n, zero);
-      b[] = a[];
-      return b;
+      return Vector!T(this);
     }
 
     /**
      ** v+b, v-b を返します. b はベクトルです.
      ** v と b の次元は同じである必要があります.
      **/
-    Vector!T opBinary(string op)(Vector!T b)
+    Vector!T opBinary(string op)(const Vector!T b) const
       if (op == "+" || op == "-")
       in { assert(n == b.n); }
     do
     {
       auto x = Vector!T(n, zero);
-      foreach (i; 0..n) x[i] = mixin("a[i]"~op~"b[i]");
+      foreach (i; 0..n) x[i] = mixin("a[i]"~op~"b.a[i]");
       return x;
     }
     /**
      ** v+=b, v-=b を計算します. b はベクトルです.
      ** v と b の次元は同じである必要があります.
      **/
-    ref Vector!T opOpAssign(string op)(Vector!T b)
+    ref Vector!T opOpAssign(string op)(const Vector!T b)
       if (op == "+" || op == "-")
       in { assert(n == b.n); }
     do
     {
-      foreach (i; 0..n) mixin("a[i]"~op~"=b[i];");
+      foreach (i; 0..n) mixin("a[i]"~op~"=b.a[i];");
       return this;
     }
     /**
      ** v*b を返します. b は数値です.
      **/
-    Vector!T opBinary(string op: "*", U)(U b)
+    Vector!T opBinary(string op: "*", U)(U b) const
       if (isNumeric!T)
     {
       auto x = Vector!T(n, zero);
@@ -109,12 +116,12 @@ struct Vector(T)
      ** v と b の内積を返します.
      ** v と b の次元は同じである必要があります.
      **/
-    T opBinary(string op: "*")(Vector!T b)
+    T opBinary(string op: "*")(const Vector!T b) const
       in { assert(n == b.n); }
     do
     {
-      auto x = zero;
-      foreach (i; 0..n) x += a[i]*b[i];
+      auto x = T(zero);
+      foreach (i; 0..n) x += a[i]*b.a[i];
       return x;
     }
   }
@@ -139,7 +146,7 @@ pure nothrow @safe
   /**
    ** ベクトル a 同士の内積を返します.
    **/
-  T hypot2(T)(Vector!T a)
+  T hypot2(T)(const Vector!T a)
   {
     return a*a;
   }
@@ -214,18 +221,19 @@ struct Matrix(T)
     /**
      ** コピーコンストラクタです.
      **/
-    this(ref return scope Matrix!T v)
+    this(ref return scope const Matrix!T v)
     {
-      r = v.r; c = v.c; a = v.a; zero = v.zero; one = v.one;
+      r = v.r; c = v.c; zero = v.zero; one = v.one;
+      a = new T[][](r, c);
+      foreach (i; 0..r) a[i][] = v.a[i][];
     }
+
     /**
      ** 自身のコピーを返します.
      **/
-    Matrix!T dup()
+    Matrix!T dup() const
     {
-      auto b = Matrix!T(r, c, zero, one);
-      foreach (i; 0..r) b[i][] = a[i][];
-      return b;
+      return Matrix!T(this);
     }
 
     /**
@@ -240,31 +248,31 @@ struct Matrix(T)
      ** m+b, m-b を返します. b は行列です.
      ** m と b の行数, 列数は同じである必要があります.
      **/
-    Matrix!T opBinary(string op)(Matrix!T b)
+    Matrix!T opBinary(string op)(const Matrix!T b) const
       if (op == "+" || op == "-")
       in { assert(r == b.r && c == b.c); }
     do
     {
       auto x = Matrix!T(r, c, zero, one);
-      foreach (i; 0..r) foreach (j; 0..c) x[i][j] = mixin("a[i][j]"~op~"b[i][j]");
+      foreach (i; 0..r) foreach (j; 0..c) x[i][j] = mixin("a[i][j]"~op~"b.a[i][j]");
       return x;
     }
     /**
      ** m+=b, m-=b を計算します. b は行列です.
      ** m と b の行数, 列数は同じである必要があります.
      **/
-    ref Matrix!T opOpAssign(string op)(Matrix!T b)
+    ref Matrix!T opOpAssign(string op)(const Matrix!T b)
       if (op == "+" || op == "-")
       in { assert(r == b.r && c == b.c); }
     do
     {
-      foreach (i; 0..r) foreach (j; 0..c) mixin("a[i][j]"~op~"=b[i][j];");
+      foreach (i; 0..r) foreach (j; 0..c) mixin("a[i][j]"~op~"=b.a[i][j];");
       return this;
     }
     /**
      ** m*b を返します. b は数値です.
      **/
-    Matrix!T opBinary(string op: "*", U)(U b)
+    Matrix!T opBinary(string op: "*", U)(U b) const
       if (isNumeric!U)
     {
       auto x = Matrix!T(r, c, zero, one);
@@ -284,19 +292,19 @@ struct Matrix(T)
      ** m*b を返します. b は行列です.
      ** m の列数と b の行数は同じである必要があります.
      **/
-    Matrix!T opBinary(string op: "*")(Matrix!T b)
+    Matrix!T opBinary(string op: "*")(const Matrix!T b) const
       in { assert(c == b.r); }
     do
     {
       auto x = Matrix!T(r, b.c, zero, one);
-      foreach (i; 0..r) foreach (j; 0..b.c) foreach (k; 0..c) x[i][j] += a[i][k]*b[k][j];
+      foreach (i; 0..r) foreach (j; 0..b.c) foreach (k; 0..c) x[i][j] += a[i][k]*b.a[k][j];
       return x;
     }
     /**
      ** m*=b を計算します. b は行列です.
      ** m の列数と b の行数は同じである必要があります.
      **/
-    ref Matrix!T opOpAssign(string op: "*")(Matrix!T b)
+    ref Matrix!T opOpAssign(string op: "*")(const Matrix!T b)
       in { assert(c == b.r); }
     do
     {
@@ -308,19 +316,19 @@ struct Matrix(T)
      ** m*b を返します. b はベクトルです.
      ** m の列数と b の次元は同じである必要があります.
      **/
-    Vector!T opBinary(string op: "*")(Vector!T b)
+    Vector!T opBinary(string op: "*")(const Vector!T b) const
       in { assert(c == b.n); }
     do
     {
       auto x = Vector!T(r, zero);
-      foreach (i; 0..r) foreach (j; 0..c) x[i] += a[i][j]*b[j];
+      foreach (i; 0..r) foreach (j; 0..c) x[i] += a[i][j]*b.a[j];
       return x;
     }
     /**
      ** m^^b を返します. 内部では繰り返し2乗法を使用しています.
      ** m は正方行列である必要があります.
      **/
-    Matrix!T opBinary(string op: "^^", U)(U n)
+    Matrix!T opBinary(string op: "^^", U)(U n) const
       if (isIntegral!U)
       in { assert(r == c); }
     do
@@ -438,4 +446,8 @@ unittest
   alias mint = ModInt!7;
   auto c = Matrix!mint([[5, 18, -1], [2, -13, 8]]);
   assert(c == Matrix!mint([[5, 4, 6], [2, 1, 1]]));
+
+  auto d = c; d *= 2;
+  assert(c == Matrix!mint([[5, 4, 6], [2, 1, 1]]));
+  assert(d == Matrix!mint([[3, 1, 5], [4, 2, 2]]));
 }

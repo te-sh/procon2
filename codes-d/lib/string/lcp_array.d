@@ -25,7 +25,7 @@ struct LcpArray
     /**
      ** Suffix Array sa を元に LCP を計算した結果を保持する構造体を返します.
      **/
-    this(SuffixArray sa)
+    this(const SuffixArray sa)
     {
       n = sa.n;
       x = new size_t[](n);

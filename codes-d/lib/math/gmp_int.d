@@ -8,21 +8,16 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
  **/
 struct GmpInt
 {
-  pure nothrow @nogc @trusted
+  pure nothrow @nogc @safe
   {
-    /**
-     ** 初期値 0 を返します.
-     **/
-    @property static init() { return GmpInt(0); }
-
     /**
      ** 値を long で返します.
      **/
-    @property value() { return toLong(); }
+    @property long value() { return toLong(); }
     /**
      ** 値を long でセットします.
      **/
-    @property value(long v) { __gmpz_set_si(&z, v); }
+    @property void value(long v) { __gmpz_set_si(&z, v); }
     alias value this;
 
     /**
@@ -35,7 +30,7 @@ struct GmpInt
     /**
      ** コピーコンストラクタです.
      **/
-    this(ref return scope GmpInt v)
+    this(ref return scope const GmpInt v)
     {
       __gmpz_init_set(&z, &v.z);
     }
@@ -50,62 +45,65 @@ struct GmpInt
     /**
      ** long に変換した値を返します.
      **/
-    long toLong()
+    long toLong() const
     {
       return __gmpz_get_si(&z);
     }
 
     /**
      ** g == v かどうかを返します.
-     ** v は GmpInt か long です.
+     ** v は GmpInt か Integral です.
      **/
-    bool opEquals(GmpInt v) const
+    bool opEquals(const GmpInt v) const
     {
       return __gmpz_cmp(&z, &v.z) == 0;
     }
     /// ditto
-    bool opEquals(long v) const
+    bool opEquals(T)(T v) const
+      if (isIntegral!T)
     {
       return __gmpz_cmp_si(&z, v) == 0;
     }
     /**
      ** g > v ならば 1 を, g == v ならば 0 を, g < v ならば -1 を返します.
-     ** v は GmpInt か long です.
+     ** v は GmpInt か Integral です.
      **/
-    int opCmp(GmpInt v) const
+    int opCmp(const GmpInt v) const
     {
       return __gmpz_cmp(&z, &v.z);
     }
     /// ditto
-    int opCmp(long v) const
+    int opCmp(T)(T v) const
+      if (isIntegral!T)
     {
       return __gmpz_cmp_si(&z, v);
     }
 
     /**
-     ** long の値 v を代入します.
+     ** v を代入します.
+     ** v は GmpInt か Integral です.
      **/
-    ref GmpInt opAssign(long v)
+    ref GmpInt opAssign(const GmpInt v)
+    {
+      __gmpz_init_set(&z, &v.z);
+      return this;
+    }
+    /// ditto
+    ref GmpInt opAssign(T)(T v)
+      if (isIntegral!T)
     {
       __gmpz_init_set_si(&z, v);
       return this;
-    }
-    /**
-     ** GmpInt の v を代入します.
-     **/
-    ref GmpInt opAssign(GmpInt v)
-    {
-      __gmpz_init_set(&z, &v.z); return this;
     }
 
     /**
      ** g+v, g-v, g*v, g/v, g%v を返します.
      ** v は GmpInt です.
      **/
-    GmpInt opBinary(string op)(GmpInt v) const
+    GmpInt opBinary(string op)(const GmpInt v) const
       if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%")
     {
-      auto r = GmpInt.init;
+      auto r = GmpInt(0);
       static      if (op == "+") __gmpz_add(&r.z, &z, &v.z);
       else static if (op == "-") __gmpz_sub(&r.z, &z, &v.z);
       else static if (op == "*") __gmpz_mul(&r.z, &z, &v.z);
@@ -117,7 +115,7 @@ struct GmpInt
      ** g+=v, g-=v, g*=v, g/=v, g%=v を計算します.
      ** v は GmpInt です.
      **/
-    ref GmpInt opOpAssign(string op)(GmpInt v)
+    ref GmpInt opOpAssign(string op)(const GmpInt v)
       if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%")
     {
       static      if (op == "+") __gmpz_add(&z, &z, &v.z);
@@ -130,12 +128,13 @@ struct GmpInt
 
     /**
      ** g+v, g-v, g*v, g/v, g%v, g^^v を返します.
-     ** v は long です.
+     ** v は Integral です.
      **/
-    GmpInt opBinary(string op)(ulong v) const
-      if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%" || op == "^^")
+    GmpInt opBinary(string op, U)(U v) const
+      if ((op == "+" || op == "-" || op == "*" || op == "/" || op == "%" || op == "^^")
+          && isIntegral!U)
     {
-      auto r = GmpInt.init;
+      auto r = GmpInt(0);
       static      if (op == "+") __gmpz_add_ui(&r.z, &z, v);
       else static if (op == "-") __gmpz_sub_ui(&r.z, &z, v);
       else static if (op == "*") __gmpz_mul_ui(&r.z, &z, v);
@@ -148,8 +147,9 @@ struct GmpInt
      ** g+=v, g-=v, g*=v, g/=v, g%=v, g^^=v を計算します.
      ** v は long です.
      **/
-    ref GmpInt opOpAssign(string op)(ulong v)
-      if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%" || op == "^^")
+    ref GmpInt opOpAssign(string op, U)(U v)
+      if ((op == "+" || op == "-" || op == "*" || op == "/" || op == "%" || op == "^^")
+          && isIntegral!U)
     {
       static      if (op == "+") __gmpz_add_ui(&z, &z, v);
       else static if (op == "-") __gmpz_sub_ui(&z, &z, v);
@@ -165,7 +165,7 @@ struct GmpInt
      **/
     GmpInt abs() const
     {
-      auto r = GmpInt.init;
+      auto r = GmpInt(0);
       __gmpz_abs(&r.z, &z);
       return r;
     }
@@ -174,7 +174,7 @@ struct GmpInt
      **/
     GmpInt sqrt() const
     {
-      auto r = GmpInt.init;
+      auto r = GmpInt(0);
       __gmpz_sqrt(&r.z, &z);
       return r;
     }
@@ -195,13 +195,13 @@ struct GmpInt
     }
   }
 
-  pure @trusted
+  pure nothrow
   {
     /**
      ** 文字列 s から作成します.
      ** base は進法です.
      **/
-    this(string s, int base = 10)
+    @safe this(string s, int base = 10)
     {
       __gmpz_init_set_str(&z, s.toStringz, base);
     }
@@ -209,7 +209,7 @@ struct GmpInt
      ** 文字列に変換した値を返します.
      ** base は進法です.
      **/
-    string toString(int base = 10) const
+    @trusted string toString(int base = 10) const
     {
       auto sz = __gmpz_sizeinbase(&z, base);
       auto buf = new char[](sz + 2);
@@ -222,7 +222,7 @@ struct GmpInt
    ** 値を f に出力します.
    ** base は進法です.
    **/
-  size_t fprint(File f, int base = 10)
+  size_t fprint(File f, int base = 10) const
   {
     return __gmpz_out_str(f.getFP, base, &z);
   }
@@ -265,7 +265,7 @@ extern(C) pragma(inline, false)
     char *__gmpz_get_str(char*, int, mpz_srcptr);
     size_t __gmpz_sizeinbase(mpz_srcptr, int);
 
-    size_t __gmpz_out_str(FILE*, int, mpz_ptr);
+    size_t __gmpz_out_str(FILE*, int, mpz_srcptr);
 
     int __gmpz_cmp(mpz_srcptr, mpz_srcptr);
     int __gmpz_cmp_si(mpz_srcptr, long);
@@ -339,7 +339,7 @@ unittest
   assert(a*c == 5250);
   assert(a/c == 4);
   assert(a%c == 10);
-  assert(a^^3 == 3375000);
+  assert(a^^3 == 3_375_000);
 
   a = 150; a += c;
   assert(a == 185);
@@ -352,7 +352,7 @@ unittest
   a = 150; a %= c;
   assert(a == 10);
   a = 150; a ^^= 3;
-  assert(a == 3375000);
+  assert(a == 3_375_000);
 
   a = 150;
   assert(a.abs == 150);
@@ -361,4 +361,8 @@ unittest
 
   assert(!GmpInt(150).probabPrime);
   assert(GmpInt(97).probabPrime);
+
+  auto d = GmpInt(a); d += 10;
+  assert(a == 150);
+  assert(d == 160);
 }

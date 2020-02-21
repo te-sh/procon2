@@ -11,14 +11,14 @@ pure nothrow @nogc @safe
    ** a/b を小数点以下切り上げした値を返します.
    ** a, b は正の値を仮定しています.
    **/
-  T cdiv(T)(T a, T b)
+  T cdiv(T)(const T a, const T b)
   {
     return (a+b-1)/b;
   }
   /**
    ** a/b の余りを正の範囲で返します.
    **/
-  T pmod(T)(T a, T b)
+  T pmod(T)(const T a, const T b)
   {
     return a >= 0 ? a%b : a%b+b;
   }
@@ -27,7 +27,7 @@ pure nothrow @nogc @safe
    ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
    ** x, y は ax + by = g を満たす x, y の1つを返します.
    **/
-  ExtGcdResult!T extGcd(T)(T a, T b)
+  ExtGcdResult!T extGcd(T)(const T a, const T b)
   {
     if (a == 0) {
       return ExtGcdResult!T(b, T(0), T(1));

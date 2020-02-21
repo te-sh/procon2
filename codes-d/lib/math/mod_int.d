@@ -13,194 +13,203 @@ import lib.math.misc;
  **/
 struct ModInt(int m, bool pos = false)
 {
-  pure nothrow @nogc @safe:
-  /**
-   ** 値を int で返します.
-   **/
-  @property int value() { return i; }
-  /**
-   ** 値を int でセットします.
-   **/
-  @property void value(int v) { i = nm(v); }
-  alias value this;
-
-  /**
-   ** v から作成した剰余群を返します.
-   ** v は Integral です.
-   **/
-  this(T)(T v)
-    if (isIntegral!T)
+  pure nothrow @nogc @safe
   {
-    i = nm(v);
-  }
-  /**
-   ** 自身に v から作成した剰余群を代入します.
-   ** v は Integral です.
-   **/
-  ref Mint opAssign(T)(T v)
-    if (isIntegral!T)
-  {
-    i = nm(v);
-    return this;
-  }
-  /**
-   ** 自身に v を代入します.
-   ** v は同じタイプです.
-   **/
-  ref Mint opAssign(Mint v)
-  {
-    i = v.i;
-    return this;
-  }
-
-  /**
-   ** -a を返します.
-   ** pos が true のときは定義されません.
-   **/
-  static if (!pos) {
-    Mint opUnary(string op: "-")() const
-    {
-      return Mint(-i);
-    }
-  }
-
-  static if (m < int.max / 2) {
     /**
-     ** a+r, a-r を返します. r は Integral です.
-     ** pos が false のときは a-b は定義されません.
+     ** 値を int で返します.
      **/
-    Mint opBinary(string op, T)(T r) const
-      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
-    {
-      return Mint(mixin("i"~op~"r"));
-    }
+    @property int value() { return i; }
     /**
-     ** a+=r, a-=r を計算します. r は Integral です.
-     ** pos が false のときは a-=b は定義されません.
+     ** 値を int でセットします.
      **/
-    ref Mint opOpAssign(string op, T)(T r)
-      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
-    {
-      i = nm(mixin("i"~op~"r"));
-      return this;
-    }
-  } else {
-    /**
-     ** a+r, a-r を返します. r は Integral です.
-     ** pos が false のときは a-b は定義されません.
-     **/
-    Mint opBinary(string op, T)(T r) const
-      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
-    {
-      return Mint(mixin("l"~op~"r"));
-    }
-    /**
-     ** a+=r, a-=r を計算します. r は int です.
-     ** pos が false のときは a-=b は定義されません.
-     **/
-    ref Mint opOpAssign(string op, T)(T r)
-      if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
-    {
-      i = nm(mixin("l"~op~"r"));
-      return this;
-    }
-  }
-  /**
-   ** a*r を返します. r は Integral です.
-   **/
-  Mint opBinary(string op: "*", T)(T r) const
-    if (isIntegral!T)
-  {
-    return Mint(l*r);
-  }
-  /**
-   ** a*=r を計算します. r は Integral です.
-   **/
-  ref Mint opOpAssign(string op: "*", T)(T r)
-    if (isIntegral!T)
-  {
-    i = nm(l*r);
-    return this;
-  }
-
-  /**
-   ** a+r, a-r, a*r を返します. r は a と同じタイプです.
-   ** pos が false のときは a-b は定義されません.
-   **/
-  Mint opBinary(string op)(Mint r) const
-    if (op == "+" || !pos && op == "-" || op == "*")
-  {
-    return opBinary!op(r.i);
-  }
-  /**
-   ** a+=r, a-=r, a*=r を計算します. r は a と同じタイプです.
-   ** pos が false のときは a-=b は定義されません.
-   **/
-  ref Mint opOpAssign(string op)(Mint r)
-    if (op == "+"|| !pos && op == "-" || op == "*")
-  {
-    return opOpAssign!op(r.i);
-  }
-
-  /**
-   ** a^^n を返します. 内部では繰り返し2乗法を使用しています.
-   **/
-  Mint opBinary(string op: "^^", T)(T n)
-    if (isIntegral!T)
-  {
-    return powr(this, n, Mint(1));
-  }
-
-  static if (!pos) {
-    /**
-     ** a*r^{-1} を返します. r は a と同じタイプです.
-     ** m が素数でない場合は正しい値を返しません.
-     ** pos が false のときは定義されません.
-     **/
-    Mint opBinary(string op: "/")(Mint r) const
-    {
-      return Mint(l*r.inv.i);
-    }
-    /**
-     ** a*=r^{-1} を計算します. r は a と同じタイプです.
-     ** m が素数でない場合は正しい値を返しません.
-     ** pos が false のときは定義されません.
-     **/
-    ref Mint opOpAssign(string op: "/")(Mint r)
-    {
-      i = nm(l*r.inv.i);
-      return this;
-    }
+    @property void value(int v) { i = nm(v); }
+    alias value this;
 
     /**
-     ** a*r^{-1} を返します. r は Integral です.
-     ** m が素数でない場合は正しい値を返しません.
-     ** pos が false のときは定義されません.
+     ** v から作成した剰余群を返します.
+     ** v は Integral です.
      **/
-    Mint opBinary(string op: "/", T)(T r) const
+    this(T)(T v)
       if (isIntegral!T)
     {
-      return opBinary!op(Mint(r));
+      i = nm(v);
     }
     /**
-     ** a*=r^{-1} を計算します. r は Integral です.
-     ** m が素数でない場合は正しい値を返しません.
-     ** pos が false のときは定義されません.
+     ** コピーコンストラクタです.
      **/
-    Mint opOpAssign(string op: "/", T)(T r)
+    this(ref return scope const Mint v)
+    {
+      i = v.i;
+    }
+    /**
+     ** 自身に v から作成した剰余群を代入します.
+     ** v は Integral です.
+     **/
+    ref Mint opAssign(T)(T v)
       if (isIntegral!T)
     {
-      return opOpAssign!op(Mint(r));
+      i = nm(v);
+      return this;
+    }
+    /**
+     ** 自身に v を代入します.
+     ** v は同じタイプです.
+     **/
+    ref Mint opAssign(const Mint v)
+    {
+      i = v.i;
+      return this;
     }
 
     /**
-     ** 自身の逆数を計算します.
-     ** m が素数でない場合は正しい値を返しません.
-     ** pos が false のときは定義されません.
+     ** -a を返します.
+     ** pos が true のときは定義されません.
      **/
-    Mint inv() const
+    static if (!pos) {
+      Mint opUnary(string op: "-")() const
+      {
+        return Mint(-i);
+      }
+    }
+
+    static if (m < int.max / 2) {
+      /**
+       ** a+r, a-r を返します. r は Integral です.
+       ** pos が false のときは a-b は定義されません.
+       **/
+      Mint opBinary(string op, T)(T r) const
+        if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
+      {
+        return Mint(mixin("i"~op~"r"));
+      }
+      /**
+       ** a+=r, a-=r を計算します. r は Integral です.
+       ** pos が false のときは a-=b は定義されません.
+       **/
+      ref Mint opOpAssign(string op, T)(T r)
+        if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
+      {
+        i = nm(mixin("i"~op~"r"));
+        return this;
+      }
+    } else {
+      /**
+       ** a+r, a-r を返します. r は Integral です.
+       ** pos が false のときは a-b は定義されません.
+       **/
+      Mint opBinary(string op, T)(T r) const
+        if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
+      {
+        return Mint(mixin("l"~op~"r"));
+      }
+      /**
+       ** a+=r, a-=r を計算します. r は int です.
+       ** pos が false のときは a-=b は定義されません.
+       **/
+      ref Mint opOpAssign(string op, T)(T r)
+        if ((op == "+" || (!pos && op == "-")) && isIntegral!T)
+      {
+        i = nm(mixin("l"~op~"r"));
+        return this;
+      }
+    }
+    /**
+     ** a*r を返します. r は Integral です.
+     **/
+    Mint opBinary(string op: "*", T)(T r) const
+      if (isIntegral!T)
     {
-      return Mint(extGcd(i, m).x);
+      return Mint(l*r);
+    }
+    /**
+     ** a*=r を計算します. r は Integral です.
+     **/
+    ref Mint opOpAssign(string op: "*", T)(T r)
+      if (isIntegral!T)
+    {
+      i = nm(l*r);
+      return this;
+    }
+
+    /**
+     ** a+r, a-r, a*r を返します. r は a と同じタイプです.
+     ** pos が false のときは a-b は定義されません.
+     **/
+    Mint opBinary(string op)(const Mint r) const
+      if (op == "+" || !pos && op == "-" || op == "*")
+    {
+      return opBinary!op(r.i);
+    }
+    /**
+     ** a+=r, a-=r, a*=r を計算します. r は a と同じタイプです.
+     ** pos が false のときは a-=b は定義されません.
+     **/
+    ref Mint opOpAssign(string op)(const Mint r)
+      if (op == "+"|| !pos && op == "-" || op == "*")
+    {
+      return opOpAssign!op(r.i);
+    }
+
+    /**
+     ** a^^n を返します. 内部では繰り返し2乗法を使用しています.
+     **/
+    Mint opBinary(string op: "^^", T)(T n)
+      if (isIntegral!T)
+    {
+      return powr(this, n, Mint(1));
+    }
+
+    static if (!pos) {
+      /**
+       ** a*r^{-1} を返します. r は a と同じタイプです.
+       ** m が素数でない場合は正しい値を返しません.
+       ** pos が false のときは定義されません.
+       **/
+      Mint opBinary(string op: "/")(const Mint r) const
+      {
+        return Mint(l*r.inv.i);
+      }
+      /**
+       ** a*=r^{-1} を計算します. r は a と同じタイプです.
+       ** m が素数でない場合は正しい値を返しません.
+       ** pos が false のときは定義されません.
+       **/
+      ref Mint opOpAssign(string op: "/")(const Mint r)
+      {
+        i = nm(l*r.inv.i);
+        return this;
+      }
+
+      /**
+       ** a*r^{-1} を返します. r は Integral です.
+       ** m が素数でない場合は正しい値を返しません.
+       ** pos が false のときは定義されません.
+       **/
+      Mint opBinary(string op: "/", T)(T r) const
+        if (isIntegral!T)
+      {
+        return opBinary!op(Mint(r));
+      }
+      /**
+       ** a*=r^{-1} を計算します. r は Integral です.
+       ** m が素数でない場合は正しい値を返しません.
+       ** pos が false のときは定義されません.
+       **/
+      Mint opOpAssign(string op: "/", T)(T r)
+        if (isIntegral!T)
+      {
+        return opOpAssign!op(Mint(r));
+      }
+
+      /**
+       ** 自身の逆数を計算します.
+       ** m が素数でない場合は正しい値を返しません.
+       ** pos が false のときは定義されません.
+       **/
+      Mint inv() const
+      {
+        return Mint(extGcd(i, m).x);
+      }
     }
   }
 
@@ -259,4 +268,12 @@ unittest
   assert(d == 5);
   assert(c+d == 1);
   assert(c*d == 1);
+
+  auto e = c; e += 5;
+  assert(c == 3);
+  assert(e == 1);
+
+  e = d; e += 5;
+  assert(d == 5);
+  assert(e == 3);
 }

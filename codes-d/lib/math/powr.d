@@ -10,19 +10,22 @@ pure nothrow @safe
    ** pred は乗法演算です.
    ** one は乗法単位元です.
    **/
-  T powr(alias pred = "a*b", T, U)(T a, U n, T one)
+  T powr(alias pred = "a*b", T, U)(const T a, U n, T one)
+    if (isIntegral!U)
   {
+    auto b = T(a);
     alias predFun = binaryFun!pred;
     if (n == 0) return one;
     auto r = one;
     for (; n > 0; n >>= 1) {
-      if (n&1) r = predFun(r, a);
-      a = predFun(a, a);
+      if (n&1) r = predFun(r, b);
+      b = predFun(b, b);
     }
     return r;
   }
   /// ditto
-  T powr(alias pred = "a*b", T, U)(T a, U n)
+  T powr(alias pred = "a*b", T, U)(const T a, U n)
+    if (isIntegral!U)
   {
     return powr!(pred, T, U)(a, n, T(1));
   }
