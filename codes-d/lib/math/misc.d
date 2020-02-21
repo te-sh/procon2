@@ -30,7 +30,7 @@ pure nothrow @nogc @safe
   ExtGcdResult!T extGcd(T)(const T a, const T b)
   {
     if (a == 0) {
-      return ExtGcdResult!T(b, T(0), T(1));
+      return ExtGcdResult!T(T(b), T(0), T(1));
     } else {
       auto r = extGcd(b%a, a);
       return ExtGcdResult!T(r.gcd, r.y-(b/a)*r.x, r.x);

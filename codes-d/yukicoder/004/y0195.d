@@ -1,6 +1,7 @@
 // URL: https://yukicoder.me/problems/no/195
 
-import std.algorithm, std.array, std.container, std.math, std.range, std.typecons, std.string;
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 version(unittest) {} else
 void main()
@@ -25,7 +26,7 @@ void main()
     foreach (i; 1..n) {
       auto B = frac(X[0]-A*c[i], d[i]);
       if (B.b == 1 && B.a > 0)
-        r = min(r, [A, B.a]);
+        r.minU([A, B.a]);
     }
   } else if (X.length == 2) {
     foreach (i; 0..n)
@@ -33,7 +34,7 @@ void main()
         auto A = frac(d[j]*X[0]-d[i]*X[1], c[i]*d[j]-d[i]*c[j]);
         auto B = frac(c[i]*X[1]-c[j]*X[0], c[i]*d[j]-d[i]*c[j]);
         if (A.b == 1 && A.a > 0 && B.b == 1 && B.a > 0)
-          r = min(r, [A.a, B.a]);
+          r.minU([A.a, B.a]);
       }
   } else {
     foreach (i; 0..n)
@@ -44,13 +45,15 @@ void main()
           auto a = A.a, b = B.a;
           foreach (k; j+1..n)
             if (c[k]*a+d[k]*b == X[2])
-              r = min(r, [a, b]);
+              r.minU([a, b]);
         }
       }
   }
 
   io.putB(r[0] < 10L^^18 && r[1] < 10L^^18, r, -1);
 }
+
+import lib.minmax;
 
 import lib.math.frac;
 
