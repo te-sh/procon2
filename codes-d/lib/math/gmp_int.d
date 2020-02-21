@@ -11,16 +11,6 @@ struct GmpInt
   pure nothrow @nogc @safe
   {
     /**
-     ** 値を long で返します.
-     **/
-    @property long value() { return toLong(); }
-    /**
-     ** 値を long でセットします.
-     **/
-    @property void value(long v) { __gmpz_set_si(&z, v); }
-    alias value this;
-
-    /**
      ** long の値 v から作成します.
      **/
     this(long v)

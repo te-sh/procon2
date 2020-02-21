@@ -32,7 +32,8 @@ struct Vector(T)
     {
       this.n = n; this.zero = zero;
       a = new T[](n);
-      if (T.init != zero) a[] = zero;
+      if (T.init != zero)
+        foreach (i; 0..n) a[i] = zero;
     }
     /**
      ** 配列 b を元に作成したベクトルを返します.
@@ -57,7 +58,7 @@ struct Vector(T)
     {
       n = v.n; zero = v.zero;
       a = new T[](n);
-      a[] = v.a[];
+      foreach (i; 0..n) a[i] = v.a[i];
     }
 
     /**
@@ -201,7 +202,8 @@ struct Matrix(T)
     {
       this.r = r; this.c = c; this.zero = zero; this.one = one;
       a = new T[][](r, c);
-      if (T.init != zero) foreach (i; 0..r) a[i][] = zero;
+      if (T.init != zero)
+        foreach (i; 0..r) foreach (j; 0..c) a[i][j] = zero;
     }
     /**
      ** 配列 b を元に作成した行列を返します.
@@ -225,7 +227,7 @@ struct Matrix(T)
     {
       r = v.r; c = v.c; zero = v.zero; one = v.one;
       a = new T[][](r, c);
-      foreach (i; 0..r) a[i][] = v.a[i][];
+      foreach (i; 0..r) foreach (j; 0..c) a[i][j] = v.a[i][j];
     }
 
     /**
