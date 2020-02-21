@@ -7,8 +7,8 @@ void main()
 {
   int N; io.getV(N);
 
-  auto p = Prime(N*3).array.assumeSorted;
-  auto ca = new int[](N*2), cb = new int[](N*2), ans = 0L;
+  auto p = primeFactor(N*3).primes.assumeSorted;
+  auto ca = new int[](N*2+1), cb = new int[](N*2+1), ans = 0L;
 
   foreach (b; p.upperBound(2).lowerBound(N+1)) {
     ca[] = 0;
@@ -20,7 +20,7 @@ void main()
   io.put(ans);
 }
 
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

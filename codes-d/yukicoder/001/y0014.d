@@ -10,11 +10,11 @@ void main()
   int[] a; io.getA(N, a);
   auto ma = a.maxElement;
 
-  auto primes = Prime(ma.isqrt);
+  auto pf = primeFactorSqrtOf(ma);
   auto b = new int[][](ma+1);
   auto c = (ma+1).iota.map!(_ => redBlackTree!true(cast(int[])[])).array;
   foreach (ai; a) {
-    auto d = primes.divisors(ai);
+    auto d = pf.divisors(ai);
     if (b[ai].empty) b[ai] = d;
     foreach (di; d) c[di].insert(ai);
   }
@@ -35,9 +35,7 @@ void main()
 
 pure T lcm(T)(T a, T b) { return a/gcd(a, b)*b; }
 
-import lib.math.misc;
-
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

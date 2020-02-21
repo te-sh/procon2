@@ -11,7 +11,7 @@ void main()
   int[] A; io.getA(N, A);
 
   auto t = A.map!(Ai => 1<<Ai).reduce!"a|b";
-  auto p = [0] ~ Prime(m).array ~ [m+1];
+  auto p = [0] ~ primeFactor(m).primes ~ [m+1];
   auto n = p.length, d = p.map!(pi => pi.digits).array;
   auto b = d.map!(di => (~t&di) == 0).array; b[0] = b[$-1] = false;
 
@@ -39,7 +39,7 @@ auto digits(int x)
 
 import lib.bitop;
 
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

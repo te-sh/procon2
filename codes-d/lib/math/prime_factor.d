@@ -1,14 +1,14 @@
-module lib.math.prime;
+module lib.math.prime_factor;
 import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
-// :::::::::::::::::::: lib.math.prime
-import lib.math.misc;
+// :::::::::::::::::::: lib.math.prime_factor
+import lib.math.isqrt;
 
 /**
- ** 素数を列挙します.
+ ** 素数を列挙と素因数分解を行う構造体です.
  **/
-struct Prime
+struct PrimeFactor
 {
   /**
    ** 素因数とベキ指数を表します.
@@ -30,10 +30,9 @@ struct Prime
    **/
   const int n;
   /**
-   ** 素数の配列を返します.
+   ** 素数の配列です.
    **/
-  @property array() { return primes; }
-  alias array this;
+  int[] primes;
 
   pure nothrow
   {
@@ -100,8 +99,6 @@ struct Prime
 
   private
   {
-    int[] primes;
-
     pure nothrow @safe
     {
       T[] divisorsProc(T)(Factor!T[] factors, int i, T c) const
@@ -115,22 +112,46 @@ struct Prime
     }
   }
 }
+
+pure nothrow
+{
+  /**
+   ** n 以下の素数を保持する PrimeFactor 構造体を返します.
+   **/
+  auto primeFactor(int n)
+  {
+    return PrimeFactor(n);
+  }
+
+  /**
+   ** √n 以下の素数を保持する PrimeFactor 構造体を返します.
+   ** n 以下の数の素因数分解を行うために使用することが多いでしょう.
+   **/
+  auto primeFactorSqrtOf(T)(T n)
+    if (isIntegral!T)
+  {
+    return PrimeFactor(cast(int)n.isqrt);
+  }
+}
 // ::::::::::::::::::::
 
 unittest
 {
-  assert(equal(Prime(2).array, [2]));
-  assert(equal(Prime(5).array, [2, 3, 5]));
-  assert(equal(Prime(30).array, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]));
+  assert(equal(PrimeFactor(2).primes, [2]));
+  assert(equal(PrimeFactor(5).primes, [2, 3, 5]));
+  assert(equal(PrimeFactor(30).primes, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]));
 
-  auto primes = Prime(5);
-  alias Factor = primes.Factor!int;
+  auto pf = PrimeFactor(5);
+  alias Factor = pf.Factor!int;
 
-  assert(equal(primes.div(23), [Factor(23, 1)]));
-  assert(equal(primes.div(24), [Factor(2, 3), Factor(3, 1)]));
-  assert(equal(primes.div(25), [Factor(5, 2)]));
-  assert(equal(primes.div(31), [Factor(31, 1)]));
+  assert(equal(pf.div(23), [Factor(23, 1)]));
+  assert(equal(pf.div(24), [Factor(2, 3), Factor(3, 1)]));
+  assert(equal(pf.div(25), [Factor(5, 2)]));
+  assert(equal(pf.div(31), [Factor(31, 1)]));
 
-  auto primes2 = Prime(100);
-  assert(equal(primes2.divisors(60), [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]));
+  auto pf2 = PrimeFactor(100);
+  assert(equal(pf2.divisors(60), [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]));
+
+  assert(primeFactor(120).n == 120);
+  assert(primeFactorSqrtOf(120).n == 10);
 }

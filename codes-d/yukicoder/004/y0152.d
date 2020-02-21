@@ -21,7 +21,7 @@ void main()
 
 const mod = 1000003;
 
-import lib.math.misc;
+import lib.math.isqrt;
 
 auto io = IO!()();
 import lib.io;

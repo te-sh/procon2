@@ -3,7 +3,7 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.matrix
-import lib.math.misc;
+import lib.math.powr;
 
 /**
  ** ベクトルを表します.

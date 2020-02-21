@@ -10,14 +10,14 @@ void main()
   auto c = new int[](26);
   foreach (Si; S) ++c[Si-'A'];
 
-  auto cn = 1000, primes = Prime(cn.isqrt);
+  auto cn = 1000, pf = primeFactorSqrtOf(cn);
   auto f = new int[](cn+1), n = cast(int)S.length;
   foreach (i; 2..n+1)
-    foreach (e; primes.div(i)) f[e.prime] += e.exp;
+    foreach (e; pf.div(i)) f[e.prime] += e.exp;
 
   foreach (ci; c)
     foreach (i; 2..ci+1)
-      foreach (e; primes.div(i)) f[e.prime] -= e.exp;
+      foreach (e; pf.div(i)) f[e.prime] -= e.exp;
 
   auto r = mint(1);
   foreach (i, fi; f)
@@ -26,9 +26,7 @@ void main()
   io.put(r-1);
 }
 
-import lib.math.misc;
-
-import lib.math.prime;
+import lib.math.prime_factor;
 
 const mod = 573;
 alias mint = ModInt!mod;

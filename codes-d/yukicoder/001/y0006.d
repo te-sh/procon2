@@ -8,8 +8,8 @@ void main()
   int K; io.getV(K);
   int N; io.getV(N);
 
-  auto primes = Prime(N);
-  auto p = primes.array.find!"a >= b"(K).array, h = p.map!hash.array;
+  auto pf = primeFactor(N);
+  auto p = pf.primes.find!"a >= b"(K).array, h = p.map!hash.array;
 
   auto i = 0, j = 0, b = new bool[](10); b[h[i]] = true;
   auto ml = 0, mi = i;
@@ -38,7 +38,7 @@ auto hash(int x)
   return x;
 }
 
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

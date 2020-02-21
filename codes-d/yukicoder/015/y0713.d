@@ -6,10 +6,10 @@ version(unittest) {} else
 void main()
 {
   int N; io.getV(N);
-  io.putB(N == 1, 0, Prime(N).array.sum);
+  io.putB(N == 1, 0, primeFactor(N).primes.sum);
 }
 
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

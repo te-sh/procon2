@@ -7,8 +7,8 @@ void main()
 {
   int Q; io.getV(Q);
 
-  auto primes = Prime(6);
-  alias Factor = primes.Factor;
+  auto pf = primeFactor(6);
+  alias Factor = pf.Factor;
 
   auto expo(int x, int p)
   {
@@ -21,7 +21,7 @@ void main()
   {
     int seed, N, K, B; io.getV(seed, N, K, B);
 
-    auto bd = primes.div(B);
+    auto bd = pf.div(B);
 
     auto xl = new long[](N+1); xl[0] = seed;
     foreach (i; 1..N+1)
@@ -42,7 +42,7 @@ void main()
   foreach (_; 0..Q) calc();
 }
 
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

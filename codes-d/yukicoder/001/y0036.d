@@ -6,13 +6,11 @@ version(unittest) {} else
 void main()
 {
   long N; io.getV(N);
-  auto primes = Prime(cast(int)N.isqrt);
-  io.putB(primes.div(N).map!"a.exp".sum >= 3, "YES", "NO");
+  auto pf = primeFactorSqrtOf(N);
+  io.putB(pf.div(N).map!"a.exp".sum >= 3, "YES", "NO");
 }
 
-import lib.math.misc;
-
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;

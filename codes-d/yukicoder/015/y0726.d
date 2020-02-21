@@ -5,7 +5,7 @@ import std.algorithm, std.array, std.container, std.math, std.range, std.typecon
 version(unittest) {} else
 void main()
 {
-  auto primes = Prime(10^^5);
+  auto pf = primeFactor(10^^5);
 
   int Y, X; io.getV(Y, X);
 
@@ -15,7 +15,7 @@ void main()
   {
     if (n == 1) return false;
 
-    foreach (pi; primes) {
+    foreach (pi; pf.primes) {
       if (pi > n.isqrt) break;
       if (n%pi == 0) return false;
     }
@@ -38,9 +38,9 @@ void main()
   io.putB(t%2 != 0, "First", "Second");
 }
 
-import lib.math.misc;
+import lib.math.isqrt;
 
-import lib.math.prime;
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;
