@@ -7,20 +7,23 @@ import lib.bound_by;
 
 pure nothrow @nogc @safe
 {
-  /**
-   ** a/b を小数点以下切り上げした値を返します.
-   ** a, b は正の値を仮定しています.
-   **/
-  T cdiv(T)(const T a, const T b)
+  pragma(inline)
   {
-    return (a+b-1)/b;
-  }
-  /**
-   ** a/b の余りを正の範囲で返します.
-   **/
-  T pmod(T)(const T a, const T b)
-  {
-    return a >= 0 ? a%b : a%b+b;
+    /**
+     ** a/b を小数点以下切り上げした値を返します.
+     ** a, b は正の値を仮定しています.
+     **/
+    T cdiv(T)(const T a, const T b)
+    {
+      return (a+b-1)/b;
+    }
+    /**
+     ** a/b の余りを正の範囲で返します.
+     **/
+    T pmod(T)(const T a, const T b)
+    {
+      return a >= 0 ? a%b : a%b+b;
+    }
   }
 
   /**

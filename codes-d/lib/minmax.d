@@ -3,21 +3,18 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.minmax
-pragma(inline)
+pragma(inline) pure nothrow @nogc @safe
 {
-  pure nothrow @nogc @safe
-  {
-    /**
-     ** a = min(a, b) を計算します.
-     **/
-    T minU(T, U)(ref T a, U b)
-    { return a = min(a, b); }
-    /**
-     ** a = min(a, b) を計算します.
-     **/
-    T maxU(T, U)(ref T a, U b)
-    { return a = max(a, b); }
-  }
+  /**
+   ** a = min(a, b) を計算します.
+   **/
+  T minU(T, U)(ref T a, U b)
+  { return a = min(a, b); }
+  /**
+   ** a = min(a, b) を計算します.
+   **/
+  T maxU(T, U)(ref T a, U b)
+  { return a = max(a, b); }
 }
 // ::::::::::::::::::::
 

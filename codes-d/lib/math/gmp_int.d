@@ -224,7 +224,7 @@ struct GmpInt
   }
 }
 
-extern(C) pragma(inline, false)
+extern(C) pragma(inline, false) private
 {
   import core.stdc.stdio : FILE;
   alias __mp_limb_t = ulong;
