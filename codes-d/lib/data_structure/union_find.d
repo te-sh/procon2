@@ -48,6 +48,16 @@ class UnionFind
     }
 
     /**
+     ** 頂点 u を含む連結部分の代表頂点を返します.
+     **/
+    int subst(int u)
+      in { assert(0 <= u && u < n); }
+    do
+    {
+      return p[u] == s ? u : (p[u] = subst(p[u]));
+    }
+
+    /**
      ** 頂点 u と頂点 v が同じ連結部分にあるかどうかを返します.
      **/
     bool isSame(int u, int v)
@@ -72,11 +82,11 @@ class UnionFind
     }
   }
 
-  /**
-   ** 連結部分ごとの頂点を配列にしたものを列挙して Range で返します.
-   **/
   pure nothrow @safe
   {
+    /**
+     ** 連結部分ごとの頂点を配列にしたものを列挙して Range で返します.
+     **/
     auto groups()
     {
       auto g = new int[][](n);
@@ -89,14 +99,6 @@ class UnionFind
   {
     int[] p; int s;
     size_t cf; size_t[] cn;
-
-    pure nothrow @nogc @safe
-    {
-      int subst(int i)
-      {
-        return p[i] == s ? i : (p[i] = subst(p[i]));
-      }
-    }
   }
 }
 

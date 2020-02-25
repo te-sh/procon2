@@ -59,7 +59,7 @@ No.601-650
 
 No.301-350
 
-|[No.311](yuk/007/y0311.html)|[No.312](yuk/007/y0312.html)|
+|[No.311](yuk/007/y0311.html)|[No.312](yuk/007/y0312.html)|[No.313](yuk/007/y0313.html)|[No.314](yuk/007/y0314.html)|
 |[No.306](yuk/007/y0306.html)|[No.307](yuk/007/y0307.html)|No.308|No.309|No.310|
 |[No.301](yuk/007/y0301.html)|[No.302](yuk/007/y0302.html)|[No.303](yuk/007/y0303.html)|[No.304](yuk/007/y0304.html)|[No.305](yuk/007/y0305.html)|
 
@@ -72,7 +72,7 @@ No.151-200
 |[No.176](yuk/004/y0176.html)|[No.177](yuk/004/y0177.html)|[No.178](yuk/004/y0178.html)|[No.179](yuk/004/y0179.html)|[No.180](yuk/004/y0180.html)|
 |[No.171](yuk/004/y0171.html)|[No.172](yuk/004/y0172.html)|[No.173](yuk/004/y0173.html)|[No.174](yuk/004/y0174.html)|[No.175](yuk/004/y0175.html)|
 |[No.166](yuk/004/y0166.html)|[No.167](yuk/004/y0167.html)|[No.168](yuk/004/y0168.html)|[No.169](yuk/004/y0169.html)|[No.170](yuk/004/y0170.html)|
-|[No.161](yuk/004/y0161.html)|No.162|[No.163](yuk/004/y0163.html)|[No.164](yuk/004/y0164.html)|[No.165](yuk/004/y0165.html)|
+|[No.161](yuk/004/y0161.html)|[No.162](yuk/004/y0162.html)|[No.163](yuk/004/y0163.html)|[No.164](yuk/004/y0164.html)|[No.165](yuk/004/y0165.html)|
 |[No.156](yuk/004/y0156.html)|[No.157](yuk/004/y0157.html)|[No.158](yuk/004/y0158.html)|[No.159](yuk/004/y0159.html)|[No.160](yuk/004/y0160.html)|
 |[No.151](yuk/004/y0151.html)|[No.152](yuk/004/y0152.html)|[No.153](yuk/004/y0153.html)|[No.154](yuk/004/y0154.html)|[No.155](yuk/004/y0155.html)|
 

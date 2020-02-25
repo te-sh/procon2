@@ -87,6 +87,13 @@ template Region(alias h, alias w)
     pure nothrow @safe
     {
       /**
+       ** 文字列に変換します.
+       **/
+      auto toString() const
+      {
+        return "Pos("~r.to!string~", "~c.to!string~")";
+      }
+      /**
        ** 周囲4方向の位置のうち, 領域内にある位置を列挙して Range で返します.
        **/
       auto around4() const
