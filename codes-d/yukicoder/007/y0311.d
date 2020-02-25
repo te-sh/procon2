@@ -1,4 +1,4 @@
-// URL: https://yukicoder.me/problems/no/159
+// URL: https://yukicoder.me/problems/no/311
 
 import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
@@ -6,8 +6,8 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
 version(unittest) {} else
 void main()
 {
-  double p, q; io.getV(p, q);
-  io.putB(1-p < p*(1-q), "YES", "NO");
+  long N; io.getV(N);
+  io.put((N/3+N/5)*2);
 }
 
 auto io = IO!()();

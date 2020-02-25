@@ -1,4 +1,4 @@
-// URL: https://yukicoder.me/problems/no/159
+// URL: https://yukicoder.me/problems/no/312
 
 import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
@@ -6,9 +6,13 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
 version(unittest) {} else
 void main()
 {
-  double p, q; io.getV(p, q);
-  io.putB(1-p < p*(1-q), "YES", "NO");
+  long N; io.getV(N);
+
+  auto pf = primeFactorSqrtOf(N), d = pf.divisors(N);
+  io.put(d.filter!"a>2".front);
 }
+
+import lib.math.prime_factor;
 
 auto io = IO!()();
 import lib.io;
