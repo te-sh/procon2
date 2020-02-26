@@ -11,55 +11,55 @@ pragma(inline) pure nothrow @nogc @safe
    **/
   bool bitTest(T)(T n, size_t i)
     if (isIntegral!T)
-      { return (n & (T(1) << i)) != 0; }
+  { return (n & (T(1) << i)) != 0; }
   /**
    ** n の i ビット目を 1 にした結果の数値を返します.
    **/
   T bitSet(T)(T n, size_t i)
     if (isIntegral!T)
-      { return n | (T(1) << i); }
+  { return n | (T(1) << i); }
   /**
    ** n の i ビット目を 0 にした結果の数値を返します.
    **/
   T bitReset(T)(T n, size_t i)
     if (isIntegral!T)
-      { return n & ~(T(1) << i); }
+  { return n & ~(T(1) << i); }
   /**
    ** n の i ビット目を反転させた結果の数値を返します.
    **/
   T bitComp(T)(T n, size_t i)
     if (isIntegral!T)
-      { return n ^ (T(1) << i); }
+  { return n ^ (T(1) << i); }
   /**
    ** n の最初に 1 になっているビットを返します.
    **/
   int bsf(T)(T n)
     if (is(T == int) || is(T == uint))
-      { return _bsf(cast(uint)(n)); }
+  { return _bsf(cast(uint)(n)); }
   /// ditto
   int bsf(T)(T n)
     if (is(T == long) || is(T == ulong))
-      { return _bsf(cast(ulong)(n)); }
+  { return _bsf(cast(ulong)(n)); }
   /**
    ** n の最後に 1 になっているビットを返します.
    **/
   int bsr(T)(T n)
     if (is(T == int) || is(T == uint))
-      { return _bsr(cast(uint)n); }
+  { return _bsr(cast(uint)n); }
   /// ditto
   int bsr(T)(T n)
     if (is(T == long) || is(T == ulong))
-      { return _bsr(cast(ulong)n); }
+  { return _bsr(cast(ulong)n); }
   /**
    ** n の 1 になっているビットの数を返します.
    **/
   int popcnt(T)(T n)
     if (is(T == int) || is(T == uint))
-      { return _popcnt(cast(uint)n); }
+  { return _popcnt(cast(uint)n); }
   /// ditto
   int popcnt(T)(T n)
     if (is(T == long) || is(T == ulong))
-      { return _popcnt(cast(ulong)n); }
+  { return _popcnt(cast(ulong)n); }
 }
 
 pure nothrow @nogc @safe

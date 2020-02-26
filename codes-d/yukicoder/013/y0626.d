@@ -1,24 +1,15 @@
 // URL: https://yukicoder.me/problems/no/626
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n; long tw; readV(n, tw);
-  C[] c; readS(n, c);
+  int n; long tw; io.getV(n, tw);
+  C[] c; io.getS!("v", "w")(n, c);
 
-  c.sort!((a, b) => a.v.to!real/a.w > b.v.to!real/b.w);
+  c.sort!((a, b) => a.v.to!double/a.w > b.v.to!double/b.w);
 
   auto p = 0L;
 
@@ -27,7 +18,7 @@ void main()
     auto u = 0.0L;
     foreach (j; i..n) {
       if (s.w < c[j].w) {
-        u = s.v + c[j].v.to!real/c[j].w*s.w;
+        u = s.v + c[j].v.to!double/c[j].w*s.w;
         break;
       }
       s += c[j];
@@ -41,7 +32,7 @@ void main()
 
     auto lu = lowerUpper(i, s);
     if (lu[1] < p) return;
-    p = max(p, lu[0]);
+    p.maxU(lu[0]);
 
     dfs(i+1, s);
     if (s.w >= c[i].w) dfs(i+1, s+c[i]);
@@ -49,7 +40,7 @@ void main()
 
   dfs(0, C(0, tw));
 
-  writeln(p);
+  io.put(p);
 }
 
 struct C
@@ -58,3 +49,8 @@ struct C
   auto opBinary(string op: "+")(C a) { return C(v+a.v, w-a.w); }
   auto opOpAssign(string op: "+")(C a) { v += a.v; w -= a.w; return this; }
 }
+
+import lib.minmax;
+
+auto io = IO!()();
+import lib.io;

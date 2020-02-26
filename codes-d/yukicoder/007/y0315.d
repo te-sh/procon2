@@ -69,7 +69,7 @@ auto d2i(int[] a)
 
 const mod = 10^^9+7;
 alias mint = ModInt!mod;
-import lib.math.mod_int2;
+import lib.math.mod_int;
 
 auto io = IO!()();
 import lib.io;

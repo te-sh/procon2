@@ -3,7 +3,7 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.bound_by
-pure nothrow @nogc @safe
+pragma(inline) pure nothrow @nogc @safe
 {
   /**
    ** a の要素を conv によって変換したものを comp で比較した結果 v を上回らない

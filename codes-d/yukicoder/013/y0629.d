@@ -1,49 +1,32 @@
 // URL: https://yukicoder.me/problems/no/629
 
-import std.algorithm, std.container, std.conv, std.math, std.range, std.typecons, std.stdio, std.string;
-
-auto rdsp(){return readln.splitter;}
-void pick(R,T)(ref R r,ref T t){t=r.front.to!T;r.popFront;}
-void pickV(R,T...)(ref R r,ref T t){foreach(ref v;t)pick(r,v);}
-void readV(T...)(ref T t){auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readA(T)(size_t n,ref T[]t){t=new T[](n);auto r=rdsp;foreach(ref v;t)pick(r,v);}
-void readM(T)(size_t r,size_t c,ref T[][]t){t=new T[][](r);foreach(ref v;t)readA(c,v);}
-void readC(T...)(size_t n,ref T t){foreach(ref v;t)v=new typeof(v)(n);foreach(i;0..n){auto r=rdsp;foreach(ref v;t)pick(r,v[i]);}}
-void readS(T)(size_t n,ref T t){t=new T(n);foreach(ref v;t){auto r=rdsp;foreach(ref j;v.tupleof)pick(r,j);}}
-void writeA(T)(size_t n,T t){foreach(i,v;t.enumerate){write(v);if(i<n-1)write(" ");}writeln;}
+import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
+       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 version(unittest) {} else
 void main()
 {
-  int n, m; readV(n, m);
-  int[] a; readA(n, a);
+  int N, M; io.getV(N, M);
+  int[] a; io.getA(N, a);
 
-  auto g = Graph!int(n);
-  foreach (_; 0..m) {
-    int u, v; readV(u, v); --u; --v;
+  auto g = Graph(N);
+  foreach (_; 0..M) {
+    int u, v; io.getV(u, v); --u; --v;
     g.addEdgeB(u, v);
   }
 
-  foreach (i; 0..n) {
+  foreach (i; 0..N) {
     auto b = a.indexed(g[i]);
     auto v1 = b.filter!(bi => bi > a[i]).array;
     auto v2 = b.filter!(bi => bi < a[i]).array;
-    if (v1.sort().uniq.walkLength >= 2 || v2.sort().uniq.walkLength >= 2) {
-      writeln("YES");
-      return;
-    }
+    if (v1.sort.uniq.walkLength >= 2 || v2.sort.uniq.walkLength >= 2)
+      io.put!"{exit: true}"("YES");
   }
 
-  writeln("NO");
+  io.put("NO");
 }
 
-struct Graph(N = int)
-{
-  alias Node = N;
-  Node n;
-  Node[][] g;
-  alias g this;
-  this(Node n) { this.n = n; g = new Node[][](n); }
-  void addEdge(Node u, Node v) { g[u] ~= v; }
-  void addEdgeB(Node u, Node v) { g[u] ~= v; g[v] ~= u; }
-}
+import lib.graph.graph;
+
+auto io = IO!()();
+import lib.io;
