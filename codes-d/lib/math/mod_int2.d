@@ -12,7 +12,7 @@ import lib.math.misc;
  **/
 struct ModInt(int m)
 {
-  pure nothrow @nogc @safe
+  pragma(inline) pure nothrow @nogc @safe
   {
     /**
      ** v から作成した剰余群を返します.
@@ -46,26 +46,6 @@ struct ModInt(int m)
     }
 
     /**
-     ** 自身に v から作成した剰余群を代入します.
-     ** v は Integral です.
-     **/
-    ref Mint opAssign(T)(T v)
-      if (isIntegral!T)
-    {
-      i = nm(v);
-      return this;
-    }
-    /**
-     ** 自身に v を代入します.
-     ** v は同じタイプです.
-     **/
-    ref Mint opAssign(const Mint v)
-    {
-      i = v.i;
-      return this;
-    }
-
-    /**
      ** -a を返します.
      **/
     Mint opUnary(string op: "-")() const
@@ -79,14 +59,14 @@ struct ModInt(int m)
        **/
       Mint opBinary(string op: "+")(int r) const
       {
-        auto m = Mint.init;
+        Mint m;
         m.i = nm(i+r);
         return m;
       }
       /// ditto
       Mint opBinary(string op: "+")(const Mint r) const
       {
-        auto m = Mint.init;
+        Mint m;
         m.i = nmp(i+r.i);
         return m;
       }
@@ -110,14 +90,14 @@ struct ModInt(int m)
        **/
       Mint opBinary(string op: "+")(int r) const
       {
-        auto m = Mint.init;
+        Mint m;
         m.i = nm(l+r);
         return m;
       }
       /// ditto
       Mint opBinary(string op: "+")(const Mint r) const
       {
-        auto m = Mint.init;
+        Mint m;
         m.i = nmp(l+r.i);
         return m;
       }
@@ -187,14 +167,14 @@ struct ModInt(int m)
     Mint opBinary(string op: "*", T)(T r) const
       if (isIntegral!T)
     {
-      auto m = Mint.init;
+      Mint m;
       m.i = nm(l*r);
       return m;
     }
     /// ditto
     Mint opBinary(string op: "*")(const Mint r) const
     {
-      auto m = Mint.init;
+      Mint m;
       m.i = nmp(l*r.i);
       return m;
     }
@@ -287,6 +267,29 @@ struct ModInt(int m)
     }
   }
 
+  pure nothrow @nogc @safe
+  {
+    /**
+     ** 自身に v から作成した剰余群を代入します.
+     ** v は Integral です.
+     **/
+    ref Mint opAssign(T)(T v)
+      if (isIntegral!T)
+    {
+      i = nm(v);
+      return this;
+    }
+    /**
+     ** 自身に v を代入します.
+     ** v は同じタイプです.
+     **/
+    ref Mint opAssign(const Mint v)
+    {
+      i = v.i;
+      return this;
+    }
+  }
+
   pure nothrow @safe
   {
     /**
@@ -311,7 +314,6 @@ struct ModInt(int m)
       {
         return cast(int)pmod(v, m);
       }
-
       int nmp(T)(T v) const
         if (isIntegral!T)
       {

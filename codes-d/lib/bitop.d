@@ -3,66 +3,63 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.bitop
-pragma(inline)
+pragma(inline) pure nothrow @nogc @safe
 {
   import core.bitop : _bsf = bsf, _bsr = bsr, _popcnt = popcnt;
-  pure nothrow @nogc @safe
-  {
-    /**
-     ** n の i ビット目が 1 かどうかを返します.
-     **/
-    bool bitTest(T)(T n, size_t i)
-      if (isIntegral!T)
-    { return (n & (T(1) << i)) != 0; }
-    /**
-     ** n の i ビット目を 1 にした結果の数値を返します.
-     **/
-    T bitSet(T)(T n, size_t i)
-      if (isIntegral!T)
-    { return n | (T(1) << i); }
-    /**
-     ** n の i ビット目を 0 にした結果の数値を返します.
-     **/
-    T bitReset(T)(T n, size_t i)
-      if (isIntegral!T)
-    { return n & ~(T(1) << i); }
-    /**
-     ** n の i ビット目を反転させた結果の数値を返します.
-     **/
-    T bitComp(T)(T n, size_t i)
-      if (isIntegral!T)
-    { return n ^ (T(1) << i); }
-    /**
-     ** n の最初に 1 になっているビットを返します.
-     **/
-    int bsf(T)(T n)
-      if (is(T == int) || is(T == uint))
-    { return _bsf(cast(uint)(n)); }
-    /// ditto
-    int bsf(T)(T n)
-      if (is(T == long) || is(T == ulong))
-    { return _bsf(cast(ulong)(n)); }
-    /**
-     ** n の最後に 1 になっているビットを返します.
-     **/
-    int bsr(T)(T n)
-      if (is(T == int) || is(T == uint))
-    { return _bsr(cast(uint)n); }
-    /// ditto
-    int bsr(T)(T n)
-      if (is(T == long) || is(T == ulong))
-    { return _bsr(cast(ulong)n); }
-    /**
-     ** n の 1 になっているビットの数を返します.
-     **/
-    int popcnt(T)(T n)
-      if (is(T == int) || is(T == uint))
-    { return _popcnt(cast(uint)n); }
-    /// ditto
-    int popcnt(T)(T n)
-      if (is(T == long) || is(T == ulong))
-    { return _popcnt(cast(ulong)n); }
-  }
+  /**
+   ** n の i ビット目が 1 かどうかを返します.
+   **/
+  bool bitTest(T)(T n, size_t i)
+    if (isIntegral!T)
+      { return (n & (T(1) << i)) != 0; }
+  /**
+   ** n の i ビット目を 1 にした結果の数値を返します.
+   **/
+  T bitSet(T)(T n, size_t i)
+    if (isIntegral!T)
+      { return n | (T(1) << i); }
+  /**
+   ** n の i ビット目を 0 にした結果の数値を返します.
+   **/
+  T bitReset(T)(T n, size_t i)
+    if (isIntegral!T)
+      { return n & ~(T(1) << i); }
+  /**
+   ** n の i ビット目を反転させた結果の数値を返します.
+   **/
+  T bitComp(T)(T n, size_t i)
+    if (isIntegral!T)
+      { return n ^ (T(1) << i); }
+  /**
+   ** n の最初に 1 になっているビットを返します.
+   **/
+  int bsf(T)(T n)
+    if (is(T == int) || is(T == uint))
+      { return _bsf(cast(uint)(n)); }
+  /// ditto
+  int bsf(T)(T n)
+    if (is(T == long) || is(T == ulong))
+      { return _bsf(cast(ulong)(n)); }
+  /**
+   ** n の最後に 1 になっているビットを返します.
+   **/
+  int bsr(T)(T n)
+    if (is(T == int) || is(T == uint))
+      { return _bsr(cast(uint)n); }
+  /// ditto
+  int bsr(T)(T n)
+    if (is(T == long) || is(T == ulong))
+      { return _bsr(cast(ulong)n); }
+  /**
+   ** n の 1 になっているビットの数を返します.
+   **/
+  int popcnt(T)(T n)
+    if (is(T == int) || is(T == uint))
+      { return _popcnt(cast(uint)n); }
+  /// ditto
+  int popcnt(T)(T n)
+    if (is(T == long) || is(T == ulong))
+      { return _popcnt(cast(ulong)n); }
 }
 
 pure nothrow @nogc @safe
@@ -80,9 +77,9 @@ pure nothrow @nogc @safe
   {
     private T n, i;
 
-    this(T n) { this.n = this.i = n; }
-    pure nothrow @nogc @safe
+    pragma(inline) pure nothrow @nogc @safe
     {
+      this(T n) { this.n = this.i = n; }
       static if (includeZero) {
         @property T front() const { return i&n; }
         void popFront() { i &= n; i--; }

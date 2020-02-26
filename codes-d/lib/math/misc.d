@@ -3,29 +3,27 @@ import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.form
        std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
 
 // :::::::::::::::::::: lib.math.misc
-import lib.bound_by;
+pragma(inline) pure nothrow @nogc @safe
+{
+  /**
+   ** a/b を小数点以下切り上げした値を返します.
+   ** a, b は正の値を仮定しています.
+   **/
+  T cdiv(T)(const T a, const T b)
+  {
+    return (a+b-1)/b;
+  }
+  /**
+   ** a/b の余りを正の範囲で返します.
+   **/
+  T pmod(T)(const T a, const T b)
+  {
+    return a >= 0 ? a%b : a%b+b;
+  }
+}
 
 pure nothrow @nogc @safe
 {
-  pragma(inline)
-  {
-    /**
-     ** a/b を小数点以下切り上げした値を返します.
-     ** a, b は正の値を仮定しています.
-     **/
-    T cdiv(T)(const T a, const T b)
-    {
-      return (a+b-1)/b;
-    }
-    /**
-     ** a/b の余りを正の範囲で返します.
-     **/
-    T pmod(T)(const T a, const T b)
-    {
-      return a >= 0 ? a%b : a%b+b;
-    }
-  }
-
   /**
    ** 拡張ユークリッドの互除法で a, b の最大公約数 g を求めて返します.
    ** x, y は ax + by = g を満たす x, y の1つを返します.
