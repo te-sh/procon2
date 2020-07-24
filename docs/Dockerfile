@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-alpine3.10 as build
+FROM ruby:2.6.6-alpine3.12 as build
 
 RUN apk add --update --no-cache build-base
 
@@ -6,7 +6,7 @@ WORKDIR /tmp
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-FROM ruby:2.6.5-alpine3.10
+FROM ruby:2.6.6-alpine3.12
 
 RUN apk add --update --no-cache dumb-init
 COPY --from=build /usr/local/bundle /usr/local/bundle
