@@ -6,10 +6,10 @@ services:
       context: './judge'
       args:
         SITES: atcoder yukicoder codeforces
-        DMD_ATCODER: dmd-2.070.1
+        DMD_ATCODER: dmd-2.091.0
         DMD_BINDIR_ATCODER: linux/bin64
         DMD_LIBDIR_ATCODER: linux/lib64
-        DMD_OPTION_ATCODER: -m64 -fPIC -defaultlib=libphobos2.so -ofa.out
+        DMD_OPTION_ATCODER: -m64 -of=a.out
         DMD_YUKICODER: dmd-2.092.1
         DMD_BINDIR_YUKICODER: linux/bin64
         DMD_LIBDIR_YUKICODER: linux/lib64
