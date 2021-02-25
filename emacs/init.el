@@ -1,5 +1,8 @@
+;; directory
+(setq procon-dir (file-name-directory load-file-name))
+
 ;; yasnippet
-(add-to-list 'yas-snippet-dirs "~/projects/procon2/emacs/snippets")
+(add-to-list 'yas-snippet-dirs (expand-file-name "snippets" procon-dir))
 (yas-reload-all)
 
 ;; copy for submit
@@ -20,7 +23,8 @@
             (setq read-file (cons file read-file))
             (with-temp-buffer
               (insert-file-contents
-               (concat "~/projects/procon2/codes-d/" (replace-regexp-in-string "\\." "/" file) ".d"))
+               (concat (expand-file-name "codes/" procon-dir)
+                       (replace-regexp-in-string "\\." "/" file) ".d"))
               (goto-char (point-min))
               (let ((import-buffer (current-buffer))
                     (code-min (progn
