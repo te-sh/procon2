@@ -167,6 +167,10 @@ AtCoder Regular Contest
 |#034|[A問題](atc/arc/034/a.html)|[B問題](atc/arc/034/b.html)|[C問題](atc/arc/034/c.html)|D問題|
 |#033|[A問題](atc/arc/033/a.html)|[B問題](atc/arc/033/b.html)|[C問題](atc/arc/033/c.html)|D問題|
 
+競プロ典型90問
+
+|[#001](atc/typical/001.html)|
+
 企業コンテスト
 
 |SoundHound|[A問題](atc/com/soundhound/a.html)|[B問題](atc/com/soundhound/b.html)|[C問題](atc/com/soundhound/c.html)|[D問題](atc/com/soundhound/d.html)|[E問題](atc/com/soundhound/e.html)|[F問題](atc/com/soundhound/f.html)|
