@@ -156,17 +156,17 @@ unittest
     {
       switch (op) {
       case Op.fill:
-	sec.val = val * cast(T)s;
-	sec.laz = val;
-	sec.op = Op.fill;
-	break;
+        sec.val = val * cast(T)s;
+        sec.laz = val;
+        sec.op = Op.fill;
+        break;
       case Op.add:
-	sec.val += val * cast(T)s;
-	sec.laz = sec.op == Op.none ? val : sec.laz + val;
-	sec.op = sec.op == Op.fill ? Op.fill : Op.add;
-	break;
+        sec.val += val * cast(T)s;
+        sec.laz = sec.op == Op.none ? val : sec.laz + val;
+        sec.op = sec.op == Op.fill ? Op.fill : Op.add;
+        break;
       default:
-	assert(0);
+        assert(0);
       }
     }
   }
