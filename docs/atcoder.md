@@ -169,7 +169,7 @@ AtCoder Regular Contest
 
 競プロ典型90問
 
-|[#001](atc/typical/001.html)|[#002](atc/typical/002.html)|[#003](atc/typical/003.html)|[#004](atc/typical/004.html)|#005|[#006](atc/typical/006.html)|[#007](atc/typical/007.html)|
+|[#001](atc/typical/001.html)|[#002](atc/typical/002.html)|[#003](atc/typical/003.html)|[#004](atc/typical/004.html)|#005|[#006](atc/typical/006.html)|[#007](atc/typical/007.html)|[#008](atc/typical/008.html)|
 
 企業コンテスト
 
