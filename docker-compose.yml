@@ -14,7 +14,7 @@ services:
         DMD_BINDIR_YUKICODER: linux/bin64
         DMD_LIBDIR_YUKICODER: linux/lib64
         DMD_OPTION_YUKICODER: -m64 -of=a.out
-        DMD_CODEFORCES: dmd-2.086.0
+        DMD_CODEFORCES: dmd-2.091.0
         DMD_BINDIR_CODEFORCES: linux/bin64
         DMD_LIBDIR_CODEFORCES: linux/lib32
         DMD_OPTION_CODEFORCES: -m32 -fPIC -defaultlib=libphobos2.so -of=a.out

@@ -1,12 +1,12 @@
-FROM ruby:2.6.6-alpine3.12 as build
+FROM ruby:2.7.3-alpine3.13 as build
 
 RUN apk add --update --no-cache build-base
 
 WORKDIR /tmp
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle update --bundler && bundle install
 
-FROM ruby:2.6.6-alpine3.12
+FROM ruby:2.7.3-alpine3.13
 
 RUN apk add --update --no-cache dumb-init
 COPY --from=build /usr/local/bundle /usr/local/bundle
