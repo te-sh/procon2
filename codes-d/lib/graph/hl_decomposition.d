@@ -1,6 +1,5 @@
 module lib.graph.hl_decomposition;
-import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
-       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
+import std;
 
 // :::::::::::::::::::: lib.graph.hl_decomposition
 import lib.graph.tree;

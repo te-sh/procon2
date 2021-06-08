@@ -1,6 +1,5 @@
 module lib.data_structure.section;
-import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
-       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
+import std;
 
 // :::::::::::::::::::: lib.data_structure.section
 /**

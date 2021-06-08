@@ -1,6 +1,5 @@
 module lib.graph.topological_sort;
-import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
-       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
+import std;
 
 // :::::::::::::::::::: lib.graph.topological_sort
 import lib.graph.graph;

@@ -1,16 +1,13 @@
 module lib.io;
-import std.algorithm, std.array, std.bitmanip, std.container, std.conv, std.format,
-       std.functional, std.math, std.range, std.traits, std.typecons, std.stdio, std.string;
+import std;
 
 // :::::::::::::::::::: lib.io
-import std.stdio;
 /**
  ** 競技プログラミング用の読み書きを行います.
  ** IN, OUT は入力ソースおよび出力ソースです.
  **/
 struct IO(alias IN = stdin, alias OUT = stdout)
 {
-  import std.meta : allSatisfy;
   import core.stdc.stdlib : exit;
 
   /**
