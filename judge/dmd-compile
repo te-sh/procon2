@@ -6,4 +6,4 @@ eval OPTION=$(echo \$DMD_OPTION_$SITE)
 
 echo "---------- Compile"
 echo dmd $OPTION $@
-dmd $OPTION -I/codes-d $@ `find /codes-d/lib -name '*.d'`
+dmd $OPTION -g -I/codes-d $@ `find /codes-d/lib -name '*.d'`

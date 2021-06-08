@@ -25,6 +25,8 @@ struct Section(T)
       this.start = start;
       this.end = end;
     }
+
+    auto length() { return end - start; }
   }
 }
 
@@ -41,6 +43,13 @@ pure nothrow @nogc @safe
     return Section!T(start, end);
   }
 
+  /**
+   ** 区間 a に位置 b が含まれているかどうかを返します.
+   **/
+  bool include(T)(Section!T a, T b)
+  {
+    return a.start <= b && b < a.end;
+  }
   /**
    ** 区間 a, b に重なりがあるかどうかを返します.
    **/
@@ -72,8 +81,11 @@ unittest
 {
   auto a = Section!int(3, 10);
   assert(a.start == 3 && a.end == 10);
+  assert(a.length == 7);
 
   auto b = section(12, 14), c = section(10, 15), d = section(8, 16);
+  assert(!include(b, 11)); assert(include(b, 12));
+  assert(!include(b, 14)); assert(!include(b, 15));
   assert(!overlaped(a, b)); assert(!mergeable(a, b));
   assert(!overlaped(a, c)); assert(mergeable(a, c));
   assert(overlaped(a, d)); assert(mergeable(a, d));
