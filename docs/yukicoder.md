@@ -5,7 +5,7 @@ layout: default
 
 No.1501-1550
 
-|[No.1501](yuk/031/y1501.html)|
+|[No.1501](yuk/031/y1501.html)|No.1502|No.1503|No.1504|[No.1505](yuk/031/y1505.html)|
 
 No.801-850
 

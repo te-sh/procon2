@@ -72,13 +72,13 @@ struct GmpInt
      ** v を代入します.
      ** v は GmpInt か Integral です.
      **/
-    ref GmpInt opAssign(const GmpInt v)
+    ref GmpInt opAssign(const GmpInt v) return
     {
       __gmpz_init_set(&z, &v.z);
       return this;
     }
     /// ditto
-    ref GmpInt opAssign(T)(T v)
+    ref GmpInt opAssign(T)(T v) return
       if (isIntegral!T)
     {
       __gmpz_init_set_si(&z, v);
@@ -104,7 +104,7 @@ struct GmpInt
      ** g+=v, g-=v, g*=v, g/=v, g%=v を計算します.
      ** v は GmpInt です.
      **/
-    ref GmpInt opOpAssign(string op)(const GmpInt v)
+    ref GmpInt opOpAssign(string op)(const GmpInt v) return
       if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%")
     {
       static      if (op == "+") __gmpz_add(&z, &z, &v.z);
@@ -136,7 +136,7 @@ struct GmpInt
      ** g+=v, g-=v, g*=v, g/=v, g%=v, g^^=v を計算します.
      ** v は long です.
      **/
-    ref GmpInt opOpAssign(string op, U)(U v)
+    ref GmpInt opOpAssign(string op, U)(U v) return
       if ((op == "+" || op == "-" || op == "*" || op == "/" || op == "%" || op == "^^")
           && isIntegral!U)
     {
