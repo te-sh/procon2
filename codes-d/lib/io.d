@@ -89,7 +89,7 @@ struct IO(alias IN = stdin, alias OUT = stdout)
    **/
   void put(alias conf = "{}", T...)(T v)
   {
-    mixin("const PutConf c = "~conf~"; putMain!c(v);");
+    putMain!conf(v);
   }
   /**
    ** c が true ならば t を, そうでなければ f を出力します.
@@ -127,28 +127,31 @@ struct IO(alias IN = stdin, alias OUT = stdout)
       sp.popFront();
     }
 
-    void putMain(PutConf c, T...)(T v)
+    void putMain(alias conf, T...)(T v)
     {
+      mixin("const PutConf c = "~conf~";");
       foreach (i, w; v) {
-        putOne!c(w);
+        putOne!conf(w);
         if (i+1 < v.length) OUT.write(c.delimiter);
       }
       static if (c.newline) OUT.writeln;
       static if (c.flush) OUT.flush();
       static if (c.exit) exit(0);
     }
-    void putOne(PutConf c, T)(T v)
+    void putOne(alias conf, T)(T v)
     {
-      static if (isInputRange!T && !isSomeString!T) putRange!c(v);
+      mixin("const PutConf c = "~conf~";");
+      static if (isInputRange!T && !isSomeString!T) putRange!conf(v);
       else static if (isFloatingPoint!T) OUT.write(format(c.floatFormat, v));
       else static if (hasMember!(T, "fprint")) v.fprint(OUT);
       else OUT.write(v);
     }
-    void putRange(PutConf c, T)(T v)
+    void putRange(alias conf, T)(T v)
     {
+      mixin("const PutConf c = "~conf~";");
       auto w = v;
       while (!w.empty) {
-        putOne!c(w.front); w.popFront();
+        putOne!conf(w.front); w.popFront();
         if (!w.empty) OUT.write(c.delimiter);
       }
     }
@@ -191,7 +194,7 @@ unittest
   long b; io.getV(b);
   assert(b == 123_456_789_012L);
   double c; io.getV(c);
-  assert(approxEqual(c, 3.5));
+  assert(isClose(c, 3.5));
   string d; io.getV(d);
   assert(d == "test");
 
@@ -199,7 +202,7 @@ unittest
   int e1, e2; io.getV(e1, e2);
   assert(e1 == 12 && e2 == 23);
   string f1; int f2; real f3; io.getV(f1, f2, f3);
-  assert(f1 == "a" && f2 == 1 && approxEqual(f3, 5.5));
+  assert(f1 == "a" && f2 == 1 && isClose(f3, 5.5));
 
   dummyIn.buf ~= "2 5 6\n123456789012 9876543210\n";
   int[] g; io.getA(3, g);
@@ -209,7 +212,7 @@ unittest
 
   dummyIn.buf ~= "1.5\n2.7\n3.3\na 12 50\nb 11 2\n";
   double[] i; io.getC(3, i);
-  assert(approxEqual(i, [1.5, 2.7, 3.3]));
+  assert(isClose(i, [1.5, 2.7, 3.3]));
   string[] j1; int[] j2, j3; io.getC(2, j1, j2, j3);
   assert(equal(j1, ["a", "b"]));
   assert(equal(j2, [12, 11]));
