@@ -177,6 +177,7 @@ AtCoder Regular Contest
 
 企業コンテスト
 
+|Aising2020|[A問題](atc/com/aising2020/a.html)|[B問題](atc/com/aising2020/b.html)|[C問題](atc/com/aising2020/c.html)|[D問題](atc/com/aising2020/d.html)|E問題|F問題|
 |SoundHound|[A問題](atc/com/soundhound/a.html)|[B問題](atc/com/soundhound/b.html)|[C問題](atc/com/soundhound/c.html)|[D問題](atc/com/soundhound/d.html)|[E問題](atc/com/soundhound/e.html)|[F問題](atc/com/soundhound/f.html)|
 
 その他
