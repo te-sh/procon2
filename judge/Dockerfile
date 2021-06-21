@@ -45,6 +45,7 @@ RUN apt-get update \
       inotify-tools \
       libc6-dev \
       libgmp-dev \
+      time \
       wget \
       xz-utils \
  && apt-get clean \
