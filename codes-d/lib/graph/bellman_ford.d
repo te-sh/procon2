@@ -47,11 +47,25 @@ struct BellmanFord(Graph)
       foreach (k; 0..n)
         foreach (i; 0..n)
           foreach (e; g[i])
-            if (dist[e.dst] > dist[e.src] + e.wt) {
+            if (dist[i] < inf && dist[e.dst] > dist[e.src] + e.wt) {
               dist[e.dst] = dist[e.src] + e.wt;
               prev[e.dst] = e.src;
               if (k == n-1) dist[e.dst] = -inf;
             }
+
+      auto st = SList!int();
+      foreach (i; 0..n)
+        if (dist[i] <= -inf)
+          st.insertFront(i);
+
+      while (!st.empty) {
+        auto u = st.front; st.removeFront();
+        foreach (e; g[u])
+          if (dist[e.dst] > -inf) {
+            dist[e.dst] = -inf;
+            st.insertFront(e.dst);
+          }
+      }
     }
   }
 }
