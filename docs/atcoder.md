@@ -11,6 +11,7 @@ AtCoder Beginner Contest
 |#172|[A問題](atc/abc/172/a.html)|[B問題](atc/abc/172/b.html)|[C問題](atc/abc/172/c.html)|[D問題](atc/abc/172/d.html)|[E問題](atc/abc/172/e.html)|F問題|
 |#171|[A問題](atc/abc/171/a.html)|[B問題](atc/abc/171/b.html)|[C問題](atc/abc/171/c.html)|[D問題](atc/abc/171/d.html)|[E問題](atc/abc/171/e.html)|F問題|
 
+|#142|[A問題](atc/abc/142/a.html)|[B問題](atc/abc/142/b.html)|[C問題](atc/abc/142/c.html)|[D問題](atc/abc/142/d.html)|[E問題](atc/abc/142/e.html)|F問題|
 |#141|[A問題](atc/abc/141/a.html)|[B問題](atc/abc/141/b.html)|[C問題](atc/abc/141/c.html)|[D問題](atc/abc/141/d.html)|[E問題](atc/abc/141/e.html)|F問題|
 
 |#140|[A問題](atc/abc/140/a.html)|[B問題](atc/abc/140/b.html)|[C問題](atc/abc/140/c.html)|[D問題](atc/abc/140/d.html)|[E問題](atc/abc/140/e.html)|F問題|
