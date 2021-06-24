@@ -8,11 +8,14 @@
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
   {%- include google-analytics.html -%}
   {%- endif -%}
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-      TeX: {
-        Macros: {
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [
+          ['$','$'],
+          ['\\(','\\)']
+        ],
+        macros: {
           abs: ["\\left\\vert #1 \\right\\vert", 1],
           floor: ["\\left\\lfloor #1 \\right\\rfloor", 1],
           ceil: ["\\left\\lceil #1 \\right\\rceil", 1],
@@ -21,7 +24,7 @@
           homoprod: ["{}_{#1}\\mathrm{H}_{#2}", 2]
         }
       }
-    });
+    };
   </script>
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
