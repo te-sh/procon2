@@ -89,6 +89,14 @@ struct IO(alias IN = stdin, alias OUT = stdout)
     putMain!conf(v);
   }
   /**
+   ** v の値を1行に出力してプログラムを終了します.
+   ** v は複数指定できます.
+   **/
+  void putE(T...)(T v)
+  {
+    put!"{exit: true}"(v);
+  }
+  /**
    ** c が true ならば t を, そうでなければ f を出力します.
    ** conf に出力時の設定を指定します.
    **/
