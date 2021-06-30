@@ -72,7 +72,7 @@
                 (insert-buffer-substring import-buffer code-min code-max))))))
       (while (progn
 	       (goto-char (point-min))
-	       (re-search-forward "^#" nil t))
+	       (re-search-forward "^\\s-*#" nil t))
 	(delete-region (line-beginning-position) (+ (line-end-position) 1)))
       (copy-region-as-kill (point-min) (point-max)))))
 
