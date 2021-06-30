@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: procon.skelton
+# key: skelton
+# group: procon
+# expand-env: ((yas-indent-line 'fixed))
+# --
+# URL: $1
+
+def main(io)
+  $0
+end
+
+require "lib/procon_io"
+
+main(ProconIO.new)
