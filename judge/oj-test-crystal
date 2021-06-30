@@ -2,4 +2,4 @@
 
 echo "---------- Run Test"
 echo oj test -c "crystal $@"
-oj test -c "crystal $@"
+CRYSTAL_PATH=lib:/usr/share/crystal/src:/codes-crystal oj test -c "crystal $@"
