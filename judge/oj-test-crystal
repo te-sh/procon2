@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "---------- Run Test"
+echo oj test -c "crystal $@"
+oj test -c "crystal $@"

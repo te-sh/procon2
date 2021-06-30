@@ -74,12 +74,12 @@ while True:
         root, ext = os.path.splitext(path.path)
         if ext == '.d':
             subprocess.run(['./dmd-compile', path.path], env=env, check=True)
+            subprocess.run(['./oj-test'], env=env, check=True)
         elif ext == '.nim':
             subprocess.run(['./nim-compile', path.path], env=env, check=True)
+            subprocess.run(['./oj-test'], env=env, check=True)
         elif ext == '.cr':
-            subprocess.run(['./crystal-compile', path.path], env=env, check=True)
-
-        subprocess.run(['./oj-test'], env=env, check=True)
+            subprocess.run(['./oj-test-crystal', path.path], env=env, check=True)
 
     except subprocess.CalledProcessError:
         pass
