@@ -16,14 +16,14 @@ class ProconIO
   end
 
   #
-  # 型を指定して値を複数読み込みます
+  # 型を指定して複数の値を読み込みます
   #
   def get(*ks : T.class) forall T
     ks.map { |k| get_v(k) }
   end
 
   #
-  # 個数と型を指定して値を読み込みます
+  # 個数と型を指定して複数の値を読み込みます
   #
   macro define_getn
     {% for i in (2..9) %}
@@ -47,6 +47,26 @@ class ProconIO
   def get_c(n : Int, k : T.class = Int32) forall T
     get_a(n, k)
   end
+
+  #
+  # 型を指定して縦に並んだ配列の複数の値を読み込みます
+  #
+  def get_c(n : Int, *ks : T.class) forall T
+    a = Array.new(n) { get(*ks) }
+    ks.map_with_index { |_, i| a.map { |e| e[i] } }
+  end
+
+  #
+  # 個数と型を指定して縦に並んだ配列の複数の値を読み込みます
+  #
+  macro define_getn_c
+    {% for i in (2..9) %}
+      def get{{i}}_c(n : Int, k : T.class = Int32) forall T
+        get_c(n, {% for j in (1..i) %}k{% if j < i %}, {% end %}{% end %})
+      end
+    {% end %}
+  end
+  define_getn_c
 
   #
   # 複数の値を空白区切りで出力します
