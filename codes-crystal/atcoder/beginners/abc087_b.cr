@@ -1,10 +1,10 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc087_b
 
 def main(io)
-  a = io.get_v(Int32)
-  b = io.get_v(Int32)
-  c = io.get_v(Int32)
-  x = io.get_v(Int32)
+  a = io.get_v
+  b = io.get_v
+  c = io.get_v
+  x = io.get_v
 
   d = 0
   (0..a).each do |i|

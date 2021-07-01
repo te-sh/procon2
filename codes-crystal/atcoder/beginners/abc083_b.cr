@@ -1,7 +1,7 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc083_b
 
 def main(io)
-  n, a, b = io.get_v(Int32, Int32, Int32)
+  n, a, b = io.get_v(3)
   io.put (1..n).select { |i| (a..b).includes?(sum_digits(i)) }.sum
 end
 

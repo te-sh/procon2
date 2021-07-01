@@ -11,22 +11,27 @@ class ProconIO
   #
   # 型を指定して値を読み込みます
   #
-  def get_v(k); get(k); end
+  def get_v(k : T.class = Int32) forall T; get(k); end
 
   #
   # 型を指定して値を複数読み込みます
   #
-  def get_v(*ks); ks.map { |k| get(k) }; end
+  def get_v(*ks : T.class) forall T; ks.map { |k| get(k) }; end
+
+  #
+  # 個数と型を指定して値を読み込みます
+  #
+  def get_v(n : Int, k : T.class = Int32) forall T; Array.new(n) { get(k) }; end
 
   #
   # 型を指定して横に並んだ配列の値を読み込みます
   #
-  def get_a(n : Int, k); Array.new(n) { get(k) }; end
+  def get_a(n : Int, k : T.class = Int32) forall T; get_v(n, k); end
 
   #
   # 型を指定して縦に並んだ配列の値を読み込みます
   #
-  def get_c(n : Int, k); get_a(n, k); end
+  def get_c(n : Int, k : T.class = Int32) forall T; get_v(n, k); end
 
   #
   # 複数の値を空白区切りで出力します

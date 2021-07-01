@@ -2,7 +2,7 @@
 
 def main(io)
   s = io.get_v(String)
-  io.put(s.count('1'))
+  io.put s.count('1')
 end
 
 require "lib/procon_io"
