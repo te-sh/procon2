@@ -3,6 +3,9 @@
 # 競技プログラミング用の読み書きを行います.
 #
 class ProconIO
+  #
+  # コンストラクタ
+  #
   def initialize
     @buf = [] of String
     @index = 0
