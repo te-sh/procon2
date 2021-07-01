@@ -1,7 +1,7 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc086_a
 
 def main(io)
-  a, b = io.get_v(2)
+  a, b = io.get2
   io.put a.odd? && b.odd? ? "Odd" : "Even"
 end
 

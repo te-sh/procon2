@@ -1,7 +1,7 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc088_b
 
 def main(io)
-  n = io.get_v
+  n = io.get
   a = io.get_a(n)
 
   a.sort! { |a, b| b <=> a }

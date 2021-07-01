@@ -1,9 +1,9 @@
 # URL: https://atcoder.jp/contests/abs/tasks/practice_1
 
 def main(io)
-  a = io.get_v
-  b, c = io.get_v(2)
-  s = io.get_v(String)
+  a = io.get
+  b, c = io.get2
+  s = io.get(String)
 
   io.put a+b+c, s
 end

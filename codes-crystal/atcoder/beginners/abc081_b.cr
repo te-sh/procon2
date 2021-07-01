@@ -1,8 +1,8 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc081_b
 
 def main(io)
-  n = io.get_v(Int32)
-  a = io.get_a(n, Int32)
+  n = io.get
+  a = io.get_a(n)
   io.put a.map { |ai| num2(ai) }.min
 end
 

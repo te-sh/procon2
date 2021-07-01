@@ -1,7 +1,7 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc085_b
 
 def main(io)
-  n = io.get_v
+  n = io.get
   d = io.get_c(n)
   io.put d.uniq.size
 end

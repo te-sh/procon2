@@ -3,7 +3,7 @@
 C = %w[dream dreamer erase eraser].map(&.reverse)
 
 def main(io)
-  s = io.get_v(String)
+  s = io.get(String)
   t = s.reverse
   until t.empty?
     f = C.find { |c| t.starts_with?(c) }

@@ -11,27 +11,42 @@ class ProconIO
   #
   # 型を指定して値を読み込みます
   #
-  def get_v(k : T.class = Int32) forall T; get(k); end
+  def get(k : T.class = Int32) forall T
+    get_v(k)
+  end
 
   #
   # 型を指定して値を複数読み込みます
   #
-  def get_v(*ks : T.class) forall T; ks.map { |k| get(k) }; end
+  def get(*ks : T.class) forall T
+    ks.map { |k| get_v(k) }
+  end
 
   #
   # 個数と型を指定して値を読み込みます
   #
-  def get_v(n : Int, k : T.class = Int32) forall T; Array.new(n) { get(k) }; end
+  macro define_getn
+    {% for i in (2..9) %}
+      def get{{i}}(k : T.class = Int32) forall T
+        get({% for j in (1..i) %}k{% if j < i %}, {% end %}{% end %})
+      end
+    {% end %}
+  end
+  define_getn
 
   #
   # 型を指定して横に並んだ配列の値を読み込みます
   #
-  def get_a(n : Int, k : T.class = Int32) forall T; get_v(n, k); end
+  def get_a(n : Int, k : T.class = Int32) forall T
+    Array.new(n) { get_v(k) }
+  end
 
   #
   # 型を指定して縦に並んだ配列の値を読み込みます
   #
-  def get_c(n : Int, k : T.class = Int32) forall T; get_v(n, k); end
+  def get_c(n : Int, k : T.class = Int32) forall T
+    get_a(n, k)
+  end
 
   #
   # 複数の値を空白区切りで出力します
@@ -43,9 +58,19 @@ class ProconIO
     end
   end
 
-  private def get(k : Int32.class); get_token.to_i32; end
+  #
+  # 複数の値を空白区切りで出力してプログラムを終了します
+  #
+  def put_e(*vs)
+    put(*vs)
+    exit
+  end
 
-  private def get(k : String.class); get_token; end
+  # ---------- private methods
+
+  private def get_v(k : Int32.class); get_token.to_i32; end
+
+  private def get_v(k : String.class); get_token; end
 
   private def get_token
     if @buf.size == @index

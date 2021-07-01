@@ -1,7 +1,7 @@
 # URL: https://atcoder.jp/contests/abs/tasks/abc085_c
 
 def main(io)
-  n, y = io.get_v(2)
+  n, y = io.get2
 
   (0..n).each do |i|
     (0..n).each do |j|
