@@ -27,12 +27,12 @@ class Dijkstra(T)
   #
   def run(s : Node)
     n = sent = @g.n
-    @dist = Array(T).new(n, @g.inf)
+    @dist = Array.new(n, @g.inf)
     @dist[s] = T.new(0)
-    @prev = Array(Node).new(n, sent)
+    @prev = Array.new(n, sent)
 
-    se = Edge(T).new(sent, s, T.new(0))
-    h = Heap(Edge(T)).new([se]) { |a, b| a.wt <=> b.wt }
+    se = Edge.new(sent, s, T.new(0))
+    h = Heap.new([se]) { |a, b| a.wt <=> b.wt }
     until h.empty?
       e = h.pop
 
@@ -43,7 +43,7 @@ class Dijkstra(T)
         w = e.wt + f.wt
         if w < @dist[f.dst]
           @dist[f.dst] = w
-          h.push(Edge(T).new(f.src, f.dst, w))
+          h.push(Edge.new(f.src, f.dst, w))
         end
       end
     end
@@ -54,7 +54,7 @@ end
 
 class GraphW(T)
   def dijkstra(s)
-    Dijkstra(T).new(self).run(s)
+    Dijkstra.new(self).run(s)
   end
 end
 # ::::::::::::::::::::
