@@ -5,12 +5,26 @@ require "lib/math/misc"
 # 法を mod とする剰余群を表します
 # 使用する際にはこの struct を継承して @@mod を設定します
 #
-abstract struct ModInt
+abstract struct ModInt < Number
   #
   # 0 を表すインスタンスです
   #
   def self.zero
     self.new(0)
+  end
+
+  #
+  # 加算の単位元を表すインスタンスです
+  #
+  def self.additive_identity
+    self.new(0)
+  end
+
+  #
+  # 乗算の単位元を表すインスタンスです
+  #
+  def self.multiplicative_identity
+    self.new(1)
   end
 
   #
@@ -21,6 +35,25 @@ abstract struct ModInt
   end
 
   #
+  # オブジェクトのハッシュを返します
+  #
+  def_hash @@mod, @v
+
+  #
+  #
+  # 文字列に変換したものを返します
+  #
+  def to_s
+    @v.to_s
+  end
+
+  #
+  # 文字列に変換したものを io に追加します
+  #
+  def to_s(io : IO) : Nil
+    @v.to_s(io)
+  end
+
   # 内部で保持している値です
   #
   getter v : Int64
@@ -29,11 +62,6 @@ abstract struct ModInt
   # Int32 に変換したものを返します
   #
   delegate to_i, to: @v
-
-  #
-  # 文字列に変換したものを返します
-  #
-  delegate to_s, to: @v
 
   #
   # r と一致するかどうかを返します
