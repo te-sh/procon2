@@ -3,7 +3,7 @@ require "lib/graph/graph"
 require "lib/data_structure/heap"
 
 #
-# Dijkstra 法で指定された頂点から各頂点への最短距離を計算します
+# Dijkstra 法の計算結果を表します
 #
 class Dijkstra(T)
   alias Node = GraphW::Node
@@ -11,25 +11,13 @@ class Dijkstra(T)
 
   #
   # コンストラクタ
+  # s から各頂点への最短距離を計算します
   #
-  def initialize(@g : GraphW(T))
-    @dist = [] of T
-    @prev = [] of Node
-  end
-
-  #
-  # 指定された頂点から各頂点への距離を配列で返します
-  #
-  getter dist : Array(T)
-
-  #
-  # 計算を実行します
-  #
-  def run(s : Node)
+  def initialize(@g : GraphW(T), s : Node)
     n = sent = @g.n
-    @dist = Array.new(n, @g.inf)
+    @dist = Array(T).new(n, @g.inf)
     @dist[s] = T.new(0)
-    @prev = Array.new(n, sent)
+    @prev = Array(Node).new(n, sent)
 
     se = Edge.new(sent, s, T.new(0))
     h = Heap.new([se]) { |a, b| a.wt <=> b.wt }
@@ -47,14 +35,17 @@ class Dijkstra(T)
         end
       end
     end
-
-    self
   end
+
+  #
+  # 指定された頂点から各頂点への距離を配列で返します
+  #
+  getter dist : Array(T)
 end
 
 class GraphW(T)
   def dijkstra(s)
-    Dijkstra.new(self).run(s)
+    Dijkstra.new(self, s)
   end
 end
 # ::::::::::::::::::::
