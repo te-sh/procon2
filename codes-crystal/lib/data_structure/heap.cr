@@ -70,7 +70,7 @@ class Heap(T)
       j = (i-1)//2
       break if @cmp.call(@b[j], @b[i]) < 0
       @b[j], @b[i] = @b[i], @b[j]
-      j = i
+      i = j
     end
     self
   end
@@ -86,7 +86,7 @@ class Heap(T)
 	    j = (i*2+2 >= @b.size || @cmp.call(@b[i*2+1], @b[i*2+2]) < 0) ? i*2+1 : i*2+2
         break if @cmp.call(@b[i], @b[j]) < 0
         @b[j], @b[i] = @b[i], @b[j]
-        j = i
+        i = j
       end
     end
     v

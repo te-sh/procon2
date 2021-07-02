@@ -12,10 +12,10 @@ module DijkstraSpec
       [4, 1, 6], [4, 5, 4],
       [5, 2, 2], [5, 3, 6], [5, 4, 4]
     ].each do |(u, v, w)|
-      g.addEdge(u, v, w)
+      g.add_edge(u, v, w)
     end
 
-    dist = g.dijkstra(0)
+    dist = g.dijkstra(0).dist
 
     it { dist[4].should eq 10 }
     it { dist[5].should eq 6 }

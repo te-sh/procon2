@@ -1,19 +1,20 @@
 # :::::::::::::::::::: lib/graph/graph
-require "lih/graph/graph"
-require "lib/data_straucture/heap"
+require "lib/graph/graph"
+require "lib/data_structure/heap"
 
 #
 # Dijkstra 法で指定された頂点から各頂点への最短距離を計算します
 #
 class Dijkstra(T)
-  alias Graph = GraphW(T)
-  alias Node = Graph::Node
-  alias Edge = Graph::Edge
+  alias Node = GraphW::Node
+  alias Edge = GraphW::Edge
 
   #
   # コンストラクタ
   #
-  def initialize(@g : Graph)
+  def initialize(@g : GraphW(T))
+    @dist = [] of T
+    @prev = [] of Node
   end
 
   #
@@ -27,30 +28,33 @@ class Dijkstra(T)
   def run(s : Node)
     n = sent = @g.n
     @dist = Array(T).new(n, @g.inf)
+    @dist[s] = T.new(0)
     @prev = Array(Node).new(n, sent)
 
-    @dist[s] = T.new(0)
-    h = Heap(Edge).new([Edge.new(sent, s, T.new(0))])
+    se = Edge(T).new(sent, s, T.new(0))
+    h = Heap(Edge(T)).new([se]) { |a, b| a.wt <=> b.wt }
     until h.empty?
       e = h.pop
 
-      next if prev[e.dst] != sent
-      prev[e.dst] = e.src
+      next if @prev[e.dst] != sent
+      @prev[e.dst] = e.src
 
       @g[e.dst].each do |f|
         w = e.wt + f.wt
-        if @dist[f.dst] > w
-          dist[f.dst] = w
-          h.push(Edge.new(f.src, f.dst, w))
+        if w < @dist[f.dst]
+          @dist[f.dst] = w
+          h.push(Edge(T).new(f.src, f.dst, w))
         end
       end
     end
+
+    self
   end
 end
 
 class GraphW(T)
-  def dijkstra(Node s)
-    Dijkstra(T).new.run(s)
+  def dijkstra(s)
+    Dijkstra(T).new(self).run(s)
   end
 end
 # ::::::::::::::::::::
