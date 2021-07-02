@@ -7,6 +7,13 @@ require "lib/math/misc"
 #
 abstract struct ModInt
   #
+  # 0 を表すインスタンスです
+  #
+  def self.zero
+    self.new(0)
+  end
+
+  #
   # コンストラクタ
   #
   def initialize(v : Int)

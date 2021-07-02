@@ -44,3 +44,4 @@ class CumulativeSum(T)
     @s[e] - @s[b]
   end
 end
+# ::::::::::::::::::::
