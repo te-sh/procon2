@@ -16,7 +16,7 @@ end
 require "lib/math/fact"
 
 require "lib/math/mod_int"
-mod_int(Mint, 1_000_000_007)
+struct Mint < ModInt; @@mod : Int32 = 10**9+7; end
 
 require "lib/procon_io"
 

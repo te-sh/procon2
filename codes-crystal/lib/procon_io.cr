@@ -72,11 +72,18 @@ class ProconIO
   define_getn_c
 
   #
+  # 型を指定して行列の値を読み込みます
+  #
+  def get_m(r : Int, c : Int, k : T.class = Int32) forall T
+    Array.new(r) { get_a(c, k) }
+  end
+
+  #
   # 複数の値を空白区切りで出力します
   #
   def put(*vs)
     vs.each.with_index do |v, i|
-      print v
+      put_v(v)
       print i < vs.size - 1 ? " " : "\n"
     end
   end
@@ -103,6 +110,17 @@ class ProconIO
     v = @buf[@index]
     @index += 1
     v
+  end
+
+  private def put_v(vs : Enumerable)
+    vs.each_with_index do |v, i|
+      print v
+      print " " if i < vs.size - 1
+    end
+  end
+
+  private def put_v(v)
+    print v
   end
 end
 # ::::::::::::::::::::

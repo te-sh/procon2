@@ -3,8 +3,7 @@
 def main(io)
   a, b, c, d = io.get4(Int64)
 
-  g = c.gcd(d)
-  e = c//g*d
+  e = c.lcm(d)
   na = (a-1)//c + (a-1)//d - (a-1)//e
   nb = b//c + b//d - b//e
 
