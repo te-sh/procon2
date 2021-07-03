@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: procon.mod_int
+# key: mod_int
+# group: procon
+# expand-env: ((yas-indent-line 'fixed))
+# --
+require "lib/math/mod_int"
+struct Mint < ModInt; @@mod : Int32 = $0; end

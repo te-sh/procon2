@@ -32,6 +32,13 @@ class Fact(T)
   getter inv_table : Array(T)
 
   #
+  # 階乗を返します
+  #
+  def fact(n : Int)
+    @table[n]
+  end
+
+  #
   # 順列数 nPr を返します
   #
   def perm(n : Int, r : Int)
