@@ -1,4 +1,4 @@
-# :::::::::::::::::::: lib/procon_io
+# :::::::::::::::::::: lib/math/mod_int
 require "lib/math/misc"
 
 #
@@ -138,6 +138,13 @@ abstract struct ModInt < Number
   #
   def //(r : Int)
     self // m(r)
+  end
+
+  #
+  # a**n を計算します
+  #
+  def **(n : Int)
+    powr(self, n)
   end
 
   #

@@ -41,6 +41,10 @@ module ModIntSpec
     it { (m1 // 2).should eq 5 }
   end
 
+  describe "#**" do
+    it { (m1 ** 4).should eq 4 }
+  end
+
   describe "#inv" do
     it { m1.inv.should eq 5 }
     it { m2.inv.should eq 1 }

@@ -1,4 +1,4 @@
-# :::::::::::::::::::: lib/graph/graph
+# :::::::::::::::::::: lib/graph/tree
 require "lib/graph/graph"
 
 #
