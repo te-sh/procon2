@@ -23,7 +23,7 @@
             (setq read-file (cons file read-file))
             (with-temp-buffer
               (insert-file-contents
-               (concat (expand-file-name "codes/" procon-dir)
+               (concat (expand-file-name "codes-d/" procon-dir)
                        (replace-regexp-in-string "\\." "/" file) ".d"))
               (goto-char (point-min))
               (let ((import-buffer (current-buffer))
@@ -76,7 +76,10 @@
 	(delete-region (line-beginning-position) (+ (line-end-position) 1)))
       (copy-region-as-kill (point-min) (point-max)))))
 
-(define-key d-mode-map (kbd "C-c p c") 'procon-copy-for-submit-d)
+(add-hook 'd-mode-hook
+          (lambda ()
+            (define-key d-mode-map (kbd "C-c p c") 'procon-copy-for-submit-d)))
 
-(require 'crystal-mode)
-(define-key crystal-mode-map (kbd "C-c p c") 'procon-copy-for-submit-crystal)
+(add-hook 'crystal-mode-hook
+          (lambda ()
+            (define-key crystal-mode-map (kbd "C-c p c") 'procon-copy-for-submit-crystal)))
