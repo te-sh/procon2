@@ -23,25 +23,10 @@ class CumulativeSum(T)
   # 区間の累積和を返します
   #
   def [](r : Range)
-    b = r.begin
-    b = if b.nil?
-          0
-        elsif b < 0
-          @n + b
-        else
-          b
-        end
-
-    e = r.end
-    e = if e.nil?
-          @n
-        elsif e < 0
-          r.excludes_end? ? @n + e : @n + e + 1
-        else
-          r.excludes_end? ? e : e + 1
-        end
-
-    @s[e] - @s[b]
+    sc = Indexable.range_to_index_and_count(r, @n)
+    raise ArgumentError.new("Invalid range") if sc.nil?
+    start, count = sc
+    @s[start + count] - @s[start]
   end
 end
 # ::::::::::::::::::::
