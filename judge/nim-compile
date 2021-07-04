@@ -1,4 +1,0 @@
-#!/bin/sh
-
-eval PATH=$NIMBLE/bin:$PATH
-nim compile -o:a.out $@

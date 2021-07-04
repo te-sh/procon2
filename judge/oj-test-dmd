@@ -7,3 +7,13 @@ eval OPTION=$(echo \$DMD_OPTION_$SITE)
 echo "---------- Compile"
 echo dmd $OPTION $@
 dmd $OPTION -g -I/codes-d $@ `find /codes-d/lib -name '*.d'`
+
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+eval export LD_LIBRARY_PATH=$DLANG/$(echo \$DMD_$SITE)/$(echo \$DMD_LIBDIR_$SITE):$LD_LIBRARY_PATH
+
+echo "---------- Run Test"
+echo oj test
+oj test

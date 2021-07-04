@@ -70,7 +70,7 @@ RUN curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s - -y
 
 RUN pip install watchdog online-judge-tools
 
-COPY runoj.py monitor-code.sh oj-download dmd-compile nim-compile oj-test oj-test-crystal ./
+COPY runoj.py oj-download oj-test-dmd oj-test-crystal oj-test-nim ./
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["./runoj.py"]

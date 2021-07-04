@@ -1,10 +1,10 @@
 #!/bin/sh
 
-export CRYSTAL_PATH=`crystal env CRYSTAL_PATH`:/codes-crystal
+eval PATH=$NIMBLE/bin:$PATH
 
 echo "---------- Compile"
-echo crystal build -o a.out $@
-crystal build -o a.out $@
+echo nim compile -o:a.out $@
+nim compile -o:a.out $@
 
 if [ $? -ne 0 ]; then
     exit 1

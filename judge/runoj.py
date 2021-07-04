@@ -5,7 +5,7 @@ import re
 import subprocess
 import time
 import traceback
-from watchdog.events import FileSystemEventHandler
+from watchdog.events import FileSystemEventHandler, FileCreatedEvent, FileModifiedEvent
 from watchdog.observers import Observer
 
 class Path:
@@ -18,7 +18,7 @@ class Path:
     def set_from_watchdog(self, event):
         m = re.match(r'(/.*?/(.*?)/.*)', event.src_path)
         if m:
-            self.prev_time, self.time = self.time, time.localtime()
+            self.prev_time, self.time = self.time, time.time()
             self.prev_path, self.path = self.path, m.group(1)
             self.site = m.group(2)
             self.valid = not os.path.isdir(self.path) and self.site in self.sites
@@ -60,10 +60,12 @@ env = os.environ.copy()
 
 class ChangeHandler(FileSystemEventHandler):
     def on_created(self, event):
-        self.run_oj
+        if type(event) is FileCreatedEvent:
+            self.run_oj(event)
 
     def on_modified(self, event):
-        self.run_oj(event)
+        if type(event) is FileModifiedEvent:
+            self.run_oj(event)
 
     def run_oj(self, event):
         try:
@@ -82,11 +84,9 @@ class ChangeHandler(FileSystemEventHandler):
 
             root, ext = os.path.splitext(path.path)
             if ext == '.d':
-                subprocess.run(['./dmd-compile', path.path], env=env, check=True)
-                subprocess.run(['./oj-test'], env=env, check=True)
+                subprocess.run(['./oj-test-dmd', path.path], env=env, check=True)
             elif ext == '.nim':
-                subprocess.run(['./nim-compile', path.path], env=env, check=True)
-                subprocess.run(['./oj-test'], env=env, check=True)
+                subprocess.run(['./oj-test-nim', path.path], env=env, check=True)
             elif ext == '.cr':
                 subprocess.run(['./oj-test-crystal', path.path], env=env, check=True)
 
@@ -97,7 +97,7 @@ event_handler = ChangeHandler()
 observer = Observer()
 observer.schedule(event_handler, '/codes-d', recursive=True)
 observer.schedule(event_handler, '/codes-crystal', recursive=True)
-observer.schedule(event_handler, '/codes-d', recursive=True)
+observer.schedule(event_handler, '/codes-nim', recursive=True)
 observer.start()
 
 try:
