@@ -13,9 +13,9 @@ class Tree
   #
   def initialize(@g : Graph, @root : Node)
     n = @g.n
-    @parent = Array(Node).new(n, 0)
-    @depth = Array(Int32).new(n, -1)
-    @dfs_order = Array(Node).new
+    @parent = Array.new(n, 0)
+    @depth = Array.new(n, -1)
+    @dfs_order = [] of Node
 
     s = [{@root, @root}]
     until s.empty?
@@ -30,7 +30,7 @@ class Tree
       end
     end
 
-    @size = Array(Int32).new(n, 1)
+    @size = Array.new(n, 1)
     @dfs_order.reverse_each do |u|
       @size[@parent[u]] += @size[u] if u != @root
     end
@@ -73,6 +73,12 @@ class Tree
   def children_of(u : Node)
     @g[u].reject { |v| v == @parent[u] }
   end
+
+  # ---------- private methods
+
+  @parent : Array(Node)
+  @depth : Array(Int32)
+  @size : Array(Int32)
 end
 
 class Graph

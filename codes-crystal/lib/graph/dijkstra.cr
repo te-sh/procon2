@@ -15,9 +15,9 @@ class Dijkstra(T)
   #
   def initialize(@g : GraphW(T), s : Node)
     n = sent = @g.n
-    @dist = Array(T).new(n, @g.inf)
-    @dist[s] = T.new(0)
-    @prev = Array(Node).new(n, sent)
+    @dist = Array.new(n, @g.inf)
+    @dist[s] = T.additive_identity
+    @prev = Array.new(n, sent)
 
     se = Edge.new(sent, s, T.new(0))
     h = Heap.new([se]) { |a, b| a.wt <=> b.wt }
@@ -41,6 +41,11 @@ class Dijkstra(T)
   # 指定された頂点から各頂点への距離を配列で返します
   #
   getter dist : Array(T)
+
+  # ---------- private methods
+
+  @dist : Array(T)
+  @prev : Array(Node)
 end
 
 class GraphW(T)

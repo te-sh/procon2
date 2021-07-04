@@ -8,9 +8,9 @@ class UnionFind
   #
   def initialize(@n : Int32)
     @s = @n
-    @p = Array(Int32).new(@n, @s)
+    @p = Array.new(@n, @s)
     @cf = @n
-    @cn = Array(Int32).new(@n, 1)
+    @cn = Array.new(@n, 1)
   end
 
   #
@@ -53,5 +53,10 @@ class UnionFind
   def count_nodes_of(u : Int)
     @cn[subst(u)]
   end
+
+  # ---------- private methods
+
+  @p : Array(Int32)
+  @cn : Array(Int32)
 end
 # ::::::::::::::::::::

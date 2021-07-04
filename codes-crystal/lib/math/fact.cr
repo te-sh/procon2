@@ -8,14 +8,14 @@ class Fact(T)
   # コンストラクタ
   #
   def initialize(@n : Int32)
-    @table = Array(T).new(@n+1, T.new(0))
-    @table[0] = T.new(1)
+    @table = Array.new(@n+1, T.new(0))
+    @table[0] = T.multiplicative_identity
     (1..@n).each do |i|
       @table[i] = @table[i-1] * i
     end
 
-    @inv_table = Array(T).new(@n+1, T.new(0))
-    @inv_table[@n] = T.new(1) // @table[@n]
+    @inv_table = Array.new(@n+1, T.new(0))
+    @inv_table[@n] = T.multiplicative_identity // @table[@n]
     (1..@n).reverse_each do |i|
       @inv_table[i-1] = @inv_table[i] * i
     end
@@ -58,5 +58,10 @@ class Fact(T)
   def homo(n : Int, r : Int)
     combi(n+r-1, r)
   end
+
+  # ---------- private methods
+
+  @table : Array(T)
+  @inv_table : Array(T)
 end
 # ::::::::::::::::::::
