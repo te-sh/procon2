@@ -5,6 +5,8 @@ import re
 import subprocess
 import time
 import traceback
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 class Path:
     def __init__(self, env_name):
@@ -13,12 +15,12 @@ class Path:
         self.valid = False
         self.sites = os.environ[env_name].split()
 
-    def set_from_inotify(self, s):
-        m = re.match(r'(\d+) (/.*?/(.*?)/.*)', s)
+    def set_from_watchdog(self, event):
+        m = re.match(r'(/.*?/(.*?)/.*)', event.src_path)
         if m:
-            self.prev_time, self.time = self.time, int(m.group(1))
-            self.prev_path, self.path = self.path, m.group(2)
-            self.site = m.group(3)
+            self.prev_time, self.time = self.time, time.localtime()
+            self.prev_path, self.path = self.path, m.group(1)
+            self.site = m.group(2)
             self.valid = not os.path.isdir(self.path) and self.site in self.sites
             if (self.valid): self.sleep()
         else:
@@ -56,30 +58,52 @@ path = Path('SITES')
 url = Url()
 env = os.environ.copy()
 
-while True:
-    try:
-        path.set_from_inotify(input())
-        if not path.valid or not path.changed(): continue
+class ChangeHandler(FileSystemEventHandler):
+    def on_created(self, event):
+        self.run_oj
 
-        print('====================', path.path)
+    def on_modified(self, event):
+        self.run_oj(event)
 
-        url.set_from_file(path.path)
-        if not url.valid: continue
+    def run_oj(self, event):
+        try:
+            path.set_from_watchdog(event)
+            if not path.valid or not path.changed(): return
 
-        if url.changed():
-            subprocess.run(['./oj-download', url.url], check=True)
+            print('====================', path.path)
 
-        env['SITE'] = path.site.upper()
+            url.set_from_file(path.path)
+            if not url.valid: return
 
-        root, ext = os.path.splitext(path.path)
-        if ext == '.d':
-            subprocess.run(['./dmd-compile', path.path], env=env, check=True)
-            subprocess.run(['./oj-test'], env=env, check=True)
-        elif ext == '.nim':
-            subprocess.run(['./nim-compile', path.path], env=env, check=True)
-            subprocess.run(['./oj-test'], env=env, check=True)
-        elif ext == '.cr':
-            subprocess.run(['./oj-test-crystal', path.path], env=env, check=True)
+            if url.changed():
+                subprocess.run(['./oj-download', url.url], check=True)
 
-    except subprocess.CalledProcessError:
-        pass
+            env['SITE'] = path.site.upper()
+
+            root, ext = os.path.splitext(path.path)
+            if ext == '.d':
+                subprocess.run(['./dmd-compile', path.path], env=env, check=True)
+                subprocess.run(['./oj-test'], env=env, check=True)
+            elif ext == '.nim':
+                subprocess.run(['./nim-compile', path.path], env=env, check=True)
+                subprocess.run(['./oj-test'], env=env, check=True)
+            elif ext == '.cr':
+                subprocess.run(['./oj-test-crystal', path.path], env=env, check=True)
+
+        except subprocess.CalledProcessError:
+            pass
+
+event_handler = ChangeHandler()
+observer = Observer()
+observer.schedule(event_handler, '/codes-d', recursive=True)
+observer.schedule(event_handler, '/codes-crystal', recursive=True)
+observer.schedule(event_handler, '/codes-d', recursive=True)
+observer.start()
+
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    observer.stop()
+
+observer.join()

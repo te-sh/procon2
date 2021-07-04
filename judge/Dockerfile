@@ -68,9 +68,9 @@ RUN curl -sSL https://dist.crystal-lang.org/apt/setup.sh | bash \
 
 RUN curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s - -y
 
-RUN pip install online-judge-tools
+RUN pip install watchdog online-judge-tools
 
 COPY runoj.py monitor-code.sh oj-download dmd-compile nim-compile oj-test oj-test-crystal ./
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["./monitor-code.sh"]
+CMD ["./runoj.py"]
