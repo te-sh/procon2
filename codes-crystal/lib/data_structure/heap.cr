@@ -61,13 +61,26 @@ class Heap(T)
   delegate first, to: @b
 
   #
+  # ヒープの先頭の要素を入れ替えます
+  #
+  def first=(v : T)
+    @b[0], i = v, 0
+    while i*2+1 < @b.size
+	  j = (i*2+2 >= @b.size || @cmp.call(@b[i*2+1], @b[i*2+2]) < 0) ? i*2+1 : i*2+2
+      break if @cmp.call(@b[i], @b[j]) < 0
+      @b[j], @b[i] = @b[i], @b[j]
+      i = j
+    end
+  end
+
+  #
   # ヒープに要素を追加します
   #
   def push(v : T)
     @b.push(v)
     i = @b.size-1
     while i > 0
-      j = (i-1)//2
+      j = (i-1) >> 1
       break if @cmp.call(@b[j], @b[i]) < 0
       @b[j], @b[i] = @b[i], @b[j]
       i = j
@@ -80,15 +93,7 @@ class Heap(T)
   #
   def pop
     v, w = @b[0], @b.pop
-    unless @b.empty?
-      @b[0], i = w, 0
-      while i*2+1 < @b.size
-	    j = (i*2+2 >= @b.size || @cmp.call(@b[i*2+1], @b[i*2+2]) < 0) ? i*2+1 : i*2+2
-        break if @cmp.call(@b[i], @b[j]) < 0
-        @b[j], @b[i] = @b[i], @b[j]
-        i = j
-      end
-    end
+    self.first = w unless @b.empty?
     v
   end
 end

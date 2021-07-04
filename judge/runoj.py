@@ -32,7 +32,7 @@ class Path:
         time.sleep(0.2)
 
     def changed(self):
-        return self.path != self.prev_path or self.time - self.prev_time > 2
+        return self.path != self.prev_path or self.time - self.prev_time > 3
 
 
 class Url:
@@ -59,10 +59,6 @@ url = Url()
 env = os.environ.copy()
 
 class ChangeHandler(FileSystemEventHandler):
-    def on_created(self, event):
-        if type(event) is FileCreatedEvent:
-            self.run_oj(event)
-
     def on_modified(self, event):
         if type(event) is FileModifiedEvent:
             self.run_oj(event)
