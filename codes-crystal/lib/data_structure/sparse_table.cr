@@ -6,7 +6,7 @@ class SparseTable(T)
   #
   # コンストラクタ
   #
-  def initialize(@a : Array(T), &@merge : (T, T) -> T)
+  def initialize(@a : Array(T), &@compose : (T, T) -> T)
     @n = @a.size
 
     @log_table = Array.new(@n+1, 0)
@@ -25,7 +25,7 @@ class SparseTable(T)
       while i + (1 << k) <= @n
         x = @rmq[k-1][i]
         y = @rmq[k-1][i + (1 << k-1)]
-        @rmq[k][i] = @merge.call(@a[x], @a[y]) == @a[x] ? x : y
+        @rmq[k][i] = @compose.call(@a[x], @a[y]) == @a[x] ? x : y
         i += 1
       end
       k += 1
@@ -43,7 +43,7 @@ class SparseTable(T)
     k = @log_table[r - l - 1]
     x = @rmq[k][l]
     y = @rmq[k][r - (1 << k)]
-    @merge.call(@a[x], @a[y])
+    @compose.call(@a[x], @a[y])
   end
 
   # ---------- private methods

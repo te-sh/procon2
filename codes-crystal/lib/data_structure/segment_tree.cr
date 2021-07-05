@@ -7,7 +7,7 @@ class SegmentTree(T)
   # コンストラクタ
   # init は初期値です
   #
-  def initialize(@n : Int32, @init : T = T.zero, &@merge : (T, T) -> T)
+  def initialize(@n : Int32, @init : T = T.zero, &@compose : (T, T) -> T)
     @an = 1 << (32 - (@n-1).leading_zeros_count)
     @buf = Array.new(@an*2, @init)
     propagate_all
@@ -17,7 +17,7 @@ class SegmentTree(T)
   # コンストラクタ
   # init は初期値です
   #
-  def initialize(b : Array(T), @init : T = T.zero, &@merge : (T, T) -> T)
+  def initialize(b : Array(T), @init : T = T.zero, &@compose : (T, T) -> T)
     @n = b.size
     @an = 1 << (32 - (@n-1).leading_zeros_count)
     @buf = Array.new(@an*2, @init)
@@ -43,17 +43,17 @@ class SegmentTree(T)
     r1 = r2 = @init
     while l != r
       if l.odd?
-        r1 = @merge.call(r1, @buf[l])
+        r1 = @compose.call(r1, @buf[l])
         l += 1
       end
       if r.odd?
         r -= 1
-        r2 = @merge.call(@buf[r], r2)
+        r2 = @compose.call(@buf[r], r2)
       end
       l >>= 1
       r >>= 1
     end
-    @merge.call(r1, r2)
+    @compose.call(r1, r2)
   end
 
   #
@@ -71,13 +71,13 @@ class SegmentTree(T)
 
   private def propagate_all
     (1...@an).reverse_each do |i|
-      @buf[i] = @merge.call(@buf[i*2], @buf[i*2+1])
+      @buf[i] = @compose.call(@buf[i << 1], @buf[(i << 1) | 1])
     end
   end
 
   private def propagate(i : Int)
     while (i >>= 1) > 0
-      @buf[i] = @merge.call(@buf[i*2], @buf[i*2+1])
+      @buf[i] = @compose.call(@buf[i << 1], @buf[(i << 1) | 1])
     end
   end
 end
