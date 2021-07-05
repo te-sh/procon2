@@ -14,11 +14,27 @@ macro max_u(a, b)
 end
 
 #
+# a/b を小数点以下切り上げで求めます
+#
+def cdiv(a : Int, b : Int)
+  (a + b - 1) // b
+end
+
+#
 # √n を超えない最大の整数を返します
 #
 def isqrt(n : Int32)
   m = 46340
   r = (1..m).bsearch { |i| i**2 > n }
+  r.nil? ? m : r - 1
+end
+
+#
+# √n を超えない最大の整数を返します
+#
+def isqrt(n : Int64)
+  m = 3037000499_i64
+  r = (1_i64..m).bsearch { |i| i**2 > n }
   r.nil? ? m : r - 1
 end
 
