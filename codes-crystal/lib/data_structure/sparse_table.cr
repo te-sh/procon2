@@ -11,7 +11,7 @@ class SparseTable(T)
 
     @log_table = Array.new(@n+1, 0)
     (2..@n).each do |i|
-      @log_table[i] = @log_table[i>>1] + 1
+      @log_table[i] = @log_table[i >> 1] + 1
     end
 
     @rmq = Array.new(@log_table[@n] + 1) { Array.new(@n, 0) }
@@ -24,7 +24,7 @@ class SparseTable(T)
       i = 0
       while i + (1 << k) <= @n
         x = @rmq[k-1][i]
-        y = @rmq[k-1][i + ((1 << k) - 1)]
+        y = @rmq[k-1][i + (1 << k-1)]
         @rmq[k][i] = @merge.call(@a[x], @a[y]) == @a[x] ? x : y
         i += 1
       end
