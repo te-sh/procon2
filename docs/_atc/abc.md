@@ -1,9 +1,7 @@
 ---
 layout: default
 ---
-[AtCoder](https://atcoder.jp/) の問題を解いたときのメモです.
-
-AtCoder Beginner Contest
+# AtCoder Beginner Contest
 
 |#175|[A問題](atc/abc/175/a.html)|[B問題](atc/abc/175/b.html)|[C問題](atc/abc/175/c.html)|[D問題](atc/abc/175/d.html)|[E問題](atc/abc/175/e.html)|F問題|
 |#174|[A問題](atc/abc/174/a.html)|[B問題](atc/abc/174/b.html)|[C問題](atc/abc/174/c.html)|[D問題](atc/abc/174/d.html)|[E問題](atc/abc/174/e.html)|F問題|
@@ -122,84 +120,3 @@ AtCoder Beginner Contest
 |#044|[A問題](atc/abc/044/a.html)|[B問題](atc/abc/044/b.html)|[C問題](atc/arc/060/c.html)|[D問題](atc/arc/060/d.html)|
 |#043|[A問題](atc/abc/043/a.html)|[B問題](atc/abc/043/b.html)|[C問題](atc/arc/059/c.html)|[D問題](atc/arc/059/d.html)|
 |#042|[A問題](atc/abc/042/a.html)|[B問題](atc/abc/042/b.html)|[C問題](atc/arc/058/c.html)|[D問題](atc/arc/058/d.html)|
-
-AtCoder Regular Contest
-
-|#085|[C問題](atc/arc/085/c.html)|[D問題](atc/arc/085/d.html)|[E問題](atc/arc/085/e.html)|F問題|
-|#084|[C問題](atc/arc/084/c.html)|[D問題](atc/arc/084/d.html)|[E問題](atc/arc/084/e.html)|F問題|
-|#083|[C問題](atc/arc/083/c.html)|[D問題](atc/arc/083/d.html)|[E問題](atc/arc/083/e.html)|F問題|
-|#082|[C問題](atc/arc/082/c.html)|[D問題](atc/arc/082/d.html)|[E問題](atc/arc/082/e.html)|F問題|
-|#081|[C問題](atc/arc/081/c.html)|[D問題](atc/arc/081/d.html)|[E問題](atc/arc/081/e.html)|F問題|
-
-|#080|[C問題](atc/arc/080/c.html)|[D問題](atc/arc/080/d.html)|[E問題](atc/arc/080/e.html)|F問題|
-|#079|[C問題](atc/arc/079/c.html)|[D問題](atc/arc/079/d.html)|[E問題](atc/arc/079/e.html)|F問題|
-|#078|[C問題](atc/arc/078/c.html)|[D問題](atc/arc/078/d.html)|[E問題](atc/arc/078/e.html)|F問題|
-|#077|[C問題](atc/arc/077/c.html)|[D問題](atc/arc/077/d.html)|[E問題](atc/arc/077/e.html)|F問題|
-|#076|[C問題](atc/arc/076/c.html)|[D問題](atc/arc/076/d.html)|[E問題](atc/arc/076/e.html)|F問題|
-|#075|[C問題](atc/arc/075/c.html)|[D問題](atc/arc/075/d.html)|[E問題](atc/arc/075/e.html)|F問題|
-|#074|[C問題](atc/arc/074/c.html)|[D問題](atc/arc/074/d.html)|[E問題](atc/arc/074/e.html)|F問題|
-|#073|[C問題](atc/arc/073/c.html)|[D問題](atc/arc/073/d.html)|[E問題](atc/arc/073/e.html)|F問題|
-|#072|[C問題](atc/arc/072/c.html)|[D問題](atc/arc/072/d.html)|[E問題](atc/arc/072/e.html)|F問題|
-|#071|[C問題](atc/arc/071/c.html)|[D問題](atc/arc/071/d.html)|[E問題](atc/arc/071/e.html)|F問題|
-
-|#070|[C問題](atc/arc/070/c.html)|[D問題](atc/arc/070/d.html)|[E問題](atc/arc/070/e.html)|F問題|
-|#069|[C問題](atc/arc/069/c.html)|[D問題](atc/arc/069/d.html)|[E問題](atc/arc/069/e.html)|F問題|
-|#068|[C問題](atc/arc/068/c.html)|[D問題](atc/arc/068/d.html)|[E問題](atc/arc/068/e.html)|F問題|
-|#067|[C問題](atc/arc/067/c.html)|[D問題](atc/arc/067/d.html)|[E問題](atc/arc/067/e.html)|F問題|
-|#066|[C問題](atc/arc/066/c.html)|[D問題](atc/arc/066/d.html)|[E問題](atc/arc/066/e.html)|F問題|
-|#065|[C問題](atc/arc/065/c.html)|[D問題](atc/arc/065/d.html)|[E問題](atc/arc/065/e.html)|F問題|
-|#064|[C問題](atc/arc/064/c.html)|[D問題](atc/arc/064/d.html)|[E問題](atc/arc/064/e.html)|F問題|
-|#063|[C問題](atc/arc/063/c.html)|[D問題](atc/arc/063/d.html)|[E問題](atc/arc/063/e.html)|F問題|
-|#062|[C問題](atc/arc/062/c.html)|[D問題](atc/arc/062/d.html)|E問題|F問題|
-|#061|[C問題](atc/arc/061/c.html)|[D問題](atc/arc/061/d.html)|[E問題](atc/arc/061/e.html)|F問題|
-
-|#060|[C問題](atc/arc/060/c.html)|[D問題](atc/arc/060/d.html)|[E問題](atc/arc/060/e.html)|F問題|
-|#059|[C問題](atc/arc/059/c.html)|[D問題](atc/arc/059/d.html)|[E問題](atc/arc/059/e.html)|F問題|
-|#058|[C問題](atc/arc/058/c.html)|[D問題](atc/arc/058/d.html)|[E問題](atc/arc/058/e.html)|F問題|
-|#058|[C問題](atc/arc/058/c.html)|[D問題](atc/arc/058/d.html)|[E問題](atc/arc/058/e.html)|F問題|
-|#057|[A問題](atc/arc/057/a.html)|[B問題](atc/arc/057/b.html)|[C問題](atc/arc/057/c.html)|D問題|
-|#056|[A問題](atc/arc/056/a.html)|[B問題](atc/arc/056/b.html)|[C問題](atc/arc/056/c.html)|D問題|
-|#055|[A問題](atc/arc/055/a.html)|[B問題](atc/arc/055/b.html)|[C問題](atc/arc/055/c.html)|D問題|
-|#054|[A問題](atc/arc/054/a.html)|[B問題](atc/arc/054/b.html)|[C問題](atc/arc/054/c.html)|D問題|
-|#053|[A問題](atc/arc/053/a.html)|[B問題](atc/arc/053/b.html)|[C問題](atc/arc/053/c.html)|D問題|
-|#052|[A問題](atc/arc/052/a.html)|[B問題](atc/arc/052/b.html)|[C問題](atc/arc/052/c.html)|D問題|
-|#051|[A問題](atc/arc/051/a.html)|[B問題](atc/arc/051/b.html)|[C問題](atc/arc/051/c.html)|D問題|
-
-|#050|[A問題](atc/arc/050/a.html)|[B問題](atc/arc/050/b.html)|[C問題](atc/arc/050/c.html)|D問題|
-|#049|[A問題](atc/arc/049/a.html)|[B問題](atc/arc/049/b.html)|[C問題](atc/arc/049/c.html)|D問題|
-|#048|[A問題](atc/arc/048/a.html)|[B問題](atc/arc/048/b.html)|[C問題](atc/arc/048/c.html)|D問題|
-|#047|[A問題](atc/arc/047/a.html)|[B問題](atc/arc/047/b.html)|[C問題](atc/arc/047/c.html)|D問題|
-|#046|[A問題](atc/arc/046/a.html)|[B問題](atc/arc/046/b.html)|[C問題](atc/arc/046/c.html)|D問題|
-|#045|[A問題](atc/arc/045/a.html)|[B問題](atc/arc/045/b.html)|[C問題](atc/arc/045/c.html)|D問題|
-|#044|[A問題](atc/arc/044/a.html)|[B問題](atc/arc/044/b.html)|[C問題](atc/arc/044/c.html)|D問題|
-|#043|[A問題](atc/arc/043/a.html)|[B問題](atc/arc/043/b.html)|[C問題](atc/arc/043/c.html)|D問題|
-|#042|[A問題](atc/arc/042/a.html)|[B問題](atc/arc/042/b.html)|[C問題](atc/arc/042/c.html)|D問題|
-|#041|[A問題](atc/arc/041/a.html)|[B問題](atc/arc/041/b.html)|[C問題](atc/arc/041/c.html)|D問題|
-
-|#040|[A問題](atc/arc/040/a.html)|[B問題](atc/arc/040/b.html)|[C問題](atc/arc/040/c.html)|D問題|
-|#039|[A問題](atc/arc/039/a.html)|[B問題](atc/arc/039/b.html)|[C問題](atc/arc/039/c.html)|D問題|
-|#038|[A問題](atc/arc/038/a.html)|[B問題](atc/arc/038/b.html)|[C問題](atc/arc/038/c.html)|D問題|
-|#037|[A問題](atc/arc/037/a.html)|[B問題](atc/arc/037/b.html)|[C問題](atc/arc/037/c.html)|D問題|
-|#036|[A問題](atc/arc/036/a.html)|[B問題](atc/arc/036/b.html)|[C問題](atc/arc/036/c.html)|D問題|
-|#035|[A問題](atc/arc/035/a.html)|[B問題](atc/arc/035/b.html)|[C問題](atc/arc/035/c.html)|D問題|
-|#034|[A問題](atc/arc/034/a.html)|[B問題](atc/arc/034/b.html)|[C問題](atc/arc/034/c.html)|D問題|
-|#033|[A問題](atc/arc/033/a.html)|[B問題](atc/arc/033/b.html)|[C問題](atc/arc/033/c.html)|D問題|
-
-競プロ典型90問
-
-|[#001](atc/typical/001.html)|[#002](atc/typical/002.html)|[#003](atc/typical/003.html)|[#004](atc/typical/004.html)|#005|[#006](atc/typical/006.html)|[#007](atc/typical/007.html)|[#008](atc/typical/008.html)|#009|[#010](atc/typical/010.html)|
-|#011|[#012](atc/typical/012.html)|[#013](atc/typical/013.html)|[#014](atc/typical/014.html)|#015|[#016](atc/typical/016.html)|#017|[#018](atc/typical/018.html)|#019|[#020](atc/typical/020.html)|
-|#021|[#022](atc/typical/022.html)|#023|[#024](atc/typical/024.html)|#025|[#026](atc/typical/026.html)|[#027](atc/typical/027.html)|[#028](atc/typical/028.html)|[#029](atc/typical/029.html)|[#030](atc/typical/030.html)|
-|#031|[#032](atc/typical/032.html)|[#033](atc/typical/033.html)|[#034](atc/typical/034.html)|#035|[#036](atc/typical/036.html)|
-
-企業コンテスト
-
-|Aising2020|[A問題](atc/com/aising2020/a.html)|[B問題](atc/com/aising2020/b.html)|[C問題](atc/com/aising2020/c.html)|[D問題](atc/com/aising2020/d.html)|E問題|F問題|
-|SoundHound|[A問題](atc/com/soundhound/a.html)|[B問題](atc/com/soundhound/b.html)|[C問題](atc/com/soundhound/c.html)|[D問題](atc/com/soundhound/d.html)|[E問題](atc/com/soundhound/e.html)|[F問題](atc/com/soundhound/f.html)|
-
-その他
-
-|Educational DP|[A問題](atc/other/dp/a.html)|[B問題](atc/other/dp/b.html)|[C問題](atc/other/dp/c.html)|[D問題](atc/other/dp/d.html)|[E問題](atc/other/dp/e.html)|[F問題](atc/other/dp/f.html)|
-||[G問題](atc/other/dp/g.html)|[H問題](atc/other/dp/h.html)|[I問題](atc/other/dp/i.html)|[J問題](atc/other/dp/j.html)|[K問題](atc/other/dp/k.html)|[L問題](atc/other/dp/l.html)|
-||[M問題](atc/other/dp/m.html)|[N問題](atc/other/dp/n.html)|[O問題](atc/other/dp/o.html)|[P問題](atc/other/dp/p.html)|[Q問題](atc/other/dp/q.html)|[R問題](atc/other/dp/r.html)|
-||[S問題](atc/other/dp/s.html)|[T問題](atc/other/dp/t.html)|[U問題](atc/other/dp/u.html)|

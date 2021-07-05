@@ -8,5 +8,8 @@ layout: default
 使用言語は[D言語](https://dlang.org)です.
 
 * [yukicoder](yukicoder.html)
-* [AtCoder](atcoder.html)
+* AtCoder
+  * [ABC](atc/abc.html)
+  * [ARC](atc/arc.html)
+  * [その他](atc/other.html)
 * [CodeForces](codeforces.html)
