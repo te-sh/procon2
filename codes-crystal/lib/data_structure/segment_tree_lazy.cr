@@ -1,4 +1,4 @@
-# :::::::::::::::::::: lib/data_structure/segment_tree
+# :::::::::::::::::::: lib/data_structure/segment_tree_lazy
 #
 # 遅延伝播セグメントツリーを表します
 # このクラスは継承して使われることを想定しています
