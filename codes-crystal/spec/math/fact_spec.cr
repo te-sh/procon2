@@ -3,7 +3,7 @@ require "lib/math/fact"
 require "lib/math/mod_int"
 
 module FactSpec
-  struct Mint < ModInt; @@mod = 7; end
+  ModInt.new_type(Mint, 7)
   fact = Fact(Mint).new(5)
 
   describe Fact do

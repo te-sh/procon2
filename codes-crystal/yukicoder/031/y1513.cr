@@ -1,10 +1,10 @@
 # URL: https://yukicoder.me/problems/no/1513
 
-def main(io)
+def solve(io)
   n, k = io.get2
 
-  dp1 = Array.new(n) { Array.new(k) { Array.new(k, Mint.zero) } }
-  dp2 = Array.new(n) { Array.new(k) { Array.new(k, Mint.zero) } }
+  dp1 = Array.new_md(n, k, k, Mint.zero)
+  dp2 = Array.new_md(n, k, k, Mint.zero)
   (0...k).each do |j|
     (0...k).each do |l|
       if j != l
@@ -38,8 +38,8 @@ end
 require "lib/data_structure/cumulative_sum"
 
 require "lib/math/mod_int"
-struct Mint < ModInt; @@mod : Int32 = 998244353; end
+ModInt.new_type(Mint, 998244353)
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/1507
 
-def main(io)
+def solve(io)
   n = io.get
   g = Graph.new(n)
 
@@ -26,8 +26,8 @@ require "lib/graph/graph"
 require "lib/graph/tree"
 
 require "lib/math/mod_int"
-struct Mint < ModInt; @@mod : Int32 = 998244353; end
+ModInt.new_type(Mint, 998244353)
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

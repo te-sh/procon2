@@ -7,6 +7,15 @@ require "lib/math/misc"
 #
 abstract struct ModInt < Number
   #
+  # 法を mod とする剰余群の struct を名前 name で定義します
+  #
+  macro new_type(name, mod)
+    struct {{name}} < ModInt
+      @@mod : Int32 = {{mod}}
+    end
+  end
+
+  #
   # コンストラクタ
   #
   def initialize(v : Int)

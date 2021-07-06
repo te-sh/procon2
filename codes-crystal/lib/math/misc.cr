@@ -1,4 +1,6 @@
 # :::::::::::::::::::: lib/math/misc
+require "lib/ext/number"
+
 #
 # a の n 乗を繰り返し2乗法で計算します
 # 乗算方法は * です

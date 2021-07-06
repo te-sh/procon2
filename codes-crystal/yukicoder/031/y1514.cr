@@ -2,7 +2,7 @@
 
 require "bit_array"
 
-def main(io)
+def solve(io)
   n = io.get
 
   a = BitArray.new(n+1, true)
@@ -34,8 +34,6 @@ def main(io)
   io.put c.reduce(0) { |a, b| a + b*b }
 end
 
-require "lib/number_ext"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -2,7 +2,7 @@ require "spec"
 require "lib/math/mod_int"
 
 module ModIntSpec
-  struct Mint < ModInt; @@mod = 7; end
+  ModInt.new_type(Mint, 7)
   m1 = Mint.new(3)
   m2 = Mint.new(8)
 

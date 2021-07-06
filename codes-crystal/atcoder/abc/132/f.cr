@@ -29,7 +29,7 @@ end
 require "lib/data_structure/cumulative_sum"
 
 require "lib/math/mod_int"
-struct Mint < ModInt; @@mod : Int32 = 10**9+7; end
+ModInt.new_type(Mint, 10**9+7)
 
 require "lib/procon"
 
