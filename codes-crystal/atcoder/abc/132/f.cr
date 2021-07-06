@@ -2,7 +2,7 @@
 
 def main(io)
   n, k = io.get2
-  s = isqrt(n)
+  s = n.isqrt
   t = (1..s).map { |i| Math.max(s, n//i) }
   t << s
   t.reverse!
@@ -28,10 +28,10 @@ end
 
 require "lib/data_structure/cumulative_sum"
 
-require "lib/math/misc"
-
 require "lib/math/mod_int"
 struct Mint < ModInt; @@mod : Int32 = 10**9+7; end
+
+require "lib/number_ext"
 
 require "lib/procon_io"
 

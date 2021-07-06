@@ -8,14 +8,14 @@ def main(io)
   (0...n).each do |i|
     (i+1...n).each do |j|
       l = x[i].zip(x[j]).map { |xij1, xij2| (xij1 - xij2)**2 }.sum
-      r += 1 if isqrt(l)**2 == l
+      r += 1 if l.isqrt**2 == l
     end
   end
 
   io.put r
 end
 
-require "lib/math/misc"
+require "lib/number_ext"
 
 require "lib/procon_io"
 

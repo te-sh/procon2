@@ -10,6 +10,8 @@ def main(io)
   $0
 end
 
+require "lib/number_ext"
+
 require "lib/procon_io"
 
 main(ProconIO.new)

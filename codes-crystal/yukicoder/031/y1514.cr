@@ -8,7 +8,7 @@ def main(io)
   a = BitArray.new(n+1, true)
   b = Array.new(n+1, &.itself)
 
-  (2..isqrt(n)).each do |i|
+  (2..n.isqrt).each do |i|
     next unless a[i]
 
     j = i*2
@@ -34,7 +34,7 @@ def main(io)
   io.put c.reduce(0) { |a, b| a + b*b }
 end
 
-require "lib/math/misc"
+require "lib/number_ext"
 
 require "lib/procon_io"
 

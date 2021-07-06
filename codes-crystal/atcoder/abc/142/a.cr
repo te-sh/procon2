@@ -2,10 +2,12 @@
 
 def main(io)
   n = io.get
-  io.put cdiv(n, 2) / n
+  io.put n.cdiv(2) / n
 end
 
 require "lib/math/misc"
+
+require "lib/number_ext"
 
 require "lib/procon_io"
 
