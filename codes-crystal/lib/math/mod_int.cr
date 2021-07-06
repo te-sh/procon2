@@ -7,17 +7,10 @@ require "lib/math/misc"
 #
 abstract struct ModInt < Number
   #
-  # 0 を表すインスタンスです
+  # コンストラクタ
   #
-  def self.zero
-    self.new(0)
-  end
-
-  #
-  # 加算の単位元を表すインスタンスです
-  #
-  def self.additive_identity
-    self.new(0)
+  def initialize(v : Int)
+    @v = (v % @@mod).to_i64
   end
 
   #
@@ -25,13 +18,6 @@ abstract struct ModInt < Number
   #
   def self.multiplicative_identity
     self.new(1)
-  end
-
-  #
-  # コンストラクタ
-  #
-  def initialize(v : Int)
-    @v = (v % @@mod).to_i64
   end
 
   #

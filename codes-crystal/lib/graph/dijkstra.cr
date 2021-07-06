@@ -16,7 +16,7 @@ class Dijkstra(T)
   def initialize(@g : GraphW(T), s : Node)
     n = sent = @g.n
     @dist = Array.new(n, @g.inf)
-    @dist[s] = T.additive_identity
+    @dist[s] = T.zero
     @prev = Array.new(n, sent)
 
     se = Edge.new(sent, s, T.new(0))
