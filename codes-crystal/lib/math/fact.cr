@@ -1,4 +1,6 @@
 # :::::::::::::::::::: lib/math/fact
+require "lib/number_ext"
+
 #
 # 階乗およびその逆数を計算します.
 # T は ModInt を使うことがほとんどでしょう.
@@ -8,14 +10,13 @@ class Fact(T)
   # コンストラクタ
   #
   def initialize(@n : Int32)
-    @table = Array.new(@n+1, T.new(0))
-    @table[0] = T.multiplicative_identity
+    @table = Array.new(@n+1, T.multiplicative_identity)
     (1..@n).each do |i|
       @table[i] = @table[i-1] * i
     end
 
-    @inv_table = Array.new(@n+1, T.new(0))
-    @inv_table[@n] = T.multiplicative_identity // @table[@n]
+    @inv_table = Array.new(@n+1, T.multiplicative_identity)
+    @inv_table[@n] //= @table[@n]
     (1..@n).reverse_each do |i|
       @inv_table[i-1] = @inv_table[i] * i
     end

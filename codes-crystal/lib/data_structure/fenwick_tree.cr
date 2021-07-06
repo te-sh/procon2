@@ -7,7 +7,7 @@ class FenwickTree(T)
   # コンストラクタ
   #
   def initialize(@n : Int32)
-    @buf = Array.new(@n+1, T.zero)
+    @buf = Array.new(@n+1, T.additive_identity)
   end
 
   #
@@ -44,7 +44,7 @@ class FenwickTree(T)
   @buf : Array(T)
 
   private def get(i : Int)
-    s = T.zero
+    s = T.additive_identity
     while i > 0
       s += @buf[i]
       i -= i & -i

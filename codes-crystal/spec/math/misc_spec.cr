@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/math/misc"
+require "lib/math/misc"
 
 module MiscSpec
   describe "#isqrt" do

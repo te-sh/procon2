@@ -8,7 +8,7 @@ class CumulativeSum(T)
   #
   def initialize(a : Array(T))
     @n = a.size
-    @s = Array.new(@n+1, T.zero)
+    @s = Array.new(@n+1, T.additive_identity)
     @n.times.each do |i|
       @s[i+1] = @s[i] + a[i]
     end

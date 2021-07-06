@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/math/prime_factor"
+require "lib/math/prime_factor"
 
 module PrimeFactorSpec
   describe PrimeFactor do

@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/union_find"
+require "lib/data_structure/union_find"
 
 module UnionFindSpec
   describe UnionFind do

@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/segment_tree_lazy"
+require "lib/data_structure/segment_tree_lazy"
 
 module SegmentTreeLazySpec
   class SegTree(T) < SegmentTreeLazy(T)

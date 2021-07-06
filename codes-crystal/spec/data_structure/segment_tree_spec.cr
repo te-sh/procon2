@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/segment_tree"
+require "lib/data_structure/segment_tree"
 
 module SegmentTreeSpec
   describe SegmentTree do

@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/heap"
+require "lib/data_structure/heap"
 
 module HeapSpec
   describe Heap do

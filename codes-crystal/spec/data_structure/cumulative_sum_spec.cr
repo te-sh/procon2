@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/cumulative_sum"
+require "lib/data_structure/cumulative_sum"
 
 module CumulativeSumSpec
   describe CumulativeSum do

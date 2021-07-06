@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/sparse_table"
+require "lib/data_structure/sparse_table"
 
 module SparseTableSpec
   describe SparseTable do

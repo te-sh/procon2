@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/data_structure/fenwick_tree"
+require "lib/data_structure/fenwick_tree"
 
 module FenwickSpec
   describe FenwickTree do

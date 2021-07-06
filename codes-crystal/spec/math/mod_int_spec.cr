@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/math/mod_int"
+require "lib/math/mod_int"
 
 module ModIntSpec
   struct Mint < ModInt; @@mod = 7; end

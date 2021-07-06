@@ -1,6 +1,6 @@
 require "spec"
-require "../../lib/math/fact"
-require "../../lib/math/mod_int"
+require "lib/math/fact"
+require "lib/math/mod_int"
 
 module FactSpec
   struct Mint < ModInt; @@mod = 7; end

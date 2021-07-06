@@ -14,13 +14,6 @@ abstract struct ModInt < Number
   end
 
   #
-  # 乗算の単位元を表すインスタンスです
-  #
-  def self.multiplicative_identity
-    self.new(1)
-  end
-
-  #
   # オブジェクトのハッシュを返します
   #
   def_hash @@mod, @v
