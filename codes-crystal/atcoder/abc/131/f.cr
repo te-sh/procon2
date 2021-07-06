@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc131/tasks/abc131_f
 
-def main(io)
+def solve(io)
   n = io.get
   x, y = io.get2_c(n)
   x.map! { |e| e-1 }
@@ -42,6 +42,6 @@ end
 
 require "lib/graph/graph"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,14 +1,14 @@
 # URL: https://atcoder.jp/contests/abc132/tasks/abc132_f
 
-def main(io)
+def solve(io)
   n, k = io.get2
   s = n.isqrt
   t = (1..s).map { |i| Math.max(s, n//i) }
   t << s
   t.reverse!
 
-  dp1 = Array.new(k) { Array.new(s+1, Mint.zero) }
-  dp2 = Array.new(k) { Array.new(s+1, Mint.zero) }
+  dp1 = Array.new_md(k, s+1, Mint.zero)
+  dp2 = Array.new_md(k, s+1, Mint.zero)
   (1..s).each do |i|
     dp1[0][i] = Mint.new(1)
     dp2[0][i] = Mint.new(t[i] - t[i-1])
@@ -31,8 +31,6 @@ require "lib/data_structure/cumulative_sum"
 require "lib/math/mod_int"
 struct Mint < ModInt; @@mod : Int32 = 10**9+7; end
 
-require "lib/number_ext"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

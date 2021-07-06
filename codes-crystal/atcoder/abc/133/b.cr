@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc133/tasks/abc133_b
 
-def main(io)
+def solve(io)
   n, d = io.get2
   x = io.get_m(n, d)
 
@@ -15,8 +15,6 @@ def main(io)
   io.put r
 end
 
-require "lib/number_ext"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc133/tasks/abc133_c
 
-def main(io)
+def solve(io)
   l, r = io.get2
   n = m = 2019
 
@@ -13,8 +13,6 @@ def main(io)
   io.put m
 end
 
-require "lib/math/misc"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc131/tasks/abc131_c
 
-def main(io)
+def solve(io)
   a, b, c, d = io.get4(Int64)
 
   e = c.lcm(d)
@@ -10,6 +10,6 @@ def main(io)
   io.put b-a+1-(nb-na)
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

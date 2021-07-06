@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc131/tasks/abc131_b
 
-def main(io)
+def solve(io)
   n, l = io.get2
   t = Array.new(n) { |i| l+i }
 
@@ -12,6 +12,6 @@ def main(io)
   io.put t.sum - m
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

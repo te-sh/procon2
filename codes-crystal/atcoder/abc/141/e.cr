@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc141/tasks/abc141_e
 
-def main(io)
+def solve(io)
   n = io.get
   s = io.get(String)
 
@@ -20,14 +20,12 @@ def main(io)
   io.put r
 end
 
-require "lib/math/misc"
-
 require "lib/string/suffix_array"
 
 require "lib/string/lcp_array"
 
 require "lib/data_structure/sparse_table"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

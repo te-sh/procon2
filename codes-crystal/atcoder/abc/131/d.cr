@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc131/tasks/abc131_d
 
-def main(io)
+def solve(io)
   n = io.get
   a, b = io.get2_c(n)
   t = Array.new(n) { |i| T.new(a[i], b[i]) }
@@ -16,6 +16,6 @@ end
 
 record T, a : Int32, b : Int32
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

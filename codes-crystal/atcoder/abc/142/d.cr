@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc142/tasks/abc142_d
 
-def main(io)
+def solve(io)
   a, b = io.get2(Int64)
   g = a.gcd(b)
 
@@ -10,6 +10,6 @@ end
 
 require "lib/math/prime_factor"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

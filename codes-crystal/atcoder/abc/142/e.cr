@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc142/tasks/abc142_e
 
-def main(io)
+def solve(io)
   n, m = io.get2
 
   a = Array.new(m, 0)
@@ -15,7 +15,7 @@ def main(io)
   end
 
   inf = 10**9
-  dp = Array.new(m+1) { Array.new(1 << n, inf) }
+  dp = Array.new_md(m+1, 1 << n, inf)
   dp[0][0] = 0
 
   m.times do |i|
@@ -28,8 +28,6 @@ def main(io)
   io.put dp[-1][-1] == inf ? -1 : dp[-1][-1]
 end
 
-require "lib/math/misc"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc132/tasks/abc132_e
 
-def main(io)
+def solve(io)
   n, m = io.get2
 
   g = GraphW(Int32).new(n*3)
@@ -18,6 +18,6 @@ end
 
 require "lib/graph/dijkstra"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

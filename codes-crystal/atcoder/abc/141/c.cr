@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc141/tasks/abc141_c
 
-def main(io)
+def solve(io)
   n, k, q = io.get3
 
   b = Array.new(n, 0)
@@ -14,6 +14,6 @@ def main(io)
   end
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

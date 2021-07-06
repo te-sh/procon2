@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc133/tasks/abc133_d
 
-def main(io)
+def solve(io)
   n = io.get
   a = io.get_a(n, Int64)
 
@@ -14,6 +14,6 @@ def main(io)
   io.put x.map { |xi| xi*2 }
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

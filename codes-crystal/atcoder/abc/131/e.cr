@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc131/tasks/abc131_e
 
-def main(io)
+def solve(io)
   n, k = io.get2
   io.put_e -1 if k > (n-1)*(n-2)//2
 
@@ -21,6 +21,6 @@ def main(io)
   end
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

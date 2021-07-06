@@ -1,11 +1,11 @@
 # URL: https://atcoder.jp/contests/abc142/tasks/abc142_b
 
-def main(io)
+def solve(io)
   n, k = io.get2
   h = io.get_a(n)
   io.put h.count(&.>= k)
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

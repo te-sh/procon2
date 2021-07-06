@@ -1,6 +1,6 @@
 # URL: https://atcoder.jp/contests/abc141/tasks/abc141_d
 
-def main(io)
+def solve(io)
   n, m = io.get2
   a = io.get_a(n)
 
@@ -19,6 +19,6 @@ end
 
 require "lib/data_structure/heap"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

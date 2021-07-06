@@ -2,11 +2,11 @@
 
 W = { "Sunny" => "Cloudy", "Cloudy" => "Rainy", "Rainy" => "Sunny" }
 
-def main(io)
+def solve(io)
   s = io.get(String)
   io.put W[s]
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)
