@@ -1,4 +1,6 @@
 # :::::::::::::::::::: lib/data_structure/sparse_table
+require "lib/ext/array"
+
 #
 # Sparse Table を表します
 #
@@ -14,7 +16,7 @@ class SparseTable(T)
       @log_table[i] = @log_table[i >> 1] + 1
     end
 
-    @rmq = Array.new(@log_table[@n] + 1) { Array.new(@n, 0) }
+    @rmq = Array.new_md(@log_table[@n] + 1, @n, 0)
     @n.times do |i|
       @rmq[0][i] = i
     end

@@ -1,7 +1,7 @@
 require "spec"
-require "lib/number_ext"
+require "lib/ext/int"
 
-module NumberExtSpec
+module IntSpec
   describe Int do
     describe "#cdiv" do
       it { 8.cdiv(3).should eq 3 }
