@@ -1,10 +1,10 @@
 # URL: https://yukicoder.me/problems/no/830
 
-def main(io)
+def solve(io)
   n = io.get
   io.put n*10
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

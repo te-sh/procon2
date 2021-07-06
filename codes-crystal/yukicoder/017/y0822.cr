@@ -1,11 +1,11 @@
 # URL: https://yukicoder.me/problems/no/822
 
-def main(io)
+def solve(io)
   n, k = io.get2
   io.put_e "INF" if n < k
 
   r = 0
-  (0...1<<n.bit_length).each do |x|
+  (0...1 << n.bit_length).each do |x|
     (x..x+k).each do |y|
       r += 1 if x & y == n
     end
@@ -14,6 +14,6 @@ def main(io)
   io.put r
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

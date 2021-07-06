@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/831
 
-def main(io)
+def solve(io)
   n = io.get
   p = Array.new(n, 0)
 
@@ -24,6 +24,6 @@ def main(io)
   io.put r
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

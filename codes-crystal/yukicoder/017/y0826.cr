@@ -2,7 +2,7 @@
 
 require "bit_array"
 
-def main(io)
+def solve(io)
   n, p = io.get2
 
   uf = UnionFind.new(n+1)
@@ -23,6 +23,6 @@ end
 
 require "lib/data_structure/union_find"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

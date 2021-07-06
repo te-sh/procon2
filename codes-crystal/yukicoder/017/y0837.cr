@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/837
 
-def main(io)
+def solve(io)
   n = io.get
   y = io.get_a(n, Int64)
 
@@ -20,10 +20,8 @@ def main(io)
   io.put(s)
 end
 
-require "lib/math/misc"
-
 require "lib/data_structure/cumulative_sum"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/827
 
-def main(io)
+def solve(io)
   n = io.get
   g = Graph.new(n)
   (n-1).times do
@@ -28,6 +28,6 @@ require "lib/math/fact"
 require "lib/math/mod_int"
 struct Mint < ModInt; @@mod : Int32 = 10**9+7; end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

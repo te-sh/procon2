@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/825
 
-def main(io)
+def solve(io)
   a, b, c = io.get3
 
   m = 10**9
@@ -16,8 +16,6 @@ def main(io)
   io.put m == 10**9 ? "Impossible" : m
 end
 
-require "lib/math/misc"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

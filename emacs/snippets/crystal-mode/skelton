@@ -4,14 +4,12 @@
 # group: procon
 # expand-env: ((yas-indent-line 'fixed))
 # --
-# URL: $1
+# URL: $0
 
-def main(io)
-  $0
+def solve(io)
+  $1
 end
 
-require "lib/number_ext"
+require "lib/procon"
 
-require "lib/procon_io"
-
-main(ProconIO.new)
+solve(ProconIO.new)

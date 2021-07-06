@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/833
 
-def main(io)
+def solve(io)
   n, q = io.get2
   a = io.get_a(n, Int64)
 
@@ -27,6 +27,6 @@ end
 
 require "lib/data_structure/segment_tree"
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/834
 
-def main(io)
+def solve(io)
   n, m = io.get2
 
   io.put_e 1 if n == 1
@@ -29,6 +29,6 @@ require "lib/math/fact"
 require "lib/math/mod_int"
 struct Mint < ModInt; @@mod : Int32 = 10**9+7; end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

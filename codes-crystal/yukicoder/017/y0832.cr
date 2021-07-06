@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/832
 
-def main(io)
+def solve(io)
   atama = (1..9).map { |i| [i, i] }
   ko = (1..9).map { |i| [i, i, i] }
   shun = (1..7).map { |i| [i, i+1, i+2] }
@@ -22,6 +22,6 @@ def main(io)
   end
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)

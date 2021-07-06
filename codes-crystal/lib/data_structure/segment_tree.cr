@@ -1,5 +1,5 @@
 # :::::::::::::::::::: lib/data_structure/segment_tree
-require "lib/number_ext"
+require "lib/ext/int"
 
 #
 # セグメントツリーを表します

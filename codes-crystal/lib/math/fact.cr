@@ -1,5 +1,5 @@
 # :::::::::::::::::::: lib/math/fact
-require "lib/number_ext"
+require "lib/ext/number"
 
 #
 # 階乗およびその逆数を計算します.

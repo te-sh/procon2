@@ -1,6 +1,6 @@
 # URL: https://yukicoder.me/problems/no/836
 
-def main(io)
+def solve(io)
   l, r, n = io.get3(Int64)
 
   n.times do |j|
@@ -12,6 +12,6 @@ def count_mod(i, j, n)
   i >= 0 ? (i-j) // n + 1 : 0
 end
 
-require "lib/procon_io"
+require "lib/procon"
 
-main(ProconIO.new)
+solve(ProconIO.new)
