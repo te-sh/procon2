@@ -11,7 +11,7 @@ abstract class SegmentTreeLazy(T)
   # コンストラクタ
   #
   def initialize(@n : Int32, @init : T = T.zero)
-    @an = 1 << ((@n-1).bit_length + 1)
+    @an = 1 << (@n-1).bit_length
     @sec = Array.new(@an*2) { Section.new(@init) }
   end
 

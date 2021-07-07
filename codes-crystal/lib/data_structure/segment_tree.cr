@@ -10,7 +10,7 @@ class SegmentTree(T)
   # init は初期値です
   #
   def initialize(@n : Int32, @init : T = T.zero, &@compose : (T, T) -> T)
-    @an = 1 << ((@n-1).bit_length + 1)
+    @an = 1 << (@n-1).bit_length
     @buf = Array.new(@an*2, @init)
     propagate_all
   end
@@ -21,7 +21,7 @@ class SegmentTree(T)
   #
   def initialize(b : Array(T), @init : T = T.zero, &@compose : (T, T) -> T)
     @n = b.size
-    @an = 1 << ((@n-1).bit_length + 1)
+    @an = 1 << (@n-1).bit_length
     @buf = Array.new(@an*2, @init)
     @buf[@an, @n] = b
     propagate_all

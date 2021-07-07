@@ -21,21 +21,18 @@ class ProconIO
   #
   # 型を指定して複数の値を読み込みます
   #
-  def get(*ks : T.class) forall T
-    ks.map { |k| get_v(k) }
-  end
-
-  #
-  # 個数と型を指定して複数の値を読み込みます
-  #
-  macro define_getn
+  macro define_get
     {% for i in (2..9) %}
+      def get({% for j in (1..i) %}k{{j}}{% if j < i %}, {% end %}{% end %})
+        { {% for j in (1..i) %}get(k{{j}}){% if j < i %}, {% end %}{% end %} }
+      end
+
       def get{{i}}(k : T.class = Int32) forall T
         get({% for j in (1..i) %}k{% if j < i %}, {% end %}{% end %})
       end
     {% end %}
   end
-  define_getn
+  define_get
 
   #
   # 型を指定して横に並んだ配列の値を読み込みます
@@ -54,7 +51,7 @@ class ProconIO
   #
   # 型を指定して縦に並んだ配列の複数の値を読み込みます
   #
-  def get_c(n : Int, *ks : T.class) forall T
+  def get_c(n : Int, *ks)
     a = Array.new(n) { get(*ks) }
     ks.map_with_index { |_, i| a.map { |e| e[i] } }
   end
@@ -62,14 +59,14 @@ class ProconIO
   #
   # 個数と型を指定して縦に並んだ配列の複数の値を読み込みます
   #
-  macro define_getn_c
+  macro define_get_c
     {% for i in (2..9) %}
       def get{{i}}_c(n : Int, k : T.class = Int32) forall T
         get_c(n, {% for j in (1..i) %}k{% if j < i %}, {% end %}{% end %})
       end
     {% end %}
   end
-  define_getn_c
+  define_get_c
 
   #
   # 型を指定して行列の値を読み込みます
