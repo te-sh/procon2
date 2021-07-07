@@ -6,7 +6,7 @@ class ProconIO
   #
   # コンストラクタ
   #
-  def initialize
+  def initialize(@ins : IO = STDIN, @outs : IO = STDOUT)
     @buf = [] of String
     @index = 0
   end
@@ -23,16 +23,36 @@ class ProconIO
   #
   macro define_get
     {% for i in (2..9) %}
-      def get({% for j in (1..i) %}k{{j}}{% if j < i %}, {% end %}{% end %})
-        { {% for j in (1..i) %}get(k{{j}}){% if j < i %}, {% end %}{% end %} }
-      end
-
-      def get{{i}}(k : T.class = Int32) forall T
-        get({% for j in (1..i) %}k{% if j < i %}, {% end %}{% end %})
+      def get(
+           {% for j in (1..i) %}
+             k{{j}}{% if j < i %},{% end %}
+           {% end %}
+         )
+        {
+          {% for j in (1..i) %}
+            get(k{{j}}){% if j < i %},{% end %}
+          {% end %}
+        }
       end
     {% end %}
   end
   define_get
+
+  #
+  # 個数と型を指定して複数の値を読み込みます
+  #
+  macro define_getn
+    {% for i in (2..9) %}
+      def get{{i}}(k : T.class = Int32) forall T
+        get(
+          {% for j in (1..i) %}
+            k{% if j < i %}, {% end %}
+          {% end %}
+        )
+      end
+    {% end %}
+  end
+  define_getn
 
   #
   # 型を指定して横に並んだ配列の値を読み込みます
@@ -51,22 +71,47 @@ class ProconIO
   #
   # 型を指定して縦に並んだ配列の複数の値を読み込みます
   #
-  def get_c(n : Int, *ks)
-    a = Array.new(n) { get(*ks) }
-    ks.map_with_index { |_, i| a.map { |e| e[i] } }
-  end
-
-  #
-  # 個数と型を指定して縦に並んだ配列の複数の値を読み込みます
-  #
   macro define_get_c
     {% for i in (2..9) %}
-      def get{{i}}_c(n : Int, k : T.class = Int32) forall T
-        get_c(n, {% for j in (1..i) %}k{% if j < i %}, {% end %}{% end %})
+      def get_c(
+           n : Int,
+           {% for j in (1..i) %}
+             k{{j}}{% if j < i %},{% end %}
+           {% end %}
+         )
+        a = Array.new(n) do
+          get(
+            {% for j in (1..i) %}
+              k{{j}}{% if j < i %},{% end %}
+            {% end %}
+          )
+        end
+        {
+          {% for j in (1..i) %}
+            a.map { |e| e[{{j-1}}] }{% if j < i %},{% end %}
+          {% end %}
+        }
       end
     {% end %}
   end
   define_get_c
+
+  #
+  # 個数と型を指定して縦に並んだ配列の複数の値を読み込みます
+  #
+  macro define_getn_c
+    {% for i in (2..9) %}
+      def get{{i}}_c(n : Int, k : T.class = Int32) forall T
+        get_c(
+          n,
+          {% for j in (1..i) %}
+            k{% if j < i %}, {% end %}
+          {% end %}
+        )
+      end
+    {% end %}
+  end
+  define_getn_c
 
   #
   # 型を指定して行列の値を読み込みます
@@ -81,7 +126,7 @@ class ProconIO
   def put(*vs)
     vs.each.with_index do |v, i|
       put_v(v)
-      print i < vs.size - 1 ? " " : "\n"
+      @outs.print i < vs.size - 1 ? " " : "\n"
     end
   end
 
@@ -101,7 +146,8 @@ class ProconIO
 
   private def get_token
     if @buf.size == @index
-      @buf = read_line.split
+      str = @ins.read_line
+      @buf = str.split
       @index = 0
     end
     v = @buf[@index]
@@ -111,13 +157,13 @@ class ProconIO
 
   private def put_v(vs : Enumerable)
     vs.each_with_index do |v, i|
-      print v
-      print " " if i < vs.size - 1
+      @outs.print v
+      @outs.print " " if i < vs.size - 1
     end
   end
 
   private def put_v(v)
-    print v
+    @outs.print v
   end
 end
 # ::::::::::::::::::::

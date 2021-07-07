@@ -4,9 +4,10 @@ require "lib/math/mod_int"
 
 module FactSpec
   ModInt.new_type(Mint, 7)
-  fact = Fact(Mint).new(5)
 
   describe Fact do
+    fact = Fact(Mint).new(5)
+
     it { fact.table.should eq [1, 1, 2, 6, 3, 1] }
     it { fact.inv_table.should eq [1, 1, 4, 6, 5, 1] }
 
