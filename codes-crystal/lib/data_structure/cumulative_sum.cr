@@ -20,13 +20,19 @@ class CumulativeSum(T)
   getter n : Int32
 
   #
+  # start から count 個の累積和を返します
+  #
+  def [](start : Int, count : Int)
+    @s[start + count] - @s[start]
+  end
+
+  #
   # 区間の累積和を返します
   #
   def [](r : Range)
     sc = Indexable.range_to_index_and_count(r, @n)
     raise ArgumentError.new("Invalid range") if sc.nil?
-    start, count = sc
-    @s[start + count] - @s[start]
+    self[*sc]
   end
 
   # ---------- private methods

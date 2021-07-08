@@ -11,8 +11,8 @@ abstract class SegmentTreeLazy(T)
   # コンストラクタ
   #
   def initialize(@n : Int32, @init : T = T.zero)
-    @an = 1 << (@n-1).bit_length
-    @sec = Array.new(@an*2) { Section.new(@init) }
+    @an = 1 << (@n - 1).bit_length
+    @sec = Array.new(@an << 1) { Section.new(@init) }
   end
 
   #
@@ -26,14 +26,20 @@ abstract class SegmentTreeLazy(T)
   def update_section(sec : Section, op : Op, val : T, s : Int) : NoReturn; end
 
   #
+  # start から count 個の合成値を返します
+  #
+  def [](start : Int, count : Int)
+    l, r = start, start + count
+    summary(l, r, 1, 0, @an)
+  end
+
+  #
   # 範囲 r の合成値を返します
   #
   def [](r : Range)
     sc = Indexable.range_to_index_and_count(r, @n)
     raise ArgumentError.new("Invalid range") if sc.nil?
-    start, count = sc
-    l, r = start, start + count
-    summary(l, r, 1, 0, @an)
+    self[*sc]
   end
 
   #
@@ -87,8 +93,8 @@ abstract class SegmentTreeLazy(T)
     propagate(k, nl, nr)
 
     nm = (nl + nr) >> 1
-    vl = summary(l, r,  k << 1     , nl, nm)
-    vr = summary(l, r, (k << 1) | 1, nm, nr)
+    vl = summary(l, r, k << 1    , nl, nm)
+    vr = summary(l, r, k << 1 | 1, nm, nr)
 
     compose(vl, vr)
   end
@@ -97,8 +103,8 @@ abstract class SegmentTreeLazy(T)
     return if @sec[k].op.nil?
 
     nm = (nl + nr) >> 1
-    update_section(@sec[ k << 1     ], @sec[k].op, @sec[k].laz, nm-nl)
-    update_section(@sec[(k << 1) | 1], @sec[k].op, @sec[k].laz, nr-nm)
+    update_section(@sec[k << 1    ], @sec[k].op, @sec[k].laz, nm - nl)
+    update_section(@sec[k << 1 | 1], @sec[k].op, @sec[k].laz, nr - nm)
 
     @sec[k].op = nil
   end
@@ -114,9 +120,9 @@ abstract class SegmentTreeLazy(T)
     propagate(k, nl, nr)
 
     nm = (nl + nr) >> 1
-    apply(op, val, l, r,  k << 1     , nl, nm)
-    apply(op, val, l, r, (k << 1) | 1, nm, nr)
+    apply(op, val, l, r, k << 1    , nl, nm)
+    apply(op, val, l, r, k << 1 | 1, nm, nr)
 
-    @sec[k].val = compose(@sec[k << 1].val, @sec[(k << 1) | 1].val)
+    @sec[k].val = compose(@sec[k << 1].val, @sec[k << 1 | 1].val)
   end
 end

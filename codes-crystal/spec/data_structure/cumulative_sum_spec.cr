@@ -8,6 +8,7 @@ module CumulativeSumSpec
     it { c[0..-2].should eq 10 }
     it { c[...3].should eq 6 }
     it { c[1..2].should eq 5 }
+    it { c[2, 3].should eq 12 }
     it { c[-3...-1].should eq 7 }
     it { c[2..].should eq 12 }
   end

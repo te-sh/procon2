@@ -7,7 +7,7 @@ class FenwickTree(T)
   # コンストラクタ
   #
   def initialize(@n : Int32)
-    @buf = Array.new(@n+1, T.additive_identity)
+    @b = Array.new(@n + 1, T.additive_identity)
   end
 
   #
@@ -18,14 +18,19 @@ class FenwickTree(T)
   end
 
   #
+  # start から count 個の和を返します
+  #
+  def [](start : Int, count : Int)
+    get(start + count) - get(start)
+  end
+
+  #
   # 範囲 r の和を返します
   #
   def [](r : Range)
     sc = Indexable.range_to_index_and_count(r, @n)
     raise ArgumentError.new("Invalid range") if sc.nil?
-    start, count = sc
-    l, r = start, start + count
-    get(r) - get(l)
+    self[*sc]
   end
 
   #
@@ -34,19 +39,19 @@ class FenwickTree(T)
   def add(i : Int, val : T)
     i += 1
     while i <= @n
-      @buf[i] += val
+      @b[i] += val
       i += i & -i
     end
   end
 
   # ---------- private methods
 
-  @buf : Array(T)
+  @b : Array(T)
 
   private def get(i : Int)
     s = T.additive_identity
     while i > 0
-      s += @buf[i]
+      s += @b[i]
       i -= i & -i
     end
     s

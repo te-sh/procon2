@@ -13,6 +13,7 @@ module SegmentTreeSpec
       s[0...1].should eq 1
       s[..2].should eq 3
       s[...2].should eq 1
+      s[2, 4].should eq 7
       s[2..].should eq 7
 
       s[2] += 1
@@ -30,6 +31,7 @@ module SegmentTreeSpec
       s[0...1].should eq 8
       s[..2].should eq 4
       s[...2].should eq 8
+      s[2, 4].should eq 4
       s[2..].should eq 4
 
       s[2] += 5
@@ -43,6 +45,7 @@ module SegmentTreeSpec
       s[0...1].should eq 1
       s[..2].should eq 6
       s[...2].should eq 3
+      s[2, 4].should eq 18
       s[2..].should eq 52
     end
   end

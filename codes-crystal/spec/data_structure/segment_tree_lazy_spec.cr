@@ -31,10 +31,12 @@ module SegmentTreeLazySpec
       s[0...1].should eq 1
       s[...2].should eq 2
       s[..2].should eq 4
+      s[1, 4].should eq 7
       s[2..].should eq 10
 
       s.apply(3...6, :add, 3)
       s[...3].should eq 4
+      s[2, 3].should eq 12
       s[2..-1].should eq 19
     end
   end
