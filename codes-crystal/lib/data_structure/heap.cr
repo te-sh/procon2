@@ -8,8 +8,7 @@ class Heap(T)
   # 比較関数は昇順となります
   #
   def initialize
-    @b = [] of T
-    @cmp = ->(a : T, b : T) { a <=> b }
+    initialize { |a, b| a <=> b }
   end
 
   #
@@ -26,11 +25,7 @@ class Heap(T)
   # 比較関数は昇順となります
   #
   def initialize(a : Array(T))
-    @b = [] of T
-    @cmp = ->(a : T, b : T) { a <=> b }
-    a.each do |e|
-      push(e)
-    end
+    initialize(a) { |a, b| a <=> b }
   end
 
   #
