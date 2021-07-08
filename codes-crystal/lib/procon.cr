@@ -1,9 +1,9 @@
 # :::::::::::::::::::: lib/procon
-require "lib/ext/array"
-
 require "lib/ext/int"
 
 require "lib/ext/number"
+
+require "lib/ext/array"
 
 require "lib/io/procon_io"
 
