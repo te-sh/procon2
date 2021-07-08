@@ -16,7 +16,8 @@ class Heap(T)
   # 比較関数を指定します
   #
   def initialize(&@cmp : (T, T) -> Int32)
-    @b = [] of T
+    dummy = uninitialized T
+    @b = [dummy]
   end
 
   #
@@ -34,7 +35,8 @@ class Heap(T)
   # 比較関数を指定します
   #
   def initialize(a : Array(T), &@cmp : (T, T) -> Int32)
-    @b = [] of T
+    dummy = uninitialized T
+    @b = [dummy]
     a.each do |e|
       push(e)
     end
@@ -43,25 +45,32 @@ class Heap(T)
   #
   # ヒープが空かどうかを返します
   #
-  delegate empty?, to: @b
+  def empty?
+    @b.size == 1
+  end
 
   #
   # ヒープのサイズを返します
   #
-  delegate size, to: @b
+  def size
+    @b.size - 1
+  end
 
   #
   # 先頭の要素を返します
   #
-  delegate first, to: @b
+  def first
+    @b[1]
+  end
 
   #
   # ヒープの先頭の要素を入れ替えます
   #
   def first=(v : T)
-    @b[0], i = v, 0
-    while i*2+1 < @b.size
-	  j = (i*2+2 >= @b.size || @cmp.call(@b[i*2+1], @b[i*2+2]) < 0) ? i*2+1 : i*2+2
+    @b[1], i = v, 1
+    while @b.size > i << 1
+      l, r = i << 1, i << 1 | 1
+	  j = @b.size <= r || @cmp.call(@b[l], @b[r]) < 0 ? l : r
       break if @cmp.call(@b[i], @b[j]) < 0
       @b[j], @b[i] = @b[i], @b[j]
       i = j
@@ -73,9 +82,9 @@ class Heap(T)
   #
   def push(v : T)
     @b.push(v)
-    i = @b.size-1
-    while i > 0
-      j = (i-1) >> 1
+    i = @b.size - 1
+    while i > 1
+      j = i >> 1
       break if @cmp.call(@b[j], @b[i]) < 0
       @b[j], @b[i] = @b[i], @b[j]
       i = j
@@ -87,9 +96,13 @@ class Heap(T)
   # ヒープから先頭の要素を削除してその要素を返します
   #
   def pop
-    v, w = @b[0], @b.pop
-    self.first = w unless @b.empty?
+    v, w = @b[1], @b.pop
+    self.first = w unless empty?
     v
   end
+
+  # ---------- private methods
+
+  @b : Array(T)
 end
 # ::::::::::::::::::::
