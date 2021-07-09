@@ -41,7 +41,29 @@ class RedBlackTree(T)
   end
 
   #
-  # 要素が含まれているかどうかを返します
+  # 昇順に列挙します
+  #
+  def each(&block : T -> _)
+    x = min_node(@root)
+    until x.nil_node?
+      yield x.key
+      x = succ_node(x)
+    end
+  end
+
+  #
+  # 降順に列挙します
+  #
+  def reverse_each(&block : T -> _)
+    x = max_node(@root)
+    until x.nil_node?
+      yield x.key
+      x = pred_node(x)
+    end
+  end
+
+  #
+  # key が含まれているかどうかを返します
   #
   def includes?(key : T)
     x = find_node(@root, key)
@@ -50,8 +72,9 @@ class RedBlackTree(T)
 
   #
   # block が真になる最小の要素を返します
-  # block はその要素より小さい要素についてはすべて false を返し,
-  # その要素より大きい要素についてはすべて true を返すことを想定しています
+  # block が真になる要素がない場合は nil を返します
+  # block は戻り値の要素より小さい要素についてはすべて偽を返し, 戻り
+  # 値の要素より大きい要素についてはすべて真を返すことを想定しています
   #
   def search(&block : T -> Bool)
     x = search_node(@root, block)
@@ -61,7 +84,7 @@ class RedBlackTree(T)
   #
   # 要素を追加します
   #
-  def push(key : T)
+  def add(key : T)
     x = Node.new(key)
     insert_helper(x)
 
@@ -153,32 +176,50 @@ class RedBlackTree(T)
   @cmp : (T, T) -> Int32
   @root : Node(T)
 
-  private def cmp(a : Node, b : Node)
+  private def cmp(a : Node(T), b : Node(T))
     @cmp.call(a.key, b.key)
   end
 
-  private def min_node(x : Node)
+  private def min_node(x : Node(T))
     until x.left.nil_node?
       x = x.left
     end
     x
   end
 
-  private def max_node(x : Node)
+  private def max_node(x : Node(T))
     until x.right.nil_node?
       x = x.right
     end
     x
   end
 
-  private def find_node(x : Node, key : T)
+  private def succ_node(x : Node(T))
+    return min_node(x.right) unless x.right.nil_node?
+    y = x.parent
+    while !y.nil_node? && x == y.right
+      x, y = y, y.parent
+    end
+    y
+  end
+
+  private def pred_node(x : Node(T))
+    return max_node(x.left) unless x.left.nil_node?
+    y = x.parent
+    while !y.nil_node? && x == y.left
+      x, y = y, y.parent
+    end
+    y
+  end
+
+  private def find_node(x : Node(T), key : T)
     while !x.nil_node? && x.key != key
       x = @cmp.call(key, x.key).negative? ? x.left : x.right
     end
     x
   end
 
-  private def search_node(x : Node, block : T -> Bool)
+  private def search_node(x : Node(T), block : T -> Bool)
     last : Node(T) = NilNode(T).instance
     loop do
       if block.call(x.key)
@@ -198,7 +239,7 @@ class RedBlackTree(T)
     end
   end
 
-  private def insert_helper(z : Node)
+  private def insert_helper(z : Node(T))
     x, y = @root, NilNode(T).instance
     until x.nil_node?
       x, y = cmp(z, x).negative? ? x.left : x.right, x
