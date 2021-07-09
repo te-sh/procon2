@@ -64,7 +64,7 @@ class Heap(T)
   end
 
   #
-  # ヒープの先頭の要素を入れ替えます
+  # 先頭の要素を入れ替えます
   #
   def first=(v : T)
     @b[1], i = v, 1
@@ -78,7 +78,7 @@ class Heap(T)
   end
 
   #
-  # ヒープに要素を追加します
+  # 要素を追加します
   #
   def push(v : T)
     @b.push(v)
@@ -93,7 +93,7 @@ class Heap(T)
   end
 
   #
-  # ヒープから先頭の要素を削除してその要素を返します
+  # 先頭の要素を削除してその要素を返します
   #
   def pop
     v, w = @b[1], @b.pop
