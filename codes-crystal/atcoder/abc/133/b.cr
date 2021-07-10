@@ -7,7 +7,7 @@ def solve(io)
   r = 0
   (0...n).each do |i|
     (i+1...n).each do |j|
-      l = x[i].zip(x[j]).map { |xij1, xij2| (xij1 - xij2)**2 }.sum
+      l = zip(x[i], x[j]).map { |xij1, xij2| (xij1 - xij2)**2 }.sum
       r += 1 if l.isqrt**2 == l
     end
   end

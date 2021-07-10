@@ -20,4 +20,11 @@ end
 macro max_u(a, b)
   {{a}} = Math.max({{a}}, {{b}})
 end
+
+#
+# a.zip(b, ...) に置き換えます
+#
+macro zip(a, *b, &block)
+  {{a}}.zip({{*b}}) {{block}}
+end
 # ::::::::::::::::::::
