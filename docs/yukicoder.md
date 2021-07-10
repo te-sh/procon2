@@ -18,7 +18,7 @@ No.801-850
 |[No.831](yuk/017/y0831.html)|[No.832](yuk/017/y0832.html)|[No.833](yuk/017/y0833.html)|[No.834](yuk/017/y0834.html)|[No.835](yuk/017/y0835.html)|
 |[No.826](yuk/017/y0826.html)|[No.827](yuk/017/y0827.html)|No.828|No.829|[No.830](yuk/017/y0830.html)|
 |[No.821](yuk/017/y0821.html)|[No.822](yuk/017/y0822.html)|[No.823](yuk/017/y0823.html)|No.824|[No.825](yuk/017/y0825.html)|
-|[No.816](yuk/017/y0816.html)|[No.817](yuk/017/y0817.html)|No.818|No.819|[No.820](yuk/017/y0820.html)|
+|[No.816](yuk/017/y0816.html)|[No.817](yuk/017/y0817.html)|[No.818](yuk/017/y0818.html)|No.819|[No.820](yuk/017/y0820.html)|
 |[No.811](yuk/017/y0811.html)|[No.812](yuk/017/y0812.html)|[No.813](yuk/017/y0813.html)|[No.814](yuk/017/y0814.html)|[No.815](yuk/017/y0815.html)|
 |[No.806](yuk/017/y0806.html)|[No.807](yuk/017/y0807.html)|No.808|[No.809](yuk/017/y0809.html)|[No.810](yuk/017/y0810.html)|
 |[No.801](yuk/017/y0801.html)|[No.802](yuk/017/y0802.html)|No.803|[No.804](yuk/017/y0804.html)|[No.805](yuk/017/y0805.html)|
