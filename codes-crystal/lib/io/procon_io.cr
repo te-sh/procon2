@@ -24,10 +24,10 @@ class ProconIO
   macro define_get
     {% for i in (2..9) %}
       def get(
-           {% for j in (1..i) %}
-             k{{j}}{% if j < i %},{% end %}
-           {% end %}
-         )
+            {% for j in (1..i) %}
+              k{{j}}{% if j < i %},{% end %}
+            {% end %}
+          )
         {
           {% for j in (1..i) %}
             get(k{{j}}){% if j < i %},{% end %}
@@ -74,11 +74,11 @@ class ProconIO
   macro define_get_c
     {% for i in (2..9) %}
       def get_c(
-           n : Int,
-           {% for j in (1..i) %}
-             k{{j}}{% if j < i %},{% end %}
-           {% end %}
-         )
+            n : Int,
+            {% for j in (1..i) %}
+              k{{j}}{% if j < i %},{% end %}
+            {% end %}
+          )
         a = Array.new(n) do
           get(
             {% for j in (1..i) %}

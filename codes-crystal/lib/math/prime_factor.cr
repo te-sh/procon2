@@ -4,8 +4,6 @@
 #
 require "bit_array"
 
-require "lib/math/misc"
-
 class PrimeFactor
   #
   # コンストラクタ
