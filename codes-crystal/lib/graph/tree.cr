@@ -12,9 +12,9 @@ class Tree
   # root を根とする木を作成します
   #
   def initialize(@g : Graph, @root : Node)
-    n = @g.n
-    @parent = Array.new(n, 0)
-    @depth = Array.new(n, -1)
+    size = @g.size
+    @parent = Array.new(size, 0)
+    @depth = Array.new(size, -1)
     @dfs_order = [] of Node
 
     s = [{@root, @root}]
@@ -30,7 +30,7 @@ class Tree
       end
     end
 
-    @size = Array.new(n, 1)
+    @size = Array.new(size, 1)
     @dfs_order.reverse_each do |u|
       @size[@parent[u]] += @size[u] if u != @root
     end

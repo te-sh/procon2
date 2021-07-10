@@ -2,9 +2,7 @@
 
 def solve(io)
   n = io.get
-  x, y = io.get2_c(n)
-  x.map! { |e| e-1 }
-  y.map! { |e| e-1 }
+  x, y = io.get2_c(n); x.map!(&.- 1); y.map!(&.- 1)
 
   m = 10**5
   g = Graph.new(m*2)

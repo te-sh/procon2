@@ -14,17 +14,17 @@ class Dijkstra(T)
   # s から各頂点への最短距離を計算します
   #
   def initialize(@g : GraphW(T), s : Node)
-    n = sent = @g.n
-    @dist = Array.new(n, @g.inf)
+    size = @g.size
+    @dist = Array.new(size, @g.inf)
     @dist[s] = T.additive_identity
-    @prev = Array.new(n, sent)
+    @prev = Array.new(size, -1)
 
-    se = Edge.new(sent, s, T.new(0))
+    se = Edge.new(-1, s, T.new(0))
     h = Heap.new([se]) { |a, b| a.wt <=> b.wt }
     until h.empty?
       e = h.pop
 
-      next if @prev[e.dst] != sent
+      next if @prev[e.dst] != -1
       @prev[e.dst] = e.src
 
       @g[e.dst].each do |f|
