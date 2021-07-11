@@ -138,6 +138,14 @@ class ProconIO
     exit
   end
 
+  #
+  # 複数の値を空白区切りで出力して最後に flush します
+  #
+  def put_f(*vs)
+    put(*vs)
+    @outs.flush
+  end
+
   # ---------- private methods
 
   private def get_v(k : Int32.class); get_token.to_i32; end
