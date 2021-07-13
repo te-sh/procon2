@@ -1,6 +1,8 @@
 # :::::::::::::::::::: lib/procon
 require "lib/ext/int"
 
+require "lib/ext/float"
+
 require "lib/ext/number"
 
 require "lib/ext/array"
