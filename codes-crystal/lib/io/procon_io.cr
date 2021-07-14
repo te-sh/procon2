@@ -7,8 +7,7 @@ class ProconIO
   # コンストラクタ
   #
   def initialize(@ins : IO = STDIN, @outs : IO = STDOUT)
-    @buf = [] of String
-    @index = 0
+    @buf = IO::Memory.new("")
   end
 
   #
@@ -156,14 +155,11 @@ class ProconIO
   private def get_v(k : String.class); get_token; end
 
   private def get_token
-    if @buf.size == @index
-      str = @ins.read_line
-      @buf = str.split
-      @index = 0
+    loop do
+      token = @buf.gets(' ', chomp: true)
+      break token unless token.nil?
+      @buf = IO::Memory.new(@ins.read_line)
     end
-    v = @buf[@index]
-    @index += 1
-    v
   end
 
   private def put_v(vs : Enumerable)
