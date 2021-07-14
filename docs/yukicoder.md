@@ -32,7 +32,7 @@ No.751-800
 |No.776|No.777|No.778|No.779|[No.780](yuk/016/y0780.html)|
 |No.771|No.772|No.773|No.774|No.775|
 |[No.766](yuk/016/y0766.html)|No.767|No.768|No.769|No.770|
-|[No.761](yuk/016/y0761.html)|[No.762](yuk/016/y0762.html)|[No.763](yuk/016/y0763.html)|[No.764](yuk/016/y0764.html)|No.765|
+|[No.761](yuk/016/y0761.html)|[No.762](yuk/016/y0762.html)|[No.763](yuk/016/y0763.html)|[No.764](yuk/016/y0764.html)|[No.765](yuk/016/y0765.html)|
 |[No.756](yuk/016/y0756.html)|[No.757](yuk/016/y0757.html)|[No.758](yuk/016/y0758.html)|[No.759](yuk/016/y0759.html)|[No.760](yuk/016/y0760.html)|
 |[No.751](yuk/016/y0751.html)|[No.752](yuk/016/y0752.html)|[No.753](yuk/016/y0753.html)|[No.754](yuk/016/y0754.html)|[No.755](yuk/016/y0755.html)|
 
