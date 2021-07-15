@@ -120,23 +120,15 @@ class ProconIO
   end
 
   #
-  # 値を出力します
-  #
-  def put(v, delimiter = " ")
-    print_v(v, delimiter)
-    @outs.puts
-  end
-
-  #
   # 複数の値を空白区切りで出力します
   #
-  macro define_putn
-    {% for i in (2..9) %}
-      def put{{i}}(
+  macro define_put
+    {% for i in (1..9) %}
+      def put(
            {% for j in (1..i) %}
              v{{j}},
            {% end %}
-           delimiter = " "
+           *, delimiter = " "
           )
         {% for j in (1..i) %}
           print_v(v{{j}}, delimiter)
@@ -146,7 +138,7 @@ class ProconIO
       end
     {% end %}
   end
-  define_putn
+  define_put
 
   #
   # 複数の値を空白区切りで出力してプログラムを終了します
