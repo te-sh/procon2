@@ -11,39 +11,39 @@ module RedBlackTreeSpec
 
         rbt.add(2)
         rbt.size.should eq 1
-        rbt.min.should eq 2
-        rbt.max.should eq 2
+        rbt.first.should eq 2
+        rbt.last.should eq 2
 
         rbt.add(3)
         rbt.size.should eq 2
-        rbt.min.should eq 2
-        rbt.max.should eq 3
+        rbt.first.should eq 2
+        rbt.last.should eq 3
 
         rbt.add(1)
         rbt.size.should eq 3
-        rbt.min.should eq 1
-        rbt.max.should eq 3
+        rbt.first.should eq 1
+        rbt.last.should eq 3
 
         rbt.add(1)
         rbt.size.should eq 4
-        rbt.min.should eq 1
-        rbt.max.should eq 3
+        rbt.first.should eq 1
+        rbt.last.should eq 3
 
         rbt.add(6)
         rbt.size.should eq 5
-        rbt.min.should eq 1
-        rbt.max.should eq 6
+        rbt.first.should eq 1
+        rbt.last.should eq 6
 
         rbt.add(4)
         rbt.size.should eq 6
-        rbt.min.should eq 1
-        rbt.max.should eq 6
+        rbt.first.should eq 1
+        rbt.last.should eq 6
       end
     end
 
     describe "#each and #reverse_each" do
       rbt = RedBlackTree(Int32).new
-      [2, 3, 1, 1, 6, 4].each do |i|
+      [2, 3, 1, 1, 4, 6, 4].each do |i|
         rbt.add(i)
       end
 
@@ -52,19 +52,19 @@ module RedBlackTreeSpec
         rbt.each do |i|
           a << i
         end
-        a.should eq [1, 1, 2, 3, 4, 6]
+        a.should eq [1, 1, 2, 3, 4, 4, 6]
 
         b = [] of Int32
         rbt.reverse_each do |i|
           b << i
         end
-        b.should eq [6, 4, 3, 2, 1, 1]
+        b.should eq [6, 4, 4, 3, 2, 1, 1]
       end
     end
 
-    describe "#includes? and #search" do
+    describe "#includes? and #search and #rsearch" do
       rbt = RedBlackTree(Int32).new
-      [2, 3, 1, 6, 4].each do |i|
+      [2, 3, 1, 1, 4, 6, 4].each do |i|
         rbt.add(i)
       end
 
@@ -73,6 +73,9 @@ module RedBlackTreeSpec
       it { rbt.search { |i| i >= 2 }.should eq 2 }
       it { rbt.search { |i| i > 2 }.should eq 3 }
       it { rbt.search { |i| i > 6 }.should be_nil }
+      it { rbt.rsearch { |i| i <= 4 }.should eq 4 }
+      it { rbt.rsearch { |i| i < 4 }.should eq 3 }
+      it { rbt.rsearch { |i| i < 1 }.should be_nil }
     end
   end
 end

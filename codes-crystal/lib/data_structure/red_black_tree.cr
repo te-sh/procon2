@@ -27,24 +27,24 @@ class RedBlackTree(T)
   getter size : Int32
 
   #
-  # 最小の要素を返します
+  # 比較関数を使用して最初にくる要素を返します
   #
-  def min
-    min_node(@root).key
+  def first
+    first_node(@root).key
   end
 
   #
-  # 最大の要素を返します
+  # 比較関数を使用して最後にくる要素を返します
   #
-  def max
-    max_node(@root).key
+  def last
+    last_node(@root).key
   end
 
   #
-  # 昇順に列挙します
+  # 比較関数を使用して最初にくる要素から順に列挙します
   #
   def each(&block : T -> _)
-    x = min_node(@root)
+    x = first_node(@root)
     until x.nil_node?
       yield x.key
       x = succ_node(x)
@@ -52,10 +52,10 @@ class RedBlackTree(T)
   end
 
   #
-  # 降順に列挙します
+  # 比較関数を使用して最後にくる要素から順に列挙します
   #
   def reverse_each(&block : T -> _)
-    x = max_node(@root)
+    x = last_node(@root)
     until x.nil_node?
       yield x.key
       x = pred_node(x)
@@ -73,11 +73,22 @@ class RedBlackTree(T)
   #
   # block が真になる最小の要素を返します
   # block が真になる要素がない場合は nil を返します
-  # block は戻り値の要素より小さい要素についてはすべて偽を返し, 戻り
-  # 値の要素より大きい要素についてはすべて真を返すことを想定しています
+  # block は戻り値の要素より上にくる要素についてはすべて偽を返し, 戻り
+  # 値の要素より下にくる要素についてはすべて真を返すことを想定しています
   #
   def search(&block : T -> Bool)
     x = search_node(@root, block)
+    x.nil_node? ? nil : x.key
+  end
+
+  #
+  # block が真になる最大の要素を返します
+  # block が真になる要素がない場合は nil を返します
+  # block は戻り値の要素より上にくる要素についてはすべて真を返し, 戻り
+  # 値の要素より下にくる要素についてはすべて偽を返すことを想定しています
+  #
+  def rsearch(&block : T -> Bool)
+    x = rsearch_node(@root, block)
     x.nil_node? ? nil : x.key
   end
 
@@ -180,14 +191,14 @@ class RedBlackTree(T)
     @cmp.call(a.key, b.key)
   end
 
-  private def min_node(x : Node(T))
+  private def first_node(x : Node(T))
     until x.left.nil_node?
       x = x.left
     end
     x
   end
 
-  private def max_node(x : Node(T))
+  private def last_node(x : Node(T))
     until x.right.nil_node?
       x = x.right
     end
@@ -195,7 +206,7 @@ class RedBlackTree(T)
   end
 
   private def succ_node(x : Node(T))
-    return min_node(x.right) unless x.right.nil_node?
+    return first_node(x.right) unless x.right.nil_node?
     y = x.parent
     while !y.nil_node? && x == y.right
       x, y = y, y.parent
@@ -204,7 +215,7 @@ class RedBlackTree(T)
   end
 
   private def pred_node(x : Node(T))
-    return max_node(x.left) unless x.left.nil_node?
+    return last_node(x.left) unless x.left.nil_node?
     y = x.parent
     while !y.nil_node? && x == y.left
       x, y = y, y.parent
@@ -225,15 +236,35 @@ class RedBlackTree(T)
       if block.call(x.key)
         last = x
         if x.left.nil_node?
-          return last
+          break last
         else
           x = x.left
         end
       else
         if x.right.nil_node?
-          return last
+          break last
         else
           x = x.right
+        end
+      end
+    end
+  end
+
+  private def rsearch_node(x : Node(T), block : T -> Bool)
+    last : Node(T) = NilNode(T).instance
+    loop do
+      if block.call(x.key)
+        last = x
+        if x.right.nil_node?
+          break last
+        else
+          x = x.right
+        end
+      else
+        if x.left.nil_node?
+          break last
+        else
+          x = x.left
         end
       end
     end
