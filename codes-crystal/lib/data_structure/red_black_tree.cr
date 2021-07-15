@@ -137,6 +137,35 @@ class RedBlackTree(T)
     end
     @root.color = :black
   end
+
+  #
+  # 要素を削除します
+  #
+  def remove(key : T)
+    z = find_node(@root, key)
+    return false if z.nil_node?
+
+    y = z.left.nil_node? || z.right.nil_node? ? z : succ_node(z)
+    x = y.left.nil_node? ? y.right : y.left
+    x.parent = y.parent
+
+    if y.parent.nil_node?
+      @root = x
+    else
+      if y == y.parent.left
+        y.parent.left = x
+      else
+        y.parent.right = x
+      end
+    end
+
+    z.key = y.key if y != z
+
+    remove_fixup(x) if y.black?
+
+    @size -= 1
+    true
+  end
   
   # ---------- private methods
 
@@ -152,7 +181,7 @@ class RedBlackTree(T)
       @parent = NilNode(T).instance
     end
 
-    getter key : T
+    property key : T
     property color : Color
     property left : Node(T)
     property right : Node(T)
@@ -284,7 +313,62 @@ class RedBlackTree(T)
     @size += 1
   end
 
-  private def left_rotate(x)
+  private def remove_fixup(x : Node(T))
+    while x != @root && x.black?
+      if x == x.parent.left
+        w = x.parent.right
+        if w.red?
+          w.color = :black
+          x.parent.color = :red
+          left_rotate(x.parent)
+          w = x.parent.right
+        end
+        if w.left.black? && w.right.black?
+          w.color = :red
+          x = x.parent
+        else
+          if w.right.black?
+            w.left.color = :black
+            w.color = :red
+            right_rotate(w)
+            w = x.parent.right
+          end
+          w.color = x.parent.color
+          x.parent.color = :black
+          w.right.color = :black
+          left_rotate(x.parent)
+          x = @root
+        end
+      else
+        w = x.parent.left
+        if w.red?
+          w.color = :black
+          x.parent.color = :red
+          right_rotate(x.parent)
+          w = x.parent.left
+        end
+        if w.right.black? && w.left.black?
+          w.color = :red
+          x = x.parent
+        else
+          if w.left.black?
+            w.right.color = :black
+            w.color = :red
+            left_rotate(w)
+            w = x.parent.left
+          end
+          w.color = x.parent.color
+          x.parent.color = :black
+          w.left.color = :black
+          right_rotate(x.parent)
+          x = @root
+        end
+      end
+    end
+    x.color = :black
+  end
+
+  private def left_rotate(x : Node(T))
     raise "x.right is nil" if x.right.nil_node?
     y = x.right
     x.right = y.left
@@ -301,7 +385,7 @@ class RedBlackTree(T)
     x.parent = y
   end
 
-  private def right_rotate(x)
+  private def right_rotate(x : Node(T))
     raise "x.left is nil" if x.left.nil_node?
     y = x.left
     x.left = y.right

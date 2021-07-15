@@ -3,7 +3,7 @@ require "lib/data_structure/red_black_tree"
 
 module RedBlackTreeSpec
   describe RedBlackTree do
-    describe "#push" do
+    describe "#add, #size, #first and #last" do
       rbt = RedBlackTree(Int32).new
 
       it do
@@ -62,7 +62,7 @@ module RedBlackTreeSpec
       end
     end
 
-    describe "#includes? and #search and #rsearch" do
+    describe "#includes?, #search and #rsearch" do
       rbt = RedBlackTree(Int32).new
       [2, 3, 1, 1, 4, 6, 4].each do |i|
         rbt.add(i)
@@ -76,6 +76,29 @@ module RedBlackTreeSpec
       it { rbt.rsearch { |i| i <= 4 }.should eq 4 }
       it { rbt.rsearch { |i| i < 4 }.should eq 3 }
       it { rbt.rsearch { |i| i < 1 }.should be_nil }
+    end
+
+    describe "#remove" do
+      rbt = RedBlackTree(Int32).new
+      [2, 3, 1, 1, 4, 6, 4].each do |i|
+        rbt.add(i)
+      end
+
+      it do
+        rbt.includes?(3).should be_true
+
+        rbt.remove(3)
+        rbt.includes?(3).should be_false
+        rbt.rsearch { |i| i <= 3 }.should eq 2
+
+        rbt.remove(4)
+        rbt.includes?(4).should be_true
+        rbt.search { |i| i >= 4 }.should eq 4
+
+        rbt.remove(6)
+        rbt.includes?(6).should be_false
+        rbt.last.should eq 4
+      end
     end
   end
 end
