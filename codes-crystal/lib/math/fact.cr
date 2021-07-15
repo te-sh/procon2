@@ -57,7 +57,7 @@ class Fact(T)
   # 重複組み合わせ数 nHr を返します
   #
   def homo(n : Int, r : Int)
-    combi(n+r-1, r)
+    combi(n + r - 1, r)
   end
 
   # ---------- private methods

@@ -104,7 +104,7 @@ class ProconIO
         get_c(
           n,
           {% for j in (1..i) %}
-            k{% if j < i %}, {% end %}
+            k{% if j < i %},{% end %}
           {% end %}
         )
       end
@@ -120,14 +120,33 @@ class ProconIO
   end
 
   #
+  # 値を出力します
+  #
+  def put(v, delimiter = " ")
+    print_v(v, delimiter)
+    @outs.puts
+  end
+
+  #
   # 複数の値を空白区切りで出力します
   #
-  def put(*vs)
-    vs.each.with_index do |v, i|
-      put_v(v)
-      @outs.print i < vs.size - 1 ? " " : "\n"
-    end
+  macro define_putn
+    {% for i in (2..9) %}
+      def put{{i}}(
+           {% for j in (1..i) %}
+             v{{j}},
+           {% end %}
+           delimiter = " "
+          )
+        {% for j in (1..i) %}
+          print_v(v{{j}}, delimiter)
+          {% if j < i %}@outs << delimiter{% end %}
+        {% end %}
+        @outs.puts
+      end
+    {% end %}
   end
+  define_putn
 
   #
   # 複数の値を空白区切りで出力してプログラムを終了します
@@ -162,15 +181,15 @@ class ProconIO
     end
   end
 
-  private def put_v(vs : Enumerable)
-    vs.each_with_index do |v, i|
-      @outs.print v
-      @outs.print " " if i < vs.size - 1
-    end
+  private def print_v(v, dlimiter)
+    @outs << v
   end
 
-  private def put_v(v)
-    @outs.print v
+  private def print_v(v : Enumerable, delimiter)
+    v.each_with_index do |e, i|
+      @outs << e
+      @outs << delimiter if i < v.size - 1
+    end
   end
 end
 # ::::::::::::::::::::

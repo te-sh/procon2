@@ -26,14 +26,65 @@ end
 
 #
 # 拡張ユークリッドの互除法で a, b の最大公約数 g と
-# ax + by = g を満たす x, y の 1 つを返します.
+# ax + by = g を満たす x, y の 1 つを返します
 #
 def ext_gcd(a : T, b : T) forall T
   if a == 0
     {b, T.new(0), T.new(1)}
   else
-    g, x, y = ext_gcd(b%a, a)
-    {g, y-(b//a)*x, x}
+    g, x, y = ext_gcd(b % a, a)
+    {g, y - (b // a) * x, x}
   end
+end
+
+#
+# n のビットによる部分集合になっている数値を列挙します
+# include_zero が true の場合は部分集合に 0 を含めます
+#
+def bit_subsets(a : Int, includes_zero = false)
+  n = i = a
+  if includes_zero
+    while i >= 0
+      yield i & n
+      i = (i & n) - 1
+    end
+  else
+    while i > 0
+      yield i
+      i = (i - 1) & n
+    end
+  end
+end
+
+#
+# 高速ゼータ変換を行います
+# 集合 S の部分集合 T についての値を合成します
+#
+def bit_zeta_trans_subset(n : Int, f : Array(T), &compose : (T, T) -> T) forall T
+  g = Array.new(1 << n) { |i| f[i] }
+  n.times do |i|
+    (1 << n).times do |j|
+      if j >> i & 1 != 0
+        g[j] = compose.call(g[j], g[j ^ (1 << i)])
+      end
+    end
+  end
+  g
+end
+
+#
+# 高速ゼータ変換を行います
+# 集合 S を包含する集合 T についての値を合成します
+#
+def bit_zeta_trans_superset(n : Int, f : Array(T), &compose : (T, T) -> T) forall T
+  g = Array.new(1 << n) { |i| f[i] }
+  n.times do |i|
+    (1 << n).times do |j|
+      if j >> i & 1 == 0
+        g[j] = compose.call(g[j], g[j ^ (1 << i)])
+      end
+    end
+  end
+  g
 end
 # ::::::::::::::::::::
