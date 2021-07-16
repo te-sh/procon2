@@ -22,16 +22,8 @@ class ProconIO
   #
   macro define_get
     {% for i in (2..9) %}
-      def get(
-            {% for j in (1..i) %}
-              k{{j}}{% if j < i %},{% end %}
-            {% end %}
-          )
-        {
-          {% for j in (1..i) %}
-            get(k{{j}}){% if j < i %},{% end %}
-          {% end %}
-        }
+      def get({{ *(1..i).map { |j| "k#{j}".id } }})
+        { {{ *(1..i).map { |j| "get(k#{j})".id } }} }
       end
     {% end %}
   end
@@ -43,11 +35,7 @@ class ProconIO
   macro define_getn
     {% for i in (2..9) %}
       def get{{i}}(k : T.class = Int32) forall T
-        get(
-          {% for j in (1..i) %}
-            k{% if j < i %}, {% end %}
-          {% end %}
-        )
+        get({{ *(1..i).map { "k".id } }})
       end
     {% end %}
   end
@@ -72,24 +60,9 @@ class ProconIO
   #
   macro define_get_c
     {% for i in (2..9) %}
-      def get_c(
-            n : Int,
-            {% for j in (1..i) %}
-              k{{j}}{% if j < i %},{% end %}
-            {% end %}
-          )
-        a = Array.new(n) do
-          get(
-            {% for j in (1..i) %}
-              k{{j}}{% if j < i %},{% end %}
-            {% end %}
-          )
-        end
-        {
-          {% for j in (1..i) %}
-            a.map { |e| e[{{j-1}}] }{% if j < i %},{% end %}
-          {% end %}
-        }
+      def get_c(n : Int, {{ *(1..i).map { |j| "k#{j}".id } }})
+        a = Array.new(n) { get({{ *(1..i).map { |j| "k#{j}".id } }}) }
+        { {{ *(1..i).map { |j| "a.map { |e| e[#{j-1}] }".id } }} }
       end
     {% end %}
   end
@@ -101,12 +74,7 @@ class ProconIO
   macro define_getn_c
     {% for i in (2..9) %}
       def get{{i}}_c(n : Int, k : T.class = Int32) forall T
-        get_c(
-          n,
-          {% for j in (1..i) %}
-            k{% if j < i %},{% end %}
-          {% end %}
-        )
+        get_c(n, {{ *(1..i).map { "k".id } }})
       end
     {% end %}
   end
@@ -124,12 +92,7 @@ class ProconIO
   #
   macro define_put
     {% for i in (1..9) %}
-      def put(
-           {% for j in (1..i) %}
-             v{{j}},
-           {% end %}
-           *, delimiter = " "
-          )
+      def put({{ *(1..i).map { |j| "v#{j}".id } }}, *, delimiter = " ")
         {% for j in (1..i) %}
           print_v(v{{j}}, delimiter)
           {% if j < i %}@outs << delimiter{% end %}
