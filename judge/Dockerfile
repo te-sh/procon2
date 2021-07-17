@@ -1,4 +1,4 @@
-FROM python:3.9.5-slim-buster
+FROM python:3.9.6-slim-buster
 
 ARG SITES
 ARG DMD_ATCODER
@@ -58,9 +58,7 @@ RUN mkdir -p $DLANG \
  && $DLANG/install.sh $DMD_YUKICODER \
  && $DLANG/install.sh $DMD_CODEFORCES
 
-RUN curl -sSL https://dist.crystal-lang.org/apt/setup.sh | bash \
- && curl -sL "https://keybase.io/crystal/pgp_keys.asc" | apt-key add - \
- && echo "deb https://dist.crystal-lang.org/apt crystal main" | tee /etc/apt/sources.list.d/crystal.list \
+RUN curl -fsSL https://crystal-lang.org/install.sh | bash \
  && apt-get update \
  && apt-get install -y --no-install-recommends crystal \
  && apt-get clean \
@@ -68,7 +66,7 @@ RUN curl -sSL https://dist.crystal-lang.org/apt/setup.sh | bash \
 
 RUN curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s - -y
 
-RUN pip install watchdog online-judge-tools
+RUN pip install online-judge-tools watchdog
 
 COPY runoj.py oj-download oj-test-dmd oj-test-crystal oj-test-nim ./
 
