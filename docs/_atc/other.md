@@ -13,6 +13,7 @@ layout: default
 企業コンテスト
 
 |Aising2020|[A問題](com/aising2020/a.html)|[B問題](com/aising2020/b.html)|[C問題](com/aising2020/c.html)|[D問題](com/aising2020/d.html)|E問題|F問題|
+|Panasonic2020|[A問題](com/pana2020/a.html)|[B問題](com/pana2020/b.html)|[C問題](com/pana2020/c.html)|[D問題](com/pana2020/d.html)|[E問題](com/pana2020/e.html)|F問題|
 |SMTB2019|[A問題](com/smtb2019/a.html)|[B問題](com/smtb2019/b.html)|[C問題](com/smtb2019/c.html)|[D問題](com/smtb2019/d.html)|[E問題](com/smtb2019/e.html)|[F問題](com/smtb2019/f.html)|
 |SoundHound|[A問題](com/soundhound/a.html)|[B問題](com/soundhound/b.html)|[C問題](com/soundhound/c.html)|[D問題](com/soundhound/d.html)|[E問題](com/soundhound/e.html)|[F問題](com/soundhound/f.html)|
 
