@@ -1,4 +1,4 @@
-# :::::::::::::::::::: lib/graph/graph
+# :::::::::::::::::::: lib/graph/dijkstra
 require "lib/graph/graph"
 require "lib/data_structure/heap"
 
@@ -44,7 +44,6 @@ class Dijkstra(T)
 
   # ---------- private methods
 
-  @dist : Array(T)
   @prev : Array(Node)
 end
 
