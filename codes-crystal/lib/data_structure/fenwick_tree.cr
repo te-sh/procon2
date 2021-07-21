@@ -57,3 +57,4 @@ class FenwickTree(T)
     s
   end
 end
+# ::::::::::::::::::::

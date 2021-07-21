@@ -9,12 +9,13 @@ def solve(io)
     g.add_edge_b(ui, vi)
   end
   t = g.tree(0)
+  ds = t.descendant_size
 
   r = Mint.zero
   (1...n).each do |u|
-    d1 = Mint.new(t.size_of(0))
-    d2 = Mint.new(t.size_of(u))
-    d3 = Mint.new(t.size_of(0) - t.size_of(u))
+    d1 = Mint.new(ds[0])
+    d2 = Mint.new(ds[u])
+    d3 = Mint.new(ds[0] - ds[u])
     r += (d3*(d3-1)//2 + d2*(d2-1)//2)//(d1*(d1-1)//2)
   end
 

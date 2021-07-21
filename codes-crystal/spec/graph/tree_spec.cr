@@ -2,7 +2,7 @@ require "spec"
 require "../../lib/graph/graph"
 require "../../lib/graph/tree"
 
-module DijkstraSpec
+module TreeSpec
   describe Tree do
     g = Graph.new(13)
     [
@@ -18,20 +18,20 @@ module DijkstraSpec
 
     it { t.dfs_order.should eq [0, 2, 6, 11, 12, 10, 1, 5, 4, 8, 9, 7, 3] }
 
-    it { t.parent_of(0).should eq 0 }
-    it { t.parent_of(1).should eq 0 }
-    it { t.parent_of(3).should eq 1 }
+    it { t.parent[0].should eq 0 }
+    it { t.parent[1].should eq 0 }
+    it { t.parent[3].should eq 1 }
 
-    it { t.depth_of(0).should eq 0 }
-    it { t.depth_of(1).should eq 1 }
-    it { t.depth_of(3).should eq 2 }
+    it { t.depth[0].should eq 0 }
+    it { t.depth[1].should eq 1 }
+    it { t.depth[3].should eq 2 }
 
-    it { t.size_of(0).should eq 13 }
-    it { t.size_of(1).should eq 7 }
-    it { t.size_of(3).should eq 1 }
+    it { t.descendant_size[0].should eq 13 }
+    it { t.descendant_size[1].should eq 7 }
+    it { t.descendant_size[3].should eq 1 }
 
-    it { t.children_of(0).should eq [1, 2] }
-    it { t.children_of(1).should eq [3, 4, 5] }
-    it { t.children_of(3).empty?.should be_true }
+    it { t.children[0].should eq [1, 2] }
+    it { t.children[1].should eq [3, 4, 5] }
+    it { t.children[3].empty?.should be_true }
   end
 end

@@ -15,7 +15,7 @@ def solve(io)
 
   t.dfs_order.reverse_each do |u|
     a[u] = 1
-    t.children_of(u).each do |v|
+    t.children[u].each do |v|
       a[u] += Math.max(a[v]-1, b[v])
       b[u] += Math.max(a[v], b[v])
     end

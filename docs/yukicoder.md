@@ -29,7 +29,7 @@ No.751-800
 |[No.791](yuk/016/y0791.html)|[No.792](yuk/016/y0792.html)|[No.793](yuk/016/y0793.html)|No.794|[No.795](yuk/016/y0795.html)|
 |[No.786](yuk/016/y0786.html)|[No.787](yuk/016/y0787.html)|[No.788](yuk/016/y0788.html)|[No.789](yuk/016/y0789.html)|[No.790](yuk/016/y0790.html)|
 |[No.781](yuk/016/y0781.html)|[No.782](yuk/016/y0782.html)|[No.783](yuk/016/y0783.html)|[No.784](yuk/016/y0784.html)|[No.785](yuk/016/y0785.html)|
-|[No.776](yuk/016/y0776.html)|No.777|No.778|No.779|[No.780](yuk/016/y0780.html)|
+|[No.776](yuk/016/y0776.html)|[No.777](yuk/016/y0777.html)|[No.778](yuk/016/y0778.html)|No.779|[No.780](yuk/016/y0780.html)|
 |[No.771](yuk/016/y0771.html)|No.772|[No.773](yuk/016/y0773.html)|[No.774](yuk/016/y0774.html)|No.775|
 |[No.766](yuk/016/y0766.html)|[No.767](yuk/016/y0767.html)|No.768|[No.769](yuk/016/y0769.html)|No.770|
 |[No.761](yuk/016/y0761.html)|[No.762](yuk/016/y0762.html)|[No.763](yuk/016/y0763.html)|[No.764](yuk/016/y0764.html)|[No.765](yuk/016/y0765.html)|

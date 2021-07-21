@@ -14,14 +14,14 @@ def solve(io)
 
   num_colors = uninitialized Graph::Node -> Mint
   num_colors = ->(u : Graph::Node) {
-    children = t.children_of(u)
+    children = t.children[u]
     return Mint.zero if children.size > k-2
     r = f.perm(k-2, children.size)
     c = children.map { |v| num_colors.call(v) }
     r * c.product
   }
 
-  children = t.children_of(0)
+  children = t.children[0]
   io.put_e(0) if children.size > k-1
   r = f.perm(k-1, children.size) * k
   c = children.map { |v| num_colors.call(v) }

@@ -12,7 +12,7 @@ def solve(io)
   end
   t = g.tree(0)
 
-  x = (0...n).count { |u| t.children_of(u).empty? }
+  x = (0...n).count { |u| t.children[u].empty? }
   f = Fact(Mint).new(n-1)
   io.put f.combi(n-1, x-1) * f.combi(n-2, x-1) // x
 end

@@ -12,7 +12,7 @@ def solve(io)
   f = Fact(Mint).new(n)
   r = Mint.zero
   (0...n).each do |u|
-    d = t.depth_of(u)
+    d = t.depth[u]
     r += f.combi(n, d+1) * f.fact(d) * f.fact(n-d-1)
   end
 
