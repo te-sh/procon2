@@ -1,4 +1,6 @@
 # :::::::::::::::::::: lib/procon
+require "lib/io/procon_io"
+
 require "lib/ext/int"
 
 require "lib/ext/float"
@@ -6,8 +8,6 @@ require "lib/ext/float"
 require "lib/ext/number"
 
 require "lib/ext/array"
-
-require "lib/io/procon_io"
 
 #
 # a = Math.min(a, b) に置き換えます
