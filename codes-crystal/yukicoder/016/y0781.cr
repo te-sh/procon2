@@ -4,8 +4,8 @@ def solve(io)
   x, y = io.get2
 
   c = Array.new(y+1, 0)
-  (0..y.isqrt).each do |i|
-    (1..y.isqrt).each do |j|
+  (0..Math.isqrt(y)).each do |i|
+    (1..Math.isqrt(y)).each do |j|
       r = i**2 + j**2
       c[r] += 1 if r <= y
     end

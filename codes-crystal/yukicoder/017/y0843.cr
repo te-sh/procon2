@@ -15,7 +15,7 @@ def solve(io)
   s = 0
   p.each do |pi|
     q = pi+2
-    r = q.isqrt
+    r = Math.isqrt(q)
     if r**2 == q && b[r]
       s += 1
     end

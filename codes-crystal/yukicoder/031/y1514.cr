@@ -8,7 +8,7 @@ def solve(io)
   a = BitArray.new(n+1, true)
   b = Array.new(n+1, &.itself)
 
-  (2..n.isqrt).each do |i|
+  (2..Math.isqrt(n)).each do |i|
     next unless a[i]
 
     j = i*2

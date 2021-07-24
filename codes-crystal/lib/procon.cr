@@ -9,6 +9,8 @@ require "lib/ext/number"
 
 require "lib/ext/array"
 
+require "lib/ext/math"
+
 #
 # a = Math.min(a, b) に置き換えます
 #

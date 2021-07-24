@@ -3,6 +3,7 @@
 # 素数の列挙と素因数分解を行います
 #
 require "bit_array"
+require "lib/ext/math"
 
 class PrimeFactor
   #
@@ -18,7 +19,7 @@ class PrimeFactor
       return
     end
 
-    (1..(n.isqrt-1)//2).each do |p|
+    (1..(Math.isqrt(n)-1)//2).each do |p|
       if sieve[p]
         (p*3+1...s).step(p*2+1) do |q|
           sieve[q] = false
@@ -37,7 +38,7 @@ class PrimeFactor
   # √n 以下の素数を列挙します
   #
   def self.sqrt(n : Int)
-    self.new(n.isqrt.to_i32)
+    self.new(Math.isqrt(n).to_i32)
   end
 
   #
@@ -55,7 +56,7 @@ class PrimeFactor
   #
   def div(x : T) forall T
     factors = [] of Factor(T)
-    t = x.isqrt
+    t = Math.isqrt(x)
     @primes.each do |p|
       break if p > t
       c = 0

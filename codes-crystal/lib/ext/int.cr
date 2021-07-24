@@ -46,35 +46,4 @@ struct Int
     end
   {% end %}
 end
-
-#
-# Int32 を拡張します
-#
-struct Int32
-  SQRT_MAX = 46_340_i32
-
-  #
-  # √n を超えない最大の整数を返します
-  #
-  def isqrt
-    m = SQRT_MAX
-    r = (1_i32..SQRT_MAX).bsearch { |i| i**2 > self }
-    r.nil? ? SQRT_MAX : r - 1
-  end
-end
-
-#
-# Int64 を拡張します
-#
-struct Int64
-  SQRT_MAX = 3_037_000_499_i64
-
-  #
-  # √n を超えない最大の整数を返します
-  #
-  def isqrt
-    r = (1_i64..SQRT_MAX).bsearch { |i| i**2 > self }
-    r.nil? ? SQRT_MAX : r - 1
-  end
-end
 # ::::::::::::::::::::

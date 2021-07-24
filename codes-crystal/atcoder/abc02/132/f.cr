@@ -2,7 +2,7 @@
 
 def solve(io)
   n, k = io.get2
-  s = n.isqrt
+  s = Math.isqrt(n)
   t = (1..s).map { |i| Math.max(s, n//i) }
   t << s
   t.reverse!
