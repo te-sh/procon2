@@ -2,7 +2,6 @@
 #
 # 素数の列挙と素因数分解を行います
 #
-require "bit_array"
 require "lib/ext/math"
 
 class PrimeFactor
@@ -11,15 +10,16 @@ class PrimeFactor
   # n 以下の素数を列挙します
   #
   def initialize(@n : Int32)
-    s = (@n+1)//2
-    sieve = BitArray.new(s, true)
+    s = (@n + 1) // 2
+    sieve = Array.new(s, true)
 
     if @n < 2
       @primes = [] of Int32
       return
     end
 
-    (1..(Math.isqrt(n)-1)//2).each do |p|
+    m = (Math.isqrt(n) - 1) // 2
+    (1..m).each do |p|
       if sieve[p]
         (p*3+1...s).step(p*2+1) do |q|
           sieve[q] = false

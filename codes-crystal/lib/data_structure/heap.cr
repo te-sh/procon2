@@ -25,7 +25,7 @@ class Heap(T)
   # 初期値を指定します
   # 比較関数は昇順となります
   #
-  def initialize(a : Array(T))
+  def initialize(a : Enumerable(T))
     initialize(a) { |a, b| a <=> b }
   end
 
@@ -34,7 +34,7 @@ class Heap(T)
   # 初期値を指定します
   # 比較関数を指定します
   #
-  def initialize(a : Array(T), &@cmp : (T, T) -> Int32)
+  def initialize(a : Enumerable(T), &@cmp : (T, T) -> Int32)
     dummy = uninitialized T
     @b = [dummy]
     a.each do |e|
