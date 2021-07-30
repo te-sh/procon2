@@ -1,4 +1,4 @@
-# :::::::::::::::::::: lib/data_structure/segment_tree
+n# :::::::::::::::::::: lib/data_structure/segment_tree
 require "lib/ext/int"
 
 #
