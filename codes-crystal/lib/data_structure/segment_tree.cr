@@ -1,4 +1,4 @@
-n# :::::::::::::::::::: lib/data_structure/segment_tree
+# :::::::::::::::::::: lib/data_structure/segment_tree
 require "lib/ext/int"
 
 #
@@ -12,7 +12,7 @@ class SegmentTree(T)
   def initialize(@n : Int32, @init : T = T.zero, &@compose : (T, T) -> T)
     @an = 1 << (@n - 1).bit_length
     @buf = Array.new(@an << 1, @init)
-    propagate_all
+    init_propagate
   end
 
   #
@@ -24,7 +24,7 @@ class SegmentTree(T)
     @an = 1 << (@n - 1).bit_length
     @buf = Array.new(@an << 1, @init)
     @buf[@an, @n] = b
-    propagate_all
+    init_propagate
   end
 
   #
@@ -77,7 +77,7 @@ class SegmentTree(T)
   @an : Int32
   @buf : Array(T)
 
-  private def propagate_all
+  private def init_propagate
     (1...@an).reverse_each do |i|
       @buf[i] = @compose.call(@buf[i << 1], @buf[i << 1 | 1])
     end
