@@ -32,7 +32,7 @@ def solve(io)
 end
 
 def integral(a, x)
-  if (a-x).near_zero?
+  if a.near?(x)
     a**2 * Math::PI / 2
   else
     x * Math.sqrt(a**2 - x**2) + a**2 * Math.asin(x / a)
