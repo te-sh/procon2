@@ -31,6 +31,27 @@ struct Int
     self & ~(self.class.new(1) << i)
   end
 
+  
+  #
+  # 0.35.0 以前のバージョン用の polyfill です
+  #
+  {% if compare_versions(env("CRYSTAL_VERSION") || "0.0.0", "0.35.0") < 0 %}
+    def digits(base = 10)
+      raise ArgumentError.new("Invalid base #{base}") if base < 2
+      raise ArgumentError.new("Can't request digits of negative number") if self < 0
+      return [0] if self == 0
+
+      num = self
+      digits_count = (Math.log(self.to_f + 1) / Math.log(base)).ceil.to_i
+      ary = Array(Int32).new(digits_count)
+      while num != 0
+        ary << num.remainder(base).to_i
+        num = num.tdiv(base)
+      end
+      ary
+    end
+  {% end %}
+
   #
   # 0.34.0 以前のバージョン用の polyfill です
   #
