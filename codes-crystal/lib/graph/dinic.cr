@@ -1,10 +1,10 @@
-# :::::::::::::::::::: lib/graph/ford_fulkerson
+# :::::::::::::::::::: lib/graph/dinic
 require "lib/graph/graph"
 
 #
-# Ford-Fulkerson 法の計算結果を表します
+# Dinic 法の計算結果を表します
 #
-class FordFulkerson(T)
+class Dinic(T)
   alias Node = GraphW::Node
 
   #
@@ -13,14 +13,14 @@ class FordFulkerson(T)
   #
   def initialize(@g : GraphW(T), @s : Node, @t : Node)
     @adj = build_adj
-    @visited = Array.new(@g.size, false)
+    @level = Array.new(@g.size, 0)
     @flow = T.zero
 
-    loop do
-      @visited.fill(false)
-      f = augment(@s, @g.inf)
-      break if f == 0
-      @flow += f
+    while levelize >= 0
+      iter = @adj.map(&.each)
+      while (f = augment(iter, @s, @g.inf)) > 0
+        @flow += f
+      end
     end
   end
 
@@ -65,16 +65,35 @@ class FordFulkerson(T)
     adj
   end
 
-  def augment(u : Node, cur : T)
+  def levelize
+    @level.fill(-1)
+    @level[@s] = 0
+
+    q = Deque(Node){@s}
+    until q.empty?
+      u = q.shift
+      break if u == @t
+      @adj[u].each do |e|
+        if e.cap > e.flow && @level[e.dst] < 0
+          q.push(e.dst)
+          @level[e.dst] = @level[u] + 1
+        end
+      end
+    end
+
+    @level[@t]
+  end
+
+  def augment(iter, u : Node, cur : T)
     return cur if u == @t
 
-    @visited[u] = true
-    @adj[u].each do |e|
-      if !@visited[e.dst] && e.cap > e.flow
-        f = augment(e.dst, {e.cap - e.flow, cur}.min)
-        if f > T.zero
+    iter[u].each do |e|
+      r = @adj[e.dst][e.rev]
+      if e.cap > e.flow && @level[u] < @level[e.dst]
+        f = augment(iter, e.dst, {e.cap - e.flow, cur}.min)
+        if f > 0
           e.flow += f
-          @adj[e.dst][e.rev].flow -= f
+          r.flow -= f
           return f
         end
       end
@@ -84,12 +103,12 @@ class FordFulkerson(T)
   end
 
   @adj : Array(Array(EdgeR(T)))
-  @visited : Array(Bool)
+  @level : Array(Int32)
 end
 
 class GraphW(T)
-  def ford_fulkerson(s, t)
-    FordFulkerson.new(self, s, t)
+  def dinic(s, t)
+    Dinic.new(self, s, t)
   end
 end
 # ::::::::::::::::::::
