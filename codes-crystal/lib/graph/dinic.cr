@@ -15,10 +15,11 @@ class Dinic(T)
     @adj = build_adj
     @level = Array.new(@g.size, 0)
     @flow = T.zero
+    @iter = uninitialized Array(Iterator(EdgeR(T)))
 
     while levelize >= 0
-      iter = @adj.map(&.each)
-      while (f = augment(iter, @s, @g.inf)) > 0
+      @iter = @adj.map(&.each.as Iterator(EdgeR(T)))
+      while (f = augment(@s, @g.inf)) > 0
         @flow += f
       end
     end
@@ -84,13 +85,13 @@ class Dinic(T)
     @level[@t]
   end
 
-  def augment(iter, u : Node, cur : T)
+  def augment(u : Node, cur : T)
     return cur if u == @t
 
-    iter[u].each do |e|
+    @iter[u].each do |e|
       r = @adj[e.dst][e.rev]
       if e.cap > e.flow && @level[u] < @level[e.dst]
-        f = augment(iter, e.dst, {e.cap - e.flow, cur}.min)
+        f = augment(e.dst, {e.cap - e.flow, cur}.min)
         if f > 0
           e.flow += f
           r.flow -= f
@@ -104,6 +105,7 @@ class Dinic(T)
 
   @adj : Array(Array(EdgeR(T)))
   @level : Array(Int32)
+  @iter : Array(Iterator(EdgeR(T)))
 end
 
 class GraphW(T)

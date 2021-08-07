@@ -13,14 +13,13 @@ class FordFulkerson(T)
   #
   def initialize(@g : GraphW(T), @s : Node, @t : Node)
     @adj = build_adj
-    @visited = Array.new(@g.size, false)
+    @used = Array.new(@g.size, -1)
+    @timestamp = 0
     @flow = T.zero
 
-    loop do
-      @visited.fill(false)
-      f = augment(@s, @g.inf)
-      break if f == 0
+    while (f = augment(@s, @g.inf)) > 0
       @flow += f
+      @timestamp += 1
     end
   end
 
@@ -68,9 +67,9 @@ class FordFulkerson(T)
   def augment(u : Node, cur : T)
     return cur if u == @t
 
-    @visited[u] = true
+    @used[u] = @timestamp
     @adj[u].each do |e|
-      if !@visited[e.dst] && e.cap > e.flow
+      if @used[e.dst] != @timestamp && e.cap > e.flow
         f = augment(e.dst, {e.cap - e.flow, cur}.min)
         if f > T.zero
           e.flow += f
@@ -84,7 +83,8 @@ class FordFulkerson(T)
   end
 
   @adj : Array(Array(EdgeR(T)))
-  @visited : Array(Bool)
+  @used : Array(Int32)
+  @timestamp : Int32
 end
 
 class GraphW(T)
