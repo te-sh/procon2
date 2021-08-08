@@ -50,7 +50,7 @@ class UnionFind
   #
   # 頂点 u を含む連結部分に含まれる頂点の数を返します
   #
-  def count_nodes_of(u : Int)
+  def count_nodes(u : Int)
     @cn[subst(u)]
   end
 
