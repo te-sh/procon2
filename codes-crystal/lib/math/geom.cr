@@ -20,7 +20,12 @@ module Geom
   #
   # 円を表します
   #
-  record Circle, x : Float64, y : Float64, r : Float64
+  record Circle, x : Float64, y : Float64, r : Float64 do
+    def initialize(p : Point, @r : Float64)
+      @x = p.x
+      @y = p.y
+    end
+  end
 
   #
   # 点 p1, p2 を通る直線を返します.
