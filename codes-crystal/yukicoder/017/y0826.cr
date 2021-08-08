@@ -18,7 +18,7 @@ def solve(io)
     end
   end
 
-  io.put uf.count_nodes_of(p)
+  io.put uf.count_nodes(p)
 end
 
 require "lib/data_structure/union_find"
