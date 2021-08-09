@@ -376,10 +376,12 @@ class RedBlackTree(T)
     y.parent = x.parent
     if x.parent.nil_node?
       @root = y
-    elsif x == x.parent.left
-      x.parent.left = y
     else
-      x.parent.right = y
+      if x == x.parent.left
+        x.parent.left = y
+      else
+        x.parent.right = y
+      end
     end
     y.left = x
     x.parent = y
@@ -392,10 +394,12 @@ class RedBlackTree(T)
     y.parent = x.parent
     if x.parent.nil_node?
       @root = y
-    elsif x == x.parent.left
-      x.parent.left = y
     else
-      x.parent.right = y
+      if x == x.parent.left
+        x.parent.left = y
+      else
+        x.parent.right = y
+      end
     end
     y.right = x
     x.parent = y

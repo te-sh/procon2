@@ -7,7 +7,7 @@ layout: default
 
 使用言語は[Crystal](https://ja.crystal-lang.org/)と[D言語](https://dlang.org)です.
 
-* [yukicoder](yukicoder.html)
+* yukicoder
   * [yukicoder(1-500)](yuk/yuk01.html)
   * [yukicoder(501-1000)](yuk/yuk02.html)
   * yukicoder(1001-1500)
@@ -18,4 +18,5 @@ layout: default
   * [ABC(126-)](atc/abc02.html)
   * [ARC](atc/arc.html)
   * [その他](atc/other.html)
+
 * [CodeForces](codeforces.html)
