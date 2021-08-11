@@ -122,8 +122,8 @@ class ProconIO
   # ---------- private methods
 
   private def get_v(k : Int32.class); get_token.to_i32; end
-  private def get_v(k : Int64.class); get_token.to_i64; end
   private def get_v(k : UInt32.class); get_token.to_u32; end
+  private def get_v(k : Int64.class); get_token.to_i64; end
   private def get_v(k : UInt64.class); get_token.to_u64; end
   private def get_v(k : Float64.class); get_token.to_f64; end
   private def get_v(k : String.class); get_token; end
