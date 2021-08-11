@@ -115,7 +115,7 @@ class AATree(T)
   end
 
   private def search_node(node : Node(T), block : T -> Bool)
-    last : Node(T) = NilNode(T).instance
+    last = NilNode(T).instance
     loop do
       if block.call(node.key)
         last = node
@@ -135,7 +135,7 @@ class AATree(T)
   end
 
   private def rsearch_node(node : Node(T), block : T -> Bool)
-    last : Node(T) = NilNode(T).instance
+    last = NilNode(T).instance
     loop do
       if block.call(node.key)
         last = node
@@ -158,17 +158,22 @@ class AATree(T)
     if node.nil_node?
       @size += 1
       return Node.new(key)
-    elsif @cmp.call(key, node.key).negative?
-      node.left = insert(node.left, key)
     else
-      node.right = insert(node.right, key)
+      c = @cmp.call(key, node.key)
+      if c.negative?
+        node.left = insert(node.left, key)
+      else
+        node.right = insert(node.right, key)
+      end
     end
     split(skew(node))
   end
 
   private def delete(node : Node(T), key : T)
     unless node.nil_node?
-      if @cmp.call(key, node.key).zero?
+      c = @cmp.call(key, node.key)
+      if c.zero?
+        @size -= 1
         if node.left.nil_node?
           return node.right
         elsif node.right.nil_node?
@@ -177,8 +182,7 @@ class AATree(T)
           node.key = min_node(node.right).key
           node.right = delete(node.right, node.key)
         end
-        @size -= 1
-      elsif @cmp.call(key, node.key).negative?
+      elsif c.negative?
         node.left = delete(node.left, key)
       else
         node.right = delete(node.right, key)
@@ -214,17 +218,25 @@ class AATree(T)
   end
 
   private def rotate_right(node : Node(T))
-    lnode = node.left
-    node.left = lnode.right
-    lnode.right = node
-    lnode
+    if node.nil_node?
+      node
+    else
+      lnode = node.left
+      node.left = lnode.right
+      lnode.right = node
+      lnode
+    end
   end
 
   private def rotate_left(node : Node(T))
-    rnode = node.right
-    node.right = rnode.left
-    rnode.left = node
-    rnode
+    if node.nil_node?
+      node
+    else
+      rnode = node.right
+      node.right = rnode.left
+      rnode.left = node
+      rnode
+    end
   end
 
   private class Node(T)
@@ -245,18 +257,34 @@ class AATree(T)
   end
 
   private class NilNode(T) < Node(T)
-    def self.instance
-      node = new
-      node.left = node
-      node.right = node
-      node
-    end
-
     def initialize
       @key = uninitialized T
       @height = 0
       @left = uninitialized Node(T)
       @right = uninitialized Node(T)
+      @left = @right = self
+    end
+
+    def self.instance
+      (@@instance ||= new).as Node(T)
+    end
+
+    @@instance : Node(T) | Nil
+
+    def key=(val : T)
+      raise "Must not update NilNode"
+    end
+
+    def height=(val : Int32)
+      raise "Must not update NilNode"
+    end
+
+    def left=(val : Node(T))
+      raise "Must not update NilNode"
+    end
+
+    def right=(val : Node(T))
+      raise "Must not update NilNode"
     end
 
     def nil_node?
