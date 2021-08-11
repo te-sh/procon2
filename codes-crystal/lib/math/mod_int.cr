@@ -66,70 +66,70 @@ abstract struct ModInt < Number
   end
 
   #
-  # -a を返します
+  # -self を返します
   #
   def - : self
     m(-@v)
   end
 
   #
-  # a+r を計算します
+  # self + r を計算します
   #
   def +(r : self)
     m(@v + r.v)
   end
 
   #
-  # a+r を計算します
+  # self + r を計算します
   #
   def +(r : Int)
     self + m(r)
   end
 
   #
-  # a-r を計算します
+  # self - r を計算します
   #
   def -(r : self)
     m(@v - r.v)
   end
 
   #
-  # a-r を計算します
+  # self - r を計算します
   #
   def -(r : Int)
     self - m(r)
   end
 
   #
-  # a*r を計算します
+  # self * r を計算します
   #
   def *(r : self)
     m(@v * r.v)
   end
 
   #
-  # a*r を計算します
+  # self * r を計算します
   #
   def *(r : Int)
     self * m(r)
   end
 
   #
-  # a//r を計算します
+  # self // r を計算します
   #
   def //(r : self)
     self * r.inv
   end
 
   #
-  # a//r を計算します
+  # self // r を計算します
   #
   def //(r : Int)
     self // m(r)
   end
 
   #
-  # a**n を計算します
+  # self ** n を計算します
   #
   def **(n : Int)
     powr(self, n)
@@ -141,6 +141,20 @@ abstract struct ModInt < Number
   #
   def inv
     m(ext_gcd(@v.to_i32, @@mod)[1])
+  end
+
+  #
+  # array の各要素を ModInt にします
+  #
+  def self.array(v : Array(Int))
+    v.map { |vi| new(vi) }
+  end
+
+  #
+  # array の各要素を ModInt にします
+  #
+  def self.array(v : Array(Array(Int)))
+    v.map { |vi| vi.map { |vij| new(vij) } }
   end
 
   # ---------- private methods
