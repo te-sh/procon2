@@ -1,6 +1,6 @@
 require "spec"
-require "../../lib/graph/graph"
-require "../../lib/graph/tree"
+require "lib/graph/graph"
+require "lib/graph/tree"
 
 module TreeSpec
   describe Tree do
@@ -26,9 +26,9 @@ module TreeSpec
     it { t.depth[1].should eq 1 }
     it { t.depth[3].should eq 2 }
 
-    it { t.descendant_size[0].should eq 13 }
-    it { t.descendant_size[1].should eq 7 }
-    it { t.descendant_size[3].should eq 1 }
+    it { t.subtree_size[0].should eq 13 }
+    it { t.subtree_size[1].should eq 7 }
+    it { t.subtree_size[3].should eq 1 }
 
     it { t.children[0].should eq [1, 2] }
     it { t.children[1].should eq [3, 4, 5] }

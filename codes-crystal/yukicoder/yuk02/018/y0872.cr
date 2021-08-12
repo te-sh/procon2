@@ -17,7 +17,7 @@ def solve(io)
 
   ans = 0_i64
   (1...n).each do |u|
-    p = t.descendant_size[u]
+    p = t.subtree_size[u]
     ans += e[u] * p * (n - p)
   end
 

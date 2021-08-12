@@ -1,6 +1,6 @@
 require "spec"
-require "../../lib/string/suffix_array"
-require "../../lib/string/lcp_array"
+require "lib/string/suffix_array"
+require "lib/string/lcp_array"
 
 module LcpArraySpec
   describe LcpArray do

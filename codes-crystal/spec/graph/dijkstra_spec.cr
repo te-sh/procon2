@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/graph/dijkstra"
+require "lib/graph/dijkstra"
 
 module DijkstraSpec
   describe Dijkstra do

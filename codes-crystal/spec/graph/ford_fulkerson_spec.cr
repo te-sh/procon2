@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/graph/ford_fulkerson"
+require "lib/graph/ford_fulkerson"
 
 module FordFulkersonSpec
   alias Edge = GraphW::Edge

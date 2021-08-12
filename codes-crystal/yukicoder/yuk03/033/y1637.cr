@@ -13,7 +13,7 @@ def solve(io)
   c = 0_i64
   q.times do
     pi, xi = io.get(Int32, Int64); pi -= 1
-    c += xi * t.descendant_size[pi]
+    c += xi * t.subtree_size[pi]
     io.put c
   end
 end

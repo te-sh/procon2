@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/string/suffix_array"
+require "lib/string/suffix_array"
 
 module SuffixArraySpec
   describe SuffixArray do

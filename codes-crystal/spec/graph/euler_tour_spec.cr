@@ -1,7 +1,7 @@
 require "spec"
-require "../../lib/graph/graph"
-require "../../lib/graph/tree"
-require "../../lib/graph/euler_tour"
+require "lib/graph/graph"
+require "lib/graph/tree"
+require "lib/graph/euler_tour"
 
 module EulerTourSpec
   describe Tree do

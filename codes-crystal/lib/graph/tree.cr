@@ -34,9 +34,9 @@ class Tree
       end
     end
 
-    @descendant_size = Array.new(size, 1)
+    @subtree_size = Array.new(size, 1)
     @dfs_order.reverse_each do |u|
-      @descendant_size[@parent[u]] += @descendant_size[u] if u != @root
+      @subtree_size[@parent[u]] += @subtree_size[u] if u != @root
     end
   end
 
@@ -73,7 +73,7 @@ class Tree
   #
   # 部分木の頂点数を配列で返します
   #
-  getter descendant_size : Array(Int32)
+  getter subtree_size : Array(Int32)
 end
 
 class Graph

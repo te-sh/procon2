@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/graph/floyd_warshal"
+require "lib/graph/floyd_warshal"
 
 module FloydWarshalSpec
   describe FloydWarshal do

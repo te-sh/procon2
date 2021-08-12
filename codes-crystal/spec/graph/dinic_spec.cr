@@ -1,5 +1,5 @@
 require "spec"
-require "../../lib/graph/dinic"
+require "lib/graph/dinic"
 
 module DinicSpec
   alias Edge = GraphW::Edge

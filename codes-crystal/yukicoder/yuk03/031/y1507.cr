@@ -9,7 +9,7 @@ def solve(io)
     g.add_edge_b(ui, vi)
   end
   t = g.tree(0)
-  ds = t.descendant_size
+  ds = t.subtree_size
 
   r = Mint.zero
   (1...n).each do |u|
