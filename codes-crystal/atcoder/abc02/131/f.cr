@@ -17,7 +17,7 @@ def solve(io)
 
     b[u] = true
     v = [u]
-    q = Deque.new([u])
+    q = Deque{u}
 
     until q.empty?
       i = q.shift

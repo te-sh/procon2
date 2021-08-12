@@ -18,7 +18,7 @@ def solve(io)
       v = Array.new_md(h + 2, w + 2, false)
       d = Array.new_md(h + 2, w + 2, 0)
       v[si][sj] = true
-      q = Deque.new([{si, sj}])
+      q = Deque{ {si, sj} }
       until q.empty?
         ui, uj = q.shift
         [{ui - 1, uj}, {ui, uj + 1}, {ui + 1, uj}, {ui, uj - 1}].each do |vi, vj|

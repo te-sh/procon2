@@ -1,6 +1,4 @@
 # :::::::::::::::::::: lib/graph/graph
-require "bit_array"
-
 #
 # グラフを表します
 # 辺は隣接リスト構造を持ち, 重みは管理しません
@@ -45,10 +43,10 @@ class Graph
   # ブロックには {見付けた頂点, その前の頂点} の Tuple を渡します
   #
   def bfs(u : Node)
-    b = BitArray.new(@size)
+    b = Array.new(@size, false)
     yield u, -1
     b[u] = true
-    q = Deque.new([u])
+    q = Deque{u}
     until q.empty?
       v = q.shift
       @g[v].each do |w|
