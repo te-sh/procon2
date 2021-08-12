@@ -1,6 +1,13 @@
 ;; directory
 (setq procon-dir (file-name-directory load-file-name))
 
+(setenv "CRYSTAL_PATH"
+        (concat
+         (replace-regexp-in-string "\n\\'" ""
+                                   (shell-command-to-string "crystal env CRYSTAL_PATH"))
+         ":"
+         (expand-file-name "codes-crystal/" procon-dir)))
+
 ;; yasnippet
 (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" procon-dir))
 (yas-reload-all)
