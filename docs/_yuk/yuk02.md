@@ -5,6 +5,7 @@ layout: default
 
 No.851-900
 
+|No.896|[No.897](yuk02/018/y0897.html)|
 |[No.891](yuk02/018/y0891.html)|[No.892](yuk02/018/y0892.html)|[No.893](yuk02/018/y0893.html)|[No.894](yuk02/018/y0894.html)|[No.895](yuk02/018/y0895.html)|
 |No.886|[No.887](yuk02/018/y0887.html)|[No.888](yuk02/018/y0888.html)|[No.889](yuk02/018/y0889.html)|[No.890](yuk02/018/y0890.html)|
 |No.881|[No.882](yuk02/018/y0882.html)|[No.883](yuk02/018/y0883.html)|[No.884](yuk02/018/y0884.html)|[No.885](yuk02/018/y0885.html)|
